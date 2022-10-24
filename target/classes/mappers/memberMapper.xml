@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itwillbs.mapper.MemberMapper">
+	<!-- 1. 회원가입 -->
+	<insert id="insertMember">
+		insert into members (id, pw, phone, email, addr, birth) 
+		values (#{id}, #{pw}, #{phone}, #{email}, #{addr}, #{birth})
+	</insert>
+	
+	<!-- 2. 아이디와 비밀번호로 로그인 -->
+	<select id="loginMember" resultType="com.itwillbs.domain.MemberVO">
+		select * from members where id=#{id} and pw=#{pw}
+	</select>
+	
+	<!-- 3. 아이디로 회원정보 조회  -->
+	<select id="getMember" resultType="com.itwillbs.domain.MemberVO">
+		select * from members where id=#{id}
+	</select>
+	
+	<update id="updateMember" >
+		update member set name=#{name}, 
+		email=#{email} where id=#{id} and pw=#{pw}
+	</update>
+	
+	<delete id="deleteMember">
+		delete from members where id=#{id} and pw=#{pw}
+	</delete>
+	
+	<select id="getMemberList" resultType="com.itwillbs.domain.MemberVO">
+		select * from members order by regdate
+	</select>
+</mapper>
