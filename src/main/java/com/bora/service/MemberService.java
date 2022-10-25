@@ -1,4 +1,4 @@
-package com.itwillbs.service;
+package com.bora.service;
 
 public interface MemberService {
 

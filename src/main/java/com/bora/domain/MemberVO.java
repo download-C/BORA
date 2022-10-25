@@ -1,4 +1,4 @@
-package com.itwillbs.domain;
+package com.bora.domain;
 
 import java.sql.Date;
 import java.sql.Timestamp;

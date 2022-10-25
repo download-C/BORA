@@ -1,4 +1,4 @@
-package com.itwillbs.controller;
+package com.bora.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

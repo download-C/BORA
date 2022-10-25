@@ -1,4 +1,4 @@
-package com.itwillbs.controller;
+package com.bora.controller;
 
 import org.springframework.stereotype.Controller;
 

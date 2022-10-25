@@ -1,4 +1,4 @@
-package com.itwillbs.persistence;
+package com.bora.persistence;
 
 import org.springframework.stereotype.Repository;
 

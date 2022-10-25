@@ -20,7 +20,7 @@
 	    <property name="driverClassName" 
 	              value="com.mysql.cj.jdbc.Driver" />
 	    <property name="url" 
-	    		  value="jdbc:mysql://localhost:3306/project2"/>
+	    		  value="jdbc:mysql://localhost:3306/bora"/>
 
 	    <property name="username" 
 	              value="root" />
