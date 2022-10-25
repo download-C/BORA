@@ -67,7 +67,7 @@
 <hr>
 <div id="container" role="main">
 	<div id="content">
-		<form action="" method="post">
+		<form action="${pageContext.request.contextPath}/member/join" method="post">
 			<!-- tg-text=title -->
 			<h2 class="">보라 회원가입</h2>
 			<div class="join_content">
@@ -96,18 +96,18 @@
 					<span class="namediv"></span>
 				</div>
 				<!-- 생일 -->
-				<div class="join_birth">
-					<h3>생일</h3>
-					<input type="date" id="date" name="birth" class="" placeholder=""> <br>
-					<span class="birthdiv">&nbsp;</span>
-				</div>
+<!-- 				<div class="join_birth"> -->
+<!-- 					<h3>생일</h3> -->
+<!-- 					<input type="date" id="date" name="birth" class="" placeholder=""> <br> -->
+<!-- 					<span class="birthdiv">&nbsp;</span> -->
+<!-- 				</div> -->
 				<!-- 성별 -->
-				<div class="join_gender">
-					<h3>성별</h3>
-					<input type="radio" id="gender_m" name="gender" class="" placeholder="">남
-					<input type="radio" id="gender_f" name="gender" class="" placeholder="">여 <br>
-					<span class="genderdiv">&nbsp;</span>
-				</div>
+<!-- 				<div class="join_gender"> -->
+<!-- 					<h3>성별</h3> -->
+<!-- 					<input type="radio" id="gender_m" name="gender" value="남" class="" placeholder="">남 -->
+<!-- 					<input type="radio" id="gender_f" name="gender" value="여" class="" placeholder="">여 <br> -->
+<!-- 					<span class="genderdiv">&nbsp;</span> -->
+<!-- 				</div> -->
 				<!-- 연락처 -->
 				<div class="join_phone">
 					<h3>연락처</h3>
@@ -115,21 +115,21 @@
 					<span class="phonediv">&nbsp;</span>
 				</div>
 				<!-- 주소 -->
-				<div class="join_ad">
-					<h3>주소</h3>
-					<input type="text" id="ad_postcode" placeholder="우편번호"> 
-					<input type="button" onclick="addr_execDaumPostcode()" value="우편번호 찾기"><br>
-					<input type="text" id="ad_address" placeholder="주소"><br>
-					<input type="text" id="ad_detail" placeholder="상세주소">
-					<input type="text" id="ad_extra" placeholder="참고항목">
-					<span class="addiv">&nbsp;</span>
-				</div>
+<!-- 				<div class="join_ad"> -->
+<!-- 					<h3>주소</h3> -->
+<!-- 					<input type="text" id="ad_postcode" placeholder="우편번호">  -->
+<!-- 					<input type="button" onclick="addr_execDaumPostcode()" value="우편번호 찾기"><br> -->
+<!-- 					<input type="text" id="ad_address" placeholder="주소"><br> -->
+<!-- 					<input type="text" id="ad_detail" placeholder="상세주소"> -->
+<!-- 					<input type="text" id="ad_extra" placeholder="참고항목"> -->
+<!-- 					<span class="addiv">&nbsp;</span> -->
+<!-- 				</div> -->
 				<!-- 이메일 -->
-				<div class="join_email">
-					<h3>이메일</h3>
-					<input type="email" id="email" name="email" class="" placeholder=""> <br>
-					<span class="emaildiv">&nbsp;</span>
-				</div>
+<!-- 				<div class="join_email"> -->
+<!-- 					<h3>이메일</h3> -->
+<!-- 					<input type="email" id="email" name="email" class="" placeholder=""> <br> -->
+<!-- 					<span class="emaildiv">&nbsp;</span> -->
+<!-- 				</div> -->
 			</div>
 			<input type="submit" value="가입하기">
 		</form>
