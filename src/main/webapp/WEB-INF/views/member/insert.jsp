@@ -3,8 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
 
-<%@ include file="./include/header.jsp"%>
+<%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
-<h1> home.jsp </h1>
+<h1> member/insert.jsp</h1>
 
-<%@ include file="./include/footer.jsp"%>
+<%@ include file="../include/footer.jsp"%>
