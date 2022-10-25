@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MemberController {
 
 	private static final Logger log = LoggerFactory.getLogger(MemberController.class);
-
 	
+	// http://localhost:8088/member/join
+	@RequestMapping("/join")
+	public void insertGET() {
+		log.info("/join -> join.jsp");
+	}
 }
