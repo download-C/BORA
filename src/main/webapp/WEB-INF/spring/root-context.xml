@@ -14,19 +14,16 @@
 	
 	<!-- 디비연결객체 dataSource -->
 	 <bean id="dataSource" 
-	    class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-  	    <!-- 기존설정값 -->
-	    <!-- setDriverClassName() -->
-	    <property name="driverClassName" 
-	              value="com.mysql.cj.jdbc.Driver" />
-	    <property name="url" 
-	    		  value="jdbc:mysql://localhost:3306/project2"/>
-
-	    <property name="username" 
-	              value="root" />
-	    <property name="password" 
-	              value="1234" />          
-	 </bean>	
+	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" 
+		          value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+		<property name="url"
+		          value="jdbc:log4jdbc:mysql://localhost:3306/bora"/>
+        <property name="username" 
+                  value="root"/>
+        <property name="password" 
+                  value="1234"/>
+	</bean>
 	<!-- 디비연결객체 dataSource -->	
 	
 	
@@ -51,13 +48,12 @@
 	<bean id="sqlSession" 
 	      class="org.mybatis.spring.SqlSessionTemplate" 
 	      destroy-method="clearCache" >
-	      
 	      <constructor-arg name="sqlSessionFactory"  ref="sqlSessionFactory"/>
 	</bean>	
 	<!-- 디비연동(MyBatis) + 자원해제 SqlSessionTemplate -->
 		
 	
 	<!-- 다른 패키지에 있는 객체를 찾아서 빈으로 등록 -->	
-	<context:component-scan base-package="com.itwillbs.persistence" />	
-	<context:component-scan base-package="com.itwillbs.service" />	
+	<context:component-scan base-package="com.bora.persistence" />	
+	<context:component-scan base-package="com.bora.service" />	
 </beans>

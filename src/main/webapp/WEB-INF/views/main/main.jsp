@@ -3,10 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
 
-<%@ include file="./include/header.jsp"%>
+<%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
-<h1> home.jsp </h1>
-
-
+<h1> main.jsp</h1>
 <a href="/member/join">회원가입</a>
-<%@ include file="./include/footer.jsp"%>
+<%@ include file="../include/footer.jsp"%>
