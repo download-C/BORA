@@ -15,4 +15,11 @@ public class MainController {
 	public void main() {
 		log.info("/main -> main.jsp");	
 	}
+	
+	// http://localhost:8088/member/join
+	@RequestMapping(value="/main/join", method = RequestMethod.GET)
+	public void joinGET() {
+		log.info("/main/join -> join.jsp");
+		
+	}
 }

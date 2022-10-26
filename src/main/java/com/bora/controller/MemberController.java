@@ -15,7 +15,7 @@ import com.bora.domain.MemberVO;
 import com.bora.service.MemberService;
 
 @Controller
-@RequestMapping("/member/*")
+@RequestMapping("/logined/member/*")
 public class MemberController {
 	
 	@Inject
@@ -25,14 +25,9 @@ public class MemberController {
 
 	private static final Logger log = LoggerFactory.getLogger(MemberController.class);
 	
-	// http://localhost:8088/member/join
-	@RequestMapping(value="/join", method = RequestMethod.GET)
-	public void joinGET() {
-		log.info("/join -> join.jsp");
-		
-	}
+
 	
-	@RequestMapping(value="/join", method=RequestMethod.POST)
+	@RequestMapping(value="/member/join", method=RequestMethod.POST)
 	public String joinPOST(MemberVO vo, HttpServletRequest request) 
 			throws Exception{
 		log.info("joinPOST(vo) -> login.jsp" );
@@ -60,13 +55,13 @@ public class MemberController {
 		return "redirect:/member/login";
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.GET)
+	@RequestMapping(value="/member/login", method=RequestMethod.GET)
 	public void loginGET() throws Exception {
 		log.info("loginGET() 호출");
 	}
 	
 	// http://localhost:8088/member/login
-	@RequestMapping(value="/login", method=RequestMethod.POST)
+	@RequestMapping(value="/member/login", method=RequestMethod.POST)
 	public String loginPOST(MemberVO vo, HttpSession session) throws Exception {
 		log.info("loginPOST() 호출");
 		
@@ -80,36 +75,36 @@ public class MemberController {
 	}
 	
 	// http://localhost:8088/member/mypage
-	@RequestMapping(value="/mypage", method=RequestMethod.GET)
+	@RequestMapping(value="/member/mypage", method=RequestMethod.GET)
 	public void mypageGET() throws Exception{
 		log.info("mypageGET(loginID) 호출");
 	}
 	
-	@RequestMapping(value="/mypage", method=RequestMethod.POST)
+	@RequestMapping(value="/member/mypage", method=RequestMethod.POST)
 	public void mypagePOST(String loginID, HttpSession session, Model model) throws Exception{
 		loginID = (String)session.getAttribute("loginID");
 		MemberVO vo = service.getMember(loginID);
 		model.addAttribute("vo", vo);
 	}
 	
-	@RequestMapping(value="/update", method = RequestMethod.GET)
+	@RequestMapping(value="/member/update", method = RequestMethod.GET)
 	public String updateGET(HttpSession session, Model model) throws Exception{
 		log.info("updateGET() 호출");
 		String id = (String)session.getAttribute("loginID");
 		MemberVO vo = service.getMember(id);
 		model.addAttribute("vo", vo);
-		return "/member/update";
+		return "/logined/member/update";
 	}
 
 	// http://localhost:8088/member/logout  완료
-	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	@RequestMapping(value="/member/logout", method=RequestMethod.GET)
 	public String logoutGET(HttpSession session) throws Exception{
 		log.info("logoutGET() 호출");
 //		session.setAttribute("loginID", "admin");
 		session.invalidate();
 		
 		log.info("로그아웃 성공");
-		return "redirect:/main/main";
+		return "redirect:/all/main/main";
 	}
 	
 	
