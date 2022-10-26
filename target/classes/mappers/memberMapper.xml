@@ -7,7 +7,7 @@
 	<!-- 1. 회원가입 -->
 	<insert id="joinMember">
 		insert into members (id, pw, name, nick, phone, email)
-		values (#{id}, PASSWORD(#{pw}), #{name}, #{nick}, #{phone}, #{email})
+		values (#{id}, #{pw}, #{name}, #{nick}, #{phone}, #{email})
 	</insert>
 	
 	<!-- 2. 아이디와 비밀번호로 로그인 -->
