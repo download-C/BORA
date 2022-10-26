@@ -4,6 +4,10 @@ import com.bora.domain.MemberVO;
 
 public interface MemberDAO {
 
-	void joinMember(MemberVO vo) throws Exception;
+	public void joinMember(MemberVO vo) throws Exception;
+
+	public MemberVO loginMember(MemberVO vo) throws Exception;
+
+	public MemberVO getMember(String id) throws Exception;
 
 }

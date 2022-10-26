@@ -1,5 +1,8 @@
 package com.bora.persistence;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -21,7 +24,17 @@ public class MemberDAOImpl implements MemberDAO{
 	
 	@Override
 	public void joinMember(MemberVO vo) throws Exception {
-		session.insert(NAMESPACE+".joinMember2", vo);
+		session.insert(NAMESPACE+".joinMember", vo);
+	}
+	
+	@Override
+	public MemberVO loginMember(MemberVO vo) throws Exception {
+		return session.selectOne(NAMESPACE+".loginMember", vo);
+	}
+
+	@Override
+	public MemberVO getMember(String id) throws Exception {
+		return session.selectOne(NAMESPACE+".getMember", id);
 	}
 
 }

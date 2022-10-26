@@ -6,23 +6,17 @@
 <mapper namespace="com.bora.mapper.MemberMapper">
 	<!-- 1. 회원가입 -->
 	<insert id="joinMember">
-		insert into members (id, pw, name, birth, gender, phone, 
-		       ad_postcode, ad_address, ad_detail, ad_extra, email) 
-		values (#{id}, #{pw}, #{name}, #{birth}, #{gender}, #{phone}, 
-					 #{ad_postcode}, #{ad_address}, #{ad_detail}, #{ad_extra}, #{email})
-	</insert>
-	<insert id="joinMember2">
-		insert into members (id, pw, name, phone) 
-		values (#{id}, #{pw}, #{name}, #{phone})
+		insert into members (id, pw, name, nick, phone, email)
+		values (#{id}, PASSWORD(#{pw}), #{name}, #{nick}, #{phone}, #{email})
 	</insert>
 	
 	<!-- 2. 아이디와 비밀번호로 로그인 -->
-	<select id="loginMember" resultType="com.bora.domain.MemberVO">
+	<select id="loginMember" resultType="MemberVO">
 		select * from members where id=#{id} and pw=#{pw}
 	</select>
 	
 	<!-- 3. 아이디로 회원정보 조회  -->
-	<select id="getMember" resultType="com.bora.domain.MemberVO">
+	<select id="getMember" resultType="MemberVO">
 		select * from members where id=#{id}
 	</select>
 	
@@ -35,7 +29,7 @@
 		delete from members where id=#{id} and pw=#{pw}
 	</delete>
 	
-	<select id="getMemberList" resultType="com.bora.domain.MemberVO">
+	<select id="getMemberList" resultType="MemberVO">
 		select * from members order by regdate
 	</select>
 </mapper>

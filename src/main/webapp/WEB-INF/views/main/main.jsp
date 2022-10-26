@@ -6,5 +6,5 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <h1> main.jsp</h1>
-
+<a href="/member/join">회원가입</a>
 <%@ include file="../include/footer.jsp"%>

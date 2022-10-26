@@ -22,4 +22,15 @@ public class MemberServiceImpl implements MemberService{
 		dao.joinMember(vo);
 	}
 
+	@Override
+	public MemberVO loginMember(MemberVO vo) throws Exception {
+		return dao.loginMember(vo);
+	}
+
+	@Override
+	public MemberVO getMember(String id) throws Exception {
+		log.info("getMember(id) 호출");
+		return dao.getMember(id);
+	}
+
 }
