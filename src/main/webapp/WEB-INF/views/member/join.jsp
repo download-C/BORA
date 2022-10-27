@@ -15,16 +15,15 @@ function checkpw() {
 			pw.match(/([!,@,#,$,%,^,&,*,?,_,~,-].*[a-zA-Z0-9])/)) {
 			 $(".pwdiv").html("사용 가능한 비밀번호입니다.");
 			 $(".pwdiv").css('color','blue');
-			 document.getElementById("pw").value=="";
 		 }else {
 			$(".pwdiv").html("비밀번호는 영어대소문자, 숫자, 특수문자가 하나씩 포함되어야 합니다.");
 			$(".pwdiv").css('color','red');
-			document.getElementById("pw").value=="";
+			document.getElementById("pw").value="";
 		 } 
 	 }else {
 			$(".pwdiv").html("비밀번호는 8글자 이상, 16글자 이하만 사용 가능합니다.");
 			$(".pwdiv").css('color','red');
-			document.getElementById("pw").value=="";
+			document.getElementById("pw").value="";
 	} 
 }
 // 비밀번호 일치 검사
@@ -33,7 +32,7 @@ function checkpw2() {
 		$('.pw2div').html('비밀번호가 일치하지 않습니다.');
 		$('.pw2div').css('color','red');
 		$('#pw2').focus();
-		document.getElementById("pw2").value=="";
+		document.getElementById("pw2").value="";
  	} else {
  		$('.pw2div').html('비밀번호가 일치합니다.');
 		$('.pw2div').css('color','blue');
@@ -41,17 +40,25 @@ function checkpw2() {
  	}
 }
 
+const autoHyphen = (target) => {
+ target.value = target.value
+ .replace(/[^0-9]/g, '')
+ .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+ .replace(/(\-{1,2})$/g, "");
+}
 
 </script>
 <script>
 
 $(document).ready(function(){	     
-	
+	var idflag = document.getElementById("idflag");
+// 	alert(idflag.value);
     // 아이디 join을 가진 대상의 submit시 기능 구현하기 
-    
+
     $("#join").submit(function(){
-		if(idflag) {
+		if(idflag.value=="false") {
 	    	alert("아이디 중복 여부를 확인하세요");
+	    	$("#id").focus();
 			return false;
 		}
     });
@@ -60,6 +67,7 @@ $(document).ready(function(){
 // 		alert('중복체크');
 		$.ajax({
             url : "/member/idcheck",
+            data: {'id':$("#id").val()},
             success : function(result) {
             	if(result == "no"){
 		            //아이디가 존재할 경우 빨강으로 , 아니면 파랑으로 처리하는 디자인
@@ -69,8 +77,10 @@ $(document).ready(function(){
 		            $("#id").focus();
            		} else {
            		 	$(".iddiv").html("사용 가능한 아이디입니다");
-		            $(".iddiv").css("color","green");
-		            $("#idflag").val()=true;
+		            $(".iddiv").css("color","blue");
+		            idflag.value="true";
+		            document.set
+		           
            		}
             },//success
             error : function(error) {
@@ -81,9 +91,10 @@ $(document).ready(function(){
 	});//idcheck
 	
 	$("#nick").change(function(){
-// 		alert('중복체크');
+// 		alert('닉네임 중복체크');
 		$.ajax({
             url : "/member/nickcheck",
+            data: {'nick':$("#nick").val()},
             success : function(result) {
             	if(result == "no"){
 		            //닉네임이 존재할 경우 빨강으로 , 아니면 파랑으로 처리하는 디자인
@@ -91,9 +102,11 @@ $(document).ready(function(){
 		            $(".nickdiv").css("color","red");
 		            document.getElementById("nick").value=="";
 		            $("#nick").focus();
-           		} else {
+           		} else if(result == "ok"){
            		 	$(".nickdiv").html("사용 가능한 닉네임입니다.");
 		            $(".nickdiv").css("color","blue");
+           		} else {
+           			$(".nickdiv").html("");
            		}
             },//success
             error : function(error) {
@@ -143,15 +156,16 @@ $(document).ready(function(){
 				<!-- 닉네임 -->
 				<div class="join_nick">
 					<h6>닉네임</h6>
-					<input type="tel" id="nick" name="nick" class="" 
+					<input type="text" id="nick" name="nick" class="" 
 					placeholder="" required="required"> <br>
 					<span class="nickdiv">&nbsp;</span>
 				</div>
 				<!-- 연락처 -->
 				<div class="join_phone">
 					<h6>연락처</h6>
-					<input type="tel" id="phone" name="phone" class="" 
-					placeholder="- 없이 숫자만" required="required"> <br>
+					<input type="text" id="phone" name="phone" class="" 
+					placeholder="- 없이 숫자만" required="required" maxlength="13"
+					oninput="autoHyphen(this)" autofocus> <br>
 				</div>
 				<!-- 이메일 -->
 				<div class="join_email">
@@ -160,7 +174,7 @@ $(document).ready(function(){
 					placeholder="" required="required"> <br>
 				</div>
 			</div>
-			<input type="text" value="false" id="idflag"> <br>
+			<input type="hidden" value="false" id="idflag" placeholder="아이디 중복체크 했나요?"> <br>
 			<input type="submit" value="가입하기">
 		</form>
 	</div>
