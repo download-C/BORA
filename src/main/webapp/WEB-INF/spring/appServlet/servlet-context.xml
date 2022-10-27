@@ -23,6 +23,7 @@
 	
 	<context:component-scan base-package="com.bora.controller" />
 	
+	<context:component-scan base-package="com.bora.openbank.controller" />
 	
 	
 </beans:beans>
