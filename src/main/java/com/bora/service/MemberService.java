@@ -10,4 +10,6 @@ public interface MemberService {
 
 	public MemberVO getMember(String id) throws Exception;
 
+	public MemberVO getMemberNick(String nick) throws Exception;
+
 }

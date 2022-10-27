@@ -6,7 +6,7 @@
 <mapper namespace="com.bora.mapper.MemberMapper">
 	<!-- 1. 회원가입 -->
 	<insert id="joinMember">
-		insert into members (id, pw, name, nick, phone, email)
+		insert into bora_members (id, pw, name, nick, phone, email)
 		values (#{id}, #{pw}, #{name}, #{nick}, #{phone}, #{email})
 	</insert>
 	
@@ -15,9 +15,14 @@
 		select * from bora_members where id=#{id} and pw=#{pw}
 	</select>
 	
-	<!-- 3. 아이디로 회원정보 조회  -->
+	<!-- 3-1. 아이디로 회원정보 조회  -->
 	<select id="getMember" resultType="MemberVO">
 		select * from bora_members where id=#{id}
+	</select>
+	
+	<!-- 3-2. 닉네임으로 회원정보 조회 -->
+	<select id="getMemberNick" resultType="MemberVO">
+		select * from bora_members where nick=#{nick}
 	</select>
 	
 	<update id="updateMember" >

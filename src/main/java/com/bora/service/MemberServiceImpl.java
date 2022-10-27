@@ -33,4 +33,10 @@ public class MemberServiceImpl implements MemberService{
 		return dao.getMember(id);
 	}
 
+	@Override
+	public MemberVO getMemberNick(String nick) throws Exception {
+		
+		return dao.getMemberNick(nick);
+	}
+
 }

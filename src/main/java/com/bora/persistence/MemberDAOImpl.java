@@ -37,4 +37,10 @@ public class MemberDAOImpl implements MemberDAO{
 		return session.selectOne(NAMESPACE+".getMember", id);
 	}
 
+	@Override
+	public MemberVO getMemberNick(String nick) throws Exception {
+		
+		return session.selectOne(NAMESPACE+".getMemberNick", nick);
+	}
+
 }

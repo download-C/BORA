@@ -31,6 +31,19 @@ public class AjaxController {
 		return entity;
 	}
 	
+	@RequestMapping(value="/member/nickcheck", method = RequestMethod.GET)
+	public ResponseEntity<String> nickcheck(HttpServletRequest request) throws Exception{
+		String nick = request.getParameter("nick");
+		MemberVO vo = service.getMemberNick(nick);
+		String result = "";
+		
+		if(vo != null) result = "no";
+		else result = "ok";
+		
+		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
+		return entity;
+	}
+	
 //	@RequestMapping(value="/member/isJoin", method = RequestMethod.GET)
 //	public ResponseEntity<String> isJoin(HttpServletRequest request) throws Exception {
 //		String id = request.getParameter("id");
