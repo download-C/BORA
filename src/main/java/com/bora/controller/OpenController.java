@@ -1,4 +1,4 @@
-package com.bora.openbank.controller;
+package com.bora.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

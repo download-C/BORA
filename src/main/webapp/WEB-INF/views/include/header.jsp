@@ -24,7 +24,7 @@
   <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
 
-<!--   <!-- Template Main CSS File --> -->
+<!--   <!-- Template Main CSS File --> 
   <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
 
 <!--   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->

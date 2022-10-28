@@ -1,4 +1,4 @@
-package com.bora.openbank.vo;
+package com.bora.domain.openbank;
 
 // 2.2.1 사용자정보조회 API 요청 데이터
 public class UserInfoRequestVO {

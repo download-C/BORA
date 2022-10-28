@@ -15,6 +15,7 @@ $(document).ready(function() {
 </script>
 <!-- @@@@@@@@@@@@@@@@@@@@@@@지도 테스트 1 @@@@@@@@@@@@@@@@@@@@@@@-->
 
+<!-- 지도 크기 조절 -->
 <div id="map" style="width:800px;height:450px;"></div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35509f6b1a38859c7c7486bf14f0ae5c"></script>
@@ -111,6 +112,7 @@ for (var i = 0; i < positions.length; i ++) {
 
 </script>
 
+<script>
 <!-- @@@@@@@@@@@@@@@@@@@@@@@ 지도 테스트 @@@@@@@@@@@@@@@@@@@@@@@-->
 
 //마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다

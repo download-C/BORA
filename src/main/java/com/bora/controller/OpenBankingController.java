@@ -1,4 +1,4 @@
-package com.bora.openbank.controller;
+package com.bora.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -6,13 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bora.openbank.service.OpenBankingService;
-import com.bora.openbank.vo.AccountSearchRequestVO;
-import com.bora.openbank.vo.AccountSearchResponseVO;
-import com.bora.openbank.vo.RequestTokenVO;
-import com.bora.openbank.vo.ResponseTokenVO;
-import com.bora.openbank.vo.UserInfoRequestVO;
-import com.bora.openbank.vo.UserInfoResponseVO;
+import com.bora.domain.openbank.AccountSearchRequestVO;
+import com.bora.domain.openbank.AccountSearchResponseVO;
+import com.bora.domain.openbank.RequestTokenVO;
+import com.bora.domain.openbank.ResponseTokenVO;
+import com.bora.domain.openbank.UserInfoRequestVO;
+import com.bora.domain.openbank.UserInfoResponseVO;
+import com.bora.service.OpenBankingService;
 
 
 @Controller

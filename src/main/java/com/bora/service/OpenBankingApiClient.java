@@ -1,4 +1,4 @@
-package com.bora.openbank.service;
+package com.bora.service;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -10,12 +10,12 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.bora.openbank.vo.AccountSearchRequestVO;
-import com.bora.openbank.vo.AccountSearchResponseVO;
-import com.bora.openbank.vo.RequestTokenVO;
-import com.bora.openbank.vo.ResponseTokenVO;
-import com.bora.openbank.vo.UserInfoRequestVO;
-import com.bora.openbank.vo.UserInfoResponseVO;
+import com.bora.domain.openbank.AccountSearchRequestVO;
+import com.bora.domain.openbank.AccountSearchResponseVO;
+import com.bora.domain.openbank.RequestTokenVO;
+import com.bora.domain.openbank.ResponseTokenVO;
+import com.bora.domain.openbank.UserInfoRequestVO;
+import com.bora.domain.openbank.UserInfoResponseVO;
 
 
 @Service

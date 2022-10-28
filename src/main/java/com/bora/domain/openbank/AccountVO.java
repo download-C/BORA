@@ -1,4 +1,4 @@
-package com.bora.openbank.vo;
+package com.bora.domain.openbank;
 
 // 2.2 사용자/계좌 관리에서 사용되는 계좌 정보(배열로 전달된 데이터)
 public class AccountVO {

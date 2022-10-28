@@ -1,14 +1,14 @@
-package com.bora.openbank.service;
+package com.bora.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bora.openbank.vo.AccountSearchRequestVO;
-import com.bora.openbank.vo.AccountSearchResponseVO;
-import com.bora.openbank.vo.RequestTokenVO;
-import com.bora.openbank.vo.ResponseTokenVO;
-import com.bora.openbank.vo.UserInfoRequestVO;
-import com.bora.openbank.vo.UserInfoResponseVO;
+import com.bora.domain.openbank.AccountSearchRequestVO;
+import com.bora.domain.openbank.AccountSearchResponseVO;
+import com.bora.domain.openbank.RequestTokenVO;
+import com.bora.domain.openbank.ResponseTokenVO;
+import com.bora.domain.openbank.UserInfoRequestVO;
+import com.bora.domain.openbank.UserInfoResponseVO;
 
 
 @Service

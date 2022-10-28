@@ -1,4 +1,4 @@
-package com.bora.openbank.vo;
+package com.bora.domain.openbank;
 
 // 사용자 토큰발급 API(2.1.2. 토큰발급 API) 응답 데이터
 public class ResponseTokenVO {

@@ -1,4 +1,4 @@
-package com.bora.openbank.vo;
+package com.bora.domain.openbank;
 
 public class RequestTokenVO {
 	private String code;
