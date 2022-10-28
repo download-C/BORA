@@ -3,9 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
-<h1> main.jsp</h1>
-
-<%@ include file="../include/footer.jsp"%>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
 $(document).ready(function() {
@@ -16,8 +13,6 @@ $(document).ready(function() {
     }
 })
 </script>
-
-
 <!-- @@@@@@@@@@@@@@@@@@@@@@@지도 테스트 1 @@@@@@@@@@@@@@@@@@@@@@@-->
 <div id="map" style="width:800px;height:450px;"></div>
 
@@ -197,9 +192,5 @@ var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
 // //마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 // var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
 
-
-
-
-
 </script>
-
+<%@ include file="../include/footer.jsp"%>
