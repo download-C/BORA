@@ -32,6 +32,10 @@
 <!--   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script> -->
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<%
+if(session!=null) {
+String loginID = (String)session.getAttribute("loginID");
+%>
 </head>
 <body>
 
@@ -41,8 +45,19 @@
       <div class="contact-info d-flex align-items-center">
       </div>
       <div class="social-links nav justify-content-end">
-        <a href="#" class="twitter">로그인</a>
-        <a href="#" class="facebook">회원가입</a>
+      <%
+	      if(loginID != null){
+	    %>
+        <a href="/member/logout" class="twitter">로그아웃</a>
+        <a href="/member/mypage" class="facebook">마이페이지</a>
+      <%
+      	} else {
+	    %>
+        <a href="/member/login" class="twitter">로그인</a>
+        <a href="/member/join" class="facebook">회원가입</a>
+      <%
+	      }
+	    %>
       </div>
     </div>
   </section>
@@ -69,4 +84,3 @@
 
     </div>
   </header><!-- End Header -->
- 

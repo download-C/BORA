@@ -38,5 +38,9 @@
   <!-- Template Main JS File -->
   <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	
+
+
+<%} // 세션값 있는지 확인하는 if문 삭제하면 안됨!!%>
+
 </body>
 </html>
