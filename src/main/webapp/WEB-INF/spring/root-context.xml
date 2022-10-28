@@ -21,6 +21,7 @@
 			value="jdbc:log4jdbc:mysql://itwillbs8.cafe24.com:3306/itwillbs8" />
 		<property name="username" value="itwillbs8" />
 		<property name="password" value="itwillbs8030909" />
+
 	</bean>
 	<!-- 디비연결객체 dataSource -->	
 	
