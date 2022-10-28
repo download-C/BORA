@@ -1,13 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
-
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <h1> main.jsp</h1>
-<a href="/member/join">회원가입</a>
+
 <%@ include file="../include/footer.jsp"%>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+$(document).ready(function() {
+    let message = "${msg}";
+    if (message != "") {
+        alert(message);
+    }else {
+    }
+})
+</script>
 
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@지도 테스트 1 @@@@@@@@@@@@@@@@@@@@@@@-->
