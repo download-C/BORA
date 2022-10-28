@@ -7,7 +7,7 @@
 <!-- ${pageContext.request.contextPath} -->
 <h1> main.jsp</h1>
 <a href="/member/join">회원가입</a>
-<%@ include file="../include/footer.jsp"%>
+
 
 
 <!-- @@@@@@@@@@@@@@@@@@@@@@@지도 테스트 1 @@@@@@@@@@@@@@@@@@@@@@@-->
@@ -189,9 +189,6 @@ var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
 // //마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 // var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
 
-
-
-
-
 </script>
 
+<%@ include file="../include/footer.jsp"%>
