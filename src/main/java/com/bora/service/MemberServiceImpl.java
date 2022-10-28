@@ -39,4 +39,16 @@ public class MemberServiceImpl implements MemberService{
 		return dao.getMemberNick(nick);
 	}
 
+	@Override
+	public int updateMember(MemberVO vo) throws Exception {
+
+		return dao.updateMember(vo);
+	}
+
+	@Override
+	public int deleteMember(String id) throws Exception {
+		
+		return dao.deleteMember(id);
+	}
+
 }

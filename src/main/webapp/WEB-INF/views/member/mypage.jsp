@@ -11,7 +11,14 @@ if(loginID==null) {%>
 	location.href="/member/login";
 </script>
 <%} %>
- 
+<script>
+$(document).ready(function() {
+    let message = "${msg}";
+    if (message != "") {
+        alert(message);
+    }
+})
+</script>
 	
 
 <div class="mypage">
@@ -36,5 +43,6 @@ if(loginID==null) {%>
 	<div>
 	<input type="button" value="수정하기" onclick="location.href='/member/password';">
 	</div>
+	<div><a href="/member/delete">탈퇴하기</a></div>
 </div>
 <%@ include file="../include/footer.jsp"%>

@@ -4,20 +4,29 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<%
+if(loginID==null) {%>
+<script>
+	alert("세션값이 만료되어 로그인 페이지로 이동합니다.");
+	location.href="/member/login";
+</script>
+<%} %>
 <script>
 $(document).ready(function() {
     let message = "${msg}";
     if (message != "") {
         alert(message);
     }
-});
+})
 </script>
-<h1>member/login.jsp </h1>
-<div class="login">
-	<form action="/member/login" method="post">
-	<div><input type="text" name="id" id="id" class="" placeholder="아이디"></div>
-	<div><input type="password" name="pw" id="pw" class="" placeholder="비밀번호"></div>
-	<div><input type="submit" value="로그인"></div>
-	</form>
+<h1>/member/delete.jsp</h1>
+
+<form action="/member/delete" method="post">
+<div>
+<input type="password" placeholder="비밀번호를 입력하세요" name="pw">
 </div>
+<div> 
+<button>확인</button>
+</div>
+</form>
 <%@ include file="../include/footer.jsp"%>

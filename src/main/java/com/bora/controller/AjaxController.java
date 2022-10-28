@@ -2,6 +2,7 @@ package com.bora.controller;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,55 +56,29 @@ public class AjaxController {
 		return entity;
 	}
 	
-	@RequestMapping(value="/member/phoneCheck", method=RequestMethod.POST)
-	public ResponseEntity<String> phoneCheck(HttpServletRequest request) throws Exception {
+//	@RequestMapping(value="/member/phoneCheck", method=RequestMethod.POST)
+//	public ResponseEntity<String> phoneCheck(HttpServletRequest request) throws Exception {
+//		String result = "";
+//		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
+//		return entity;
+//	}
+	
+	@RequestMapping(value="/member/pwUpdateCheck", method = RequestMethod.POST)
+	public ResponseEntity<String> pwUpdateCheck(HttpSession session, 
+			HttpServletRequest request) throws Exception{
+		String pwUpdate = request.getParameter("pwUpdate");
+		log.info("♡♡♡♡♡♡♡♡♡♡pwUpdate: "+pwUpdate);
+		String id = (String)session.getAttribute("loginID");
 		String result = "";
+		MemberVO vo = service.getMember(id);
+		if(pwUpdate.equals(vo.getPw())) {
+			result= "no";
+		} else {
+			result = "ok";
+		}
 		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
 		return entity;
 	}
-	
-//	@RequestMapping(value="/member/isJoin", method = RequestMethod.GET)
-//	public ResponseEntity<String> isJoin(HttpServletRequest request) throws Exception {
-//		String id = request.getParameter("id");
-//		String pw = request.getParameter("pw");
-//		String pw2 = request.getParameter("pw2");
-//		String result = "";
-//		
-//		if(id == "") result = "idno";
-//		if(pw == "" ) result = "pwno";
-//		if(pw2 == "") result = "pw2no";
-//		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
-//		return
-//				entity;
-//	}
-	
-//	@RequestMapping(value="/member/pwcheck", method = RequestMethod.GET)
-//	public ResponseEntity<String> isPw2(HttpServletRequest request) throws Exception {
-//		String pw2 = request.getParameter("pw2");
-//		String result = "";
-//		if(pw2 == null ) result = "비밀번호를 입력하세요";
-//		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
-//		return entity;
-//	}
-//	
-//	public ResponseEntity<String> pwcheck(HttpServletRequest request) throws Exception {
-//		String pw = request.getParameter("pw");
-//		String pw2 = request.getParameter("pw2");
-//		String result = "";
-//		
-//		if(!pw.equals(pw2)) result = "비밀번호가 일치하지 않습니다."; 
-//		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
-//		return entity;
-//	}
-	
-//	@RequestMapping(value="", method = RequestMethod.GET)
-//	public ResponseEntity<String> (HttpServletRequest request) throws Exception {
-//		String 
-//		String result = "";
-//		if() result = "";
-//		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
-//		return entity;
-//	}
 
 	
 
