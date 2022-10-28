@@ -6,7 +6,12 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+<script type="text/javascript">
+// 휴대폰 인증
+</script>
+<script type="text/javascript">
 // 비밀번호 유효성 검사
 function checkpw() {
 	var pw = document.getElementById("pw").value;
@@ -53,8 +58,8 @@ const autoHyphen = (target) => {
 $(document).ready(function(){	     
 	var idflag = document.getElementById("idflag");
 // 	alert(idflag.value);
-    // 아이디 join을 가진 대상의 submit시 기능 구현하기 
 
+    // 아이디 중복여부를 확인한 뒤 submit 가능
     $("#join").submit(function(){
 		if(idflag.value=="false") {
 	    	alert("아이디 중복 여부를 확인하세요");
@@ -80,7 +85,6 @@ $(document).ready(function(){
 		            $(".iddiv").css("color","blue");
 		            idflag.value="true";
 		            document.set
-		           
            		}
             },//success
             error : function(error) {
@@ -165,7 +169,8 @@ $(document).ready(function(){
 					<h6>연락처</h6>
 					<input type="text" id="phone" name="phone" class="" 
 					placeholder="- 없이 숫자만" required="required" maxlength="13"
-					oninput="autoHyphen(this)" autofocus> <br>
+					oninput="autoHyphen(this)" autofocus> 
+					<button>휴대폰 인증</button> <br>
 				</div>
 				<!-- 이메일 -->
 				<div class="join_email">

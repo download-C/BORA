@@ -55,6 +55,13 @@ public class AjaxController {
 		return entity;
 	}
 	
+	@RequestMapping(value="/member/phoneCheck", method=RequestMethod.POST)
+	public ResponseEntity<String> phoneCheck(HttpServletRequest request) throws Exception {
+		String result = "";
+		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
+		return entity;
+	}
+	
 //	@RequestMapping(value="/member/isJoin", method = RequestMethod.GET)
 //	public ResponseEntity<String> isJoin(HttpServletRequest request) throws Exception {
 //		String id = request.getParameter("id");
