@@ -83,15 +83,31 @@ public class MemberController {
    
    // http://localhost:8088/member/mypage
    @RequestMapping(value="/mypage", method=RequestMethod.GET)
-   public void mypageGET() throws Exception{
-      log.info("mypageGET(loginID) 호출");
-   }
-   
-   @RequestMapping(value="/mypage", method=RequestMethod.POST)
-   public void mypagePOST(String loginID, HttpSession session, Model model) throws Exception{
+   public void mypageGET(String loginID, HttpSession session, Model model) throws Exception{
+	  log.info("mypageGET(loginID) 호출");
       loginID = (String)session.getAttribute("loginID");
       MemberVO vo = service.getMember(loginID);
       model.addAttribute("vo", vo);
+   }
+   
+   @RequestMapping(value="/password", method=RequestMethod.GET)
+   public void mypagePasswordGET() throws Exception{
+	  log.info("mypagePasswordGET() 호출");  
+   }
+   
+   @RequestMapping(value="/password", method=RequestMethod.POST)
+   public String mypagePasswordPOST(HttpServletRequest request, HttpSession session, RedirectAttributes rttr) throws Exception{
+	   log.info("mypagePasswordPOST() 호출");
+	   String pw = request.getParameter("pw");
+	   loginID = (String)session.getAttribute("loginID");
+	   MemberVO vo = service.getMember(loginID);
+	   if(vo.getPw().equals(pw)) {
+		   return "redirect:/member/update";
+	   } else {
+		   rttr.addFlashAttribute("msg", "비밀번호가 일치하지 않습니다.");
+		   return "redirect:/member/password";
+	   }
+	   
    }
    
    @RequestMapping(value="/update", method = RequestMethod.GET)
