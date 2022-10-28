@@ -16,13 +16,12 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
-		          value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
 		<property name="url"
-		          value="jdbc:log4jdbc:mysql://itwillbs8.cafe24.com:3306/itwillbs8"/>
-        <property name="username"
-                  value="itwillbs8"/>
-        <property name="password"
-                  value="itwillbs8030909"/>
+			value="jdbc:log4jdbc:mysql://itwillbs8.cafe24.com:3306/itwillbs8" />
+		<property name="username" value="itwillbs8" />
+		<property name="password" value="itwillbs8030909" />
+
 	</bean>
 	<!-- 디비연결객체 dataSource -->	
 	
@@ -56,4 +55,8 @@
 	<!-- 다른 패키지에 있는 객체를 찾아서 빈으로 등록 -->	
 	<context:component-scan base-package="com.bora.persistence" />	
 	<context:component-scan base-package="com.bora.service" />	
+
+	<context:component-scan base-package="com.bora.openbank.service" />
+
+	
 </beans>
