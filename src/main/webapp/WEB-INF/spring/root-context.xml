@@ -13,16 +13,16 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 	
 	<!-- 디비연결객체 dataSource -->
-	 <bean id="dataSource" 
-	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" 
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
 		          value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
 		<property name="url"
-		          value="jdbc:log4jdbc:mysql://localhost:3306/bora"/>
-        <property name="username" 
-                  value="root"/>
-        <property name="password" 
-                  value="1234"/>
+		          value="jdbc:log4jdbc:mysql://itwillbs8.cafe24.com:3306/itwillbs8"/>
+        <property name="username"
+                  value="itwillbs8"/>
+        <property name="password"
+                  value="itwillbs8030909"/>
 	</bean>
 	<!-- 디비연결객체 dataSource -->	
 	
