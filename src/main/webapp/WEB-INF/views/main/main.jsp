@@ -14,13 +14,11 @@ $(document).ready(function() {
 })
 </script>
 <!-- @@@@@@@@@@@@@@@@@@@@@@@지도 테스트 1 @@@@@@@@@@@@@@@@@@@@@@@-->
+
 <div id="map" style="width:800px;height:450px;"></div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35509f6b1a38859c7c7486bf14f0ae5c"></script>
-
-<!-- /////result///// -->
 <p id="result"></p>
-<!-- /////result///// -->
 
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
@@ -29,7 +27,7 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     level: 8 // 지도의 확대 레벨
 };
 
-var imageSrc = '../img/marker.png', // 마커이미지의 주소입니다    
+var imageSrc = "${pageContext.request.contextPath}/resources/img/marker.png",   
 imageSize = new kakao.maps.Size(40, 40), // 마커이미지의 크기입니다
 imageOption = {offset: new kakao.maps.Point(30, 55)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -37,8 +35,6 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 
 //마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
-
-
 
 // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
 var positions = [
@@ -48,11 +44,11 @@ var positions = [
     },
     {
         content: '<div>자산관리1팀</div>', 
-        latlng: new kakao.maps.LatLng(35.223563, 129.095177)
+        latlng: new kakao.maps.LatLng(35.223763, 129.091177)
     },
     {
         content: '<div>자산관리2팀</div>', 
-        latlng: new kakao.maps.LatLng(35.538437, 129.300674)
+        latlng: new kakao.maps.LatLng(35.217980, 129.075979)
     },
     {
         content: '<div>리포트1팀</div>',
@@ -113,70 +109,9 @@ for (var i = 0; i < positions.length; i ++) {
 //     };
 // }
 
-
-
 </script>
 
-<!-- @@@@@@@@@@@@@@@@@@@@@@@지도 테스트 2 @@@@@@@@@@@@@@@@@@@@@@@-->
-
-
-
-
-<div id="staticMap" style="width:600px;height:450px;"></div>    
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35509f6b1a38859c7c7486bf14f0ae5c"></script>
-
-<script>    
-// 이미지 지도에 표시할 마커입니다
-// 이미지 지도에 표시할 마커를 아래와 같이 배열로 넣어주면 여러개의 마커를 표시할 수 있습니다 
-var markers = [
-    {
-        position: new kakao.maps.LatLng(35.172516, 129.108446),
-        text: 'BORA회원관리' 
-    },
-    {
-        position: new kakao.maps.LatLng(35.223563, 129.095177), 
-        text: 'BORA자산관리1' 
-    },
-    {
-        position: new kakao.maps.LatLng(35.538437, 129.300674),
-        text: 'BORA자산관리2' 
-    },
-    {
-        position: new kakao.maps.LatLng(35.152195, 129.087740),
-        text: 'BORA리포트1' 
-    },
-    {
-        position: new kakao.maps.LatLng(35.202118, 129.121884),
-        text: 'BORA리포트2' 
-    },
-    {
-        position: new kakao.maps.LatLng(35.260167, 129.085196),
-        text: 'BORA고객센터' 
-    },
-    {
-        position: new kakao.maps.LatLng(35.221219, 129.105571),
-        text: 'BORA_UI' 
-    },
-    
-    
-];
-
-var staticMapContainer  = document.getElementById('staticMap'), // 이미지 지도를 표시할 div  
-    staticMapOption = { 
-        center: new kakao.maps.LatLng(35.214902, 129.094643), // 이미지 지도의 중심좌표
-        level: 8, // 이미지 지도의 확대 레벨
-        marker: markers // 이미지 지도에 표시할 마커 
-    };    
-
-// 이미지 지도를 생성합니다
-var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
-
-
-var imageSrc = '../img/marker.png', // 마커이미지의 주소입니다    
-imageSize = new kakao.maps.Size(40, 40), // 마커이미지의 크기입니다
-imageOption = {offset: new kakao.maps.Point(30, 55)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다
-var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
+<!-- @@@@@@@@@@@@@@@@@@@@@@@ 지도 테스트 @@@@@@@@@@@@@@@@@@@@@@@-->
 
 //마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
