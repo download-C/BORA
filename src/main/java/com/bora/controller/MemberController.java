@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.domain.MemberVO;
 import com.bora.service.MemberService;
@@ -65,29 +66,48 @@ public class MemberController {
    
    // http://localhost:8088/member/login
    @RequestMapping(value="/login", method=RequestMethod.POST)
-   public String loginPOST(MemberVO vo, HttpSession session) throws Exception {
+   public String loginPOST(MemberVO vo, HttpSession session, RedirectAttributes rttr) throws Exception {
       log.info("loginPOST() 호출");
       
       MemberVO vo2 = service.loginMember(vo);
       if(vo2 != null ) {
          session.setAttribute("loginID", vo2.getId());
+         rttr.addFlashAttribute("msg", vo2.getNick()+"님, 환영합니다♡");
          return "redirect:/main/main";
       } else {
+    	 rttr.addFlashAttribute("msg", "아이디가 없거나 아이디 또는 비밀번호가 일치하지 않습니다.");
          return "redirect:/member/login";
       }
+      
    }
    
    // http://localhost:8088/member/mypage
    @RequestMapping(value="/mypage", method=RequestMethod.GET)
-   public void mypageGET() throws Exception{
-      log.info("mypageGET(loginID) 호출");
-   }
-   
-   @RequestMapping(value="/mypage", method=RequestMethod.POST)
-   public void mypagePOST(String loginID, HttpSession session, Model model) throws Exception{
+   public void mypageGET(String loginID, HttpSession session, Model model) throws Exception{
+	  log.info("mypageGET(loginID) 호출");
       loginID = (String)session.getAttribute("loginID");
       MemberVO vo = service.getMember(loginID);
       model.addAttribute("vo", vo);
+   }
+   
+   @RequestMapping(value="/password", method=RequestMethod.GET)
+   public void mypagePasswordGET() throws Exception{
+	  log.info("mypagePasswordGET() 호출");  
+   }
+   
+   @RequestMapping(value="/password", method=RequestMethod.POST)
+   public String mypagePasswordPOST(HttpServletRequest request, HttpSession session, RedirectAttributes rttr) throws Exception{
+	   log.info("mypagePasswordPOST() 호출");
+	   String pw = request.getParameter("pw");
+	   loginID = (String)session.getAttribute("loginID");
+	   MemberVO vo = service.getMember(loginID);
+	   if(vo.getPw().equals(pw)) {
+		   return "redirect:/member/update";
+	   } else {
+		   rttr.addFlashAttribute("msg", "비밀번호가 일치하지 않습니다.");
+		   return "redirect:/member/password";
+	   }
+	   
    }
    
    @RequestMapping(value="/update", method = RequestMethod.GET)
