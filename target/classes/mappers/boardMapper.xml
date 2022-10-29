@@ -3,6 +3,64 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="com.bora.mapper.BoardMapper">
-  
-  </mapper>
+<mapper namespace="com.bora.mapper.BoardMapper">
+    <!-- 1. 글쓰기 =============================================== -->
+	<insert id="insertBoard">
+		insert into bora_cmnt_board (id, b_ctgr, b_title, b_content, b_file)
+		values (#{id}, #{b_ctgr}, #{b_title}, #{b_content}, #{b_file})
+	</insert>
+	
+	<!-- 2. 전체 글 목록 조회 ===================================== -->
+	<select id="getListAll" resultType="BoardVO" resultMap="vo">
+		select *
+		from bora_cmnt_board
+		where bno &gt; 0
+		order by bno desc
+	</select>
+	
+	<!-- log4j.. content에 unread 뜨던 거 해결 ==================== -->
+	<resultMap type="BoardVO" id="vo">
+		<result property="b_content" column="b_content" />
+	</resultMap>
+	
+	
+	<!-- 2-1. 페이징 처리한 글 목록 조회 ===================================== -->
+	<select id="getListPage" resultType="BoardVO" resultMap="vo">
+		select *
+		from bora_cmnt_board
+		order by bno desc, b_regdate desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	
+	
+	<!-- 3. 글 1개 정보 가져오기 ====================================-->
+	<select id="getBoard" resultType="BoardVO">
+		select *
+		from bora_cmnt_board
+		where bno = #{bno}
+	</select>
+	
+	
+	<!-- 3-1. 글 조회수 1 증가 =========================================== -->
+	<update id="updateReadCount">
+		update bora_cmnt_board
+		set b_readcount = b_readcount + 1
+		where bno = #{bno}
+	</update>
+	
+	
+	<!-- 4-1. 글 수정 ====================================== -->
+	<update id="updateBoard">
+		update bora_cmnt_board
+		set b_title = #{b_title}, b_content = #{b_content}, b_file = #{b_file}
+		where bno = #{bno}
+	</update>
+	
+	
+	<!-- 5. 글 삭제 ========================================= -->
+	<delete id="deleteBoard">
+		delete from bora_cmnt_board
+		where bno = #{bno}	
+	</delete>
+</mapper>
