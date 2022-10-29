@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.bora.domain.BoardVO;
+import com.bora.domain.PageVO;
 
 
 @Repository
@@ -49,7 +50,7 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	// 2. 전체 글 목록 조회
 	@Override
-	public List<BoardVO> getListAll() throws Exception {
+	public List<BoardVO> getBoardListAll() throws Exception {
 		log.info("(♥♥♥♥♥ 2.listAll) Service가 호출함");
 		
 		// DB가서 글 목록 모든 정보 가져오기
@@ -67,7 +68,7 @@ public class BoardDAOImpl implements BoardDAO {
 	/*
 	// 2-1. 페이징 처리한 글 목록 조회 page
 	@Override
-	public List<BoardVO> getListPage(Integer page) throws Exception {
+	public List<BoardVO> getBoardListPage(Integer page) throws Exception {
 		log.info("(♥♥♥♥♥ 2-1.listPage) Service가 호출함");
 
 		if ( page <= 0 ) {
@@ -99,16 +100,14 @@ public class BoardDAOImpl implements BoardDAO {
 	*/
 	
 	
-	/*
 	// 2-2. 페이징 처리한 글 목록 조회 VO
 	@Override
-	public List<BoardVO> getListPage(PageVO vo) throws Exception {
+	public List<BoardVO> getBoardListPage(PageVO vo) throws Exception {
 		log.info("(♥♥♥♥♥ 2-2.listPage(vo)) Service가 호출함");
 		log.info("(♥♥♥♥♥ 2-2.listPage(vo)) mapper.xml 갈 거,, 가서 DB처리 하고 -> 바로 Service로 리턴할 거");
 		return sqlSession.selectList(NAMESPACE+".listPage3", vo);
 	}
 	// 2-2. 페이징 처리한 글 목록 조회 VO 끝
-	*/
 	
 	
 	

@@ -30,7 +30,7 @@ public class BoardDAOTest {
 	}
 	
 	
-	@Test  // ㅇㅋ
+//	@Test  // ㅇㅋ
 	public void 글쓰기() throws Exception {
 		log.info("글쓰기(●'◡'●) 호출됨");
 		
