@@ -8,8 +8,6 @@ public class PageMakerVO {
 	
 	
 	// 멤버변수 =================================================================
-//	private int page;
-//	private int perPageNum;
 	private PageVO vo;       // 현 페이지 번호, 한 페이지에 몇 개씩 나타낼지 크기
 
 	private int totalCnt;    // 총 글 개수

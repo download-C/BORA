@@ -30,17 +30,14 @@ public class BoardDAOImpl implements BoardDAO {
 	// 1. 글쓰기 insertBoard
 	@Override
 	public void insertBoard(BoardVO vo) throws Exception {
-		log.info("insertBoard(●'◡'●)");
-//		log.info("(♥♥♥♥♥ 1.insertBoard) jsp -> Controller -> Service 거치면서 vo 잘 받아왔나? :  " + vo);
+		log.info("(♥♥♥♥♥ 1.insertBoard) 호출됨(●'◡'●)");
+		log.info("(♥♥♥♥♥ 1.insertBoard) insert.jsp -> Controller -> Service 거치면서 받아온 vo:  " + vo);
 		
-//		log.info("(♥♥♥♥♥ 1.insertBoard) MyBatis.. boardMapper.xml 로 고고링");
-		// SQL 실행 객체 == SqlSession 객체~~ 주입 
-		//   올인원임~~ (디비 연결 + myBatis + 매퍼 + 자원 해제)
+		log.info("(♥♥♥♥♥ 1.insertBoard) boardMapper.xml 로 고고");
 		int result = sqlSession.insert(NAMESPACE+".insertBoard", vo);
 		
 		if (result > 0) {
-			log.info("insertBoard(●'◡'●) 글쓰기 DB 작업 완");
-//			log.info("(♥♥♥♥♥ 1.insertBoard) 글쓰기 DB 작업 완^^ 다시 서비스로 가욘");
+			log.info("(♥♥♥♥♥ 1.insertBoard)(●'◡'●) 글쓰기 DB 작업 완 -> 서비스로 ㄱㄱ");
 		}
 		
 	}
@@ -49,27 +46,27 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	
 	// 2. 전체 글 목록 조회
-	@Override
-	public List<BoardVO> getBoardListAll() throws Exception {
-		log.info("(♥♥♥♥♥ 2.listAll) Service가 호출함");
-		
-		// DB가서 글 목록 모든 정보 가져오기
-		log.info("(♥♥♥♥♥ 2.listAll) mapper 갈 거");
-		List<BoardVO> boardList = sqlSession.selectList(NAMESPACE+".listAll");
-		
-		log.info("(♥♥♥♥♥ 2.listAll) mapper 가서 DB 처리 하고 왔고요~~ -> Service로 리턴할 거");
-		log.info("(♥♥♥♥♥ 2.listAll) 받아온 boardList.size: " + boardList.size());
-		
-		return boardList;
-	}
+//	@Override
+//	public List<BoardVO> getBoardListAll() throws Exception {
+//		log.info("(♥♥♥♥♥ 2.listAll) Service가 호출함");
+//		
+//		// DB가서 글 목록 모든 정보 가져오기
+//		log.info("(♥♥♥♥♥ 2.listAll) mapper 갈 거");
+//		List<BoardVO> boardList = sqlSession.selectList(NAMESPACE+".listAll");
+//		
+//		log.info("(♥♥♥♥♥ 2.listAll) mapper 가서 DB 처리 하고 왔고요~~ -> Service로 리턴할 거");
+//		log.info("(♥♥♥♥♥ 2.listAll) 받아온 boardList.size: " + boardList.size());
+//		
+//		return boardList;
+//	}
 	// 2. 전체 글 목록 조회 끝
 	
 	
 	/*
 	// 2-1. 페이징 처리한 글 목록 조회 page
 	@Override
-	public List<BoardVO> getBoardListPage(Integer page) throws Exception {
-		log.info("(♥♥♥♥♥ 2-1.listPage) Service가 호출함");
+	public List<BoardVO> getBoardList(Integer page) throws Exception {
+		log.info("(♥♥♥♥♥ 2-1.getBoardList) Service가 호출함");
 
 		if ( page <= 0 ) {
 			page = 1;
@@ -91,7 +88,7 @@ public class BoardDAOImpl implements BoardDAO {
 		pageObj.put("pageSize", pageSize);
 		
 		
-		log.info("(♥♥♥♥♥ 2-1.listPage) mapper.xml 갈 거,, 가서 DB처리 하고 -> 바로 Service로 리턴할 거");
+		log.info("(♥♥♥♥♥ 2-1.getBoardList) mapper.xml 갈 거,, 가서 DB처리 하고 -> 바로 Service로 리턴할 거");
 		
 //		return sqlSession.selectList(NAMESPACE+".listPage", page);
 		return sqlSession.selectList(NAMESPACE+".listPage2", pageObj);
@@ -102,10 +99,10 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	// 2-2. 페이징 처리한 글 목록 조회 VO
 	@Override
-	public List<BoardVO> getBoardListPage(PageVO vo) throws Exception {
-		log.info("(♥♥♥♥♥ 2-2.listPage(vo)) Service가 호출함");
-		log.info("(♥♥♥♥♥ 2-2.listPage(vo)) mapper.xml 갈 거,, 가서 DB처리 하고 -> 바로 Service로 리턴할 거");
-		return sqlSession.selectList(NAMESPACE+".listPage3", vo);
+	public List<BoardVO> getBoardList(PageVO vo) throws Exception {
+		log.info("(♥♥♥♥♥ 2-2.getBoardList) Service가 호출함");
+		log.info("(♥♥♥♥♥ 2-2.getBoardList) mapper.xml 갈 거,, 가서 DB처리 하고 -> 바로 Service로 리턴할 거");
+		return sqlSession.selectList(NAMESPACE+".getBoardList", vo);
 	}
 	// 2-2. 페이징 처리한 글 목록 조회 VO 끝
 	
@@ -120,7 +117,7 @@ public class BoardDAOImpl implements BoardDAO {
 							// 뭐가 매핑됐는데? xml 파일에서 resultType에 적어놓은 거~~
 							// 그게 뭔데? BoardVO ^^
 		log.info("(♥♥♥♥♥ 3.getBoard) mapper 가서 DB 처리 + 동시에~~ Service로 리턴할 거");
-		return sqlSession.selectOne(NAMESPACE+".read", bno); 
+		return sqlSession.selectOne(NAMESPACE+".getBoard", bno); 
 	}
 	// 3. 글 1개 정보 가져오기 끝
 	

@@ -42,7 +42,7 @@
 		<div>
 			아이디
 			<div>
-				<input type="text" value="${loginID }" readonly="readonly">
+				<input type="text" name="id" value="${loginID }" readonly="readonly">
 			</div>
 		</div>
 		<br>
@@ -51,7 +51,7 @@
 			<div>
 				<input type="text" value="${vo.nick }" readonly="readonly">
 			</div>
-			<!-- 		닉네임,, 아이디 -> 닉네임 끌어오는 메서드를 만들어야 하남? -->
+			<!-- 		닉네임,, 아이디 -> 닉네임 끌어오는 메서드를 만들어야 하남? DB에 넣을 필욘 없고 걍 보여주기만 -->
 		</div>
 		<br>
 		<div>
@@ -80,7 +80,7 @@
 		<div>
 			파일
 			<div>
-				<input type="text" name="b_title">
+				<input type="text" name="b_file">
 			</div>
 		</div>
 		<br>

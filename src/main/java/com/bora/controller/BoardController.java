@@ -57,25 +57,21 @@ public class BoardController {
 		service.insertBoard(vo);
 		
 		// 페이지 이동(글 목록으로)
-		rttr.addFlashAttribute("msg", "OK"); // (알림 방법3) // 일회성 데이터임!! 체크용~ URL에 표시 X
-			// 글쓰기 성공 알림 띄우기 위해서,, 
-			//  방법1. 주소줄에 직접 보내기
-			//  방법2. 모델 객체에 담아서 보내기
-			//  방법3. 모델 객체 대신 RedirectAttributes 객체 쓰기!! for flash.. 글쓰기 성공 알림=일회성이니까 
+			// 글쓰기 성공 알림 띄우기(일회성)
+		rttr.addFlashAttribute("msg", "OK");  
 		
-		log.info("(♥♥♥♥♥ 1-2.registerPOST) redirect:/board/listPage 로 이동할거");
-//		return "redirect:/board/listAll?msg=OK"; // (알림 방법1)
+		log.info("(♥♥♥♥♥ 1-2.registerPOST) redirect:/board/list 로 이동할거");
 		return "redirect:/board/list"; // 주소줄 변화 O + 페이지 이동 O
 	}
 	// 1-2. 글쓰기 POST 끝
 	
 	
 	
-	// 2. 게시판 리스트 조회 GET                  http://localhost:8088/board/listAll
-	@RequestMapping (value = "/list", method = RequestMethod.GET)
-	public void listAllGET(@ModelAttribute("msg") String msg, Model model, HttpSession session) throws Exception {
-		log.info("(♥♥♥♥♥ 2.listAllGET) 호출됨");
-		
+//	// 2. 게시판 리스트 조회 GET                  http://localhost:8088/board/list
+//	@RequestMapping (value = "/list", method = RequestMethod.GET)
+//	public void listAllGET(@ModelAttribute("msg") String msg, Model model, HttpSession session) throws Exception {
+//		log.info("(♥♥♥♥♥ 2.listAllGET) 호출됨");
+//		
 //		// 리스트로 가는 경우의 수
 //		// 1. 글쓰고 나서 -> 리스트로 이동하는 경우
 //			log.info("(♥♥♥♥♥ 2.listAllGET) msg: " + msg);
@@ -98,47 +94,41 @@ public class BoardController {
 //		session.setAttribute("isUpdate", false);
 //		
 //		log.info("(♥♥♥♥♥ 2.listAllGET) 리턴타입 void.. /board/listAll 입력받았으니 --> /board/listAll.jsp로 이동할 거");
-	}
+//	}
 	// 2. 게시판 리스트 조회 GET 끝
 	
 	
 	
-	// 2-1. 페이징 처리 적용한 게시판 리스트 조회 GET        http://localhost:8088/board/listPage
-	@RequestMapping (value = "/listPage", method = RequestMethod.GET)
-	public String listPageGET(PageVO vo, Model model, HttpSession session) throws Exception {
-		log.info("(♥♥♥♥♥ 2-1.listPageGET) 호출됨");
+	// 2-1. 페이징 처리 적용한 게시판 리스트 조회 GET        http://localhost:8088/board/list
+	@RequestMapping (value = "/list", method = RequestMethod.GET)
+	public void getBoardListGET(PageVO vo, Model model, HttpSession session) throws Exception {
+		log.info("(♥♥♥♥♥ 2-1.getBoardListGET) 호출됨");
 		
-//		PageVO vo = new PageVO();
-//		vo.setPage(2);
+		vo = new PageVO();
+//		vo.setPage(1);
 //		vo.setPerPageNum(30); // 글 30개씩 불러오고 싶다~ ㅋ
 		// 근데 여기서 이렇게 페이지 설정하지 말고!! 파라메타로 해버리자
 		// 자동으로 파라메타 수집해주니까,,,,,,,,,,
 		// ㄴ   http://localhost:8088/board/listPage?page=2
 		//      http://localhost:8088/board/listPage?page=2&perPageNum=30
 		
-		log.info("(♥♥♥♥♥ 2-1.listPageGET) Service 호출할게욘");
-//		List<BoardVO> boardList = service.getListPage(vo);
-//		model.addAttribute("boardList", boardList);
-		// ㄴ 줄여서 ↓
-		model.addAttribute("boardList", service.getBoardListPage(vo));
-		log.info("(♥♥♥♥♥ 2-1.listPageGET) Service 호출 + 모델 객체에 저장까지 완");
+		log.info("(♥♥♥♥♥ 2-1.getBoardListGET) Service 호출할게욘");
+		model.addAttribute("boardList", service.getBoardList(vo));
+		log.info("(♥♥♥♥♥ 2-1.getBoardListGET)   + 모델 객체에 저장까지 완");
 		
-		// 페이징 처리 하단부 정보 저장
+		// 페이징 처리 하단부 정보 저장 + 모델 객체(pm)에 저장
 		PageMakerVO pm = new PageMakerVO();
 		pm.setVo(vo);
-		pm.setTotalCnt(801); // <<찐 글 개수 일단 넣은거고,, 서비스에 이 동작 추가해놓으면 되겠네~ 총 글 개수 불ㄹ러오는
-		
-		// 얘도 model에 담아서 보냅시다..
+		pm.setTotalCnt(100); // <<찐 글 개수 임의로 일단 넣은거고,, 서비스에 이 동작 추가해놓으면 되겠네~ 총 글 개수 불ㄹ러오는
 		model.addAttribute("pm", pm);
-		log.info("(♥♥♥♥♥ 2-1.listPageGET) PageMakerVO도 모델 객체에 저장 완 + pm: " + pm);
+		log.info("(♥♥♥♥♥ 2-1.getBoardListGET) PageMakerVO도 모델 객체에 저장 완 + pm: " + pm);
 		
 		
 		// 세션에 객체 isUpdate 하나  만들어놓기~~~ 
 		//    3()으로 정보 전달을 위해..
 		session.setAttribute("isUpdate", false);
 		
-		log.info("(♥♥♥♥♥ 2-1.listPageGET) 리턴타입 String --> /board/listAll.jsp로 이동할 거");
-		return "/board/listAll";
+		log.info("(♥♥♥♥♥ 2-1.getBoardListGET) 리턴타입 void라서 들어온 주소 /board/list.jsp로 이동할 거");
 	}
 	// 2-1. 페이징 처리 적용한 게시판 리스트 조회 GET
 	
@@ -146,13 +136,13 @@ public class BoardController {
 	
 	// 3. 글 본문 보기 GET                  http://localhost:8088/board/read
 	@RequestMapping (value = "/read", method = RequestMethod.GET)
-//	public void readGET(@ModelAttribute("bno") int bno) throws Exception{  (방법1. modelAttri로 받기)
-	public void readGET(HttpSession session, @RequestParam("bno") int bno, Model model) throws Exception{  // (방법2. requestParam으로 받기)
+	public void readGET(HttpSession session, 
+						@RequestParam("bno") int bno, 
+						@RequestParam("page") int page, 
+						Model model) throws Exception{ 
 		log.info("(♥♥♥♥♥ 3.readGET) 호출됨");
 		
-		// 직전 페이지(listAll.jsp)에서 전달된 정보(bno) 저장
-		// request 아니고 model로,,^^
-//		log.info("(♥♥♥♥♥ 3.readGET) 넘어온 bno: " + request.getAttribute("bno"));
+		// 직전 페이지(list.jsp)에서 전달된 정보(bno) 저장
 		log.info("(♥♥♥♥♥ 3.readGET) 넘어온 bno: " + bno);
 		
 		// 한 번 이 글 본 사람은 더이상 조회수 안 올라가게~~~ 
@@ -160,9 +150,7 @@ public class BoardController {
 		log.info("(♥♥♥♥♥ 3.readGET) isUpdate: " + session.getAttribute("isUpdate"));
 		boolean isUpdate = (boolean)session.getAttribute("isUpdate");
 		
-		if(!isUpdate) { // 둘 다 같다~ // isUpdate가 true면? 그 반대 -> false니까 else문으로 가는거고
-										// isUpdate가 false면? 그 반대 -> true니까 if문 타는거고
-//		if(isUpdate == false) {
+		if(!isUpdate) { 
 			// 세션에 isUpdate 정보가 없을 때~~
 			// 조회수 계산하는 3-1 updateReadCount !!! 
 			service.updateReadCount(bno);
@@ -170,29 +158,22 @@ public class BoardController {
 			session.setAttribute("isUpdate", true);
 		}
 		
-		log.info("(♥♥♥♥♥ 3.readGET) Service 호출할게욘");
-		BoardVO vo = service.getBoard(bno);
+		log.info("(♥♥♥♥♥ 3.readGET) Service 호출 -> BoardVO타입 리턴받고 -> 바로 model에 저장");
+		model.addAttribute("vo", service.getBoard(bno));
 		
-		log.info("(♥♥♥♥♥ 3.readGET) Service로부터 정보 받아옴^^ 받아온 vo: " + vo);
-		
-		// 모델 객체에 저장~ jsp 뷰 페이지에서 이 정보 쓸라고
-		model.addAttribute("vo", vo);
-		
-		log.info("(♥♥♥♥♥ 3.readGET) 리턴타입 void, 주소줄에 /board/read --> /board/read.jsp로 이동할 거");
+		log.info("(♥♥♥♥♥ 3.readGET) 리턴타입 void니까 들어온 주소  /board/read.jsp로 이동할 거");
 	}
 	// 3. 글 본문 보기 GET 끝
 	
 	
 	
 	// 4. 글 수정하기 GET (기존 정보 조회 + 뉴 정보 입력받기)    http://localhost:8088/board/modify
-	@RequestMapping (value = "/modify", method = RequestMethod.GET)
-//	public void modifyGET(/* @RequestParam("bno") */ int bno) throws Exception {
-	public void modifyGET(@RequestParam("bno") int bno, Model model) throws Exception {
-						// 대박 이 주석 없이 int bno만 적어도 됨 ㄷㄷ 그래도 정확한 표현을 위해,, 적어주삼 
-		log.info("(♥♥♥♥♥ 4.modifyGET) 호출됨");
+	@RequestMapping (value = "/update", method = RequestMethod.GET)
+	public void updateGET(@RequestParam("bno") int bno, Model model) throws Exception {
+		log.info("(♥♥♥♥♥ 4.updateGET) 호출됨");
 		
 		// 직전 페이지에서 전달된 정보 저장 (bno).. 인수로 이미 해버렸다 ㄷㄷ 짱편함
-		log.info("(♥♥♥♥♥ 4.modifyGET) bno: " + bno);
+		log.info("(♥♥♥♥♥ 4.updateGET) bno: " + bno);
 		
 		// bno에 해당하는 글 정보 가져오기 (service 사용해서),, 밑에 바아로 넣기!!
 //		service.getBoard(bno);

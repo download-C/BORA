@@ -10,10 +10,10 @@ public interface BoardDAO {
 	public void insertBoard(BoardVO vo) throws Exception;
 
 	// 2. 글 전체 목록 조회
-	public List<BoardVO> getBoardListAll() throws Exception;
+//	public List<BoardVO> getBoardListAll() throws Exception;
 
 	// 2-1. 페이징 처리 적용해서 목록 조회
-	public List<BoardVO> getBoardListPage(PageVO vo) throws Exception;
+	public List<BoardVO> getBoardList(PageVO vo) throws Exception;
 
 	// 3. 글 1개 정보 가져오기
 	public BoardVO getBoard(Integer bno) throws Exception;
