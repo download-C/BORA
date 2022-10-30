@@ -6,7 +6,7 @@
 <style>
 .label {
 /* 이름표 위치 */
-	margin-bottom: 125px;
+	margin-bottom: 120px;
 	margin-right: 20px;
 	font-weight: bold;
 	color: white;
@@ -26,8 +26,8 @@
 	overflow: hidden;
 	vertical-align: top;
 	width: 7px;
-	border-bottom-left-radius: 10px;
-	border-top-left-radius: 10px;
+	border-bottom-left-radius: 20px;
+	border-top-left-radius: 20px;
 }
 
 .label .center {
@@ -48,8 +48,8 @@
 	height: 24px;
 	overflow: hidden;
 	width: 6px;
-	border-bottom-right-radius: 10px;
-	border-top-right-radius: 10px;
+	border-bottom-right-radius: 20px;
+	border-top-right-radius: 20px;
 }
 </style>
 
@@ -127,7 +127,7 @@ for (var i = 0; i < positions.length; i ++) {
 
     marker.setMap(map);
     
-    // 마커에 표시할 인포윈도우를 생성합니다 
+    // 마커에 표시할 커스텀 인포윈도우를 생성 
     var customOverlay = new kakao.maps.CustomOverlay({
         position: positions[i].latlng, // 마커의 위치
         content: positions[i].content // 인포윈도우에 표시할 내용

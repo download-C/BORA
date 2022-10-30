@@ -57,7 +57,5 @@
 	<context:component-scan base-package="com.bora.persistence" />	
 	<context:component-scan base-package="com.bora.service" />	
 
-	<context:component-scan base-package="com.bora.openbank.service" />
-
 	
 </beans>
