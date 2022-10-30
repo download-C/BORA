@@ -7,14 +7,20 @@
 						http://www.springframework.org/schema/beans 
 						http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<security:http auto-config="true" use-expressions="false">
-		<security:intercept-url pattern="/**" access="ROLE_USER"/>
+		<security:form-login
+			login-page="/member/login" 
+			username-parameter="id"
+			password-parameter="pw"
+			login-processing-url="/member/login"
+			authentication-success-forward-url="/main/main"
+			authentication-failure-url="/member/login"/>
 	</security:http>
 	
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:user-service>
 				<security:user name="user" password="userPw" authorities="ROLE_USER"/>
-				<security:user name="gest" password="guest" authorities="ROLE_GUEST"/>
+				<security:user name="guest" password="guest" authorities="ROLE_GUEST"/>
 			</security:user-service>
 		</security:authentication-provider>	
 	</security:authentication-manager>
