@@ -56,7 +56,6 @@
 	<!-- 다른 패키지에 있는 객체를 찾아서 빈으로 등록 -->	
 	<context:component-scan base-package="com.bora.persistence" />	
 	<context:component-scan base-package="com.bora.service" />	
-
 	<context:component-scan base-package="com.bora.openbank.service" />
 
 	

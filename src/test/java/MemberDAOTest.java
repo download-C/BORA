@@ -1,9 +1,13 @@
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -20,17 +24,22 @@ public class MemberDAOTest {
 	@Inject
 	private MemberDAO dao;
 	
+	@Inject @Qualifier("bcryptPasswordEncoder")
+	private BCryptPasswordEncoder encoder;
+
+	
 //	@Test
 	public void 테스트확인() {
 		log.info("♡♡♡♡♡♡♡테스트 확인");
 	}
 	
-//	@Test 완료
+//	@Test 
 	public void 회원가입() throws Exception{
 		log.info("♡♡♡♡♡♡♡회원가입()");
 		MemberVO vo = new MemberVO();
 		vo.setId("admin");
 		vo.setPw("1234");
+//		vo.setPw(pwEncoder.encode("1234"));
 		vo.setName("최다운");
 		vo.setNick("다우니");
 		vo.setPhone("01012345678");
@@ -65,6 +74,11 @@ public class MemberDAOTest {
 		MemberVO vo = dao.getMember("admin");
 		if(vo != null) log.info("♡♡♡♡♡♡♡개인정보 가져오기 성공 : "+vo);
 		else log.info("♡♡♡♡♡♡♡개인정보 가져오기 실패");
+	}
+	
+	@Test
+	public void 암호화() throws Exception {
+	
 	}
 	
 	
