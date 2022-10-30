@@ -6,6 +6,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <%
 if(loginID==null) {%>
+<!-- 세션값(로그인) 확인 -->
 <script>
 // 세션값 여부
 	alert("세션값이 만료되어 로그인 페이지로 이동합니다.");
@@ -26,8 +27,9 @@ $(document).ready(function() {
     if (message != "") {
         alert(message);
     }
-})
+});
 </script>
+<!-- 비밀번호 유효성 검사 -->
 <script type="text/javascript">
 // 비밀번호 유효성 검사
 function checkpw() {
@@ -71,8 +73,8 @@ function pwUpdateCheck() {
 	});
 }
 </script>
+<!-- 비밀번호 일치 여부 -->
 <script>
-// 비밀번호 일치 검사
 function checkpw2() {
 	if($('#pw').val()!=$('#pw2').val()){
 		$('.pw2div').html('비밀번호가 일치하지 않습니다.');
@@ -137,14 +139,14 @@ $(document).ready(function(){
 				<!-- 비밀번호 -->
 				<div class="join_pw">
 					<h6>비밀번호</h6>
-					<input type="password" id="pw" name="pw" class="" maxlength="16" 
+					<input type="password" id="pw" name="pw" class="" maxlength="16" value="${vo.pw }"
 					placeholder="" required="required" onchange="pwUpdateCheck(), checkpw()"> <br>
 					<span class="pwdiv">&nbsp;</span>
 				</div>
 				<!-- 비밀번호 확인 -->
 				<div class="join_pw2">
 					<h6>비밀번호 확인</h6>
-					<input type="password" id="pw2" name="pw2" class="" maxlength="16"
+					<input type="password" id="pw2" name="pw2" class="" maxlength="16" value="${vo.pw }"
 					placeholder="" required="required" onchange="checkpw2()"> <br>
 					<span class="pw2div">&nbsp;</span>
 				</div>

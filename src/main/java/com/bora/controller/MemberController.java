@@ -164,24 +164,28 @@ public class MemberController {
       
    }
    
+   @RequestMapping(value="/deletePop", method=RequestMethod.GET)
+   public void deletePopGET() throws Exception {
+      log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡deletPopGET() 호출");
+      
+   }
+   
    @RequestMapping(value="/delete", method=RequestMethod.POST)
-   public String deletePOST(HttpServletRequest reqeust, HttpSession session,
+   public void deletePOST(HttpServletRequest reqeust, HttpSession session,
 		   RedirectAttributes rttr) throws Exception {
-	   log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡deletePOST() 호출");
-	   // 로그인한 회원의 회원정보 불러오기
-	   String id = (String)session.getAttribute("loginID");
-	   MemberVO vo = service.getMember(id);
-	   // 입력한 비밀번호와 DB에 있는 비밀번호 일치 확인 후 삭제 진행 
-	   String pw = reqeust.getParameter("pw");
-	   if(pw.equals(vo.getPw())) {
-		   int result = service.deleteMember();
+	   log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡비밀번호 일치 여부 확인 후 deletePOST() 호출");
+	   // 로그인한 회원의 아이디 불러온 뒤 아이디값으로 탈퇴하기
+	   
+	   	   String id = (String)session.getAttribute("loginID");
+		   int result = service.deleteMember(id);
 		   if(result == 1 ) {
-			   
-			   return "";
+			   rttr.addFlashAttribute("msg", "탈퇴되었습니다.");
+			   session.invalidate();
+//			   return "redirect:/main/main";
 		   }
-	   }
-	   
-	   
-//	   int result = service.deleteMember();
+		   else {
+			   rttr.addFlashAttribute("msg", "탈퇴에 실패했습니다.");
+//			   return "redirect:/member/delete";
+		   }
    }
 }

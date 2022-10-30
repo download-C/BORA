@@ -80,6 +80,31 @@ public class AjaxController {
 		return entity;
 	}
 
+
+	// 회원이 탈퇴 시 비밀번호 입력하면 다시 한 번 탈퇴할건지 묻는 confirm 창 띄우기
+    @RequestMapping(value="/member/deleteCheck", method=RequestMethod.POST)
+    public ResponseEntity<String> deleteCheck(HttpServletRequest reqeust, HttpSession session,
+	 	   RedirectAttributes rttr) throws Exception {
+    	log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡deleteCheck()호출");
+    	// 회원이 입력한 비밀번호
+    	String pw = reqeust.getParameter("pw");
+	    // 로그인한 회원의 회원 정보
+	    String id = (String)session.getAttribute("loginID");
+	    MemberVO vo = service.getMember(id);
+	    
+	    // 결과를 담을 변수
+	    String result = "";
+	   
+ 	    // 회원이 입력한 비밀번호와 DB에 있는 비밀번호 일치 확인
+ 	    if(pw.equals(vo.getPw())) {
+ 	    	log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡ 비밀번호 일치");
+ 		    // 일치할 경우 메세지 ok 보내기
+ 	    	result = "ok";
+ 	    } 
+ 	    ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
+ 	    return entity;
+    }
+   
 	
 
 }
