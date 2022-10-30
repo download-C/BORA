@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bora.domain.MemberSHA256;
 import com.bora.domain.MemberVO;
 import com.bora.service.MemberService;
 
@@ -37,6 +38,10 @@ public class MemberController {
       log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡joinPOST(vo) -> login.jsp" );
       String id = request.getParameter("id");
       String pw = request.getParameter("pw");
+      log.info("비밀번호: "+pw);
+      // 비밀번호 암호화
+      String encryptPw= MemberSHA256.encrypt(pw);
+      log.info("암호화된 비밀번호: "+encryptPw);
       String name = request.getParameter("name");
       String nick = request.getParameter("nick");
 
@@ -45,7 +50,7 @@ public class MemberController {
       String email = request.getParameter("email");
       
       vo.setId(id);
-      vo.setPw(pw);
+      vo.setPw(encryptPw);
       vo.setName(name);
       vo.setNick(nick);
       vo.setPhone(phone);
@@ -68,7 +73,10 @@ public class MemberController {
    @RequestMapping(value="/login", method=RequestMethod.POST)
    public String loginPOST(MemberVO vo, HttpSession session, RedirectAttributes rttr) throws Exception {
       log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡loginPOST() 호출");
-      
+      // 사용자가 입력한 비밀번호 암호화
+      String encryptPw= MemberSHA256.encrypt(vo.getPw());
+      // 암호화된 비밀번호로 수정
+      vo.setPw(encryptPw);
       MemberVO vo2 = service.loginMember(vo);
       if(vo2 != null ) {
          session.setAttribute("loginID", vo2.getId());
@@ -98,10 +106,10 @@ public class MemberController {
    @RequestMapping(value="/password", method=RequestMethod.POST)
    public String mypagePasswordPOST(HttpServletRequest request, HttpSession session, RedirectAttributes rttr) throws Exception{
 	   log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡mypagePasswordPOST() 호출");
-	   String pw = request.getParameter("pw");
+	   String encryptPw= MemberSHA256.encrypt(request.getParameter("pw"));
 	   loginID = (String)session.getAttribute("loginID");
 	   MemberVO vo = service.getMember(loginID);
-	   if(vo.getPw().equals(pw)) {
+	   if(vo.getPw().equals(encryptPw)) {
 		   return "redirect:/member/update";
 	   } else {
 		   rttr.addFlashAttribute("msg", "비밀번호가 일치하지 않습니다.");

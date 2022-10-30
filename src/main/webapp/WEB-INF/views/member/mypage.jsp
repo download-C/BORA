@@ -26,7 +26,7 @@ $(document).ready(function() {
 		<div><input type="text" value="${vo.id }" readonly="readonly"></div>
 	</div> 
 	<div>비밀번호 
-		<div><input type="password" value="${vo.pw }" readonly="readonly"></div>
+		<div><input type="password" value="" readonly="readonly"></div>
 	</div> 
 	<div>이름
 		<div> <input type="text" value="${vo.name }" readonly="readonly"></div>

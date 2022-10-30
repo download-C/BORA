@@ -139,14 +139,14 @@ $(document).ready(function(){
 				<!-- 비밀번호 -->
 				<div class="join_pw">
 					<h6>비밀번호</h6>
-					<input type="password" id="pw" name="pw" class="" maxlength="16" value="${vo.pw }"
+					<input type="password" id="pw" name="pw" class="" maxlength="16" 
 					placeholder="" required="required" onchange="pwUpdateCheck(), checkpw()"> <br>
 					<span class="pwdiv">&nbsp;</span>
 				</div>
 				<!-- 비밀번호 확인 -->
 				<div class="join_pw2">
 					<h6>비밀번호 확인</h6>
-					<input type="password" id="pw2" name="pw2" class="" maxlength="16" value="${vo.pw }"
+					<input type="password" id="pw2" name="pw2" class="" maxlength="16" 
 					placeholder="" required="required" onchange="checkpw2()"> <br>
 					<span class="pw2div">&nbsp;</span>
 				</div>
