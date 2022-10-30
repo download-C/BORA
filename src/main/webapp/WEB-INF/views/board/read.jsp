@@ -93,6 +93,76 @@
 			<input type="button" value="목록" class="btn_list">
 		</div>
 	</div>
+	
+	
+	<!-- ----------------------- 댓글 리스트 구간 --------------------------------- -->
+		<input type="hidden" name="c_bno" value="${cdto.c_bno }">
+			<section style="width: 80%; height: 40%">
+				<div class="mt-5">
+					<hr style="width: 130%;">
+					<h6 class="mb-5">댓글</h6>
+					<ul class="comment-list">
+						<c:forEach var="cdto" items="${cmtList }">
+							<li class="comment">
+								<div class="vcard bio">
+									<img src="./images/Chacalogo.jpg" alt="Image placeholder">
+								</div>
+								<div class="comment-body">
+									<h3>
+<%-- 										<script>hide_email( </script> ${cdto.id} <script>);</script>  --%>
+<%-- 										${cdto.id} / --%>
+										<c:set var="str1" value = "${cdto.id}" />
+<%-- 										<c:set var="str2" value = "${fn:substring(str1, 0, 3) }" />  --%>
+<%-- 										${str2 }***** --%>
+									</h3>
+									<div class="meta">
+										<fmt:formatDate value="${cdto.date }"
+											pattern="yyyy.MM.dd hh:mm" />
+														<!-- 댓글 삭제 버턴,,
+																지 거만 지울 수 있게,,, + admin일 때
+																세션 로그인 아이디 == cdto에서 꺼내온 아이디 -->
+											<c:if test="${sessionScope.loginID eq cdto.id || sessionScope.loginID eq 'admin'}">
+												<input type="button" value="삭제" class="Bbtn btn1" 
+												onclick="location.href='./CommentDelete.bo?c_bno=${cdto.c_bno}&bno=${dto.bno }';"
+												style="padding: 3px; font-size: x-small; margin: 0px;">
+											</c:if>
+									</div>
+									<p style="font-size: larger;">${cdto.content }</p>
+								</div>
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
+
+				<!-- ----------------------- 댓글 리스트 구간 끝^^ --------------------------------- -->
+				
+		      
+				<!-- ----------------------- 댓글 작성 구간^^ --------------------------------- -->
+
+				<div class="comment-form-wrap pt-5" style="width: 70%; ">
+					<hr style="width: 180%;">
+					<h6 class="mb-5">댓글을 남겨주세요</h6>
+					<form action="./CommentWrite.bo?pageNum=${requestScope.pageNum }" method="post" name="frm" class="p-5 bg-light">
+								<input type="hidden" name="bno" value="${dto.bno }">  <!-- bno : 메인 글의 bno!! (BoardDTO의 bno!!!!) 여기가 중요 ★★★-->
+						<div class="form-group">
+							<label for="name">아이디 </label> <input type="text"
+								class="form-control cmt-update-name" id="name" name="id" value="${sessionScope.loginID }" readonly>
+						</div>
+						<div class="form-group">
+							<label for="message">내용</label>
+							<textarea name="content" id="message" cols="7" rows="3" class="form-control cmt-update-content"></textarea>
+						</div>
+						<div class="btn btn-primary" >
+							<input type="submit" value="댓글 달기😘"
+								class="btn py-1 px-2 btn-primary">
+						</div>
+						
+					</form>
+				</div>
+				</section>
+				<!-- ----------------------- 댓글 작성 구간 끝^^ --------------------------------- -->
+	
+	
 
 
 <script type="text/javascript">
@@ -136,9 +206,6 @@
   });// jQuery ready
 
 </script>
-
-
-
 
 
 <%@ include file="../include/footer.jsp"%>

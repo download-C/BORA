@@ -7,7 +7,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bora.domain.BoardVO;
+import com.bora.domain.CommentVO;
 import com.bora.persistence.BoardDAO;
+import com.bora.persistence.CommentDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
@@ -19,7 +21,10 @@ public class BoardDAOTest {
 	private static final Logger log = LoggerFactory.getLogger(BoardDAOTest.class);
 	
 	@Autowired
-	private BoardDAO dao;
+	private BoardDAO bdao;
+	
+	@Autowired
+	private CommentDAO cdao;
 	// 멤버변수 끝 ===========================
 	
 	
@@ -40,9 +45,29 @@ public class BoardDAOTest {
 		vo.setB_title("살까요 말까요");
 		vo.setB_content("운동화,,, 살까요 말까요??? 흠냐뤼");
 		
-		dao.insertBoard(vo);
+		bdao.insertBoard(vo);
 		
 		log.info("글쓰기(●'◡'●) vo: " + vo);
+	}
+	
+	
+	// 댓글 테스트 ===============================================
+	@Test
+	public void 댓글쓰기() throws Exception {
+		log.info("댓글쓰기(●'◡'●) 호출됨");
+		
+		CommentVO vo = new CommentVO();
+		
+		int cno = cdao.countCno();
+		
+		vo.setCno(cno);
+		vo.setId("ghgh");
+		vo.setBno(1);
+		vo.setC_content("첫번째,, 댓글~~~");
+		cdao.insertCmt(vo);
+		
+		log.info("댓글쓰기(●'◡'●) vo: " + vo);
+		
 	}
 	
 	

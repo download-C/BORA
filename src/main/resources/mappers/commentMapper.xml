@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.bora.mapper.CommentMapper">
+	<select id="countCno" resultType="java.lang.Integer">
+		select ifnull(max(cno), 0)
+		from bora_cmnt_cmt
+	</select>
+
+
+	<insert id="insertCmt">
+		insert into bora_cmnt_cmt (cno, bno, id, c_content, c_re_ref, c_re_lev, c_re_seq)
+		values (#{cno}, #{bno}, #{id}, #{c_content}, #{cno}, 0, 0)
+	</insert>
+
+<!-- 	<insert id="replyCmt"> -->
+<!-- 		insert into bora_cmnt_cmt (bno, id, c_content, c_re_ref, c_re_lev, c_re_seq) -->
+<!-- 		values (#{bno}, #{id}, #{c_content}, #{cno}, #{c_re_lev}, #{c_re_seq}) -->
+<!-- 	</insert> -->
+
+
+</mapper>
