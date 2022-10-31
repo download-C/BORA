@@ -28,14 +28,16 @@ public class CommentDAOImpl implements CommentDAO {
 	
 	// 1. 댓글쓰기
 	@Override
-	public void insertCmt(CommentVO vo) throws Exception {
+	public Integer insertCmt(CommentVO vo) throws Exception {
 		log.info("(♥♥♥♥♥ 1.insertCmt) 호출됨");
 		
-		int result = sqlSession.insert(NAMESPACE+".insertCmt", vo);
+		int inCount = sqlSession.insert(NAMESPACE+".insertCmt", vo);
 		
-		if (result > 0) {
+		if (inCount > 0) {
 			log.info("(♥♥♥♥♥ 1.insertCmt)(●'◡'●) 댓글쓰기 DB 작업 완 -> 서비스로 ㄱㄱ");
-		}
+			return inCount;
+			
+		} else return null;
 	}
 	// 1. 댓글쓰기 끝
 
@@ -78,11 +80,11 @@ public class CommentDAOImpl implements CommentDAO {
 	public Integer deleteCmt(Integer cno) throws Exception {
 		log.info("(♥♥♥♥♥ 3.deleteCmt) 호출됨");
 		
-		int result = sqlSession.delete(NAMESPACE+".deleteCmt", cno);
+		int delCount = sqlSession.delete(NAMESPACE+".deleteCmt", cno);
 		
-		if(result > 0) {
+		if(delCount > 0) {
 			log.info("(♥♥♥♥♥ 3.deleteCmt)(●'◡'●) 댓글 삭제 DB 작업 완 -> 서비스로 ㄱㄱ");
-			return result;
+			return delCount;
 			
 		} else return null;
 	}
@@ -95,11 +97,11 @@ public class CommentDAOImpl implements CommentDAO {
 	public Integer updateCmt(CommentVO vo) throws Exception {
 		log.info("(♥♥♥♥♥ 4.updateCmt) 호출됨");
 		
-		int result = sqlSession.delete(NAMESPACE+".updateCmt", vo);
+		int upCount = sqlSession.delete(NAMESPACE+".updateCmt", vo);
 		
-		if(result > 0) {
+		if(upCount > 0) {
 			log.info("(♥♥♥♥♥ 4.updateCmt)(●'◡'●) 댓글 수정 DB 작업 완 -> 서비스로 ㄱㄱ");
-			return result;
+			return upCount;
 			
 		} else return null;
 	}
