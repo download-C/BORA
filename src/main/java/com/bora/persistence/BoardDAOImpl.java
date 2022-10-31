@@ -163,7 +163,7 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	// 5. 글 삭제하기
 	@Override
-	public int deleteBoard(int bno) throws Exception {
+	public int deleteBoard(Integer bno) throws Exception {
 		log.info("(♥♥♥♥♥ 5.removeBoard) Service가 호출함");
 		
 		log.info("(♥♥♥♥♥ 5.removeBoard) mapper 가서 DB 처리하러..");

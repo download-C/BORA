@@ -9,7 +9,6 @@
 		from bora_cmnt_cmt
 	</select>
 
-
 	<insert id="insertCmt">
 		insert into bora_cmnt_cmt (cno, bno, id, c_content, c_re_ref, c_re_lev, c_re_seq)
 		values (#{cno}, #{bno}, #{id}, #{c_content}, #{cno}, 0, 0)
@@ -19,6 +18,39 @@
 <!-- 		insert into bora_cmnt_cmt (bno, id, c_content, c_re_ref, c_re_lev, c_re_seq) -->
 <!-- 		values (#{bno}, #{id}, #{c_content}, #{cno}, #{c_re_lev}, #{c_re_seq}) -->
 <!-- 	</insert> -->
-
-
+	
+	
+	<select id="getCmtOne" resultType="com.bora.domain.CommentVO">
+		select * 
+		from bora_cmnt_cmt
+		where cno = #{cno}
+	</select>
+	
+	
+	<delete id="deleteCmt">
+		delete from bora_cmnt_cmt
+		where cno = #{cno}
+	</delete>
+	
+	
+	<update id="updateCmt">
+		update bora_cmnt_cmt
+		set c_content = #{c_content}, 
+			c_updatedate = now()
+		where cno = #{cno}
+	</update>
+	
+	
+	<select id="getCmtList" resultType="com.bora.domain.CommentVO">
+		select *
+		from bora_cmnt_cmt
+		where bno = #{bno}
+		order by cno;
+	</select>
+	
+	
+	
+	
+	
+	
 </mapper>
