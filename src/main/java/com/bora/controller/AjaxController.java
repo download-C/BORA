@@ -30,6 +30,7 @@ public class AjaxController {
 	public ResponseEntity<String> idcheck(HttpServletRequest request, RedirectAttributes rttr) throws Exception{
 		String id = request.getParameter("id");
 		MemberVO vo = service.getMember(id);
+		log.info(vo+"");
 		String result = "";
 		
 		if(vo != null) {

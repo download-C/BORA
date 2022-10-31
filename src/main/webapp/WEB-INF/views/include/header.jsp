@@ -45,19 +45,19 @@ String loginID = (String)session.getAttribute("loginID");
       <div class="contact-info d-flex align-items-center">
       </div>
       <div class="social-links nav justify-content-end">
-      <%
-	      if(loginID != null){
-	    %>
+    <%
+	    if(loginID != null){
+    %>
         <a href="/member/logout" class="twitter">로그아웃</a>
         <a href="/member/mypage" class="facebook">마이페이지</a>
-      <%
+    <%
       	} else {
-	    %>
-        <a href="/member/login" class="twitter">로그인</a>
-        <a href="/member/join" class="facebook">회원가입</a>
-      <%
-	      }
-	    %>
+    %>
+        <a href="/main/login" class="twitter">로그인</a>
+        <a href="/main/join" class="facebook">회원가입</a>
+    <%
+      	}
+    %>
       </div>
     </div>
   </section>

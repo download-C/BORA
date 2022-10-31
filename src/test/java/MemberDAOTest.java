@@ -24,9 +24,14 @@ public class MemberDAOTest {
 	@Inject
 	private MemberDAO dao;
 	
-	@Inject @Qualifier("bcryptPasswordEncoder")
+	@Inject
+	@Resource(name = "bcryptPasswordEncoder")
 	private BCryptPasswordEncoder encoder;
 
+//	@Bean
+//	BCryptPasswordEncoder encoder() {
+//		return new BCryptPasswordEncoder();
+//	}
 	
 //	@Test
 	public void 테스트확인() {
@@ -78,7 +83,8 @@ public class MemberDAOTest {
 	
 	@Test
 	public void 암호화() throws Exception {
-	
+//		log.info(encoder()+"");
+		log.info(encoder+"");
 	}
 	
 	
