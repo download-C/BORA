@@ -68,5 +68,26 @@ public class AccountCancelResponseVO {
 	public void setBank_rsp_message(String bank_rsp_message) {
 		this.bank_rsp_message = bank_rsp_message;
 	}
+	@Override
+	public String toString() {
+		return "AccountCancelResponseVO [api_tran_id=" + api_tran_id + ", api_tran_dtm=" + api_tran_dtm + ", rsp_code="
+				+ rsp_code + ", rsp_message=" + rsp_message + ", bank_tran_id=" + bank_tran_id + ", bank_tran_date="
+				+ bank_tran_date + ", bank_code_tran=" + bank_code_tran + ", bank_rsp_code=" + bank_rsp_code
+				+ ", bank_rsp_message=" + bank_rsp_message + "]";
+	}
+	public AccountCancelResponseVO(String api_tran_id, String api_tran_dtm, String rsp_code, String rsp_message,
+			String bank_tran_id, String bank_tran_date, String bank_code_tran, String bank_rsp_code,
+			String bank_rsp_message) {
+		super();
+		this.api_tran_id = api_tran_id;
+		this.api_tran_dtm = api_tran_dtm;
+		this.rsp_code = rsp_code;
+		this.rsp_message = rsp_message;
+		this.bank_tran_id = bank_tran_id;
+		this.bank_tran_date = bank_tran_date;
+		this.bank_code_tran = bank_code_tran;
+		this.bank_rsp_code = bank_rsp_code;
+		this.bank_rsp_message = bank_rsp_message;
+	}
 
 }

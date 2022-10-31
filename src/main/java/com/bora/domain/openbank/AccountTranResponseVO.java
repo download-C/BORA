@@ -17,17 +17,6 @@ public class AccountTranResponseVO {
 	private String fintech_use_num; //핀테크이용번호
 	private String balance_amt; //계좌잔액(-금액가능)
 	private List<TranVO> tran_res_list; //사용자 등록계좌 목록
-	////////추가
-	
-	private String tran_date; //거래일자
-	private String tran_time; //거래시간
-	private String inout_type; //입출금구분주4) (입금, 출금, 지급, 기타)_입출금구분이 ‘기타’인 경우에는 ‘거래금액’이 0원으로 세팅됨
-	private String tran_type; //현금, 대체, 급여, 타행환, F/B출금 등 (참가은행에서 직접 세팅)
-	private String print_content; //"통장인자내용"
-	private String tran_amt; //거래금액
-	private String after_balance_amt; //거래후잔액(-금액가능)
-	private String branch_name;  //거래점명
-	
 	
 	
 	public String getApi_tran_id() {
@@ -108,53 +97,32 @@ public class AccountTranResponseVO {
 	public void setTran_res_list(List<TranVO> tran_res_list) {
 		this.tran_res_list = tran_res_list;
 	}
-	public String getTran_date() {
-		return tran_date;
+	public AccountTranResponseVO(String api_tran_id, String api_tran_dtm, String rsp_code, String rsp_message,
+			String bank_tran_id, String bank_tran_date, String bank_code_tran, String bank_rsp_code,
+			String bank_rsp_message, String bank_name, String fintech_use_num, String balance_amt,
+			List<TranVO> tran_res_list) {
+		super();
+		this.api_tran_id = api_tran_id;
+		this.api_tran_dtm = api_tran_dtm;
+		this.rsp_code = rsp_code;
+		this.rsp_message = rsp_message;
+		this.bank_tran_id = bank_tran_id;
+		this.bank_tran_date = bank_tran_date;
+		this.bank_code_tran = bank_code_tran;
+		this.bank_rsp_code = bank_rsp_code;
+		this.bank_rsp_message = bank_rsp_message;
+		this.bank_name = bank_name;
+		this.fintech_use_num = fintech_use_num;
+		this.balance_amt = balance_amt;
+		this.tran_res_list = tran_res_list;
 	}
-	public void setTran_date(String tran_date) {
-		this.tran_date = tran_date;
-	}
-	public String getTran_time() {
-		return tran_time;
-	}
-	public void setTran_time(String tran_time) {
-		this.tran_time = tran_time;
-	}
-	public String getInout_type() {
-		return inout_type;
-	}
-	public void setInout_type(String inout_type) {
-		this.inout_type = inout_type;
-	}
-	public String getTran_type() {
-		return tran_type;
-	}
-	public void setTran_type(String tran_type) {
-		this.tran_type = tran_type;
-	}
-	public String getPrint_content() {
-		return print_content;
-	}
-	public void setPrint_content(String print_content) {
-		this.print_content = print_content;
-	}
-	public String getTran_amt() {
-		return tran_amt;
-	}
-	public void setTran_amt(String tran_amt) {
-		this.tran_amt = tran_amt;
-	}
-	public String getAfter_balance_amt() {
-		return after_balance_amt;
-	}
-	public void setAfter_balance_amt(String after_balance_amt) {
-		this.after_balance_amt = after_balance_amt;
-	}
-	public String getBranch_name() {
-		return branch_name;
-	}
-	public void setBranch_name(String branch_name) {
-		this.branch_name = branch_name;
+	@Override
+	public String toString() {
+		return "AccountTranResponseVO [api_tran_id=" + api_tran_id + ", api_tran_dtm=" + api_tran_dtm + ", rsp_code="
+				+ rsp_code + ", rsp_message=" + rsp_message + ", bank_tran_id=" + bank_tran_id + ", bank_tran_date="
+				+ bank_tran_date + ", bank_code_tran=" + bank_code_tran + ", bank_rsp_code=" + bank_rsp_code
+				+ ", bank_rsp_message=" + bank_rsp_message + ", bank_name=" + bank_name + ", fintech_use_num="
+				+ fintech_use_num + ", balance_amt=" + balance_amt + ", tran_res_list=" + tran_res_list + "]";
 	}
 	
 	

@@ -38,5 +38,23 @@ public class AccountBalanceRequestVO {
 	public void setModel(String model) {
 		this.model = model;
 	}
-    
+	
+	public AccountBalanceRequestVO(String access_token, String bank_tran_id, String fintech_use_num, String tran_dtime,
+			String model) {
+		super();
+		this.access_token = access_token;
+		this.bank_tran_id = bank_tran_id;
+		this.fintech_use_num = fintech_use_num;
+		this.tran_dtime = tran_dtime;
+		this.model = model;
+	}
+	
+	@Override
+	public String toString() {
+		return "AccountBalanceRequestVO [access_token=" + access_token + ", bank_tran_id=" + bank_tran_id
+				+ ", fintech_use_num=" + fintech_use_num + ", tran_dtime=" + tran_dtime + ", model=" + model + "]";
+	}
+	
 }
+
+

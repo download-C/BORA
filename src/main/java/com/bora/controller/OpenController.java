@@ -14,10 +14,9 @@ public class OpenController {
 	
 	// http://localhost:8088/openbank/oauth
 	@RequestMapping(value = "/oauth", method = RequestMethod.GET)
-	public void openbank() {
-		log.info("/oauth -> oauth.jsp");
+	public String openbank() {
+		log.info("%%%%%%%%%%%%%% /oauth -> oauth.jsp");
+		return "/openbank/oauth";
 	}
-	
-	
 	
 }

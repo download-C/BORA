@@ -121,19 +121,37 @@ public class UserInfoResponseVO {
 	public void setAcct_num(String acct_num) {
 		this.acct_num = acct_num;
 	}
+	public UserInfoResponseVO(String api_tran_id, String api_tran_dtm, String rsp_code, String rsp_message,
+			String user_seq_no, String user_ci, String user_name, String user_info, String user_gender,
+			String user_cell_no, String user_email, String res_cnt, List<AccountVO> res_list, String acct_alias,
+			String bank_name, String acct_num) {
+		super();
+		this.api_tran_id = api_tran_id;
+		this.api_tran_dtm = api_tran_dtm;
+		this.rsp_code = rsp_code;
+		this.rsp_message = rsp_message;
+		this.user_seq_no = user_seq_no;
+		this.user_ci = user_ci;
+		this.user_name = user_name;
+		this.user_info = user_info;
+		this.user_gender = user_gender;
+		this.user_cell_no = user_cell_no;
+		this.user_email = user_email;
+		this.res_cnt = res_cnt;
+		this.res_list = res_list;
+		this.acct_alias = acct_alias;
+		this.bank_name = bank_name;
+		this.acct_num = acct_num;
+	}
+	@Override
+	public String toString() {
+		return "UserInfoResponseVO [api_tran_id=" + api_tran_id + ", api_tran_dtm=" + api_tran_dtm + ", rsp_code="
+				+ rsp_code + ", rsp_message=" + rsp_message + ", user_seq_no=" + user_seq_no + ", user_ci=" + user_ci
+				+ ", user_name=" + user_name + ", user_info=" + user_info + ", user_gender=" + user_gender
+				+ ", user_cell_no=" + user_cell_no + ", user_email=" + user_email + ", res_cnt=" + res_cnt
+				+ ", res_list=" + res_list + ", acct_alias=" + acct_alias + ", bank_name=" + bank_name + ", acct_num="
+				+ acct_num + "]";
+	}
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

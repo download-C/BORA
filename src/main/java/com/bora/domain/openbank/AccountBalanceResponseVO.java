@@ -128,9 +128,41 @@ public class AccountBalanceResponseVO {
 	public void setLast_tran_date(String last_tran_date) {
 		this.last_tran_date = last_tran_date;
 	}
+	public AccountBalanceResponseVO(String api_tran_id, String api_tran_dtm, String rsp_code, String rsp_message,
+			String bank_tran_id, String bank_tran_date, String bank_code_tran, String bank_rsp_code,
+			String bank_rsp_message, String bank_name, String fintech_use_num, String balance_amt, String available_amt,
+			String product_name, String account_issue_date, String maturity_date, String last_tran_date) {
+		super();
+		this.api_tran_id = api_tran_id;
+		this.api_tran_dtm = api_tran_dtm;
+		this.rsp_code = rsp_code;
+		this.rsp_message = rsp_message;
+		this.bank_tran_id = bank_tran_id;
+		this.bank_tran_date = bank_tran_date;
+		this.bank_code_tran = bank_code_tran;
+		this.bank_rsp_code = bank_rsp_code;
+		this.bank_rsp_message = bank_rsp_message;
+		this.bank_name = bank_name;
+		this.fintech_use_num = fintech_use_num;
+		this.balance_amt = balance_amt;
+		this.available_amt = available_amt;
+		this.product_name = product_name;
+		this.account_issue_date = account_issue_date;
+		this.maturity_date = maturity_date;
+		this.last_tran_date = last_tran_date;
+	}
 	
 	
-	
-	
+	@Override
+	public String toString() {
+		return "AccountBalanceResponseVO [api_tran_id=" + api_tran_id + ", api_tran_dtm=" + api_tran_dtm + ", rsp_code="
+				+ rsp_code + ", rsp_message=" + rsp_message + ", bank_tran_id=" + bank_tran_id + ", bank_tran_date="
+				+ bank_tran_date + ", bank_code_tran=" + bank_code_tran + ", bank_rsp_code=" + bank_rsp_code
+				+ ", bank_rsp_message=" + bank_rsp_message + ", bank_name=" + bank_name + ", fintech_use_num="
+				+ fintech_use_num + ", balance_amt=" + balance_amt + ", available_amt=" + available_amt
+				+ ", product_name=" + product_name + ", account_issue_date=" + account_issue_date + ", maturity_date="
+				+ maturity_date + ", last_tran_date=" + last_tran_date + "]";
+	}
+
 	
 }

@@ -18,4 +18,15 @@ public class UserInfoRequestVO {
 		this.user_seq_no = user_seq_no;
 	}
 	
+	public UserInfoRequestVO(String access_token, String user_seq_no) {
+		super();
+		this.access_token = access_token;
+		this.user_seq_no = user_seq_no;
+	}
+	@Override
+	public String toString() {
+		return "UserInfoRequestVO [access_token=" + access_token + ", user_seq_no=" + user_seq_no + "]";
+	}
+	
+	
 }

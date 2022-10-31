@@ -38,5 +38,19 @@ public class AccountCancelRequestVO {
 	public void setModel(String model) {
 		this.model = model;
 	}
+	@Override
+	public String toString() {
+		return "AccountCancelRequestVO [access_token=" + access_token + ", bank_tran_id=" + bank_tran_id + ", scope="
+				+ scope + ", fintech_use_num=" + fintech_use_num + ", model=" + model + "]";
+	}
+	public AccountCancelRequestVO(String access_token, String bank_tran_id, String scope, String fintech_use_num,
+			String model) {
+		super();
+		this.access_token = access_token;
+		this.bank_tran_id = bank_tran_id;
+		this.scope = scope;
+		this.fintech_use_num = fintech_use_num;
+		this.model = model;
+	}
 
 }

@@ -67,5 +67,25 @@ public class AccountTranRequestVO {
 	public void setModel(String model) {
 		this.model = model;
 	}
+	public AccountTranRequestVO(String bank_tran_id, String fintech_use_num, String inquiry_type, String inquiry_base,
+			String from_date, String to_date, String sort_order, String tran_dtime, String model) {
+		super();
+		this.bank_tran_id = bank_tran_id;
+		this.fintech_use_num = fintech_use_num;
+		this.inquiry_type = inquiry_type;
+		this.inquiry_base = inquiry_base;
+		this.from_date = from_date;
+		this.to_date = to_date;
+		this.sort_order = sort_order;
+		this.tran_dtime = tran_dtime;
+		this.model = model;
+	}
+	@Override
+	public String toString() {
+		return "AccountTranRequestVO [bank_tran_id=" + bank_tran_id + ", fintech_use_num=" + fintech_use_num
+				+ ", inquiry_type=" + inquiry_type + ", inquiry_base=" + inquiry_base + ", from_date=" + from_date
+				+ ", to_date=" + to_date + ", sort_order=" + sort_order + ", tran_dtime=" + tran_dtime + ", model="
+				+ model + "]";
+	}
 	
 }
