@@ -5,6 +5,7 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <h1>board/insert.jsp</h1>
+<%-- 
 <%
 	if (loginID == null) {
 %>
@@ -15,6 +16,7 @@
 <%
 	}
 %>
+ --%>
 
 <!-- ======== for 썸머노트 ============== -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
@@ -37,11 +39,17 @@
 <!-- ======== for 썸머노트 끝 ============== -->
 
 
-<form action="/board/insert" method="post">
+<form action="/board/update" method="post">
 	<div class="insertBoard">
 		<div>
+			글번호
+			<div> 
+				<input type="text" name="bno" value="${vo.bno }" readonly="readonly">
+			</div>
+		</div>
+		<div>
 			아이디
-			<div>   <!-- hidden으로 바꾸기!!! -->
+			<div>  <!-- hidden으로 바꾸기!!! -->
 				<input type="text" name="id" value="${loginID }" readonly="readonly">
 			</div>
 		</div>
@@ -49,7 +57,7 @@
 		<div>
 			닉네임
 			<div>
-				<input type="text" value="${vo.nick }" readonly="readonly">
+				<input type="text" value="" readonly="readonly">
 			</div>
 			<!-- 		닉네임,, 아이디 -> 닉네임 끌어오는 메서드를 만들어야 하남? DB에 넣을 필욘 없고 걍 보여주기만 -->
 		</div>
@@ -57,7 +65,7 @@
 		<div>
 			카테고리
 			<div>
-				<select name="b_ctgr">
+				<select name="b_ctgr"> <!-- 기존 값 보이게 수정하기 -->
 					<option value="골라줘BORA">골라줘BORA</option>
 					<option value="알려줘BORA">알려줘BORA</option>
 					<option value="친해져BORA">친해져BORA</option>
@@ -68,13 +76,13 @@
 		<div>
 			제목
 			<div>
-				<input type="text" name="b_title">
+				<input type="text" name="b_title" value="${vo.b_title}">
 			</div>
 		</div>
 		<br>
 		<div>
 			내용
-			<textarea id="summernote" name="b_content"></textarea>
+			<textarea id="summernote" name="b_content"> ${vo.b_content } </textarea>
 		</div>
 		<br>
 		<div>
@@ -85,7 +93,7 @@
 		</div>
 		<br>
 		<div>
-			<input type="submit" value="글쓰기">
+			<input type="submit" value="수정하기">
 		</div>
 	</div>
 </form>

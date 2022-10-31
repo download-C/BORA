@@ -167,51 +167,43 @@ public class BoardController {
 	
 	
 	
-	// 4. 글 수정하기 GET (기존 정보 조회 + 뉴 정보 입력받기)    http://localhost:8088/board/modify
+	// 4. 글 수정하기 GET (기존 정보 조회 + 뉴 정보 입력받기)    http://localhost:8088/board/update
 	@RequestMapping (value = "/update", method = RequestMethod.GET)
 	public void updateGET(@RequestParam("bno") int bno, Model model) throws Exception {
 		log.info("(♥♥♥♥♥ 4.updateGET) 호출됨");
 		
-		// 직전 페이지에서 전달된 정보 저장 (bno).. 인수로 이미 해버렸다 ㄷㄷ 짱편함
 		log.info("(♥♥♥♥♥ 4.updateGET) bno: " + bno);
 		
 		// bno에 해당하는 글 정보 가져오기 (service 사용해서),, 밑에 바아로 넣기!!
-//		service.getBoard(bno);
-
 		// 연결된 뷰에 정보 전달 (用 Model 객체)
 		model.addAttribute("vo", service.getBoard(bno));
-				// 모델 객체에다가 ~ vo라는 이름의~~ bno번 글 정보를 담겠다~~
 		
-		// 페이지 이동(기존 bno번 글 정보 출력)  -> /board/modify
-		log.info("(♥♥♥♥♥ 4.modifyGET) 리턴타입 void니까 들어온 주소 /board/modify.jsp로 이동");
+		// 페이지 이동(기존 bno번 글 정보 출력)  -> /board/update
+		log.info("(♥♥♥♥♥ 4.updateGET) 리턴타입 void니까 들어온 주소 /board/update.jsp로 이동");
 	}
 	// 4. 글 수정하기 GET (기존 정보 조회 + 뉴 정보 입력받기) 끝
 	
 	
 	
 	// 4-1. 글 수정하기 POST  (수정할 new 데이터 처리)
-	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String modifyPOST(BoardVO vo, RedirectAttributes rttr) throws Exception {
-		log.info("(♥♥♥♥♥ 4-1.modifyPOST) 호출됨");
-		// 한글 처리(생략..ㅋ web.xml에 필터 걸어놨으니까~ 오예~~)
-		// 직전 페이지에서 전달된 정보(=수정할 new 정보들) BoardVO에 저장
-		log.info("(♥♥♥♥♥ 4-1.modifyPOST) 수정할 정보들 잘 넘어왔나? vo: " + vo);
+		log.info("(♥♥♥♥♥ 4-1.updatePOST) 호출됨");
+		log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정할 정보들 잘 넘어왔나? vo: " + vo);
 		
 		// service_글 수정 메서드 호출
 		int cnt = service.updateBoard(vo);
 		
 		if(cnt == 1) {
-			// 글 썼을 때,, msg 줬던 것처럼 
 			rttr.addFlashAttribute("msg", "MOD_OK");
 			
 			// 수정 성공 시 --> listAll 페이지로 이동
-			log.info("(♥♥♥♥♥ 4-1.modifyPOST) 수정 성공^^ ㅊㅋㅊㅋ");
-			log.info("(♥♥♥♥♥ 4-1.modifyPOST) redirect:/board/listPage.jsp로 이동");
-			return "redirect:/board/listPage"; // 주소줄 변화 O + 페이지 이동 O니까 redirect
+			log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정 성공^^ ㅊㅋㅊㅋ");
+			log.info("(♥♥♥♥♥ 4-1.updatePOST) redirect:/board/list.jsp로 이동");
+			return "redirect:/board/list"; // 주소줄 변화 O + 페이지 이동 O니까 redirect
 		} else {
-			// cnt==1이 아니다,,, cnt == 0이다,,,, 다시 수정 페이지로~ 갈건데 bno 들고 가기!!
-			log.info("(♥♥♥♥♥ 4-1.modifyPOST) 수정 실패;;  /modify?bno=" + vo.getBno()+ ".jsp로 이동");
-			return "/board/modify?bno="+vo.getBno();
+			log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정 실패;;  /update?bno=" + vo.getBno()+ ".jsp로 이동");
+			return "/board/update?bno="+vo.getBno();
 		}
 		
 	}
@@ -220,24 +212,24 @@ public class BoardController {
 	
 	
 	// 5. 글삭 POST
-	@RequestMapping (value = "/remove", method = RequestMethod.POST)
+	@RequestMapping (value = "/delete", method = RequestMethod.POST)
 	public String removePOST(@RequestParam("bno") int bno, RedirectAttributes rttr) throws Exception {
-		log.info("(♥♥♥♥♥ 5.removePOST) 호출됨");
+		log.info("(♥♥♥♥♥ 5.deletePOST) 호출됨");
 		
 		// 전달 정보(bno) 저장하기..는 이미 완
-		log.info("(♥♥♥♥♥ 5.removePOST) 넘어온 bno: " + bno);
+		log.info("(♥♥♥♥♥ 5.deletePOST) 넘어온 bno: " + bno);
 		
 		// 서비스_글 삭제 메서드 호출
 		int result = service.deleteBoard(bno);
 		
 		if(result == 1) {
 			rttr.addAttribute("msg", "DEL_OK");
-			log.info("(♥♥♥♥♥ 5.removePOST) 삭제 성공");
-			log.info("(♥♥♥♥♥ 5.removePOST) redirect:/board/listPage.jsp로 이동");
-			return "redirect:/board/listPage";
+			log.info("(♥♥♥♥♥ 5.deletePOST) 삭제 성공");
+			log.info("(♥♥♥♥♥ 5.deletePOST) redirect:/board/list.jsp로 이동");
+			return "redirect:/board/list";
 		} else {
-			log.info("(♥♥♥♥♥ 5.removePOST) 삭제 실패;;");
-			return "redirect:/board/listPage";
+			log.info("(♥♥♥♥♥ 5.deletePOST) 삭제 실패;;");
+			return "redirect:/board/list";
 		}
 		
 	}

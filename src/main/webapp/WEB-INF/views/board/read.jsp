@@ -5,6 +5,7 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <h1>board/insert.jsp</h1>
+<%-- 
 <%
 	if (loginID == null) {
 %>
@@ -15,6 +16,7 @@
 <%
 	}
 %>
+ --%>
 
 <!-- ======== for 썸머노트 ============== -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
@@ -48,7 +50,7 @@
 	<div>
 		<div>
 			아이디
-			<div>
+			<div>  <!-- hidden으로 바꾸기!!! -->
 				<input type="text" name="id" value="${loginID }" readonly>
 			</div>
 		</div>
@@ -144,10 +146,7 @@
 					<h6 class="mb-5">댓글을 남겨주세요</h6>
 					<form action="./CommentWrite.bo?pageNum=${requestScope.pageNum }" method="post" name="frm" class="p-5 bg-light">
 								<input type="hidden" name="bno" value="${dto.bno }">  <!-- bno : 메인 글의 bno!! (BoardDTO의 bno!!!!) 여기가 중요 ★★★-->
-						<div class="form-group">
-							<label for="name">아이디 </label> <input type="text"
-								class="form-control cmt-update-name" id="name" name="id" value="${sessionScope.loginID }" readonly>
-						</div>
+						
 						<div class="form-group">
 							<label for="message">내용</label>
 							<textarea name="content" id="message" cols="7" rows="3" class="form-control cmt-update-content"></textarea>
@@ -167,23 +166,18 @@
 
 <script type="text/javascript">
 // jQuery 구간 시작~ =================================================
-	// jQuery 라이브러리는,, 추가 안 해도 되나용? 
-	// 넵^^ include된 header 안에 라이브러리 이미 포함되어 있음!!
   $(document).ready(function(){
 // 	  alert('jQuery 실행🎊🎊');
 	  // 버턴들 제어할 거!!!!!!!!!!!!
 	  
 	  // 글번호 정보를 포함하는 폼태그에 접근
 	  var fr = $('form[role="bno_form"]'); // role이 form인 폼태그에 접근해서 그걸 fr 변수에 담기
-	  console.log(fr);                 // 이러니까 폼태그 정보 나오네~
-	  
-	  
 	  
 	  
 	  $(".btn_mod").click(function(){
-		  alert('정상 동작 중');
+// 		  alert('정상 동작 중');
 		  // bno폼태그 속성 바꿀 거!!
-		  fr.attr("action", "/board/modify");
+		  fr.attr("action", "/board/update");
 		  fr.attr("method", "get"); // get방식으로 바꿔서 전달 
 		  fr.submit(); // 클릭하면? 속성 바꾸고 -> submit 되게~~
 	  });// 수정 버턴 click
