@@ -2,7 +2,10 @@ package com.bora.domain.openbank;
 
 import java.util.List;
 
+import lombok.Data;
+
 // 2.2.1 사용자정보조회 API 응답 데이터
+@Data
 public class UserInfoResponseVO {
 	private String api_tran_id; //거래고유번호(API)
 	private String api_tran_dtm; //거래일시(밀리세컨드)
@@ -25,102 +28,6 @@ public class UserInfoResponseVO {
 	//계좌종류는 2020.12월(실시예정)부터 등록하는 계좌에 대해 추가로 제공하는 정보로, 그 이전에 등록된 계좌에 대해서는 해당 정보가 제공되지 않을 수 있음.
 	
 	
-	public String getApi_tran_id() {
-		return api_tran_id;
-	}
-	public void setApi_tran_id(String api_tran_id) {
-		this.api_tran_id = api_tran_id;
-	}
-	public String getApi_tran_dtm() {
-		return api_tran_dtm;
-	}
-	public void setApi_tran_dtm(String api_tran_dtm) {
-		this.api_tran_dtm = api_tran_dtm;
-	}
-	public String getRsp_code() {
-		return rsp_code;
-	}
-	public void setRsp_code(String rsp_code) {
-		this.rsp_code = rsp_code;
-	}
-	public String getRsp_message() {
-		return rsp_message;
-	}
-	public void setRsp_message(String rsp_message) {
-		this.rsp_message = rsp_message;
-	}
-	public String getUser_seq_no() {
-		return user_seq_no;
-	}
-	public void setUser_seq_no(String user_seq_no) {
-		this.user_seq_no = user_seq_no;
-	}
-	public String getUser_ci() {
-		return user_ci;
-	}
-	public void setUser_ci(String user_ci) {
-		this.user_ci = user_ci;
-	}
-	public String getUser_name() {
-		return user_name;
-	}
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
-	}
-	public String getUser_info() {
-		return user_info;
-	}
-	public void setUser_info(String user_info) {
-		this.user_info = user_info;
-	}
-	public String getUser_gender() {
-		return user_gender;
-	}
-	public void setUser_gender(String user_gender) {
-		this.user_gender = user_gender;
-	}
-	public String getUser_cell_no() {
-		return user_cell_no;
-	}
-	public void setUser_cell_no(String user_cell_no) {
-		this.user_cell_no = user_cell_no;
-	}
-	public String getUser_email() {
-		return user_email;
-	}
-	public void setUser_email(String user_email) {
-		this.user_email = user_email;
-	}
-	public String getRes_cnt() {
-		return res_cnt;
-	}
-	public void setRes_cnt(String res_cnt) {
-		this.res_cnt = res_cnt;
-	}
-	public List<AccountVO> getRes_list() {
-		return res_list;
-	}
-	public void setRes_list(List<AccountVO> res_list) {
-		this.res_list = res_list;
-	}
-	public String getAcct_alias() {
-		return acct_alias;
-	}
-	public void setAcct_alias(String acct_alias) {
-		this.acct_alias = acct_alias;
-	}
-	public String getBank_name() {
-		return bank_name;
-	}
-	public void setBank_name(String bank_name) {
-		this.bank_name = bank_name;
-	}
-	public String getAcct_num() {
-		return acct_num;
-	}
-	public void setAcct_num(String acct_num) {
-		this.acct_num = acct_num;
-	}
 	public UserInfoResponseVO(String api_tran_id, String api_tran_dtm, String rsp_code, String rsp_message,
 			String user_seq_no, String user_ci, String user_name, String user_info, String user_gender,
 			String user_cell_no, String user_email, String res_cnt, List<AccountVO> res_list, String acct_alias,
@@ -143,6 +50,7 @@ public class UserInfoResponseVO {
 		this.bank_name = bank_name;
 		this.acct_num = acct_num;
 	}
+	
 	@Override
 	public String toString() {
 		return "UserInfoResponseVO [api_tran_id=" + api_tran_id + ", api_tran_dtm=" + api_tran_dtm + ", rsp_code="
