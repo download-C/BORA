@@ -75,7 +75,7 @@ String loginID = (String)session.getAttribute("loginID");
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <li><a class="nav-link scrollto" href="#services">리포트</a></li>
-          <li><a class="nav-link scrollto " href="#portfolio">자산관리</a></li>
+          <li><a class="nav-link scrollto " href="/openbank/oauth">자산관리</a></li>
           <li><a class="nav-link scrollto" href="#team">마이페이지</a></li>
           <li><a class="nav-link scrollto" href="#contact">고객센터</a></li>
         </ul>

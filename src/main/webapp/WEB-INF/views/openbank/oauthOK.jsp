@@ -1,16 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>openbank/oauthOK.jsp</title>
-</head>
-<body>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ include file="../include/header.jsp"%>
+<!-- ${pageContext.request.contextPath} -->
+<h1>openbank/oauthOK.jsp</h1>
 
-<h1>사용자 인증완료</h1>
+<h2>세션 토큰 : ${sessionScope.token }</h2>
 
-<h4>액세스 토큰 : 22${responseToken.access_token }</h4>
+<h4>액세스 토큰 : ${responseToken.access_token }</h4>
 <h4>사용자 번호 : ${responseToken.user_seq_no }</h4>
 <h4>token_type : ${responseToken.token_type }</h4>
 <h4>expires_in : ${responseToken.expires_in }</h4>
@@ -90,9 +87,24 @@
 		<input type="hidden" name="sort_order" value="D">
 		<input type="submit" value="출금이체">
 	</form><hr>    
+<hr><hr><hr>
+	
+	<hr>
+     <form method="post" action="/openbank/card/registCard">
+        <%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+		<input type="hidden" name="access_token" value="${responseToken.access_token }">
+		<input type="hidden" name="member_bank_code" value="D">
+		<input type="hidden" name="Info_prvd_agmt_yn" value="V">
+		<input type="submit" value="카드등록">
+     </form>
      
-     
-     
-     
-</body>
-</html>
+     <hr>
+     <form method="get" action="/openbank/card/cardList">
+        <%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+		<input type="hidden" name="access_token" value="${responseToken.access_token }">
+		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }">
+		<input type="hidden" name="member_bank_code" value="D">
+		<input type="hidden" name="befor_inquiry_trace_info" value="V">
+		<input type="submit" value="카드목록">
+     </form>
+<%@ include file="../include/footer.jsp"%>

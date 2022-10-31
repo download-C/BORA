@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.bora.mapper.MainMapper">
+	  <!-- 1. 회원가입 -->
+	<insert id="joinMember">
+		insert into bora_members (id, pw, name, nick, phone, email)
+		values (#{id}, #{pw}, #{name}, #{nick}, #{phone}, #{email})
+	</insert>
+	
+	<!-- 2. 아이디와 비밀번호로 로그인 -->
+	<select id="loginMember" resultType="MemberVO">
+		select * from bora_members where id=#{id} and pw=#{pw}
+	</select>
+  </mapper>

@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>openbank/oauth.jsp</title>
-</head>
-<body>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ include file="../include/header.jsp"%>
+<!-- ${pageContext.request.contextPath} -->
+<h1> openbank/oauth.jsp</h1>
+
 
 <h1>인증 요청 작업</h1>
 
@@ -20,11 +18,6 @@
 		<input type="hidden" name="auth_type" value="0"> 
 		<input type="submit" value="토큰 발급">
 	</form>
-	
-	
-	
-	
-	
 
-</body>
-</html>
+
+<%@ include file="../include/footer.jsp"%>

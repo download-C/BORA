@@ -1,6 +1,10 @@
 package com.bora.domain.openbank;
 
+import lombok.Data;
+
 // 2.2.3. 등록계좌조회 API 요청 데이터
+
+@Data
 public class AccountSearchRequestVO {
     private String access_token;
     private String user_seq_no;

@@ -17,15 +17,6 @@ public class MemberServiceImpl implements MemberService{
 
 	private static final Logger log = LoggerFactory.getLogger(MemberServiceImpl.class);
 	
-	@Override
-	public void joinMember(MemberVO vo) throws Exception {
-		dao.joinMember(vo);
-	}
-
-	@Override
-	public MemberVO loginMember(MemberVO vo) throws Exception {
-		return dao.loginMember(vo);
-	}
 
 	@Override
 	public MemberVO getMember(String id) throws Exception {

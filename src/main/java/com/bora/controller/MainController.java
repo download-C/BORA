@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.domain.MemberSHA256;
 import com.bora.domain.MemberVO;
+import com.bora.service.MainService;
 import com.bora.service.MemberService;
 
 @RequestMapping("/main/*")
@@ -21,16 +22,19 @@ public class MainController {
 	private static final Logger log = LoggerFactory.getLogger(MainController.class);
 
 	@Inject
-	MemberService mService;
+	MemberService memberService;
+	
+	@Inject
+	MainService mainService;
 	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public void main() {
+	public void main() throws Exception{
 		log.info("/main -> main.jsp");
 	}
 
 	// http://localhost:8088/main/join
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
-	public void joinGET() {
+	public void joinGET() throws Exception{
 		log.info("/main/join -> join.jsp");
 	}
 
@@ -59,7 +63,7 @@ public class MainController {
 
 		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡회원가입 정보: " + vo);
 
-		mService.joinMember(vo);
+		mainService.joinMember(vo);
 		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡회원가입 성공");
 
 		return "redirect:/main/login";
@@ -76,10 +80,10 @@ public class MainController {
 		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡loginPOST() 호출");
 		// 사용자가 입력한 비밀번호 암호화
 		String encryptPw = MemberSHA256.encrypt(vo.getPw());
-		log.info(encryptPw);
+		log.info("암호화된 비밀번호"+encryptPw);
 		// 암호화된 비밀번호로 수정
 		vo.setPw(encryptPw);
-		MemberVO vo2 = mService.loginMember(vo);
+		MemberVO vo2 = mainService.loginMember(vo);
 		if (vo2 != null) {
 			session.setAttribute("loginID", vo2.getId());
 			rttr.addFlashAttribute("msg", vo2.getNick() + "님, 환영합니다♡");

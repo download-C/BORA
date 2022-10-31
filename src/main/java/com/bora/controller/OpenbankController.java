@@ -1,5 +1,8 @@
 package com.bora.controller;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +34,17 @@ public class OpenbankController {
 	@Autowired
 	private OpenBankingService openBankingService;
 	
-	
+	@Inject
+	HttpSession session;
 
 	private static final Logger log = LoggerFactory.getLogger(OpenbankController.class);
+	
+	// http://localhost:8088/openbank/oauth
+	@RequestMapping(value = "/oauth", method = RequestMethod.GET)
+	public String openbank() {
+		log.info("%%%%%%%%%%%%%% /oauth -> oauth.jsp");
+		return "/openbank/oauth";
+	}
 	
 	// http://localhost:8088/openbank/oauth
 	@RequestMapping(value = "/callback", method = RequestMethod.GET)
@@ -46,13 +57,14 @@ public class OpenbankController {
 		log.info("clinet_info : "+requestTokenVO.getClient_info());
 		log.info("state : "+requestTokenVO.getState());
 		
-		
 		//토큰발급
 		ResponseTokenVO responseToken=
 			openBankingService.requestToken(requestTokenVO);
 		
 		//정보들고 토큰발급으로 이동
+//		model.addAttribute("responseToken", responseToken);
 		model.addAttribute("responseToken", responseToken);
+		session.setAttribute("token", responseToken.getAccess_token());
 	    //return "redirect:/openbank/oauth_ok";
 	    return "/openbank/oauthOK";
 	}

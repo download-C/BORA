@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bora.domain.MemberVO;
+import com.bora.persistence.MainDAO;
 import com.bora.persistence.MemberDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,6 +24,9 @@ public class MemberDAOTest {
 	
 	@Inject
 	private MemberDAO dao;
+	
+	@Inject
+	private MainDAO mainDAO;
 	
 	@Inject
 	@Resource(name = "bcryptPasswordEncoder")
@@ -50,7 +54,7 @@ public class MemberDAOTest {
 		vo.setPhone("01012345678");
 		vo.setEmail("email@naver.com");
 		
-		dao.joinMember(vo);
+		mainDAO.joinMember(vo);
 		
 		log.info("vo: "+vo);
 	} 
@@ -61,7 +65,7 @@ public class MemberDAOTest {
 		MemberVO vo = new MemberVO();
 		vo.setId("admin");
 		vo.setPw("1234");
-		MemberVO vo2 = dao.loginMember(vo);
+		MemberVO vo2 = mainDAO.loginMember(vo);
 		if(vo2 != null) log.info("♡♡♡♡♡♡♡로그인 성공: "+vo);
 		else log.info("♡♡♡♡♡♡♡로그인 실패");
 	}

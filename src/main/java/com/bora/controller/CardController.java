@@ -1,5 +1,8 @@
 package com.bora.controller;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,51 +26,57 @@ import com.bora.domain.openbank.UserInfoRequestVO;
 import com.bora.domain.openbank.UserInfoResponseVO;
 
 @Controller
-public class OpenBankingCardController {
+@RequestMapping(value="/openbank/card/*")
+public class CardController {
 	//객체생성
 	@Autowired
 	private OpenBankingCardService openBankingService;
 	
-	@RequestMapping(value = "/callback",method = RequestMethod.GET)
-	public String getToken(RequestTokenVO requestTokenVO, Model model) throws Exception{
-		//인증
-		System.out.println("code : "+requestTokenVO.getCode());
-//		System.out.println(requestTokenVO.getScope());
-//		System.out.println(requestTokenVO.getClient_info());
-//		System.out.println(requestTokenVO.getState());
-		
-		//토큰발급
-		ResponseTokenVO responseToken=
-			openBankingService.requestToken(requestTokenVO);
-		
-		//정보들고
-		model.addAttribute("responseToken", responseToken);
-		return "bank_main";
-	}
-	// 사용자 정보 조회
-	@RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-	public String getUserInfo(UserInfoRequestVO userInfoRequestVO, Model model) {
-		System.out.println("userInfo");
-		// Service 객체의 findUser() 메서드를 호출하여 사용자 정보 조회
-		// => 파라미터 : UserInfoRequestVO, 리턴타입 UserInfoResponseVO
-		UserInfoResponseVO userInfo = openBankingService.findUser(userInfoRequestVO);
-
-		// Model 객체에 UserInfoResponseVO 객체와 엑세스토큰 저장
-	    model.addAttribute("userInfo", userInfo);
-		model.addAttribute("access_token", userInfoRequestVO.getAccess_token());
-
-		return "card/card_user_info";
-	}
+	@Inject
+	HttpSession session;
+	
+//	@RequestMapping(value = "/callback",method = RequestMethod.GET)
+//	public String getToken(RequestTokenVO requestTokenVO, Model model) throws Exception{
+//		//인증
+//		System.out.println("code : "+requestTokenVO.getCode());
+////		System.out.println(requestTokenVO.getScope());
+////		System.out.println(requestTokenVO.getClient_info());
+////		System.out.println(requestTokenVO.getState());
+//		
+//		//토큰발급
+//		ResponseTokenVO responseToken=
+//			openBankingService.requestToken(requestTokenVO);
+//		
+//		//정보들고
+//		model.addAttribute("responseToken", responseToken);
+//		return "bank_main";
+//	}
+//	// 사용자 정보 조회
+//	@RequestMapping(value = "/userInfo", method = RequestMethod.GET)
+//	public String getUserInfo(UserInfoRequestVO userInfoRequestVO, Model model) {
+//		System.out.println("userInfo");
+//		// Service 객체의 findUser() 메서드를 호출하여 사용자 정보 조회
+//		// => 파라미터 : UserInfoRequestVO, 리턴타입 UserInfoResponseVO
+//		UserInfoResponseVO userInfo = openBankingService.findUser(userInfoRequestVO);
+//
+//		// Model 객체에 UserInfoResponseVO 객체와 엑세스토큰 저장
+//	    model.addAttribute("userInfo", userInfo);
+//		model.addAttribute("access_token", userInfoRequestVO.getAccess_token());
+//
+//		return "card/card_user_info";
+//	}
+	
 	// 카드사용자 등록
+	// http://localhost:8088//openbank/card/registCard
 	@RequestMapping(value = "/registCard", method = RequestMethod.GET)
-	public String getRegistCard( RegistCardRequestVO registCardRequestVO, Model model) {
-			
+	public String getRegistCard(RegistCardRequestVO registCardRequestVO, Model model) {
+		String access_token = (String)session.getAttribute("토큰 변수명");
 		System.out.println("registCard");
 			
 		// Service 객체의 registCard() 메서드를 호출하여 사용자 정보 조회
 		// => 파라미터 : RegistCardRequestVO, 리턴타입 RegistCardResponseVO
 		RegistCardResponseVO registCard = openBankingService.registCard(registCardRequestVO);
-
+		registCardRequestVO.setAccess_token(access_token);
 		System.out.println("registCardRequestVO : "+registCardRequestVO.getAccess_token());
 		System.out.println("registCardRequestVO : "+registCardRequestVO.getMember_bank_code());
 		System.out.println("registCardRequestVO : "+registCardRequestVO.getInfo_prvd_agmt_yn());
@@ -76,7 +85,7 @@ public class OpenBankingCardController {
 		model.addAttribute("registCard", registCard);
 		model.addAttribute("access_token", registCardRequestVO.getAccess_token());
 
-		return "bank_main";
+		return "redirect:/bank_main";
 	}
 
 	// 카드목록 조회
