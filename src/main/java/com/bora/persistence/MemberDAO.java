@@ -12,4 +12,8 @@ public interface MemberDAO {
 
 	public MemberVO getMemberNick(String nick) throws Exception;
 
+	public int updateMember(MemberVO vo) throws Exception;
+
+	public int deleteMember(String id) throws Exception;
+
 }

@@ -1,3 +1,3 @@
 # BORA
 
-<img src="src/main/webapp/WEB-INF/views/img/marker.png">
+<img src="src/main/webapp/resources/img/marker.png">

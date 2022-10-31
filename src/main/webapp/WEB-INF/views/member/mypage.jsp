@@ -11,7 +11,14 @@ if(loginID==null) {%>
 	location.href="/member/login";
 </script>
 <%} %>
- 
+<script>
+$(document).ready(function() {
+    let message = "${msg}";
+    if (message != "") {
+        alert(message);
+    }
+})
+</script>
 	
 
 <div class="mypage">
@@ -19,7 +26,7 @@ if(loginID==null) {%>
 		<div><input type="text" value="${vo.id }" readonly="readonly"></div>
 	</div> 
 	<div>비밀번호 
-		<div><input type="password" value="${vo.pw }" readonly="readonly"></div>
+		<div><input type="password" value="" readonly="readonly"></div>
 	</div> 
 	<div>이름
 		<div> <input type="text" value="${vo.name }" readonly="readonly"></div>
@@ -36,5 +43,6 @@ if(loginID==null) {%>
 	<div>
 	<input type="button" value="수정하기" onclick="location.href='/member/password';">
 	</div>
+	<div><a href="/member/delete">탈퇴하기</a></div>
 </div>
 <%@ include file="../include/footer.jsp"%>

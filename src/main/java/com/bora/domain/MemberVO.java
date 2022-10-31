@@ -13,5 +13,7 @@ public class MemberVO {
 	private String nick;
 	private String phone;
 	private String email;
+	private String authority;
+	private boolean enabled;
 	private Timestamp regdate;
 }

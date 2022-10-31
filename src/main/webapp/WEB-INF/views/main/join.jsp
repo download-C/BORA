@@ -123,7 +123,7 @@ $(document).ready(function(){
 <hr>
 <div id="container" role="main">
 	<div id="content">
-		<form action="${pageContext.request.contextPath}/member/join" method="post" id="join">
+		<form action="/main/join" method="post" id="join">
 			<!-- tg-text=title -->
 			<h2 class="">보라 회원가입</h2>
 			<div class="join_content">
