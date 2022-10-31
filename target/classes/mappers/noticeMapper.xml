@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.bora.mapper.NoticeMapper">
+	<insert id="writeNotice">
+		insert into bora_notice(n_subject, n_content, n_file, n_readcount) 
+		values (#{n_subject}, #{n_content}, #{n_file}, 0)
+	</insert>
+	
+	<update id="updateNotice">
+		update bora_notice
+		set n_subject=#{n_subject}, n_content=#{n_content}, 
+		n_filename=#{n_filename}, n_uploadfoler=#{uploadfolder}
+		where nno=#{nno}
+	</update>
+	
+	<select id="getNoticeListAll" resultType="NoticeVO">
+		select * from bora_notice
+		order by regdate desc;
+	</select>
+	
+	<select id="getNoticeListPage" resultType="NoticeVO">
+		select * from bora_notice
+		order by regdate desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="getNotice"  resultType="NoticeVO">
+		select * from bora_notice
+		where nno=#{nno}
+	</select>
+	
+	<update id="updateNoticeReadcount">
+		update bora_notice
+		set n_readcount = n_readcount+1
+		where nno=#{nno}
+	</update>
+	
+	<delete id="deleteNotice">
+		delete from bora_notice
+		where nno=#{nno}
+	</delete>
+</mapper>
