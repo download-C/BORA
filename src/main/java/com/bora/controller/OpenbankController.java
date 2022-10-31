@@ -34,6 +34,7 @@ import com.bora.service.OpenBankingService;
 @Controller
 @RequestMapping("/openbank/*")
 public class OpenbankController {
+	
 	//객체생성
 	@Autowired
 	private OpenBankingService openBankingService;
@@ -53,7 +54,7 @@ public class OpenbankController {
 	// http://localhost:8088/openbank/oauth
 	@RequestMapping(value = "/callback", method = RequestMethod.GET)
 	public String getToken(RequestTokenVO requestTokenVO, Model model) throws Exception{
-		log.info("👻👻👻👻👻👻👻👻👻👻👻👻👻👻👻  사용자인증 확인");
+		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  사용자인증 확인");
 		log.info("/openbank/oauthOK 로 이동");
 
 		log.info("code : "+requestTokenVO.getCode());
@@ -88,7 +89,7 @@ public class OpenbankController {
 			
 			// Model 객체에 UserInfoResponseVO 객체와 엑세스토큰 저장
 			model.addAttribute("userInfo", userInfo);
-			model.addAttribute("access_token", userInfoRequestVO.getAccess_token());
+			session.setAttribute("access_token", userInfoRequestVO.getAccess_token());
 			
 			return "/openbank/acct_user_info";
 		}
@@ -105,7 +106,7 @@ public class OpenbankController {
 			
 			// Model 객체에 AccountSearchResponseVO 객체와 엑세스토큰 저장
 			model.addAttribute("accountList", accountList);
-			model.addAttribute("access_token", accountSearchRequestVO.getAccess_token());
+			session.setAttribute("access_token", accountSearchRequestVO.getAccess_token());
 			
 			return "/openbank/acct_list";
 		}
@@ -122,7 +123,7 @@ public class OpenbankController {
 			
 			// Model 객체에 AccountcancelResponseVO 객체와 엑세스토큰 저장
 			model.addAttribute("accountCancel", accountCancel);
-			model.addAttribute("access_token", accountCancelRequestVO.getAccess_token());
+			session.setAttribute("access_token", accountCancelRequestVO.getAccess_token());
 			
 			return "/openbank/acct_cancel";
 		}
@@ -139,7 +140,7 @@ public class OpenbankController {
 			
 			// Model 객체에 AccountcancelResponseVO 객체와 엑세스토큰 저장
 			model.addAttribute("accountBalance", accountBalance);
-			model.addAttribute("access_token", accountBalanceRequestVO.getAccess_token());
+			session.setAttribute("access_token", accountBalanceRequestVO.getAccess_token());
 			
 			return "/openbank/acct_balance";
 		}
@@ -158,7 +159,7 @@ public class OpenbankController {
 			// Model 객체에 AccountcancelResponseVO 객체와 엑세스토큰 저장
 			model.addAttribute("accountTran", accountTran);
 //			model.addAttribute("access_token", accountTranRequestVO.getAccess_token());
-			model.addAttribute("bank_tran_id", accountTranRequestVO.getBank_tran_id());
+			session.setAttribute("bank_tran_id", accountTranRequestVO.getBank_tran_id());
 			
 			return "/openbank/acct_tran";
 		}
@@ -176,7 +177,7 @@ public class OpenbankController {
 			
 			// Model 객체에 AccountcancelResponseVO 객체와 엑세스토큰 저장
 			model.addAttribute("tranWithdraw", tranWithdraw);
-			model.addAttribute("access_token", tranWithdrawRequestVO.getAccess_token());
+			session.setAttribute("access_token", tranWithdrawRequestVO.getAccess_token());
 			
 			return "/openbank/tran_withdraw";
 		}
@@ -193,7 +194,7 @@ public class OpenbankController {
 					
 			// Model 객체에 tranDepositResponseVO 객체와 엑세스토큰 저장
 			model.addAttribute("tranDeposit", tranDeposit);
-			model.addAttribute("access_token", tranDepositRequestVO.getAccess_token());
+			session.setAttribute("access_token", tranDepositRequestVO.getAccess_token());
 					
 			return "/openbank/tran_deposit";
 		}
@@ -210,7 +211,7 @@ public class OpenbankController {
 					
 			// Model 객체에 tranResultResponseVO 객체와 엑세스토큰 저장
 			model.addAttribute("tranResult", tranResult);
-			model.addAttribute("access_token", tranResultRequestVO.getAccess_token());
+			session.setAttribute("access_token", tranResultRequestVO.getAccess_token());
 					
 			return "/openbank/tran_result";
 		}
