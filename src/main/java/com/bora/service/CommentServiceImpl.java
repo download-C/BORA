@@ -26,6 +26,8 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public Integer insertCmt(CommentVO vo) throws Exception {
 		log.info("(●ˇ∀ˇ●)1.insertCmt(vo)  호출됨");
+		// cno max값 구하는 메서드 불러와서 setCno 해주고 -> VO 완성시켜서 dao 호출
+		vo.setCno(dao.countCno());
 		log.info("(●ˇ∀ˇ●)1.insertCmt(vo)  dao 호출합니다  vo: " + vo);
 		return dao.insertCmt(vo);
 	}

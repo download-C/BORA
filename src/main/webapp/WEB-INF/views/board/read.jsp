@@ -4,7 +4,7 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<h1>board/insert.jsp</h1>
+<h1>board/read.jsp</h1>
 <%-- 
 <%
 	if (loginID == null) {
@@ -39,6 +39,93 @@
 <!-- ======== for 썸머노트 끝 ============== -->
 
 
+<!-- ======= for 댓글,, comment.js 파일 추가 및 테스트======= -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/comment.js"></script>
+<script type="text/javascript">
+// $(document).ready(function(){
+// 	console.log(cmtService);
+// }); // jquery ready
+
+
+var bnoValue = '<c:out value="${vo.bno}"/>';
+
+// 1. add(cmt, callback, error)
+// cmtService.add(
+// 	// cmt
+// 	{c_content: "아 쏘 이지네 ㅋ ", id:"ghgh", bno:bnoValue},
+	
+// 	// callback
+// 	function(result){
+// 		alert("RESULT: " + result);
+// 	}
+// );// add()
+
+
+// 2. getCmtList(param, callback, error)
+// cmtService.getCmtList(
+// 		// param
+// 		{bno:bnoValue, page:1}, 
+		
+// 		// callback
+// 		function(rList){
+
+// 			for(var i = 0, len = rList.length || 0; i < len; i++) {
+// 				console.log(rList[i]);
+// 			}
+// 		}
+//  );// getCmtList()
+
+ 
+// 3. deleteCmt(cno, callback, error)
+// cmtService.deleteCmt(
+// 		// cno
+// 		12, 
+		
+// 		// callback
+// 		function(deleteResult){
+// 			console.log("deleteResult: " + deleteResult);
+	
+// 			if(deleteResult === "success") {
+// 				alert("댓글이 삭제되었습니다");
+// 			}
+// 		}, 
+	
+// 		// error
+// 		function(error){
+// 			alert("에러...... ");
+// 		}
+// );// deleteCmt()
+
+
+// 4. updateCmt(cmtVO, callback, error)
+// cmtService.updateCmt(
+// 		// cmtVO
+// 		{ cno : 10,
+// 		  bno : bnoValue,
+// 		  c_content : "10번 댓글 수정합니다 수정 수정"},
+		
+// 		// callback
+// 		function(rData){
+// 			alert("댓글 수정 완");
+// 		}
+// );// updateCmt()
+
+
+// 5. getCmtOne(cno, callback, error)
+// cmtService.getCmtOne(
+// 		// cno
+// 		10, 
+		
+// 		// callback
+// 		function(rData){
+// 			console.log(rData);
+// 		});// getCmtOne()
+
+</script>
+<!-- ======= for 댓글,, comment.js 파일 추가 및 테스트 끝 ======= -->
+
+
+
 <h1>${vo.bno }번 글 🐱🐶 상세 보기 🐱🐶 </h1>
 
 		<!-- 수정, 삭제 시 필요한 글 번호(bno) 저장하는 폼태그 =====================-->
@@ -50,8 +137,8 @@
 	<div>
 		<div>
 			아이디
-			<div>  <!-- hidden으로 바꾸기!!! -->
-				<input type="text" name="id" value="${loginID }" readonly>
+			<div>  <!-- hidden으로 바꾸기!!!  -->
+				<input type="text" name="id" value="${vo.id}" readonly>
 			</div>
 		</div>
 		<br>
@@ -98,54 +185,43 @@
 	
 	
 	<!-- ----------------------- 댓글 리스트 구간 --------------------------------- -->
-		<input type="hidden" name="c_bno" value="${cdto.c_bno }">
-			<section style="width: 80%; height: 40%">
-				<div class="mt-5">
-					<hr style="width: 130%;">
-					<h6 class="mb-5">댓글</h6>
-					<ul class="comment-list">
-						<c:forEach var="cdto" items="${cmtList }">
-							<li class="comment">
-								<div class="vcard bio">
-									<img src="./images/Chacalogo.jpg" alt="Image placeholder">
-								</div>
-								<div class="comment-body">
-									<h3>
-<%-- 										<script>hide_email( </script> ${cdto.id} <script>);</script>  --%>
-<%-- 										${cdto.id} / --%>
-										<c:set var="str1" value = "${cdto.id}" />
-<%-- 										<c:set var="str2" value = "${fn:substring(str1, 0, 3) }" />  --%>
-<%-- 										${str2 }***** --%>
-									</h3>
-									<div class="meta">
-										<fmt:formatDate value="${cdto.date }"
-											pattern="yyyy.MM.dd hh:mm" />
-														<!-- 댓글 삭제 버턴,,
-																지 거만 지울 수 있게,,, + admin일 때
-																세션 로그인 아이디 == cdto에서 꺼내온 아이디 -->
-											<c:if test="${sessionScope.loginID eq cdto.id || sessionScope.loginID eq 'admin'}">
-												<input type="button" value="삭제" class="Bbtn btn1" 
-												onclick="location.href='./CommentDelete.bo?c_bno=${cdto.c_bno}&bno=${dto.bno }';"
-												style="padding: 3px; font-size: x-small; margin: 0px;">
-											</c:if>
-									</div>
-									<p style="font-size: larger;">${cdto.content }</p>
-								</div>
-							</li>
-						</c:forEach>
-					</ul>
+	<div style="border: 1px solid black">
+		<div>
+			<h6>댓글</h6>
+		</div>
+		<ul id="cmt">
+			<li data-cno='2'>
+				<div id="cmt-body">
+					<div id="cmt-header">
+						<strong>user_id,, nick</strong> <small>regdate </small>
+					</div>
+					<p>c_content</p>
+	
 				</div>
+			</li>
+		</ul>
+	</div>
+<%-- 							<fmt:formatDate value="${cdto.date }" pattern="yyyy.MM.dd hh:mm" /> --%>
+											<!-- 댓글 삭제 버턴,,
+													지 거만 지울 수 있게,,, + admin일 때
+													세션 로그인 아이디 == cdto에서 꺼내온 아이디 -->
+								<c:if test="${sessionScope.loginID eq cdto.id || sessionScope.loginID eq 'admin'}">
+									<input type="button" value="삭제" class="Bbtn btn1" 
+									onclick="location.href='./CommentDelete.bo?c_bno=${cdto.c_bno}&bno=${dto.bno }';"
+									style="padding: 3px; font-size: x-small; margin: 0px;">
+								</c:if>
+						</div>
+					</div>
 
 				<!-- ----------------------- 댓글 리스트 구간 끝^^ --------------------------------- -->
 				
 		      
 				<!-- ----------------------- 댓글 작성 구간^^ --------------------------------- -->
 
-				<div class="comment-form-wrap pt-5" style="width: 70%; ">
-					<hr style="width: 180%;">
-					<h6 class="mb-5">댓글을 남겨주세요</h6>
-					<form action="./CommentWrite.bo?pageNum=${requestScope.pageNum }" method="post" name="frm" class="p-5 bg-light">
-								<input type="hidden" name="bno" value="${dto.bno }">  <!-- bno : 메인 글의 bno!! (BoardDTO의 bno!!!!) 여기가 중요 ★★★-->
+				<div style="border: 1px solid black;">
+					<h6>댓글을 남겨주세요</h6>
+					<form action="/comments/new" method="post" name="frm">
+								<input type="hidden" name="bno" value="${vo.bno }">  <!-- bno : 메인 글의 bno!! (BoardDTO의 bno!!!!) 여기가 중요 ★★★-->
 						
 						<div class="form-group">
 							<label for="message">내용</label>
@@ -158,7 +234,6 @@
 						
 					</form>
 				</div>
-				</section>
 				<!-- ----------------------- 댓글 작성 구간 끝^^ --------------------------------- -->
 	
 	
