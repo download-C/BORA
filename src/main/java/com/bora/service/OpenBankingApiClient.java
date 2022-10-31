@@ -10,10 +10,18 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.bora.domain.openbank.AccountBalanceRequestVO;
+import com.bora.domain.openbank.AccountBalanceResponseVO;
+import com.bora.domain.openbank.AccountCancelRequestVO;
+import com.bora.domain.openbank.AccountCancelResponseVO;
 import com.bora.domain.openbank.AccountSearchRequestVO;
 import com.bora.domain.openbank.AccountSearchResponseVO;
+import com.bora.domain.openbank.AccountTranRequestVO;
+import com.bora.domain.openbank.AccountTranResponseVO;
 import com.bora.domain.openbank.RequestTokenVO;
 import com.bora.domain.openbank.ResponseTokenVO;
+import com.bora.domain.openbank.TranWithdrawRequestVO;
+import com.bora.domain.openbank.TranWithdrawResponseVO;
 import com.bora.domain.openbank.UserInfoRequestVO;
 import com.bora.domain.openbank.UserInfoResponseVO;
 
@@ -23,7 +31,7 @@ public class OpenBankingApiClient {
 	// 변수 정의 
 	private String client_id="d30735e2-bd2d-4a1d-84c7-414bd28660c1";
 	private String client_secret="2aab5ea7-0fc7-4e80-b451-95c418a0f5ca";
-	private String redirect_uri="http://localhost:8088/bora/callback";
+	private String redirect_uri="http://localhost:8088/openbank/callback";
 	private String grant_type="authorization_code";
 	// 기본 주소
 	private String baseUrl = "https://testapi.openbanking.or.kr/v2.0";
@@ -41,13 +49,13 @@ public class OpenBankingApiClient {
 		return httpHeaders;
 	}
 	
-	
+	//토큰발급
 	public ResponseTokenVO requestToken(RequestTokenVO requestTokenVO) {
-//		요청 메시지 URL
-//HTTP URL 	https://testapi.openbanking.or.kr/oauth/2.0/token
-//HTTP Method POST
-//Content-Type application/x-www-form-urlencoded; charset=UTF-8
-//요청값code client_id client_secret redirect_uri grant_type
+		//		요청 메시지 URL
+		//HTTP URL 	https://testapi.openbanking.or.kr/oauth/2.0/token
+		//HTTP Method POST
+		//Content-Type application/x-www-form-urlencoded; charset=UTF-8
+		//요청값code client_id client_secret redirect_uri grant_type
 		restTemplate=new RestTemplate();
 		httpHeaders=new HttpHeaders();
 		// Content-Type 지정 http header
@@ -72,57 +80,163 @@ public class OpenBankingApiClient {
 	}
 	
 	// 사용자 정보 조회
-		public UserInfoResponseVO findUser(UserInfoRequestVO userInfoRequestVO) {
-			/// REST 방식 요청에 필요한 객체 생성
-			restTemplate = new RestTemplate();
-			httpHeaders = new HttpHeaders();
-			
-			// 2.2.1 사용자정보조회 API URL 주소 생성
-			String url = baseUrl + "/user/me";
-			
-			// HttpHeaders 와 HttpBody 오브젝트를 하나의 객체로 관리하기 위한 HttpEntity 객체 생성
-			// => 파라미터로 HttpHeaders 객체 전달을 위해 
-			//    헤더 생성 작업을 수행하는 사용자 정의 메서드 setHeaderAccessToken() 호출
-			//    (파라미터로 엑세스 토큰 전달 => UserInfoRequestVO 객체에 저장되어 있음)
-			HttpEntity<String> openBankingUserInfoRequest = 
-					new HttpEntity<String>(setHeaderAccessToken(userInfoRequestVO.getAccess_token()));
-			
-			// UriComponentsBuilder 클래스의 fromHttpUrl() 메서드를 호출하여 URL 파라미터 정보 생성
-			// 1단계. UriComponentsBuilder.fromHttpUrl() 메서드를 호출하여 요청 URL 주소 전달
-			// 2단계. 1단계에서 생성된 객체의 queryParam() 메서드를 호출하여 전달할 파라미터를
-			//        키, 값 형식으로 전달
-			// 3단계. 2단계에서 생성된 객체의 build() 메서드를 호출하여 UriComponents 객체 리턴(생성)
-			// 위의 세 과정을 빌더 패턴(Builder Pattern)을 활용하여 하나의 문장으로 압축 가능
-			// (자기 자신을 리턴하는 메서드 호출 후 연쇄적으로 메서드를 이어나가는 것)
-			UriComponents uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
-					.queryParam("user_seq_no", userInfoRequestVO.getUser_seq_no())
-					.build();
-			
-			// exchange() 메서드 파라미터 : UriBuilder 문자열로 변환, 요청방식, HttpEntity 객체,
-			//                              응답데이터를 파싱하기 위한 클래스(.class 필수)
-			// => 메서드 뒤에 .getBody() 메서드를 호출하여 body 데이터에 대한 파싱된 결과를 리턴받기
-			return restTemplate.exchange(uriBuilder.toString(), HttpMethod.GET, openBankingUserInfoRequest, UserInfoResponseVO.class).getBody();
-		}
-
-		public AccountSearchResponseVO findAccount(AccountSearchRequestVO accountSearchRequestVO) {
-			/// REST 방식 요청에 필요한 객체 생성
-			restTemplate = new RestTemplate();
-			httpHeaders = new HttpHeaders();
-			
-			// 2.2.1 사용자정보조회 API URL 주소 생성
-			String url = baseUrl + "/openbank/acct_list";
-
-			httpHeaders.add("Authorization", "Bearer " + accountSearchRequestVO.getAccess_token());
-			
-			HttpEntity<String> openBankingAccountListRequest = new HttpEntity<String>(httpHeaders);
-			
-			UriComponents uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
-					.queryParam("user_seq_no", accountSearchRequestVO.getUser_seq_no())
-					.queryParam("include_cancel_yn", accountSearchRequestVO.getInclude_cancel_yn())
-					.queryParam("sort_order", accountSearchRequestVO.getSort_order())
-					.build();
-			
-			return restTemplate.exchange(uriBuilder.toString(), HttpMethod.GET, openBankingAccountListRequest, AccountSearchResponseVO.class).getBody();
-		}
+	public UserInfoResponseVO findUser(UserInfoRequestVO userInfoRequestVO) {
+		/// REST 방식 요청에 필요한 객체 생성
+		restTemplate = new RestTemplate();
+		httpHeaders = new HttpHeaders();
 		
+		// 2.2.1 사용자정보조회 API URL 주소 생성
+		String url = baseUrl + "/user/me";
+		
+		// HttpHeaders 와 HttpBody 오브젝트를 하나의 객체로 관리하기 위한 HttpEntity 객체 생성
+		// => 파라미터로 HttpHeaders 객체 전달을 위해 
+		//    헤더 생성 작업을 수행하는 사용자 정의 메서드 setHeaderAccessToken() 호출
+		//    (파라미터로 엑세스 토큰 전달 => UserInfoRequestVO 객체에 저장되어 있음)
+		HttpEntity<String> openBankingUserInfoRequest = 
+				new HttpEntity<String>(setHeaderAccessToken(userInfoRequestVO.getAccess_token()));
+		
+		// UriComponentsBuilder 클래스의 fromHttpUrl() 메서드를 호출하여 URL 파라미터 정보 생성
+		// 1단계. UriComponentsBuilder.fromHttpUrl() 메서드를 호출하여 요청 URL 주소 전달
+		// 2단계. 1단계에서 생성된 객체의 queryParam() 메서드를 호출하여 전달할 파라미터를
+		//        키, 값 형식으로 전달
+		// 3단계. 2단계에서 생성된 객체의 build() 메서드를 호출하여 UriComponents 객체 리턴(생성)
+		// 위의 세 과정을 빌더 패턴(Builder Pattern)을 활용하여 하나의 문장으로 압축 가능
+		// (자기 자신을 리턴하는 메서드 호출 후 연쇄적으로 메서드를 이어나가는 것)
+		UriComponents uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
+				.queryParam("user_seq_no", userInfoRequestVO.getUser_seq_no())
+				.build();
+		
+		// exchange() 메서드 파라미터 : UriBuilder 문자열로 변환, 요청방식, HttpEntity 객체,
+		//                              응답데이터를 파싱하기 위한 클래스(.class 필수)
+		// => 메서드 뒤에 .getBody() 메서드를 호출하여 body 데이터에 대한 파싱된 결과를 리턴받기
+		return restTemplate.exchange(uriBuilder.toString(), HttpMethod.GET, openBankingUserInfoRequest, UserInfoResponseVO.class).getBody();
+	}
+
+	//계좌 조회
+	public AccountSearchResponseVO findAccount(AccountSearchRequestVO accountSearchRequestVO) {
+		/// REST 방식 요청에 필요한 객체 생성
+		restTemplate = new RestTemplate();
+		httpHeaders = new HttpHeaders();
+		
+		// 2.2.1 사용자정보조회 API URL 주소 생성
+		String url = baseUrl + "/openbank/acct_list";
+			httpHeaders.add("Authorization", "Bearer " + accountSearchRequestVO.getAccess_token());
+		
+		HttpEntity<String> openBankingAccountListRequest = new HttpEntity<String>(httpHeaders);
+		
+		UriComponents uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
+				.queryParam("user_seq_no", accountSearchRequestVO.getUser_seq_no())
+				.queryParam("include_cancel_yn", accountSearchRequestVO.getInclude_cancel_yn())
+				.queryParam("sort_order", accountSearchRequestVO.getSort_order())
+				.build();
+
+		return restTemplate.exchange(uriBuilder.toString(), HttpMethod.GET, openBankingAccountListRequest, AccountSearchResponseVO.class).getBody();
+	}
+
+	//계좌해지
+	public AccountCancelResponseVO cancelAccount(AccountCancelRequestVO accountCancelRequestVO) {
+		/// REST 방식 요청에 필요한 객체 생성
+		restTemplate = new RestTemplate();
+		httpHeaders = new HttpHeaders();
+		
+		//2.2.7. 계좌해지 API URL 주소 생성
+		String url = baseUrl + "/openbank/acct_cancel";
+			httpHeaders.add("Authorization", "Bearer " + accountCancelRequestVO.getAccess_token());
+			
+			HttpEntity<String> openBankingAccountCancelRequest = new HttpEntity<String>(httpHeaders);
+			
+			UriComponents uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
+					.queryParam("bank_tran_id", accountCancelRequestVO.getBank_tran_id())
+					.queryParam("scope", accountCancelRequestVO.getScope())
+					.queryParam("fintech_use_num", accountCancelRequestVO.getFintech_use_num())
+					.build();
+		
+			return restTemplate.exchange(uriBuilder.toString(), HttpMethod.POST, openBankingAccountCancelRequest, AccountCancelResponseVO.class).getBody();
+		}
+	
+	//잔액조회
+	public AccountBalanceResponseVO findAccountBalance(AccountBalanceRequestVO accountBalanceRequestVO) {
+		/// REST 방식 요청에 필요한 객체 생성
+		restTemplate = new RestTemplate();
+		httpHeaders = new HttpHeaders();
+		
+		// 2.2.1 사용자정보조회 API URL 주소 생성
+		String url = baseUrl + "/openbank/acct_balance";
+			httpHeaders.add("Authorization", "Bearer " + accountBalanceRequestVO.getAccess_token());
+		
+		HttpEntity<String> openBankingAccountBalanceRequest = new HttpEntity<String>(httpHeaders);
+		
+		UriComponents uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
+				.queryParam("bank_tran_id", accountBalanceRequestVO.getBank_tran_id())
+				.queryParam("fintech_use_num", accountBalanceRequestVO.getFintech_use_num())
+				.queryParam("tran_dtime", accountBalanceRequestVO.getTran_dtime())
+				.build();
+
+		return restTemplate.exchange(uriBuilder.toString(), HttpMethod.GET, openBankingAccountBalanceRequest, AccountBalanceResponseVO.class).getBody();
+	}
+	
+	//거래내역조회
+	public AccountTranResponseVO findAccountTran(AccountTranRequestVO accountTranRequestVO) {
+		/// REST 방식 요청에 필요한 객체 생성
+		restTemplate = new RestTemplate();
+		httpHeaders = new HttpHeaders();
+		
+		httpHeaders.add("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+
+		//////////////////////////////////////다시 확인////////////////////////////////////
+		////파라미터 값 전달이니까 확인 필요
+		
+		String url = baseUrl + "/openbank/acct_tran";
+		httpHeaders.add("Authorization", "Bearer " + accountTranRequestVO.getBank_tran_id());
+	
+		HttpEntity<String> openBankingAccountTranRequest = new HttpEntity<String>(httpHeaders);
+	
+		UriComponents uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
+				.queryParam("bank_tran_id", accountTranRequestVO.getBank_tran_id())
+				.queryParam("fintech_use_num", accountTranRequestVO.getFintech_use_num())
+				.queryParam("inquiry_type", accountTranRequestVO.getInquiry_type())
+				.queryParam("inquiry_base", accountTranRequestVO.getInquiry_base())
+				.queryParam("from_date", accountTranRequestVO.getFrom_date())
+				.queryParam("to_date", accountTranRequestVO.getTo_date())
+				.queryParam("sort_order", accountTranRequestVO.getSort_order())
+				.queryParam("tran_dtime", accountTranRequestVO.getTran_dtime())
+				.build();
+
+		return restTemplate.exchange(uriBuilder.toString(), HttpMethod.GET, openBankingAccountTranRequest, AccountTranResponseVO.class).getBody();
+	
+	}
+
+	//출금이체
+	public TranWithdrawResponseVO findTranWithdraw(TranWithdrawRequestVO tranWithdrawRequestVO) {
+		/// REST 방식 요청에 필요한 객체 생성
+		restTemplate = new RestTemplate();
+		httpHeaders = new HttpHeaders();
+		
+		// 2.2.1 사용자정보조회 API URL 주소 생성
+		String url = baseUrl + "/openbank/acct_balance";
+			httpHeaders.add("Authorization", "Bearer " + tranWithdrawRequestVO.getAccess_token());
+		
+		HttpEntity<String> AccountTranWithdrawRequest = new HttpEntity<String>(httpHeaders);
+		
+		UriComponents uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
+				.queryParam("bank_tran_id", tranWithdrawRequestVO.getBank_tran_id())
+				.queryParam("cntr_account_type", tranWithdrawRequestVO.getCntr_account_type())
+				.queryParam("cntr_account_num", tranWithdrawRequestVO.getCntr_account_num())
+				.queryParam("dps_print_content", tranWithdrawRequestVO.getDps_print_content())
+				.queryParam("fintech_use_num", tranWithdrawRequestVO.getFintech_use_num())
+				.queryParam("tran_amt", tranWithdrawRequestVO.getTran_amt())
+				.queryParam("tran_dtime", tranWithdrawRequestVO.getTran_dtime())
+				.queryParam("req_client_name", tranWithdrawRequestVO.getReq_client_name())
+				.queryParam("req_client_num", tranWithdrawRequestVO.getReq_client_num())
+				.queryParam("fintech_use_num", tranWithdrawRequestVO.getFintech_use_num())
+				.queryParam("transfer_purpose", tranWithdrawRequestVO.getTransfer_purpose())
+				.build();
+
+		return restTemplate.exchange(uriBuilder.toString(), HttpMethod.GET, AccountTranWithdrawRequest, TranWithdrawResponseVO.class).getBody();
+	}
+		
+
+		
+	
+	
 }

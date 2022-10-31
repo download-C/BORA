@@ -8,6 +8,8 @@
 <title>openbankInsert title here</title>
 </head>
 <body>
+<h1>계좌목록</h1>
+
 	<table>
 		<tr>
 			<th>계좌번호</th><th>은행명</th><th>예금주명</th>
