@@ -43,4 +43,16 @@ public class MemberDAOImpl implements MemberDAO{
 		return session.selectOne(NAMESPACE+".getMemberNick", nick);
 	}
 
+	@Override
+	public int updateMember(MemberVO vo) throws Exception {
+
+		return session.update(NAMESPACE+".updateMember", vo);
+	}
+
+	@Override
+	public int deleteMember(String id) throws Exception {
+		
+		return session.delete(NAMESPACE+".deleteMember", id);
+	}
+
 }

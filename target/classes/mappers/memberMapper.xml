@@ -26,12 +26,12 @@
 	</select>
 	
 	<update id="updateMember" >
-		update member set name=#{name}, 
-		email=#{email} where id=#{id} and pw=#{pw}
+		update bora_members set pw=#{pw}, nick=#{nick}, phone=#{phone}, email=#{email} 
+		where id=#{id}
 	</update>
 	
 	<delete id="deleteMember">
-		delete from bora_members where id=#{id} and pw=#{pw}
+		delete from bora_members where id=#{id}
 	</delete>
 	
 	<select id="getMemberList" resultType="MemberVO">

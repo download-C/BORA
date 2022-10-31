@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bora.domain.MemberSHA256;
 import com.bora.domain.MemberVO;
 import com.bora.service.MemberService;
 
@@ -26,65 +27,12 @@ public class MemberController {
 
    private static final Logger log = LoggerFactory.getLogger(MemberController.class);
    
-   @RequestMapping(value="/join", method=RequestMethod.GET)
-   public void joinGET() {
-      
-   }
-   
-   @RequestMapping(value="/join", method=RequestMethod.POST)
-   public String joinPOST(MemberVO vo, HttpServletRequest request) 
-         throws Exception{
-      log.info("joinPOST(vo) -> login.jsp" );
-      String id = request.getParameter("id");
-      String pw = request.getParameter("pw");
-      String name = request.getParameter("name");
-      String nick = request.getParameter("nick");
 
-      String phone = request.getParameter("phone");
-
-      String email = request.getParameter("email");
-      
-      vo.setId(id);
-      vo.setPw(pw);
-      vo.setName(name);
-      vo.setNick(nick);
-      vo.setPhone(phone);
-      vo.setEmail(email);
-
-      log.info("회원가입 정보: "+vo);
-      
-      service.joinMember(vo);
-      log.info("회원가입 성공");
-            
-      return "redirect:/member/login";
-   }
-   
-   @RequestMapping(value="/login", method=RequestMethod.GET)
-   public void loginGET() throws Exception {
-      log.info("loginGET() 호출");
-   }
-   
-   // http://localhost:8088/member/login
-   @RequestMapping(value="/login", method=RequestMethod.POST)
-   public String loginPOST(MemberVO vo, HttpSession session, RedirectAttributes rttr) throws Exception {
-      log.info("loginPOST() 호출");
-      
-      MemberVO vo2 = service.loginMember(vo);
-      if(vo2 != null ) {
-         session.setAttribute("loginID", vo2.getId());
-         rttr.addFlashAttribute("msg", vo2.getNick()+"님, 환영합니다♡");
-         return "redirect:/main/main";
-      } else {
-    	 rttr.addFlashAttribute("msg", "아이디가 없거나 아이디 또는 비밀번호가 일치하지 않습니다.");
-         return "redirect:/member/login";
-      }
-      
-   }
    
    // http://localhost:8088/member/mypage
    @RequestMapping(value="/mypage", method=RequestMethod.GET)
    public void mypageGET(String loginID, HttpSession session, Model model) throws Exception{
-	  log.info("mypageGET(loginID) 호출");
+	  log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡mypageGET(loginID) 호출");
       loginID = (String)session.getAttribute("loginID");
       MemberVO vo = service.getMember(loginID);
       model.addAttribute("vo", vo);
@@ -92,16 +40,16 @@ public class MemberController {
    
    @RequestMapping(value="/password", method=RequestMethod.GET)
    public void mypagePasswordGET() throws Exception{
-	  log.info("mypagePasswordGET() 호출");  
+	  log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡mypagePasswordGET() 호출");  
    }
    
    @RequestMapping(value="/password", method=RequestMethod.POST)
    public String mypagePasswordPOST(HttpServletRequest request, HttpSession session, RedirectAttributes rttr) throws Exception{
-	   log.info("mypagePasswordPOST() 호출");
-	   String pw = request.getParameter("pw");
+	   log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡mypagePasswordPOST() 호출");
+	   String encryptPw= MemberSHA256.encrypt(request.getParameter("pw"));
 	   loginID = (String)session.getAttribute("loginID");
 	   MemberVO vo = service.getMember(loginID);
-	   if(vo.getPw().equals(pw)) {
+	   if(vo.getPw().equals(encryptPw)) {
 		   return "redirect:/member/update";
 	   } else {
 		   rttr.addFlashAttribute("msg", "비밀번호가 일치하지 않습니다.");
@@ -111,18 +59,46 @@ public class MemberController {
    }
    
    @RequestMapping(value="/update", method = RequestMethod.GET)
-   public String updateGET(HttpSession session, Model model) throws Exception{
-      log.info("updateGET() 호출");
+   public void updateGET(HttpSession session, Model model) throws Exception{
+      log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡updateGET() 호출");
       String id = (String)session.getAttribute("loginID");
       MemberVO vo = service.getMember(id);
       model.addAttribute("vo", vo);
-      return "/member/update";
+//      return "/member/update";
+   }
+   
+   @RequestMapping(value="/update", method = RequestMethod.POST)
+   public String updatePOST(HttpSession session, HttpServletRequest requset,
+		   RedirectAttributes rttr) throws Exception{
+	   log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡updatePOST() 호출");
+	   String id = (String)session.getAttribute("loginID");
+	   String pw = requset.getParameter("pw");
+	   String nick = requset.getParameter("nick");
+	   String phone = requset.getParameter("phone");
+	   String email = requset.getParameter("email");
+			  
+	   // 로그인한 회원의 기존 정보 불러오기
+	   MemberVO vo = service.getMember(id);
+	   
+	   vo.setPw(pw);
+	   vo.setNick(nick);
+	   vo.setPhone(phone);
+	   vo.setEmail(email);
+	   
+	   int result = service.updateMember(vo);
+	   if(result == 1) {
+		   rttr.addFlashAttribute("msg", "회원정보가 수정되었습니다.");
+		   return "redirect:/member/mypage";
+	   } else {
+		   rttr.addFlashAttribute("msg", "알 수 없는 이유로 회원정보 수정에 실패했습니다.");
+		   return "/member/update";
+	   }
    }
 
    // http://localhost:8088/member/logout  완료
    @RequestMapping(value="/logout", method=RequestMethod.GET)
    public String logoutGET(HttpSession session) throws Exception{
-      log.info("logoutGET() 호출");
+      log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡logoutGET() 호출");
 //      session.setAttribute("loginID", "admin");
       session.invalidate();
       
@@ -130,5 +106,34 @@ public class MemberController {
       return "redirect:/main/main";
    }
    
+   @RequestMapping(value="/delete", method=RequestMethod.GET)
+   public void deleteGET() throws Exception {
+      log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡deleteGET() 호출");
+      
+   }
    
+   @RequestMapping(value="/deletePop", method=RequestMethod.GET)
+   public void deletePopGET() throws Exception {
+      log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡deletPopGET() 호출");
+      
+   }
+   
+   @RequestMapping(value="/delete", method=RequestMethod.POST)
+   public void deletePOST(HttpServletRequest reqeust, HttpSession session,
+		   RedirectAttributes rttr) throws Exception {
+	   log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡비밀번호 일치 여부 확인 후 deletePOST() 호출");
+	   // 로그인한 회원의 아이디 불러온 뒤 아이디값으로 탈퇴하기
+	   
+	   	   String id = (String)session.getAttribute("loginID");
+		   int result = service.deleteMember(id);
+		   if(result == 1 ) {
+			   rttr.addFlashAttribute("msg", "탈퇴되었습니다.");
+			   session.invalidate();
+//			   return "redirect:/main/main";
+		   }
+		   else {
+			   rttr.addFlashAttribute("msg", "탈퇴에 실패했습니다.");
+//			   return "redirect:/member/delete";
+		   }
+   }
 }

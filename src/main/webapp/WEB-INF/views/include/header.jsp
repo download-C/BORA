@@ -45,19 +45,19 @@ String loginID = (String)session.getAttribute("loginID");
       <div class="contact-info d-flex align-items-center">
       </div>
       <div class="social-links nav justify-content-end">
-      <%
-	      if(loginID != null){
-	    %>
+    <%
+	    if(loginID != null){
+    %>
         <a href="/member/logout" class="twitter">로그아웃</a>
         <a href="/member/mypage" class="facebook">마이페이지</a>
-      <%
+    <%
       	} else {
-	    %>
-        <a href="/member/login" class="twitter">로그인</a>
-        <a href="/member/join" class="facebook">회원가입</a>
-      <%
-	      }
-	    %>
+    %>
+        <a href="/main/login" class="twitter">로그인</a>
+        <a href="/main/join" class="facebook">회원가입</a>
+    <%
+      	}
+    %>
       </div>
     </div>
   </section>
@@ -66,7 +66,7 @@ String loginID = (String)session.getAttribute("loginID");
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <h1 class="logo"><a href="index.html">BORA<span></span></a></h1>
+      <h1 class="logo"><a href="/main/main">BORA<span></span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="${pageContext.request.contextPath}/resources/img/logo.png" alt=""></a>-->
 
