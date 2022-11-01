@@ -6,16 +6,14 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <h1>
-	board/ <span
+	notice/ <span
 		style="color: white; background-color: orange; font-size: 1.5em">
 		💐💐list😎😎 </span>.jsp
 </h1>
 <div>
 	<div>
-		<h5>EL{msg} : ${msg }</h5>
-		<h5>${pm }</h5>
 <%-- 		<h5>${pm.pageVO.page }</h5> --%>
-		<h3><a href="/board/insert">여기를 눌러서 편하게 글쓰기 하십시오 ^^💘💘 </a></h3>
+		<h3><a href="/notice/write">여기를 눌러서 편하게 글쓰기 하십시오 ^^💘💘 </a></h3>
 	</div>
 
 	<div>
@@ -23,23 +21,21 @@
 			<tbody>
 				<tr>
 					<th>번호</th>
-					<th>카테고리</th>
 					<th>제목</th>
-					<th>id -> 닉으로</th>
+					<th>닉네임</th>
 					<th>작성일</th>
 					<th>조회수</th>
 				</tr>
 				
 				
-				<c:forEach var="vo" items="${boardList }">
+				<c:forEach var="vo" items="${noticeList }">
 				
 					<tr>
-						<td>${vo.bno}</td>
-						<td>${vo.b_ctgr}</td>
-						<td> <a href="/board/read?bno=${vo.bno }&page=1">${vo.b_title }</a> </td>
-						<td>${vo.id }</td>
-						<td> <fmt:formatDate value="${vo.b_regdate }" pattern="YYYY년 MM월 dd일 🌈  HH:mm" /> </td>
-						<td>${vo.b_readcount }</td>
+						<td>${vo.nno}</td>
+						<td> <a href="/notice/read?nno=${vo.nno }&page=1">${vo.n_title }</a> </td>
+						<td>관리자</td>
+						<td> <fmt:formatDate value="${vo.n_regdate }" pattern="YYYY년 MM월 dd일 🌈  HH:mm" /> </td>
+						<td>${vo.n_readcount }</td>
 					</tr>
 				
 				</c:forEach>
@@ -55,7 +51,7 @@
 			<!-- 이전 버턴================ -->
 			<c:if test="${pm.prev }"> 
 					<!--      ㄴboolean 타입이니까 false면 걍 패스되는거~ 음 편하군  -->
-				<li><a href="listPage?page=${pm.startPage - 1 }">&laquo;</a></li>
+				<li><a href="/notice/listPage?page=${pm.startPage - 1 }">&laquo;</a></li>
 			</c:if>
 			
 			<!-- 1 2 3 4 .... ================ -->
@@ -64,13 +60,13 @@
 				<%-- 
 				<li <c:out value="${pm.vo.page == index? 'class=active' : '' }" />>   2.3버전 이하는 c:out 써야 함~ --%>
 				<li ${pm.vo.page == index? 'class=active' : '' }  style="float: left;">
-					<a href="listPage?page=${index }+1"> &nbsp;&nbsp; ${index}+1 &nbsp;&nbsp; </a>
+					<a href="/notice/listPage?page=${index+1 }"> &nbsp;&nbsp; ${index+1} &nbsp;&nbsp; </a>
 				</li>
 			</c:forEach>
 			
 			<!-- 다음 버턴================ -->
 			<c:if test="${pm.next }">
-				<li><a href="listPage?page=${pm.endPage + 1 }">&raquo;</a></li>
+				<li><a href="/notice/listPage?page=${pm.endPage + 1 }">&raquo;</a></li>
 			</c:if>
 		</ul>
 	</div>

@@ -17,12 +17,12 @@
 	
 	<select id="getNoticeListAll" resultType="NoticeVO">
 		select * from bora_notice
-		order by regdate desc;
+		order by n_regdate desc;
 	</select>
 	
 	<select id="getNoticeListPage" resultType="NoticeVO">
 		select * from bora_notice
-		order by regdate desc
+		order by n_regdate desc
 		limit #{pageStart}, #{perPageNum}
 	</select>
 	
@@ -41,4 +41,8 @@
 		delete from bora_notice
 		where nno=#{nno}
 	</delete>
+	
+	<select id="getTotalCnt" resultType="Integer">
+		select count(nno) from bora_notice
+	</select>
 </mapper>

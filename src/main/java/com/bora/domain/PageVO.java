@@ -17,8 +17,6 @@ public class PageVO {
 			this.perPageNum = 10;
 		}
 		
-		
-		
 		// getter setter ==================================================
 		public int getPage() {
 			return page;

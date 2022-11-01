@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.bora.domain.NoticeVO;
+import com.bora.domain.PageMakerVO;
 import com.bora.domain.PageVO;
 
 @Repository
@@ -32,14 +33,15 @@ public class NoticeDAOImpl implements NoticeDAO{
 		return session.update(NAMESPACE+".updateNotice", vo);
 	}
 	@Override
-	public List<NoticeVO> getNoticeListAll() throws Exception {
+	public List<NoticeVO> getNoticeListAll(PageMakerVO pm) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡♡♡getNoticeList(vo) 호출");
 		return session.selectList(NAMESPACE+".getNoticeListAll");
 	}
 	@Override
 	public List<NoticeVO> getNoticeListPage(PageVO vo) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡♡♡getNoticeList(vo) 호출");
-		return session.selectList(NAMESPACE+".getNoticeLisPage", vo);
+		log.info("Vo: "+vo);
+		return session.selectList(NAMESPACE+".getNoticeListPage", vo);
 	}
 	@Override
 	public NoticeVO getNotice(Integer nno) throws Exception {
@@ -55,6 +57,11 @@ public class NoticeDAOImpl implements NoticeDAO{
 	public Integer deleteNotice(Integer nno) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡♡♡deleteNotice(nno) 호출");
 		return session.delete(NAMESPACE+".deleteNotice", nno);
+	}
+	@Override
+	public Integer getTotalCnt() throws Exception {
+		log.info("♡♡♡♡♡♡♡♡♡♡♡♡deleteNotice(nno) 호출");
+		return session.selectOne(NAMESPACE+".getTotalCnt");
 	}
 	
 }
