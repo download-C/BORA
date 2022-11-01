@@ -42,12 +42,57 @@
 <!-- ======= for 댓글,, comment.js 파일 추가 및 테스트======= -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/comment.js"></script>
 <script type="text/javascript">
-// $(document).ready(function(){
-// 	console.log(cmtService);
-// }); // jquery ready
+$(document).ready(function(){
+	console.log(cmtService);
+	var bnoValue = '<c:out value="${vo.bno}"/>';
+	var cmtUL = $('#cmt');
+	
+	
+	showCmtList(1);
+	
+	function showCmtList(page){
+		
+		alert("showCmtList 작동 성공");
+		
+		cmtService.getCmtList({bno:bnoValue, page:page||1}, function(list){
+			var str="";
+			
+			if( list == null || list.length == 0 ) {
+				cmtUL.html("");
+				
+				return;
+			}
+			
+			// 반복문 돌면서 댓글 list 채우기
+			for (var i = 0, len = list.length||0; i < len; i++) {
+				str += "<li data-cno='"+list[i].cno+"'>";
+				str += "<div id='cmt-body'><div id='cmt-header'><strong>"+list[i].id+"</strong>";
+				str += "<small>"+list[i].c_regdate+"</small></div>";
+				str += "<p>"+list[i].cno + " / " + list[i].c_content+"</p></div></li>";
+			}
+			
+			cmtUL.html(str);
+			
+// 		<ul id="cmt">
+// 			<li data-cno='2'>
+// 				<div id="cmt-body">
+// 					<div id="cmt-header">
+// 						<strong>user_id,, nick</strong> 
+// 						<small>regdate </small>
+// 					</div>
+// 					<p>c_content</p>
+	
+// 				</div>
+// 			</li>
+// 		</ul>
+			
+		}); // getCmtList()
+		
+	}// showCmtList()
+	
+}); // jquery ready
 
 
-var bnoValue = '<c:out value="${vo.bno}"/>';
 
 // 1. add(cmt, callback, error)
 // cmtService.add(
@@ -260,7 +305,7 @@ var bnoValue = '<c:out value="${vo.bno}"/>';
 	  
 	  $(".btn_list").click(function(){
 		  // 목록 버턴 클릭했을 때
-		  location.href = "/board/list?page=1";
+		  history.back();
 	  });// 목록 버턴 click
 	  
 	  
