@@ -45,6 +45,7 @@ public class OpenBankingApiClient {
 	
 	// REST 방식 API 요청
 	private RestTemplate restTemplate;
+	
 	// 헤더 정보 관리 클래스 
 	private HttpHeaders httpHeaders;
 	
@@ -126,7 +127,7 @@ public class OpenBankingApiClient {
 		httpHeaders = new HttpHeaders();
 		
 		// 2.2.1 사용자정보조회 API URL 주소 생성
-		String url = baseUrl + "/openbank/acct_list";
+		String url = baseUrl + "/account/list";
 			httpHeaders.add("Authorization", "Bearer " + accountSearchRequestVO.getAccess_token());
 		
 		HttpEntity<String> openBankingAccountListRequest = new HttpEntity<String>(httpHeaders);
@@ -147,7 +148,7 @@ public class OpenBankingApiClient {
 		httpHeaders = new HttpHeaders();
 		
 		//2.2.7. 계좌해지 API URL 주소 생성
-		String url = baseUrl + "/openbank/acct_cancel";
+		String url = baseUrl + "/account/cancel";
 			httpHeaders.add("Authorization", "Bearer " + accountCancelRequestVO.getAccess_token());
 			
 			HttpEntity<String> openBankingAccountCancelRequest = new HttpEntity<String>(httpHeaders);
@@ -168,7 +169,7 @@ public class OpenBankingApiClient {
 		httpHeaders = new HttpHeaders();
 		
 		// 2.2.1 사용자정보조회 API URL 주소 생성
-		String url = baseUrl + "/openbank/acct_balance";
+		String url = baseUrl + "/account/balance/fin_num";
 			httpHeaders.add("Authorization", "Bearer " + accountBalanceRequestVO.getAccess_token());
 		
 		HttpEntity<String> openBankingAccountBalanceRequest = new HttpEntity<String>(httpHeaders);
@@ -190,10 +191,7 @@ public class OpenBankingApiClient {
 		
 		httpHeaders.add("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
 
-		//////////////////////////////////////다시 확인////////////////////////////////////
-		////파라미터 값 전달이니까 확인 필요
-		
-		String url = baseUrl + "/openbank/acct_tran";
+		String url = baseUrl + "/account/transaction_list/fin_num";
 		httpHeaders.add("Authorization", "Bearer " + accountTranRequestVO.getBank_tran_id());
 	
 		HttpEntity<String> openBankingAccountTranRequest = new HttpEntity<String>(httpHeaders);
@@ -220,7 +218,7 @@ public class OpenBankingApiClient {
 		httpHeaders = new HttpHeaders();
 		
 		// 2.2.1 사용자정보조회 API URL 주소 생성
-		String url = baseUrl + "/openbank/tran_withdraw";
+		String url = baseUrl + "/transfer/withdraw/fin_num";
 			httpHeaders.add("Authorization", "Bearer " + tranWithdrawRequestVO.getAccess_token());
 		
 		HttpEntity<String> AccountTranWithdrawRequest = new HttpEntity<String>(httpHeaders);
@@ -249,7 +247,7 @@ public class OpenBankingApiClient {
 		httpHeaders = new HttpHeaders();
 		
 		// 2.2.1 사용자정보조회 API URL 주소 생성
-		String url = baseUrl + "/openbank/tran_deposit";
+		String url = baseUrl + "/transfer/deposit/fin_num";
 			httpHeaders.add("Authorization", "Bearer " + tranDepositRequestVO.getAccess_token());
 		
 		HttpEntity<String> AccountTranDepositRequest = new HttpEntity<String>(httpHeaders);
@@ -267,14 +265,14 @@ public class OpenBankingApiClient {
 
 		return restTemplate.exchange(uriBuilder.toString(), HttpMethod.POST, AccountTranDepositRequest, TranDepositResponseVO.class).getBody();
 	}
-
+	//이체결과조회
 	public TranResultResponseVO findTranResult(TranResultRequestVO tranResultRequestVO) {
 		/// REST 방식 요청에 필요한 객체 생성
 		restTemplate = new RestTemplate();
 		httpHeaders = new HttpHeaders();
 		
 		// 2.2.1 사용자정보조회 API URL 주소 생성
-		String url = baseUrl + "/openbank/tran_result";
+		String url = baseUrl + "/transfer/result";
 			httpHeaders.add("Authorization", "Bearer " + tranResultRequestVO.getAccess_token());
 		
 		HttpEntity<String> TranResultRequest = new HttpEntity<String>(httpHeaders);
@@ -290,7 +288,5 @@ public class OpenBankingApiClient {
 		return restTemplate.exchange(uriBuilder.toString(), HttpMethod.POST, TranResultRequest, TranResultResponseVO.class).getBody();
 	}	
 
-		
-	
 	
 }
