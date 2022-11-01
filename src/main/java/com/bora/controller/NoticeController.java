@@ -44,15 +44,7 @@ public class NoticeController {
 	private NoticeService service;
 	
 	// 멤버변수 끝 ============================================
-	
 
-	// 파일 업로드 테스트 메서드
-	// http://localhost:8088/notice/upload
-	@RequestMapping(value="/upload", method=RequestMethod.GET)
-	public String uploadFileGET() {
-		log.info("uploadFileGET() 호출");
-		return "/admin/file";
-	}
 	
 //	// 0. 파일 업로드 메서드 (fileupload dependency 사용)
 	
