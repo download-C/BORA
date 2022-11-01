@@ -6,14 +6,16 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <h1>
-	notice/ <span
+	 <span
 		style="color: white; background-color: orange; font-size: 1.5em">
 		💐💐list😎😎 </span>.jsp
 </h1>
 <div>
 	<div>
 <%-- 		<h5>${pm.pageVO.page }</h5> --%>
+		<%if(loginID!=null){ if(loginID.equals("admin")) {%>
 		<h3><a href="/notice/write">여기를 눌러서 편하게 글쓰기 하십시오 ^^💘💘 </a></h3>
+		<%} }%>
 	</div>
 
 	<div>

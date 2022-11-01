@@ -178,87 +178,13 @@ public class NoticeController {
 		// 글쓰기 성공 알림 띄우기(일회성)
 		rttr.addFlashAttribute("msg", "OK");  
 		
-		log.info("(♥♥♥♥♥ 1-2.registerPOST) redirect:/notice/list 로 이동할거");
-		return "redirect:/notice/listPage"; // 주소줄 변화 O + 페이지 이동 O
+		log.info("(♥♥♥♥♥ 1-2.registerPOST) redirect:/main/NoticeListPage 로 이동할거");
+		return "redirect:/main/NoticeListPage"; // 주소줄 변화 O + 페이지 이동 O
 	}
 	// 1-2. 글쓰기 POST 끝
 	
 	
-	// 2-1. 페이징 처리하기 
-	// http://localhost:8088/notice/listPage
-	@RequestMapping (value = "/listPage", method = RequestMethod.GET)
-	public String getNoticeListPage(PageVO vo, Model model) throws Exception {
-		log.info("(♥♥♥♥♥ 2-1.getNoticeListPage) 호출됨");
-		
-		model.addAttribute("noticeList", service.getNoticeListPage(vo));
-		
-		// 페이징 처리 하단부 정보 저장 + 모델 객체(pm)에 저장
-		PageMakerVO pm = new PageMakerVO();
-		pm.setVo(vo);
-		int totalCnt = service.getTotalCnt();
-		pm.setTotalCnt(totalCnt); 
-		model.addAttribute("pm", pm);
-		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET) PageMakerVO도 모델 객체에 저장 완 + pm: " + pm);
-		
-		// 세션에 객체 isUpdate 하나  만들어놓기~~~ 
-		//    3()으로 정보 전달을 위해..
-		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET) 리턴타입 void라서 들어온 주소 /notice/list.jsp로 이동할 거");
-		
-		return "redirect:/notice/listAll?page="+vo.getPage();
-	}
-	
-	// 2-2. 게시판 리스트 조회 GET                  
-//	 http://localhost:8088/notice/listAll
-	@RequestMapping (value = "/listAll", method = RequestMethod.GET)
-	public String getNoticeListAll(@ModelAttribute("pm") PageMakerVO pm, HttpSession session, Model model) throws Exception {
-		log.info("(♥♥♥♥♥ 2.listAllGET) 호출됨");
-		
-		// 리스트로 가는 경우의 수
-		// 1. 글쓰고 나서 -> 리스트로 이동하는 경우
-//			log.info("(♥♥♥♥♥ 2.listAllGET) msg: " + msg);
-			// 연결된 view 페이지로 저기서(1-2.registerPOST) 넘어온 정보 전달해보기
-			// 이거 안 해도 넘어가는딩?
-//			model.addAttribute("msg", msg);
-		
-		// 2. 걍 바로 리스트로 이동하는 경우
-		
-		List<NoticeVO> noticeList = service.getNoticeListAll(pm);
-		
-		model.addAttribute("noticeList", noticeList);
-		session.setAttribute("isUpdate", false);
-		
-		return "/main/noticeList";
-	}
-	// 2. 게시판 리스트 조회 GET 끝
-	
-	
-	// 3. 글 본문 보기 GET                  
-	// http://localhost:8088/notice/read
-	@RequestMapping (value = "/read", method = RequestMethod.GET)
-	public String readGET(HttpSession session, Model model, 
-			@RequestParam("nno") int nno, @RequestParam("page") int page) throws Exception{ 
-		log.info("(♥♥♥♥♥ 3.readGET) 호출됨");
-		
-		log.info("(♥♥♥♥♥ 3.readGET) 넘어온 nno: " + nno);
 
-		log.info("(♥♥♥♥♥ 3.readGET) isUpdate: " + session.getAttribute("isUpdate"));
-		boolean isUpdate = (boolean)session.getAttribute("isUpdate");
-		
-		if(!isUpdate) { 
-			service.updateNoticeReadcount(nno);
-			log.info("(♥♥♥♥♥ 3.readGET) " + nno + "번 글 조회수 1 증가 완");
-			session.setAttribute("isUpdate", true);
-		}
-		
-		log.info("(♥♥♥♥♥ 3.readGET) Service 호출 -> NoticeVO타입 리턴받고 -> 바로 model에 저장");
-		model.addAttribute("vo", service.getNotice(nno));
-		
-		log.info("(♥♥♥♥♥ 3.readGET) 리턴타입 void니까 들어온 주소  /notice/read.jsp로 이동할 거");
-		return "/notice/noticeRead";
-	}
-	
-	
-	
 	// 4. 글 수정하기 GET (기존 정보 조회 + 뉴 정보 입력받기)    
 	// http://localhost:8088/notice/update
 	@RequestMapping (value = "/update", method = RequestMethod.GET)
@@ -288,10 +214,10 @@ public class NoticeController {
 		if(cnt == 1) {
 			rttr.addFlashAttribute("msg", "UPDATE_OK");
 			
-			// 수정 성공 시 --> listAll 페이지로 이동
+			// 수정 성공 시 --> NoticeListAll 페이지로 이동
 			log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정 성공^^ ㅊㅋㅊㅋ");
-			log.info("(♥♥♥♥♥ 4-1.updatePOST) redirect:/notice/list.jsp로 이동");
-			return "redirect:/notice/listPage"; // 주소줄 변화 O + 페이지 이동 O니까 redirect
+			log.info("(♥♥♥♥♥ 4-1.updatePOST) redirect:/main/NoticeListPage.jsp로 이동");
+			return "redirect:/main/NoticeListPage"; // 주소줄 변화 O + 페이지 이동 O니까 redirect
 		} else {
 			log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정 실패;;  /update?nno=" + vo.getNno()+ ".jsp로 이동");
 			return "/admin/noticeUpdate?nno="+vo.getNno();
@@ -313,8 +239,8 @@ public class NoticeController {
 		if(result == 1) {
 			rttr.addAttribute("msg", "DEL_OK");
 			log.info("(♥♥♥♥♥ 5.deletePOST) 삭제 성공");
-			log.info("(♥♥♥♥♥ 5.deletePOST) redirect:/notice/list.jsp로 이동");
-			return "redirect:/notice/listPage";
+			log.info("(♥♥♥♥♥ 5.deletePOST) redirect:/main/NoticeListPage.jsp로 이동");
+			return "redirect:/main/NoticeListPage";
 		} else {
 			log.info("(♥♥♥♥♥ 5.deletePOST) 삭제 실패;;");
 			return "redirect:/notice/delete";
