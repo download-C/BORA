@@ -34,6 +34,7 @@ public class TranWithdrawResponseVO {
 	private String tran_amt; //"10000" 거래금액
 	private String wd_limit_remain_amt; //"9990000" 출금한도잔여금액주2)
 	
+	public TranWithdrawResponseVO () {}
 	
 	public TranWithdrawResponseVO(String api_tran_id, String api_tran_dtm, String rsp_code, String rsp_message,
 			String dps_bank_code_std, String dps_bank_code_sub, String dps_bank_name, String dps_account_num_masked,

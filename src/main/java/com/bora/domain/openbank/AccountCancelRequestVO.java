@@ -11,6 +11,9 @@ public class AccountCancelRequestVO {
 	private String fintech_use_num; //핀테크이용번호
     private String model;
 
+    
+    public AccountCancelRequestVO () {}
+    
     @Override
 	public String toString() {
 		return "AccountCancelRequestVO [access_token=" + access_token + ", bank_tran_id=" + bank_tran_id + ", scope="

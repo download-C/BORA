@@ -30,6 +30,8 @@ public class TranResultResListVO {
 	private String dps_account_holder_name; //수취인성명
 	private String tran_amt; //"10000" 거래금액
 	
+	public TranResultResListVO() {}
+	
 	public TranResultResListVO(String tran_no, String bank_tran_id, String bank_tran_date, String bank_code_tran,
 			String bank_rsp_code, String bank_rsp_message, String wd_bank_code_std, String wd_bank_code_sub,
 			String wd_bank_name, String wd_savings_bank_name, String wd_fintech_use_num, String wd_account_num_masked,

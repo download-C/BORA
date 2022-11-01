@@ -23,6 +23,7 @@ public class TranDepositResListVO {
 	private String tran_amt; //"10000" 거래금액
 	private String cms_num; //“93848103221” CMS 번호
 	
+	public TranDepositResListVO() {}
 	
 	public TranDepositResListVO(String tran_no, String bank_tran_id, String bank_tran_date, String bank_code_tran,
 			String bank_rsp_code, String bank_rsp_message, String fintech_use_num, String account_alias,

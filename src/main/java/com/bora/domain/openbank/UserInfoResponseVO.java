@@ -27,6 +27,7 @@ public class UserInfoResponseVO {
 //	private String acct_type; //계좌종류 1:수시입출금, 2:예적금, 6:수익증권, T:종합계좌
 	//계좌종류는 2020.12월(실시예정)부터 등록하는 계좌에 대해 추가로 제공하는 정보로, 그 이전에 등록된 계좌에 대해서는 해당 정보가 제공되지 않을 수 있음.
 	
+	public UserInfoResponseVO () {}
 	
 	public UserInfoResponseVO(String api_tran_id, String api_tran_dtm, String rsp_code, String rsp_message,
 			String user_seq_no, String user_ci, String user_name, String user_info, String user_gender,

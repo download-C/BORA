@@ -13,6 +13,8 @@ public class CardBillsRequestVO {
     private String to_month;
     private String befor_inquiry_trace_info;
     
+    public CardBillsRequestVO() {}
+    
 	public CardBillsRequestVO(String access_token, String bank_tran_id, String user_seq_no, String bank_code_std,
 			String member_bank_code, String from_month, String to_month, String befor_inquiry_trace_info) {
 		super();

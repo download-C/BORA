@@ -14,6 +14,8 @@ public class TranDepositReqListVO {
 	private String req_client_num; //“HONGGILDONG1234” 요청고객회원번호주6)
 	private String transfer_purpose; //“TR” 이체용도주7) TR:송금, ST:결제, AU:인증
 	
+	public TranDepositReqListVO () {}
+	
 	public TranDepositReqListVO(String tran_no, String bank_tran_id, String fintech_use_num, String print_content,
 			String tran_amt, String req_client_name, String req_client_num, String transfer_purpose) {
 		super();

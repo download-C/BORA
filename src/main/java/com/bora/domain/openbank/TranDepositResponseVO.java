@@ -20,6 +20,7 @@ public class TranDepositResponseVO {
 	private String res_cnt; //"1" 입금건수
 	private List<TranDepositResListVO> de_res_list; //입금목록
 	
+	public TranDepositResponseVO() {}
 	
 	public TranDepositResponseVO(String api_tran_id, String api_tran_dtm, String rsp_code, String rsp_message,
 			String wd_bank_code_std, String wd_bank_code_sub, String wd_bank_name, String wd_account_num_masked,

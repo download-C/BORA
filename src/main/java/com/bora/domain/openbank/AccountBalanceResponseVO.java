@@ -29,6 +29,9 @@ public class AccountBalanceResponseVO {
 	private String last_tran_date; //최종거래일
 	
 	
+	public AccountBalanceResponseVO() {}
+	
+	
 	public AccountBalanceResponseVO(String api_tran_id, String api_tran_dtm, String rsp_code, String rsp_message,
 			String bank_tran_id, String bank_tran_date, String bank_code_tran, String bank_rsp_code,
 			String bank_rsp_message, String bank_name, String fintech_use_num, String balance_amt, String available_amt,

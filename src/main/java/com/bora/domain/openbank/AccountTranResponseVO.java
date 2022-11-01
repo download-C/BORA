@@ -21,6 +21,7 @@ public class AccountTranResponseVO {
 	private String balance_amt; //계좌잔액(-금액가능)
 	private List<TranVO> tran_res_list; //사용자 등록계좌 목록
 	
+	public AccountTranResponseVO() {}
 	
 	public AccountTranResponseVO(String api_tran_id, String api_tran_dtm, String rsp_code, String rsp_message,
 			String bank_tran_id, String bank_tran_date, String bank_code_tran, String bank_rsp_code,

@@ -11,6 +11,8 @@ public class AccountBalanceRequestVO {
     private String tran_dtime; //요청일시
     private String model;
     
+    public AccountBalanceRequestVO() {}
+    
 	public AccountBalanceRequestVO(String access_token, String bank_tran_id, String fintech_use_num, String tran_dtime,
 			String model) {
 		super();

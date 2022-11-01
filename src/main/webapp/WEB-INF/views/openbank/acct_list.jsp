@@ -17,9 +17,9 @@
 		<%-- accountList 객체에 저장되어 있는 계좌 목록(res_list) 가져와서 반복하여 복수개 계좌 접근 --%>
 		<c:forEach var="account" items="${accountList.res_list }">
 			<tr>
-				<td>${account.account_num_masked }</td>
-				<td>${account.bank_name }</td>
-				<td>${account.account_holder_name }</td>
+				<td>마스팅된 출력용 계좌번호 : ${account.account_num_masked }</td>
+				<td>은행이름: ${account.bank_name }</td>
+				<td>계좌예금주명 : ${account.account_holder_name }</td>
 			</tr>
 		</c:forEach>
 	</table>

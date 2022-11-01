@@ -17,6 +17,8 @@ public class TranWithdrawRequestVO {
     private String req_client_num; //“HONGGILDONG1234”  요청고객회원번호주4)
     private String transfer_purpose; //이체용도주5) TR:송금, ST:결제, RC:충전
     
+    public TranWithdrawRequestVO () {}
+    
 	@Override
 	public String toString() {
 		return "TranWithdrawRequestVO [access_token=" + access_token + ", bank_tran_id=" + bank_tran_id

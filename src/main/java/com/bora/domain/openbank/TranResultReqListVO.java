@@ -13,6 +13,8 @@ public class TranResultReqListVO {
 	private String org_bank_tran_date; //"20190910" 원거래 거래일자(참가은행)주3)
 	private String org_tran_amt; //"10000" 원거래 거래금액
 	
+	public TranResultReqListVO() {}
+	
 	public TranResultReqListVO(String tran_no, String org_bank_tran_id, String org_bank_tran_date,
 			String org_tran_amt) {
 		super();

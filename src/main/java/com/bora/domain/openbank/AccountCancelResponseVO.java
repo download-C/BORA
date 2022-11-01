@@ -17,6 +17,9 @@ public class AccountCancelResponseVO {
 	//해지 API 응답 시 응답코드(참가은행)가 
 	//“기 해지 사용자(551)”, “해당 사용자 없음(555)”인 경우, 해지 완료된 것으로 처리
 	
+	
+	public AccountCancelResponseVO () {}
+	
 	@Override
 	public String toString() {
 		return "AccountCancelResponseVO [api_tran_id=" + api_tran_id + ", api_tran_dtm=" + api_tran_dtm + ", rsp_code="

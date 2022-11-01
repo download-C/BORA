@@ -11,6 +11,8 @@ public class AccountSearchRequestVO {
     private String sort_order; //정렬순서주 D:Descending, A:Ascending
     private String model;
     
+    public AccountSearchRequestVO() {}
+    
 	@Override
 	public String toString() {
 		return "AccountSearchRequestVO [access_token=" + access_token + ", user_seq_no=" + user_seq_no

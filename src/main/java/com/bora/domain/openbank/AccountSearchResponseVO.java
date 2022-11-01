@@ -15,6 +15,9 @@ public class AccountSearchResponseVO {
 	private String res_cnt; //사용자등록계좌 개수
 	private List<AccountVO> res_list; //사용자 등록계좌 목록
 	
+	
+	public AccountSearchResponseVO () {}
+	
 	@Override
 	public String toString() {
 		return "AccountSearchResponseVO [api_tran_id=" + api_tran_id + ", rsp_code=" + rsp_code + ", rsp_message="

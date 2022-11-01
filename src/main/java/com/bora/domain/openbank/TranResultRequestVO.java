@@ -13,6 +13,8 @@ public class TranResultRequestVO {
 	private String req_cnt; //요청건수주1)
 	private List<TranResultReqListVO> tranResult_req_list; //이체결과 요청목록
 	
+	public TranResultRequestVO() {}
+	
 	public TranResultRequestVO(String access_token, String check_type, String tran_dtime, String req_cnt,
 			List<TranResultReqListVO> tranResult_res_list) {
 		super();

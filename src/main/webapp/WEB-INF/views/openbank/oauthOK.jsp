@@ -37,14 +37,13 @@
 	</form><hr>    
 
 
-<!-- ///////////////////////     -->
 	<!-- 등록계좌 해지 -->
 	<form method="post" action="/openbank/accountCancel">
 		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 		<input type="hidden" name="access_token" value="${responseToken.access_token }">
-		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }">
-		<input type="hidden" name="bank_tran_id" value="${AccountTranResponse.bank_tran_id }">
-		<input type="hidden" name="fintech_use_num" value="D">
+		<input type="hidden" name="bank_tran_id" value="Y">
+		<input type="hidden" name="scope" value="Y">
+		<input type="hidden" name="fintech_use_num" value="Y">
 		<input type="submit" value="등록계좌해지">
 	</form><hr>    
     
@@ -53,10 +52,9 @@
 	<form method="get" action="/openbank/accountBalance">
 		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 		<input type="hidden" name="access_token" value="${responseToken.access_token }">
-		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }">
-		<input type="hidden" name="bank_tran_id" value="${AccountTranResponse.bank_tran_id }">
-		<input type="hidden" name="fintech_use_num" value="D">
-		<input type="hidden" name="tran_dtime" value="D">
+		<input type="hidden" name="bank_tran_id" value="${accountTranResponse.bank_tran_id }">
+		<input type="hidden" name="fintech_use_num" value="Y">
+		<input type="hidden" name="tran_dtime" value="Y">
 		<input type="submit" value="계좌잔액조회">
 	</form><hr>    
      
@@ -109,8 +107,6 @@
 	</form><hr>   
 	
 	
-<hr><hr><hr>
-	
 	<h1>💳카드💳<h1>
 	
 	<hr>
@@ -130,6 +126,7 @@
 		<input type="hidden" name="member_bank_code" value="D">
 		<input type="hidden" name="befor_inquiry_trace_info" value="V">
 		<input type="submit" value="카드목록">
-     </form>
+     </form><hr>
+     
      
 <%@ include file="../include/footer.jsp"%>

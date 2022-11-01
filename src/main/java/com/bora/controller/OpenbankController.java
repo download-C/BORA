@@ -105,6 +105,11 @@ public class OpenbankController {
 			AccountSearchResponseVO accountList = openBankingService.findAccount(accountSearchRequestVO);
 			
 			// Model 객체에 AccountSearchResponseVO 객체와 엑세스토큰 저장
+			log.info("Access_token : "+accountSearchRequestVO.getAccess_token());
+			log.info("userinfo : "+accountSearchRequestVO.getUser_seq_no());
+			log.info("include_cancel_yn : "+accountSearchRequestVO.getInclude_cancel_yn());
+			log.info("Sort_order : "+accountSearchRequestVO.getSort_order());
+			
 			model.addAttribute("accountList", accountList);
 			session.setAttribute("access_token", accountSearchRequestVO.getAccess_token());
 			

@@ -15,6 +15,7 @@ public class TranVO {
 	private String after_balance_amt; //거래후잔액(-금액가능)
 	private String branch_name;  //거래점명
 	
+	public TranVO () {}
 	
 	public TranVO(String tran_date, String tran_time, String inout_type, String tran_type, String print_content,
 			String tran_amt, String after_balance_amt, String branch_name) {

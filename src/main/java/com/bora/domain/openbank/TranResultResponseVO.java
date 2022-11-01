@@ -14,6 +14,8 @@ public class TranResultResponseVO {
 	private String res_cnt; //"25" 이체건수
 	private List<TranResultResListVO> tranResult_res_list; //이체결과 이체목록
 	
+	public TranResultResponseVO () {}
+	
 	public TranResultResponseVO(String api_tran_id, String api_tran_dtm, String rsp_code, String rsp_message,
 			String res_cnt, List<TranResultResListVO> tranResult_res_list) {
 		super();

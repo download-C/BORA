@@ -12,6 +12,7 @@ public class ResponseTokenVO {
 	private String scope;
 	private String user_seq_no;
 
+	public ResponseTokenVO () {}
 
 	public ResponseTokenVO(String access_token, String token_type, int expires_in, String refresh_token, String scope,
 			String user_seq_no) {

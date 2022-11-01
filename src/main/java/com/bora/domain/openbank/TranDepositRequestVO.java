@@ -19,6 +19,7 @@ public class TranDepositRequestVO {
 	private String req_list; //
 	private List<TranDepositReqListVO> de_req_list; //입금요청목록
 	
+	public TranDepositRequestVO () {}
 	
 	public TranDepositRequestVO(String access_token, String cntr_account_type, String cntr_account_num,
 			String wd_pass_phrase, String wd_print_content, String name_check_option, String sub_frnc_name,
