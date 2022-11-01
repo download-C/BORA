@@ -12,10 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.domain.MemberSHA256;
 import com.bora.domain.MemberVO;
+import com.bora.service.BoardService;
 import com.bora.service.MemberService;
 
 @Controller
@@ -25,6 +27,7 @@ public class AjaxController {
 	
 	@Inject
 	private MemberService service;
+	private BoardService bService;
 	
 	@RequestMapping(value="/member/idcheck", method = RequestMethod.GET)
 	public ResponseEntity<String> idcheck(HttpServletRequest request, RedirectAttributes rttr) throws Exception{
@@ -105,6 +108,45 @@ public class AjaxController {
  	    } 
  	    ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
  	    return entity;
+    }
+    
+    
+    // 카테고리 ajax ========================================
+    @RequestMapping(value = "/ajax/ctgr", method = RequestMethod.GET)
+    public ResponseEntity<String> ctgr(@RequestParam("ctgr") String ctgr) throws Exception {
+    	
+    	log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgr: " + ctgr);
+    	switch (ctgr) {
+		case "모두다BORA":
+			bService.getBoardList(vo);
+			break;
+		case "골라줘BORA":
+			
+			break;
+			
+		case "알려줘BORA":
+			
+			break;
+			
+		case "친해져BORA":
+			
+			break;
+		
+		default: return null;
+
+		} // switch
+    	
+    	bService.getBoardList(vo)
+//    	if(encryptPw.equals(vo.getPw())) {
+// 	    	log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡ 비밀번호 일치");
+// 		    // 일치할 경우 메세지 ok 보내기
+// 	    	result = "ok";
+// 	    } 
+// 	    ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
+    	
+//    	return entity;
+    	return null;
+    	
     }
    
 	
