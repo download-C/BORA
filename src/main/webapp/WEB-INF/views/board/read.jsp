@@ -38,21 +38,67 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/summernote/summernote-lite.css">
 <!-- ======== for 썸머노트 끝 ============== -->
 
+<!-- =============== 댓글 쓰기 모달창 ============ -->
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">REPLY M0DAL</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>Reply</label> <input class="form-control" name="c_content"
+						value="NewReply!!!!">
+				</div>
+				<div class="form-group">
+					<label>Replyer</label> <input class="form-control" name="id"
+						value="${loginID} }">
+				</div>
+				<div class="form-group">
+					<label>Reply Date</label> <input class="form-control"
+						name="c_regdate" value="">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="modalModBtn" type="button" class="btn btn-warning">
+					Modify</button>
+				<button id="modalRemoveBtn" type="button" class="btn btn-danger">Remove</button>
+				<button id="modalCloseBtn" type="button" class="btn btn-default"
+					data-dismiss="modal">Close</button>
+				<button id="modalClassBtn" type="button" class="btn btn-default"
+					data-dismiss="modal">Close</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- =============== 댓글 쓰기 모달창 끝 ============ -->
+
+
+
+
+
 
 <!-- ======= for 댓글,, comment.js 파일 추가 및 테스트======= -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/comment.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	console.log(cmtService);
+// 	console.log(cmtService);
 	var bnoValue = '<c:out value="${vo.bno}"/>';
 	var cmtUL = $('#cmt');
 	
-	
+	// 댓글 목록 출력 =====================
 	showCmtList(1);
 	
 	function showCmtList(page){
 		
-		alert("showCmtList 작동 성공");
+// 		alert("showCmtList 작동 성공");
 		
 		cmtService.getCmtList({bno:bnoValue, page:page||1}, function(list){
 			var str="";
@@ -65,35 +111,69 @@ $(document).ready(function(){
 			
 			// 반복문 돌면서 댓글 list 채우기
 			for (var i = 0, len = list.length||0; i < len; i++) {
+// 				console.log(cmtService.displayTime(1667118528000));
 				str += "<li data-cno='"+list[i].cno+"'>";
 				str += "<div id='cmt-body'><div id='cmt-header'><strong>"+list[i].id+"</strong>";
-				str += "<small>"+list[i].c_regdate+"</small></div>";
+// 				str += "<small>"+cmtService.displayTime(list[i].c_regdate)+"</small></div>";
+				str += "<small>"+ list[i].c_regdate +"</small></div>";
 				str += "<p>"+list[i].cno + " / " + list[i].c_content+"</p></div></li>";
 			}
 			
 			cmtUL.html(str);
 			
-// 		<ul id="cmt">
-// 			<li data-cno='2'>
-// 				<div id="cmt-body">
-// 					<div id="cmt-header">
-// 						<strong>user_id,, nick</strong> 
-// 						<small>regdate </small>
-// 					</div>
-// 					<p>c_content</p>
-	
-// 				</div>
-// 			</li>
-// 		</ul>
-			
 		}); // getCmtList()
 		
 	}// showCmtList()
 	
+	
+/* 	// 모달 띄우기 (새 댓글 등록 버튼 누르면 입력에 필요없는 항목들은 안 보이게 처리)
+	var modal = $(".modal");
+	var modalInputReply = modal.find("input[name='c_content']");
+	var modalInputReplyer = modal.find("input[name='id']");
+	var modalInputReplyDate = modal.find("input[name='c_regdate']");
+	
+	var modalModBtn = $("#modalModBtn");
+	var modalRemoveBtn = $("#modalRemoveBtn");
+	var modalRegisterBtn = $("#modalRegisterBtn");
+	
+	$("#addReplyBtn").on("click", function(e){
+		modal.find("input").val("");
+		modalInputReplyDate.closest("div").hide();
+		modal.find("button[id !='modalCloseBtn']").hide();
+		
+		modalRegisterBtn.show();
+		
+		$(".modal").modal("show");
+		
+	}); */
+	
+	// 댓글 작성 ========================
+	var cmtRegisterBtn = $("#add_cmt_btn");
+	var id = '<c:out value="${loginID}"/>';
+	
+	cmtRegisterBtn.on("click", function(e){
+		var cmt = {
+			c_content: $('#c_content').val(),
+			id: id,
+			bno: bnoValue
+		};
+		
+		// 댓글 등록 함수 호출
+		cmtService.add(cmt, function(result){
+			alert(result);
+			$('#c_content').val='';
+// 			document.getElementById("#c_content").value=''; 
+				// 얘 하니까 밑에도 안 먹고,, 거 참
+			showCmtList(1);
+		});
+		
+	});// cmtRegisterBtn click
+	
+	
 }); // jquery ready
 
 
-
+// 댓 ajax TEST ===================================
 // 1. add(cmt, callback, error)
 // cmtService.add(
 // 	// cmt
@@ -232,13 +312,13 @@ $(document).ready(function(){
 	<!-- ----------------------- 댓글 리스트 구간 --------------------------------- -->
 	<div style="border: 1px solid black">
 		<div>
-			<h6>댓글</h6>
+			<h3>댓글</h3>
 		</div>
 		<ul id="cmt">
 			<li data-cno='2'>
 				<div id="cmt-body">
 					<div id="cmt-header">
-						<strong>user_id,, nick</strong> <small>regdate </small>
+						<strong> id,, 말고 nick </strong> <small> c_regdate </small>
 					</div>
 					<p>c_content</p>
 	
@@ -246,42 +326,40 @@ $(document).ready(function(){
 			</li>
 		</ul>
 	</div>
-<%-- 							<fmt:formatDate value="${cdto.date }" pattern="yyyy.MM.dd hh:mm" /> --%>
-											<!-- 댓글 삭제 버턴,,
-													지 거만 지울 수 있게,,, + admin일 때
-													세션 로그인 아이디 == cdto에서 꺼내온 아이디 -->
-								<c:if test="${sessionScope.loginID eq cdto.id || sessionScope.loginID eq 'admin'}">
-									<input type="button" value="삭제" class="Bbtn btn1" 
-									onclick="location.href='./CommentDelete.bo?c_bno=${cdto.c_bno}&bno=${dto.bno }';"
-									style="padding: 3px; font-size: x-small; margin: 0px;">
-								</c:if>
-						</div>
-					</div>
-
+<%-- 			<fmt:formatDate value="${vo.c_regdate }" pattern="yyyy.MM.dd hh:mm" /> --%>
+							<!-- 댓글 삭제 버턴,,
+									지 거만 지울 수 있게,,, + admin일 때
+									세션 로그인 아이디 == cdto에서 꺼내온 아이디 -->
+				<c:if test="${sessionScope.loginID eq cdto.id || sessionScope.loginID eq 'admin'}">
+					<input type="button" value="삭제" class="Bbtn btn1" 
+					onclick="location.href='./CommentDelete.bo?c_bno=${cdto.c_bno}&bno=${dto.bno }';"
+					style="padding: 3px; font-size: x-small; margin: 0px;">
+				</c:if>
+</div>
 				<!-- ----------------------- 댓글 리스트 구간 끝^^ --------------------------------- -->
 				
 		      
 				<!-- ----------------------- 댓글 작성 구간^^ --------------------------------- -->
-
 				<div style="border: 1px solid black;">
-					<h6>댓글을 남겨주세요</h6>
-					<form action="/comments/new" method="post" name="frm">
-								<input type="hidden" name="bno" value="${vo.bno }">  <!-- bno : 메인 글의 bno!! (BoardDTO의 bno!!!!) 여기가 중요 ★★★-->
-						
+					<h3>댓글을 남겨주세요 👇👇 </h3>
 						<div class="form-group">
 							<label for="message">내용</label>
-							<textarea name="content" id="message" cols="7" rows="3" class="form-control cmt-update-content"></textarea>
+							<textarea name="content" id="c_content" cols="7" rows="3" class="form-control"></textarea>
 						</div>
 						<div class="btn btn-primary" >
-							<input type="submit" value="댓글 달기😘"
-								class="btn py-1 px-2 btn-primary">
+							<input type="button" value="댓글 달기😘" class="btn btn-primary" id="add_cmt_btn">
 						</div>
-						
-					</form>
 				</div>
+				
 				<!-- ----------------------- 댓글 작성 구간 끝^^ --------------------------------- -->
-	
-	
+<!--  모달로 댓글 쓸라고 했는ㄷㅔ^^ ㄷ안되네
+<div class="panel-heading">
+	<i class=""></i> 댓글~~
+	<button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>
+		댓글 쓰기</button>
+</div>
+
+ -->
 
 
 <script type="text/javascript">

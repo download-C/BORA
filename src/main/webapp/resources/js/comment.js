@@ -114,6 +114,39 @@ var cmtService = (function(){
 	}// 5. getCmtOne()
 	
 	
+	// 6. 시간 처리 함수 displayTime()
+	//    24시간이 지난 댓글은 날짜만 표시 / 24시간 이내의 글은 시간으로 표시
+	//   얘를 왜 인식을 못하지??????????????? 
+	function displayTime(timeValue){
+		console.log("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧6.displayTime.............................");
+		alert('displayTime() 호출됨');
+		
+		var today = new Date();
+		var gap = today.getTime() - timeValue;
+		var dateObj = new Date(timeValue); // 작성일시 여기 담김
+		var str = "";
+		
+		if(gap < (1000 * 60 * 60 * 24)) {
+			// 오늘 시간 - 작성 일시 = gap이 24시간보다 작으면~ = 24시간 지나기 전이면~~ 
+			var hh = dateObj.getHours();
+			var mi = dateObj.getMinutes();
+			var ss = dateObj.getSeconds();
+			
+			return [(hh > 9 ? '' : '0') + hh, ':',
+					(mi > 9 ? '' : '0') + mi, ':',
+					(ss > 9 ? '' : '0') + ss ].join('');
+		} else {
+			var yy = dateObj.getFullYear();
+			var mm = dateObj.getMonth() + 1; // 0부터 시작이라
+			var dd = dateObj.getDate();
+			
+			return [ yy, '/', 
+					(mm > 9 ? '' : '0') + mm, '/',
+					(dd > 9 ? '' : '0') + dd ].join('');
+		} // if-else
+	}// 6. displayTime()
+	
+	
 	// ======================================================
 	return {
 		// 1

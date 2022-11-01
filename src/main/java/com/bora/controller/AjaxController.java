@@ -118,7 +118,7 @@ public class AjaxController {
     	log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgr: " + ctgr);
     	switch (ctgr) {
 		case "모두다BORA":
-			bService.getBoardList(vo);
+//			bService.getBoardList(vo);
 			break;
 		case "골라줘BORA":
 			
@@ -136,7 +136,7 @@ public class AjaxController {
 
 		} // switch
     	
-    	bService.getBoardList(vo)
+//    	bService.getBoardList(vo)
 //    	if(encryptPw.equals(vo.getPw())) {
 // 	    	log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡ 비밀번호 일치");
 // 		    // 일치할 경우 메세지 ok 보내기
