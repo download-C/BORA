@@ -4,11 +4,10 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<%
-	if (loginID == null) {
-%>
+<% if (loginID == null) { %>
+
 <!-- 세션값(로그인) 확인 -->
-<script>
+	<script>
 	// 세션값 여부
 	alert("세션값이 만료되어 로그인 페이지로 이동합니다.");
 	location.href = "/main/login";
@@ -18,11 +17,19 @@
 		if (message != "") {
 			alert(message);
 		}
-	})
-</script>
-<%
-	}
-%>
+	});
+	</script>
+<%} else {%>
+	<% if(!loginID.equals("admin")) { %>
+	<script>
+	// 로그인한 아이디가 관리자가 아닐 때
+	alert("관리자만 사용 가능한 페이지입니다.");
+	location.href = "/main/main";
+	</script>
+	<%}%>
+<%} %>
+
+
 <!-- 태그 적는 곳 -->
 
 
@@ -50,15 +57,8 @@
 <form action="/notice/write" method="post" enctype="multipart/form-data">
 	<div class="insertNotice">
 		<div>
-			<div>   <!-- hidden으로 바꾸기!!! -->
-				<input type="hidden" name="id" value="${loginID }" readonly="readonly">
-			</div>
-		</div>
-		<br>
-		<br>
-		<div>
 			<div>
-				<input type="text" name="n_subject" placeholder="공지사항 제목">
+				<input type="text" name="n_title" placeholder="공지사항 제목">
 			</div>
 		</div>
 		<br>
@@ -66,14 +66,6 @@
 			내용
 			<textarea id="summernote" name="n_content" ></textarea>
 		</div>
-		<br>
-		<div>
-			파일
-			<div>
-				<input type="file" name="n_file" multiple="multiple">
-			</div>
-		</div>
-		<br>
 		<div>
 			<input type="submit" value="글쓰기">
 		</div>

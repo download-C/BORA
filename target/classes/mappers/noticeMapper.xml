@@ -5,14 +5,13 @@
   
 <mapper namespace="com.bora.mapper.NoticeMapper">
 	<insert id="writeNotice">
-		insert into bora_notice(n_subject, n_content, n_file, n_readcount) 
-		values (#{n_subject}, #{n_content}, #{n_file}, 0)
+		insert into bora_notice(n_title, n_content, n_file, n_readcount) 
+		values (#{n_title}, #{n_content}, #{n_file}, 0)
 	</insert>
 	
 	<update id="updateNotice">
 		update bora_notice
-		set n_subject=#{n_subject}, n_content=#{n_content}, 
-		n_filename=#{n_filename}, n_uploadfoler=#{uploadfolder}
+		set n_title=#{n_title}, n_content=#{n_content}, n_file=#{n_file}
 		where nno=#{nno}
 	</update>
 	

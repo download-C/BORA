@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.javassist.util.proxy.ProxyFactory.UniqueName;
@@ -22,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bora.domain.FileVO;
 import com.bora.domain.NoticeVO;
 import com.bora.domain.PageMakerVO;
 import com.bora.domain.PageVO;
@@ -79,6 +79,7 @@ public class NoticeController {
 //		}
 //	}
 	// 파일 업로드 테스트 메서드
+	// http://localhost:8088/notice/upload
 	@RequestMapping(value="/upload", method=RequestMethod.GET)
 	public String uploadFileGET() {
 		log.info("uploadFileGET() 호출");
@@ -86,31 +87,50 @@ public class NoticeController {
 	}
 	
 	
-	// 파일 업로드 테스트 메서드
-	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String uploadFilePOST(@RequestParam("n_file") MultipartFile[] uploadFile, Model model) {
-		log.info("uploadFilePOST() 호출");
-		String uploadFolder = "C:\\Users\\USER\\Desktop\\upload";
-		for(MultipartFile file:uploadFile) {
-			log.info("---------");
-			log.info("파일명: "+file.getOriginalFilename());
-			log.info("파일 사이즈: "+file.getSize());
-			File saveFile = new File(uploadFolder, file.getOriginalFilename());
-			try {
-				file.transferTo(saveFile);
-			} catch (Exception e) {
-				log.info(e+"");
-			}
-		}
-		return "/main/main";
-	}
+	// 파일 업로드 메서드 완성! 파일업로드 필요한 매핑 메서드에서 사용 후 return 값으로 들어오는 변환된 파일명으로 db에 저장하기!
+////	@RequestMapping(value="/upload", method=RequestMethod.POST)
+//	public String uploadFilePOST(@RequestParam("n_file") MultipartFile file) {
+//		log.info("uploadFilePOST() 호출");
+//		String uploadFolder = "C:\\Users\\ITWILL\\Desktop\\upload";
+//		String fileRealName = file.getOriginalFilename();
+//		long size = file.getSize(); //파일 사이즈
+//		log.info("---------");
+//		log.info("파일명: "+fileRealName);
+//		log.info("파일 사이즈: "+size);
+//		// 기존의 파일명 그대로 저장하기
+////		File saveFile = new File(uploadFolder, file.getOriginalFilename());
+//			
+//		// 파일 확장자명 구하기
+//		String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
+//		
+//		// 파일명이 겹칠 경우를 대비해서 고유 문자열 생성 후 파일 이름으로 지정
+//		UUID uuid = UUID.randomUUID();
+//		System.out.println(uuid.toString());
+//		String[] uuids = uuid.toString().split("-");
+//		String uniqueName = uuids[0];
+//		log.info("고유문자열 : "+uniqueName);
+//		
+//		String savingName = uniqueName + fileExtension;
+//		log.info("실제 저장되는 경로 및 이름: "+savingName);
+//		// 고유문자열로 만든 파일명으로 저장
+//		File saveFile = new File(uploadFolder+"\\"+savingName);  // 적용 후
+//		
+//		try {
+//			// 실제 파일 저장 메서드
+//			file.transferTo(saveFile);
+//		} catch (Exception e) {
+//			log.info(e+"");
+//		}
+//		
+//		return savingName;
+////		return "/main/main";
+//	}
 	
 	// 1. 글쓰기 GET                       
 	// http://localhost:8088/notice/write
 	@RequestMapping (value = "/write", method = RequestMethod.GET)
 	public String writeNoticeGET() throws Exception {
 		log.info("(♥♥♥♥♥ writeNoticeGET) 호출됨");
-		log.info("(♥♥♥♥♥ writeNoticeGET) 리턴타입 void라서 들어온 주소 /notice/write.jsp 로 이동할게요");
 		return "admin/noticeWrite";
 	}
 	// 1. 글쓰기 GET 끝
@@ -118,12 +138,22 @@ public class NoticeController {
 	
 	// 1-2. 글쓰기 POST
 	@RequestMapping (value="/write", method = RequestMethod.POST)
-	public String writeNoticePOST(MultipartFile[] file, 
+	public String writeNoticePOST(HttpServletRequest request, 
+			@RequestParam("n_file") MultipartFile file,
 			NoticeVO vo, RedirectAttributes rttr) throws Exception {
+		log.info("writeNoticePOST()호출");
+		String n_title = request.getParameter("n_title");
+		String n_content = request.getParameter("n_content");
 		
-//		if(file!=null) {
-//			uploadFile(file);
-//		}
+		// 첨부파일이 있을 경우 업로드 후 고유파일명 삽입, 없을 경우 빈칸
+		if(file!=null) {
+//			String n_file = uploadFilePOST(file);
+//			vo.setN_file(n_file);
+		} else vo.setN_file("");
+		
+		vo.setN_title(n_title);
+		vo.setN_content(n_content);
+		
 		
 		log.info("(♥♥♥♥♥ 1-2.writeNoticePOST) 호출됨");
 		
@@ -144,8 +174,36 @@ public class NoticeController {
 	// 1-2. 글쓰기 POST 끝
 	
 	
+	// 2-1. 페이징 처리 적용한 게시판 리스트 조회 GET        
+	// http://localhost:8088/notice/listPage
+	@RequestMapping (value = "/listPage", method = RequestMethod.GET)
+	public String getNoticeListGET(PageVO vo, Model model, HttpSession session) throws Exception {
+		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET) 호출됨");
+		
+		vo = new PageVO();
+		
+		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET) Service 호출할게욘");
+		model.addAttribute("noticeList", service.getNoticeListPage(vo));
+		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET)   + 모델 객체에 저장까지 완");
+		
+		// 페이징 처리 하단부 정보 저장 + 모델 객체(pm)에 저장
+		PageMakerVO pm = new PageMakerVO();
+		pm.setVo(vo);
+		pm.setTotalCnt(100); 
+		model.addAttribute("pm", pm);
+		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET) PageMakerVO도 모델 객체에 저장 완 + pm: " + pm);
+		
+		
+		// 세션에 객체 isUpdate 하나  만들어놓기~~~ 
+		//    3()으로 정보 전달을 위해..
+		session.setAttribute("isUpdate", false);
+		
+		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET) 리턴타입 void라서 들어온 주소 /notice/list.jsp로 이동할 거");
+		
+		return "/notice/listAll";
+	}
 	
-	// 2. 게시판 리스트 조회 GET                  
+	// 2-2. 게시판 리스트 조회 GET                  
 //	 http://localhost:8088/notice/listAll
 	@RequestMapping (value = "/listAll", method = RequestMethod.GET)
 	public void getNoticeListAll(@ModelAttribute("msg") String msg, Model model, HttpSession session) throws Exception {
@@ -178,34 +236,6 @@ public class NoticeController {
 	
 	
 	
-	// 2-1. 페이징 처리 적용한 게시판 리스트 조회 GET        
-	// http://localhost:8088/notice/list
-	@RequestMapping (value = "/listPage", method = RequestMethod.GET)
-	public String getNoticeListGET(PageVO vo, Model model, HttpSession session) throws Exception {
-		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET) 호출됨");
-		
-		vo = new PageVO();
-		
-		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET) Service 호출할게욘");
-		model.addAttribute("noticeList", service.getNoticeListPage(vo));
-		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET)   + 모델 객체에 저장까지 완");
-		
-		// 페이징 처리 하단부 정보 저장 + 모델 객체(pm)에 저장
-		PageMakerVO pm = new PageMakerVO();
-		pm.setVo(vo);
-		pm.setTotalCnt(100); 
-		model.addAttribute("pm", pm);
-		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET) PageMakerVO도 모델 객체에 저장 완 + pm: " + pm);
-		
-		
-		// 세션에 객체 isUpdate 하나  만들어놓기~~~ 
-		//    3()으로 정보 전달을 위해..
-		session.setAttribute("isUpdate", false);
-		
-		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET) 리턴타입 void라서 들어온 주소 /notice/list.jsp로 이동할 거");
-		
-		return "/notice/listAll";
-	}
 	
 	// 3. 글 본문 보기 GET                  
 	// http://localhost:8088/notice/content
