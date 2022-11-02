@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.bora.mapper.NoticeMapper">
+	<insert id="writeNotice">
+		insert into bora_notice(n_title, n_content, n_file, n_readcount) 
+		values (#{n_title}, #{n_content}, #{n_file}, 0)
+	</insert>
+	
+	<update id="updateNotice">
+		update bora_notice
+		set n_title=#{n_title}, n_content=#{n_content}, n_file=#{n_file}
+		where nno=#{nno}
+	</update>
+	
+	<select id="getNoticeListAll" resultType="NoticeVO">
+		select * from bora_notice
+		order by n_regdate desc;
+	</select>
+	
+	<select id="getNoticeListPage" resultType="NoticeVO">
+		select * from bora_notice
+		order by n_regdate desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="getNotice"  resultType="NoticeVO">
+		select * from bora_notice
+		where nno=#{nno}
+	</select>
+	
+	<update id="updateNoticeReadcount">
+		update bora_notice
+		set n_readcount = n_readcount+1
+		where nno=#{nno}
+	</update>
+	
+	<delete id="deleteNotice">
+		delete from bora_notice
+		where nno=#{nno}
+	</delete>
+	
+	<select id="getTotalCnt" resultType="Integer">
+		select count(nno) from bora_notice
+	</select>
+</mapper>

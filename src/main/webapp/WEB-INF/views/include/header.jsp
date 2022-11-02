@@ -34,7 +34,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <%
 if(session!=null) {
-String loginID = (String)session.getAttribute("loginID");
+	String loginID = (String)session.getAttribute("loginID");
 %>
 </head>
 <body>
