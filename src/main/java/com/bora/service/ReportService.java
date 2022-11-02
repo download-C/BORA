@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.bora.domain.CardPayVO;
 import com.bora.domain.ReportVO;
-import com.bora.domain.openbank.TranVO;
-import com.bora.domain.openbank.card.CardDetailBillsVO;
+import com.bora.domain.openbank.card.bill.CardDetailBillsVO;
+import com.bora.domain.openbank.tran.TranVO;
 
 public interface ReportService {
 

@@ -2,7 +2,7 @@ package com.bora.domain;
 
 import java.security.MessageDigest;
 
-public class MemberSHA256 {
+public class SHA256 {
 	public static String encrypt(String password) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");

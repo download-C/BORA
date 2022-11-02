@@ -1,6 +1,8 @@
-package com.bora.domain.openbank;
+package com.bora.domain.openbank.account;
 
 import java.util.List;
+
+import com.bora.domain.openbank.tran.TranVO;
 
 import lombok.Data;
 

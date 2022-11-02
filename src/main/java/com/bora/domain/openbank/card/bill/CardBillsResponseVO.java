@@ -1,8 +1,8 @@
-package com.bora.domain.openbank.card;
+package com.bora.domain.openbank.card.bill;
 
 import java.util.List;
 
-import com.bora.domain.openbank.card.CardBillsVO;
+import com.bora.domain.openbank.card.bill.CardBillsVO;
 
 import lombok.Data;
 

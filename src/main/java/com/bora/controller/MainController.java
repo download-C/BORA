@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bora.domain.MemberSHA256;
+import com.bora.domain.SHA256;
 import com.bora.domain.MemberVO;
-import com.bora.domain.NoticeVO;
-import com.bora.domain.PageMakerVO;
-import com.bora.domain.PageVO;
+import com.bora.domain.board.NoticeVO;
+import com.bora.domain.board.PageMakerVO;
+import com.bora.domain.board.PageVO;
 import com.bora.service.MainService;
 import com.bora.service.MemberService;
-import com.bora.service.NoticeService;
+import com.bora.service.board.NoticeService;
 
 @RequestMapping("/main/*")
 @Controller
@@ -56,7 +56,7 @@ public class MainController {
 		String pw = request.getParameter("pw");
 		log.info("비밀번호: " + pw);
 		// 비밀번호 암호화
-		String encryptPw = MemberSHA256.encrypt(pw);
+		String encryptPw = SHA256.encrypt(pw);
 		log.info("암호화된 비밀번호: " + encryptPw);
 		String name = request.getParameter("name");
 		String nick = request.getParameter("nick");
@@ -90,7 +90,7 @@ public class MainController {
 	public String loginPOST(MemberVO vo, HttpSession session, RedirectAttributes rttr) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡loginPOST() 호출");
 		// 사용자가 입력한 비밀번호 암호화
-		String encryptPw = MemberSHA256.encrypt(vo.getPw());
+		String encryptPw = SHA256.encrypt(vo.getPw());
 		log.info("암호화된 비밀번호"+encryptPw);
 		// 암호화된 비밀번호로 수정
 		vo.setPw(encryptPw);

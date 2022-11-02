@@ -1,11 +1,11 @@
-package com.bora.service;
+package com.bora.service.board;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.bora.domain.CommentVO;
-import com.bora.domain.PageVO;
+import com.bora.domain.board.CommentVO;
+import com.bora.domain.board.PageVO;
 
 public interface CommentService {
 	// 1. 댓글 쓰기

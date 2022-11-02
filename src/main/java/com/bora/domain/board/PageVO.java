@@ -1,4 +1,4 @@
-package com.bora.domain;
+package com.bora.domain.board;
 
 public class PageVO {
 	// 페이징 처리에 필요한 정보를 관리하는 객체

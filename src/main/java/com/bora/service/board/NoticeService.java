@@ -1,10 +1,10 @@
-package com.bora.service;
+package com.bora.service.board;
 
 import java.util.List;
 
-import com.bora.domain.NoticeVO;
-import com.bora.domain.PageMakerVO;
-import com.bora.domain.PageVO;
+import com.bora.domain.board.NoticeVO;
+import com.bora.domain.board.PageMakerVO;
+import com.bora.domain.board.PageVO;
 
 public interface NoticeService {
 public void writeNotice(NoticeVO vo) throws Exception;

@@ -1,4 +1,4 @@
-package com.bora.controller;
+package com.bora.controller.board;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,11 +30,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bora.domain.NoticeVO;
-import com.bora.domain.PageMakerVO;
-import com.bora.domain.PageVO;
-//import com.bora.service.NoticeService;
-import com.bora.service.NoticeService;
+import com.bora.domain.board.NoticeVO;
+import com.bora.domain.board.PageMakerVO;
+import com.bora.domain.board.PageVO;
+import com.bora.service.board.NoticeService;
 
 @Controller
 @RequestMapping("/notice/*")

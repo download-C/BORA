@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bora.domain.MemberSHA256;
+import com.bora.domain.SHA256;
 import com.bora.domain.MemberVO;
 import com.bora.service.MemberService;
 
@@ -46,7 +46,7 @@ public class MemberController {
    @RequestMapping(value="/password", method=RequestMethod.POST)
    public String mypagePasswordPOST(HttpServletRequest request, HttpSession session, RedirectAttributes rttr) throws Exception{
 	   log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡mypagePasswordPOST() 호출");
-	   String encryptPw= MemberSHA256.encrypt(request.getParameter("pw"));
+	   String encryptPw= SHA256.encrypt(request.getParameter("pw"));
 	   loginID = (String)session.getAttribute("loginID");
 	   MemberVO vo = service.getMember(loginID);
 	   if(vo.getPw().equals(encryptPw)) {

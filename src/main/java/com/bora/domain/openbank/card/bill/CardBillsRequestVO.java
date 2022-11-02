@@ -1,4 +1,4 @@
-package com.bora.domain.openbank.card;
+package com.bora.domain.openbank.card.bill;
 
 import lombok.Data;
 

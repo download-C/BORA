@@ -13,9 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.bora.controller.board.BoardController;
 import com.bora.domain.CardPayVO;
 import com.bora.domain.ReportVO;
-import com.bora.domain.openbank.TranVO;
+import com.bora.domain.openbank.tran.TranVO;
 import com.bora.service.ReportService;
 
 

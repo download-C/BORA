@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.bora.domain.BoardVO;
-import com.bora.domain.PageVO;
+import com.bora.domain.board.BoardVO;
+import com.bora.domain.board.PageVO;
 
 
 @Repository

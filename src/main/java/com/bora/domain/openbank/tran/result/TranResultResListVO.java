@@ -1,4 +1,4 @@
-package com.bora.domain.openbank;
+package com.bora.domain.openbank.tran.result;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
-package com.bora.domain;
+package com.bora.domain.board;
 
-import com.bora.domain.PageVO;
+import com.bora.domain.board.PageVO;
 
 public class PageMakerVO {
 	// 개수 출력(PageVO) + 하단 페이징 블럭까지~~

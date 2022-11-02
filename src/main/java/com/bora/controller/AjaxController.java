@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bora.domain.MemberSHA256;
+import com.bora.domain.SHA256;
 import com.bora.domain.MemberVO;
-import com.bora.service.BoardService;
 import com.bora.service.MemberService;
+import com.bora.service.board.BoardService;
 import com.google.gson.JsonObject;
 
 @Controller
@@ -96,7 +96,7 @@ public class AjaxController {
 	 	   RedirectAttributes rttr) throws Exception {
     	log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡deleteCheck()호출");
     	// 회원이 입력한 비밀번호
-    	String encryptPw= MemberSHA256.encrypt(reqeust.getParameter("pw"));
+    	String encryptPw= SHA256.encrypt(reqeust.getParameter("pw"));
 	    // 로그인한 회원의 회원 정보
 	    String id = (String)session.getAttribute("loginID");
 	    MemberVO vo = service.getMember(id);

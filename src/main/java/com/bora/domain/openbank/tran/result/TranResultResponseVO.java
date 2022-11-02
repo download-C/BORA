@@ -1,4 +1,4 @@
-package com.bora.domain.openbank;
+package com.bora.domain.openbank.tran.result;
 
 import java.util.List;
 

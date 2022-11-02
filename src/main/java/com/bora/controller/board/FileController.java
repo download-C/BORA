@@ -1,4 +1,4 @@
-package com.bora.controller;
+package com.bora.controller.board;
 
 import java.io.File;
 import java.util.ArrayList;

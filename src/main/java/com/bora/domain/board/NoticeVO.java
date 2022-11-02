@@ -1,4 +1,4 @@
-package com.bora.domain;
+package com.bora.domain.board;
 
 import java.sql.Timestamp;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.bora.controller;
+package com.bora.controller.openbank;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -11,25 +11,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bora.domain.openbank.AccountBalanceRequestVO;
-import com.bora.domain.openbank.AccountBalanceResponseVO;
-import com.bora.domain.openbank.AccountCancelRequestVO;
-import com.bora.domain.openbank.AccountCancelResponseVO;
-import com.bora.domain.openbank.AccountSearchRequestVO;
-import com.bora.domain.openbank.AccountSearchResponseVO;
-import com.bora.domain.openbank.AccountTranRequestVO;
-import com.bora.domain.openbank.AccountTranResponseVO;
 import com.bora.domain.openbank.RequestTokenVO;
 import com.bora.domain.openbank.ResponseTokenVO;
-import com.bora.domain.openbank.TranDepositRequestVO;
-import com.bora.domain.openbank.TranDepositResponseVO;
-import com.bora.domain.openbank.TranResultRequestVO;
-import com.bora.domain.openbank.TranResultResponseVO;
-import com.bora.domain.openbank.TranWithdrawRequestVO;
-import com.bora.domain.openbank.TranWithdrawResponseVO;
 import com.bora.domain.openbank.UserInfoRequestVO;
 import com.bora.domain.openbank.UserInfoResponseVO;
-import com.bora.service.OpenBankingService;
+import com.bora.domain.openbank.account.AccountBalanceRequestVO;
+import com.bora.domain.openbank.account.AccountBalanceResponseVO;
+import com.bora.domain.openbank.account.AccountCancelRequestVO;
+import com.bora.domain.openbank.account.AccountCancelResponseVO;
+import com.bora.domain.openbank.account.AccountSearchRequestVO;
+import com.bora.domain.openbank.account.AccountSearchResponseVO;
+import com.bora.domain.openbank.account.AccountTranRequestVO;
+import com.bora.domain.openbank.account.AccountTranResponseVO;
+import com.bora.domain.openbank.tran.deposit.TranDepositRequestVO;
+import com.bora.domain.openbank.tran.deposit.TranDepositResponseVO;
+import com.bora.domain.openbank.tran.result.TranResultRequestVO;
+import com.bora.domain.openbank.tran.result.TranResultResponseVO;
+import com.bora.domain.openbank.tran.withdraw.TranWithdrawRequestVO;
+import com.bora.domain.openbank.tran.withdraw.TranWithdrawResponseVO;
+import com.bora.service.openbank.OpenBankingService;
 
 @Controller
 @RequestMapping("/openbank/*")
