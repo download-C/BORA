@@ -5,6 +5,9 @@
 <!-- ${pageContext.request.contextPath} -->
 <h1>openbank/oauthOK.jsp</h1>
 
+
+<div class="container">
+
 <h2>세션 토큰 : ${sessionScope.token }</h2>
 <hr>
 <h4>액세스 토큰 : ${responseToken.access_token }</h4>
@@ -46,9 +49,11 @@
 		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 		<input type="hidden" name="access_token" value="${sessionScope.token }">
 <%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
-		<input type="hidden" name="bank_tran_id" value="Y">
+<!-- 		<input type="hidden" name="bank_tran_id" value="Y"> -->
+		<input type="hidden" name="bank_tran_id" value="M202202092U123456781">
 		<input type="hidden" name="scope" value="Y">
-		<input type="hidden" name="fintech_use_num" value="Y">
+<!-- 		<input type="hidden" name="fintech_use_num" value="Y"> -->
+		<input type="hidden" name="fintech_use_num" value="120220209288941286327192">
 		<input type="submit" value="등록계좌해지">
 	</form><hr>    
     
@@ -60,7 +65,7 @@
 		<input type="hidden" name="access_token" value="${sessionScope.token }">
 <%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
 <%-- 		<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }"> --%>
-		<input type="hidden" name="bank_tran_id" value="Y">
+		<input type="hidden" name="bank_tran_id" value="M202202092U123456781">
 		<input type="hidden" name="fintech_use_num" value="120220209288941286327192">
 		<input type="hidden" name="tran_dtime" value="Y">
 		<input type="submit" value="계좌잔액조회">
@@ -74,7 +79,7 @@
 		<input type="hidden" name="access_token" value="${sessionScope.token }">
 <%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
 		<input type="hidden" name="bank_tran_id" value="Y">
-		<input type="hidden" name="fintech_use_num" value="Y">
+		<input type="hidden" name="fintech_use_num" value="120220209288941286327192">
 		<input type="hidden" name="inquiry_type" value="Y">
 		<input type="hidden" name="inquiry_base" value="Y">
 		<input type="hidden" name="from_date" value="Y">
@@ -142,6 +147,8 @@
 		<input type="hidden" name="befor_inquiry_trace_info" value="V">
 		<input type="submit" value="카드목록">
      </form><hr>
-     
+</div>
+
+
      
 <%@ include file="../include/footer.jsp"%>

@@ -151,6 +151,7 @@ public class OpenbankController {
 			
 			// Model 객체에 AccountcancelResponseVO 객체와 엑세스토큰 저장
 			model.addAttribute("accountBalance", accountBalance);
+			session.setAttribute("bank_tran_id", accountBalanceRequestVO.getBank_tran_id());
 			session.setAttribute("fintech_use_num", accountBalanceRequestVO.getFintech_use_num());
 			
 //			log.info("Access_token : "+accountBalanceRequestVO.getAccess_token());
