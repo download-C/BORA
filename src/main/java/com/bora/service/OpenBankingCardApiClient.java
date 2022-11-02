@@ -12,12 +12,18 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.bora.domain.openbank.card.CardBillsRequestVO;
 import com.bora.domain.openbank.card.CardBillsResponseVO;
+import com.bora.domain.openbank.card.CardDeleteRequestVO;
+import com.bora.domain.openbank.card.CardDeleteResponseVO;
 import com.bora.domain.openbank.card.CardDetailBillsRequestVO;
 import com.bora.domain.openbank.card.CardDetailBillsResponseVO;
 import com.bora.domain.openbank.card.CardListRequestVO;
 import com.bora.domain.openbank.card.CardListResponseVO;
 import com.bora.domain.openbank.card.CardSearchRequestVO;
 import com.bora.domain.openbank.card.CardSearchResponseVO;
+import com.bora.domain.openbank.card.CardUpdateRequestVO;
+import com.bora.domain.openbank.card.CardUpdateResponseVO;
+import com.bora.domain.openbank.card.PrePaidTranRequestVO;
+import com.bora.domain.openbank.card.PrePaidTranResponseVO;
 import com.bora.domain.openbank.card.RegistCardRequestVO;
 import com.bora.domain.openbank.card.RegistCardResponseVO;
 import com.bora.domain.openbank.RequestTokenVO;
@@ -49,11 +55,11 @@ public class OpenBankingCardApiClient {
 	}
 	
 	public ResponseTokenVO requestToken(RequestTokenVO requestTokenVO) {
-//		요청 메시지 URL
-//HTTP URL 	https://testapi.openbanking.or.kr/oauth/2.0/token
-//HTTP Method POST
-//Content-Type application/x-www-form-urlencoded; charset=UTF-8
-//요청값code client_id client_secret redirect_uri grant_type
+        // 요청 메시지 URL
+        // HTTP URL 	https://testapi.openbanking.or.kr/oauth/2.0/token
+        // HTTP Method POST
+        // Content-Type application/x-www-form-urlencoded; charset=UTF-8
+        // 요청값code client_id client_secret redirect_uri grant_type
 		restTemplate=new RestTemplate();
 		httpHeaders=new HttpHeaders();
 		// Content-Type 지정 http header
@@ -82,7 +88,7 @@ public class OpenBankingCardApiClient {
 		/// REST 방식 요청에 필요한 객체 생성
 		restTemplate = new RestTemplate();
 		httpHeaders = new HttpHeaders();
-
+		
 		// 2.2.1 사용자정보조회 API URL 주소 생성
 		String url = baseUrl + "/user/me";
 
@@ -114,6 +120,9 @@ public class OpenBankingCardApiClient {
 		restTemplate = new RestTemplate();
 		httpHeaders = new HttpHeaders();
 		
+		// Content-Type 지정 http header
+		httpHeaders.add("Content-Type", "application/json; charset=UTF-8");
+		
 		// 2.2.1 사용자정보조회 API URL 주소 생성
 		String url = baseUrl + "/user/register_card";
 		
@@ -124,7 +133,14 @@ public class OpenBankingCardApiClient {
 		HttpEntity<String> openBankingRegistCardRequest = new HttpEntity<String>(httpHeaders);
 		
 		UriComponents uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
+				.queryParam("access_token", registCardRequestVO.getAccess_token())
+				.queryParam("bank_tran_id", registCardRequestVO.getBank_tran_id())
+				.queryParam("bank_code_std", registCardRequestVO.getBank_code_std())
 				.queryParam("member_bank_code", registCardRequestVO.getMember_bank_code())
+				.queryParam("user_name", registCardRequestVO.getUser_name())
+				.queryParam("user_ci", registCardRequestVO.getUser_ci())
+				.queryParam("user_email", registCardRequestVO.getUser_email())
+				.queryParam("scope", registCardRequestVO.getScope())
 				.queryParam("info_prvd_agmt_yn", registCardRequestVO.getInfo_prvd_agmt_yn())
 				.build();
 		
@@ -223,5 +239,72 @@ public class OpenBankingCardApiClient {
 		
 		return restTemplate.exchange(uriBuilder.toString(), 
 				HttpMethod.GET, openBankingCardDetailBillsRequest, CardDetailBillsResponseVO.class).getBody();
+	}
+	public CardUpdateResponseVO updateCard(CardUpdateRequestVO cardUpdateRequestVO) {
+		/// REST 방식 요청에 필요한 객체 생성
+		restTemplate = new RestTemplate();
+		httpHeaders = new HttpHeaders();
+		
+		// 2.2.1 사용자정보조회 API URL 주소 생성
+		String url = baseUrl + "/cards/update";
+		
+		System.out.println(cardUpdateRequestVO.getAccess_token());
+		
+		httpHeaders.add("Authorization", "Bearer"+cardUpdateRequestVO.getAccess_token());
+		
+		HttpEntity<String> openBankingCardUpdateRequest = new HttpEntity<String>(httpHeaders);
+		
+		UriComponents uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
+				.queryParam("user_seq_no", cardUpdateRequestVO.getUser_seq_no())
+				.queryParam("member_bank_code", cardUpdateRequestVO.getMember_bank_code())
+				.queryParam("update_user_email", cardUpdateRequestVO.getUpdate_user_email())
+				.build();
+		
+		return restTemplate.exchange(uriBuilder.toString(), 
+				HttpMethod.GET, openBankingCardUpdateRequest, CardUpdateResponseVO.class).getBody();
+	}
+	public CardDeleteResponseVO deleteCard(CardDeleteRequestVO cardDeleteRequestVO) {
+		/// REST 방식 요청에 필요한 객체 생성
+		restTemplate = new RestTemplate();
+		httpHeaders = new HttpHeaders();
+		
+		// 2.2.1 사용자정보조회 API URL 주소 생성
+		String url = baseUrl + "/cards/cancel";
+		
+		System.out.println(cardDeleteRequestVO.getAccess_token());
+		
+		httpHeaders.add("Authorization", "Bearer"+cardDeleteRequestVO.getAccess_token());
+		
+		HttpEntity<String> openBankingCardDeleteRequest = new HttpEntity<String>(httpHeaders);
+		
+		UriComponents uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
+				.queryParam("user_seq_no", cardDeleteRequestVO.getUser_seq_no())
+				.queryParam("member_bank_code", cardDeleteRequestVO.getMember_bank_code())
+				.build();
+		
+		return restTemplate.exchange(uriBuilder.toString(), 
+				HttpMethod.GET, openBankingCardDeleteRequest, CardDeleteResponseVO.class).getBody();
+	}
+	public PrePaidTranResponseVO prePaidTran(PrePaidTranRequestVO prePaidTranRequestVO) {
+		/// REST 방식 요청에 필요한 객체 생성
+		restTemplate = new RestTemplate();
+		httpHeaders = new HttpHeaders();
+		
+		// 2.2.1 사용자정보조회 API URL 주소 생성
+		String url = baseUrl + "/pays/transactions";
+		
+		System.out.println(prePaidTranRequestVO.getAccess_token());
+		
+		httpHeaders.add("Authorization", "Bearer"+prePaidTranRequestVO.getAccess_token());
+		
+		HttpEntity<String> openBankingPrePaidTranRequest = new HttpEntity<String>(httpHeaders);
+		
+		UriComponents uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
+				.queryParam("user_seq_no", prePaidTranRequestVO.getUser_seq_no())
+				.queryParam("member_bank_code", prePaidTranRequestVO.getBank_code_std())
+				.build();
+		
+		return restTemplate.exchange(uriBuilder.toString(), 
+				HttpMethod.GET, openBankingPrePaidTranRequest, PrePaidTranResponseVO.class).getBody();
 	}
 }
