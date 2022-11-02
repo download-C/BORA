@@ -144,6 +144,7 @@ public class OpenbankController {
 		public String getAccountBalance( AccountBalanceRequestVO accountBalanceRequestVO, Model model) {
 			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧   계좌 잔액 조회");
 			log.info("/openbank/acct_balance 로 이동");
+			log.info(accountBalanceRequestVO+"");
 			
 			// Service 객체의 balanceAccount() 메서드를 호출하여 사용자 정보 조회
 			// => 파라미터 : AccountbalanceRequestVO, 리턴타입 AccountbalanceResponseVO
@@ -153,6 +154,15 @@ public class OpenbankController {
 			model.addAttribute("accountBalance", accountBalance);
 			session.setAttribute("bank_tran_id", accountBalanceRequestVO.getBank_tran_id());
 			session.setAttribute("fintech_use_num", accountBalanceRequestVO.getFintech_use_num());
+			log.info("%%%%%%%%%%%은행이름: "+accountBalance.getBank_name());
+			log.info("");
+			log.info("");
+			log.info("");
+			log.info("");
+			log.info("");
+			log.info("");
+			log.info("");
+			
 			
 //			log.info("Access_token : "+accountBalanceRequestVO.getAccess_token());
 			log.info("bank_tran_id : "+accountBalanceRequestVO.getBank_tran_id());

@@ -20,6 +20,7 @@
 			<th>계좌구분</th>
 			<th>계좌종류</th>
 			<th>예금주명</th>
+			<th>계좌별명</th>
 		</tr>
 		<%-- accountList 객체에 저장되어 있는 계좌 목록(res_list) 가져와서 반복하여 복수개 계좌 접근 --%>
 		<c:forEach var="accountList" items="${accountList.res_list }">
@@ -29,6 +30,7 @@
 				<td>${accountList.account_holder_type }</td>
 				<td>${accountList.account_type }</td>
 				<td>${accountList.account_holder_name }</td>
+				<td>${accountList.account_alias }</td>
 			</tr>
 		</c:forEach>
 	</table>
