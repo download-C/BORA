@@ -13,78 +13,82 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.domain.MemberSHA256;
 import com.bora.domain.MemberVO;
 import com.bora.service.BoardService;
 import com.bora.service.MemberService;
+import com.google.gson.JsonObject;
 
 @Controller
 public class AjaxController {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(MemberController.class);
-	
+
 	@Inject
 	private MemberService service;
+
 	private BoardService bService;
 	
-	@RequestMapping(value="/member/idcheck", method = RequestMethod.GET)
-	public ResponseEntity<String> idcheck(HttpServletRequest request, RedirectAttributes rttr) throws Exception{
+	@RequestMapping(value = "/member/idcheck", method = RequestMethod.GET)
+	public ResponseEntity<String> idcheck(HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+
 		String id = request.getParameter("id");
 		MemberVO vo = service.getMember(id);
-		log.info(vo+"");
+		log.info(vo + "");
 		String result = "";
-		
-		if(vo != null) {
+
+		if (vo != null) {
 			result = "no";
 			rttr.addFlashAttribute("idflag", true);
-		}
-		else result = "ok";
-		
+		} else
+			result = "ok";
+
 		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
 		return entity;
 	}
-	
-	@RequestMapping(value="/member/nickcheck", method = RequestMethod.GET)
-	public ResponseEntity<String> nickcheck(HttpServletRequest request) throws Exception{
+
+	@RequestMapping(value = "/member/nickcheck", method = RequestMethod.GET)
+	public ResponseEntity<String> nickcheck(HttpServletRequest request) throws Exception {
 		String nick = request.getParameter("nick");
-		log.info("nick: "+nick);
+		log.info("nick: " + nick);
 		MemberVO vo = service.getMemberNick(nick);
-		log.info("vo : "+vo);
+		log.info("vo : " + vo);
 		String result = "";
-		
-		if(vo != null) result = "no";
-		else if(vo == null) result = "ok";
-		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡result: "+result);
+
+		if (vo != null)
+			result = "no";
+		else if (vo == null)
+			result = "ok";
+		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡result: " + result);
 		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
 		return entity;
 	}
-	
+
 //	@RequestMapping(value="/member/phoneCheck", method=RequestMethod.POST)
 //	public ResponseEntity<String> phoneCheck(HttpServletRequest request) throws Exception {
 //		String result = "";
 //		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
 //		return entity;
 //	}
-	
-	@RequestMapping(value="/member/pwUpdateCheck", method = RequestMethod.POST)
-	public ResponseEntity<String> pwUpdateCheck(HttpSession session, 
-			HttpServletRequest request) throws Exception{
+
+	@RequestMapping(value = "/member/pwUpdateCheck", method = RequestMethod.POST)
+	public ResponseEntity<String> pwUpdateCheck(HttpSession session, HttpServletRequest request) throws Exception {
 		String pwUpdate = request.getParameter("pwUpdate");
-		log.info("♡♡♡♡♡♡♡♡♡♡pwUpdate: "+pwUpdate);
-		String id = (String)session.getAttribute("loginID");
+		log.info("♡♡♡♡♡♡♡♡♡♡pwUpdate: " + pwUpdate);
+		String id = (String) session.getAttribute("loginID");
 		String result = "";
 		MemberVO vo = service.getMember(id);
-		if(pwUpdate.equals(vo.getPw())) {
-			result= "no";
+		if (pwUpdate.equals(vo.getPw())) {
+			result = "no";
 		} else {
 			result = "ok";
 		}
 		ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
 		return entity;
 	}
-
 
 	// 회원이 탈퇴 시 비밀번호 입력하면 다시 한 번 탈퇴할건지 묻는 confirm 창 띄우기
     @RequestMapping(value="/member/deleteCheck", method=RequestMethod.POST)
@@ -109,7 +113,6 @@ public class AjaxController {
  	    ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
  	    return entity;
     }
-    
     
     // 카테고리 ajax ========================================
     @RequestMapping(value = "/ajax/ctgr", method = RequestMethod.GET)
@@ -148,7 +151,4 @@ public class AjaxController {
     	return null;
     	
     }
-   
-	
-
 }

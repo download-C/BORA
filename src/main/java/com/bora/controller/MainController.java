@@ -1,5 +1,7 @@
 package com.bora.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -7,14 +9,21 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.domain.MemberSHA256;
 import com.bora.domain.MemberVO;
+import com.bora.domain.NoticeVO;
+import com.bora.domain.PageMakerVO;
+import com.bora.domain.PageVO;
 import com.bora.service.MainService;
 import com.bora.service.MemberService;
+import com.bora.service.NoticeService;
 
 @RequestMapping("/main/*")
 @Controller
@@ -22,10 +31,12 @@ public class MainController {
 	private static final Logger log = LoggerFactory.getLogger(MainController.class);
 
 	@Inject
-	MemberService memberService;
-	
-	@Inject
 	MainService mainService;
+	@Inject
+	MemberService memberService;
+	@Inject
+	NoticeService noticeService;
+	
 	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public void main() throws Exception{
@@ -94,4 +105,82 @@ public class MainController {
 		}
 
 	}
+	
+	// 2-1. 페이징 처리하기 
+	// http://localhost:8088/main/NoticeListPage
+	@RequestMapping (value = "/NoticeListPage", method = RequestMethod.GET)
+	public String getNoticeListPage(PageVO vo, Model model) throws Exception {
+		log.info("(♥♥♥♥♥ 2-1.getNoticeListPage) 호출됨");
+		
+		model.addAttribute("noticeList", noticeService.getNoticeListPage(vo));
+		
+		// 페이징 처리 하단부 정보 저장 + 모델 객체(pm)에 저장
+		PageMakerVO pm = new PageMakerVO();
+		pm.setVo(vo);
+		int totalCnt = noticeService.getTotalCnt();
+		pm.setTotalCnt(totalCnt); 
+		model.addAttribute("pm", pm);
+		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET) PageMakerVO도 모델 객체에 저장 완 + pm: " + pm);
+		
+		// 세션에 객체 isUpdate 하나  만들어놓기~~~ 
+		//    3()으로 정보 전달을 위해..
+		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET) 리턴타입 void라서 들어온 주소 /notice/list.jsp로 이동할 거");
+		
+		return "redirect:/main/noticeList?page="+vo.getPage();
+	}
+	
+	// 2-2. 게시판 리스트 조회 GET                  
+//	 http://localhost:8088/main/noticeList
+	@RequestMapping (value = "/noticeList", method = RequestMethod.GET)
+	public String getNoticeListAll(@ModelAttribute("pm") PageMakerVO pm, 
+			@ModelAttribute("page") String page, 
+			HttpSession session, Model model) throws Exception {
+		log.info("(♥♥♥♥♥ 2.NoticeListAllGET) 호출됨");
+		
+		// 리스트로 가는 경우의 수
+		// 1. 글쓰고 나서 -> 리스트로 이동하는 경우
+//			log.info("(♥♥♥♥♥ 2.listAllGET) msg: " + msg);
+			// 연결된 view 페이지로 저기서(1-2.registerPOST) 넘어온 정보 전달해보기
+			// 이거 안 해도 넘어가는딩?
+//			model.addAttribute("msg", msg);
+		
+		// 2. 걍 바로 리스트로 이동하는 경우
+		
+		List<NoticeVO> noticeList = noticeService.getNoticeListAll(pm);
+		
+		model.addAttribute("noticeList", noticeList);
+		session.setAttribute("isUpdate", false);
+		
+		return "/main/noticeList";
+	}
+	// 2. 게시판 리스트 조회 GET 끝
+	
+	
+	// 3. 글 본문 보기 GET                  
+	// http://localhost:8088/main/noticeRead
+	@RequestMapping (value = "/noticeRead", method = RequestMethod.GET)
+	public String readGET(HttpSession session, Model model, 
+			@RequestParam("nno") int nno, @RequestParam("page") int page) throws Exception{ 
+		log.info("(♥♥♥♥♥ 3.readGET) 호출됨");
+		
+		log.info("(♥♥♥♥♥ 3.readGET) 넘어온 nno: " + nno);
+
+		log.info("(♥♥♥♥♥ 3.readGET) isUpdate: " + session.getAttribute("isUpdate"));
+		boolean isUpdate = (boolean)session.getAttribute("isUpdate");
+		
+		if(!isUpdate) { 
+			noticeService.updateNoticeReadcount(nno);
+			log.info("(♥♥♥♥♥ 3.readGET) " + nno + "번 글 조회수 1 증가 완");
+			session.setAttribute("isUpdate", true);
+		}
+		
+		log.info("(♥♥♥♥♥ 3.readGET) Service 호출 -> NoticeVO타입 리턴받고 -> 바로 model에 저장");
+		model.addAttribute("vo", noticeService.getNotice(nno));
+		
+		log.info("(♥♥♥♥♥ 3.readGET) 리턴타입 void니까 들어온 주소  /notice/read.jsp로 이동할 거");
+		return "/main/noticeRead";
+	}
+	
+	
+	
 }
