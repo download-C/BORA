@@ -75,7 +75,12 @@ public class ReportController {
 	   //누적합 전달 비교
 
 	   
-	   
+	   //http://localhost:8080/report/book
+	   // 이번달 예산 확인하기
+	   @RequestMapping(value = "/book", method = RequestMethod.GET)
+	   public void book() throws Exception{
+		   log.info("@@@@ book()호출");
+	   }
 	   
 	 
 	   
