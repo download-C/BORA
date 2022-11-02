@@ -73,9 +73,9 @@ $(document).ready(function() {
 		</div>
 		<br>
 		<div>
-			첨부파일
+			첨부파일 ${vo.n_file }
 			<div>
-				<input type="file" name="n_file">
+				<input type="file" name="uploadFile" >
 			</div>
 		</div>
 		<br>

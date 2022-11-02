@@ -76,10 +76,8 @@ $(document).ready(function() {
 		</div>
 		<br>
 		<div>내용<div>${vo.n_content }</div>
-		</div>
 		<br>
 		<img src="${pageContext.request.contextPath}/resources/upload/${vo.n_file}"></div>
-		</div>
 		<br>
 		<div>
 		<%if(loginID!=null){if(loginID.equals("admin")) {%>

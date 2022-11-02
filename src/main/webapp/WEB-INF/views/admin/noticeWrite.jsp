@@ -60,7 +60,7 @@
 			<input type="text" name="n_title" placeholder="공지사항 제목"><br>
 			<textarea name="n_content" ></textarea>
 <!-- 			<textarea name="n_content" ></textarea> -->
-		<div><input type="file" name="n_file"></div>
+		<div><input type="file" name="uploadFile"></div>
 		<div>
 			<input 	type="submit" value="글쓰기">
 		</div>

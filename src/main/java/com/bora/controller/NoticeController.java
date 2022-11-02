@@ -169,9 +169,36 @@ public class NoticeController {
 	
 	// 4-1. 글 수정하기 POST  (수정할 new 데이터 처리)
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String modifyPOST(NoticeVO vo, RedirectAttributes rttr) throws Exception {
+	public String modifyPOST(NoticeVO vo, RedirectAttributes rttr, 
+			MultipartHttpServletRequest multi) throws Exception {
 		log.info("(♥♥♥♥♥ 4-1.updatePOST) 호출됨");
 		log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정할 정보들 잘 넘어왔나? vo: " + vo);
+		log.info("수정된 정보: "+vo);
+		// 파일 정보를 담을 객체 생성
+		Map<String, String> map = new HashMap<>();
+		// 뷰 파일의 파라미터와 값을 자동으로 불러줄 객체 생성
+		Enumeration enu = multi.getParameterNames();
+		while(enu.hasMoreElements()) {
+			// 파라미터 이름 불러오기
+			String name = (String)enu.nextElement();
+			// 해당 이름의 파라미터 값 가져오기
+			String value = multi.getParameter(name);
+			// 가져온 파라미터의 이름과 값 넣기
+			map.put(name, value);
+		}
+		log.info("들어온 파라미터: "+map);
+		// 들어온 값 중 파일은 파일 프로세스로 처리하기
+		String uploadedFileName = fileProcess(multi);
+		log.info("fileName: "+uploadedFileName);
+		vo.setN_title(map.get("n_title"));
+		vo.setN_content(map.get("n_content"));
+		if(vo.getN_file()!=null) {
+			log.info("새로 들어온 첨부파일이 없으므로 있는 그대로의 파일명 가져가기");
+			vo.setN_file(uploadedFileName);
+		}
+		log.info("vo: "+vo);
+		
+		service.writeNotice(vo);
 		
 		// service_글 수정 메서드 호출
 		int cnt = service.updateNotice(vo);
