@@ -109,7 +109,8 @@ public class MainController {
 	// 2-1. 페이징 처리하기 
 	// http://localhost:8088/main/NoticeListPage
 	@RequestMapping (value = "/NoticeListPage", method = RequestMethod.GET)
-	public String getNoticeListPage(PageVO vo, Model model) throws Exception {
+	public String getNoticeListPage(PageVO vo, Model model,
+			RedirectAttributes rttr, HttpServletRequest request) throws Exception {
 		log.info("(♥♥♥♥♥ 2-1.getNoticeListPage) 호출됨");
 		
 		model.addAttribute("noticeList", noticeService.getNoticeListPage(vo));
@@ -121,7 +122,8 @@ public class MainController {
 		pm.setTotalCnt(totalCnt); 
 		model.addAttribute("pm", pm);
 		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET) PageMakerVO도 모델 객체에 저장 완 + pm: " + pm);
-		
+		String msg = (String)request.getAttribute("msg");
+		rttr.addFlashAttribute("msg", msg);
 		// 세션에 객체 isUpdate 하나  만들어놓기~~~ 
 		//    3()으로 정보 전달을 위해..
 		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET) 리턴타입 void라서 들어온 주소 /notice/list.jsp로 이동할 거");
@@ -150,7 +152,7 @@ public class MainController {
 		
 		model.addAttribute("noticeList", noticeList);
 		session.setAttribute("isUpdate", false);
-		
+
 		return "/main/noticeList";
 	}
 	// 2. 게시판 리스트 조회 GET 끝
@@ -176,6 +178,7 @@ public class MainController {
 		
 		log.info("(♥♥♥♥♥ 3.readGET) Service 호출 -> NoticeVO타입 리턴받고 -> 바로 model에 저장");
 		model.addAttribute("vo", noticeService.getNotice(nno));
+		model.addAttribute("page", page);
 		
 		log.info("(♥♥♥♥♥ 3.readGET) 리턴타입 void니까 들어온 주소  /notice/read.jsp로 이동할 거");
 		return "/main/noticeRead";

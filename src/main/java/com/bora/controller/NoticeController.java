@@ -171,6 +171,8 @@ public class NoticeController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String modifyPOST(NoticeVO vo, RedirectAttributes rttr, 
 			MultipartHttpServletRequest multi) throws Exception {
+
+		
 		log.info("(♥♥♥♥♥ 4-1.updatePOST) 호출됨");
 		log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정할 정보들 잘 넘어왔나? vo: " + vo);
 		log.info("수정된 정보: "+vo);
@@ -185,20 +187,27 @@ public class NoticeController {
 			String value = multi.getParameter(name);
 			// 가져온 파라미터의 이름과 값 넣기
 			map.put(name, value);
-		}
+		} 
 		log.info("들어온 파라미터: "+map);
 		// 들어온 값 중 파일은 파일 프로세스로 처리하기
-		String uploadedFileName = fileProcess(multi);
-		log.info("fileName: "+uploadedFileName);
+		
 		vo.setN_title(map.get("n_title"));
 		vo.setN_content(map.get("n_content"));
-		if(vo.getN_file()!=null) {
-			log.info("새로 들어온 첨부파일이 없으므로 있는 그대로의 파일명 가져가기");
+		// 전달해준 값 중에 파일이 들어있는지 확인
+		List<MultipartFile> fileList = multi.getFiles("uploadFile");
+		log.info("업로드한 파일의 크기 : "+fileList.size());
+		if(fileList.size()!=0 
+				&& !fileList.get(0).getOriginalFilename().equals("")){ // 파일 사이즈가 0이 아님 -> 파일이 들어옴
+			log.info("파일이 바뀌었으므로 새로운 이름 넣기");
+			String uploadedFileName = fileProcess(multi);
+			log.info("fileName: "+uploadedFileName);
 			vo.setN_file(uploadedFileName);
+		}else {
+			log.info("새로 들어온 첨부파일이 없으므로 있는 그대로의 파일명 가져가기");
 		}
 		log.info("vo: "+vo);
 		
-		service.writeNotice(vo);
+		service.updateNotice(vo);
 		
 		// service_글 수정 메서드 호출
 		int cnt = service.updateNotice(vo);
@@ -219,7 +228,8 @@ public class NoticeController {
 
 	// 5. 글삭 POST
 	@RequestMapping (value = "/delete", method = RequestMethod.POST)
-	public String removePOST(@RequestParam("nno") int nno, RedirectAttributes rttr) throws Exception {
+	public String deletePOST(@RequestParam("nno") int nno,
+			RedirectAttributes rttr) throws Exception {
 		log.info("(♥♥♥♥♥ 5.deletePOST) 호출됨");
 		
 		// 전달 정보(nno) 저장하기..는 이미 완
@@ -229,13 +239,13 @@ public class NoticeController {
 		int result = service.deleteNotice(nno);
 		
 		if(result == 1) {
-			rttr.addAttribute("msg", "DEL_OK");
+			rttr.addAttribute("msg", nno+"번 공지사항이 삭제되었습니다.");
 			log.info("(♥♥♥♥♥ 5.deletePOST) 삭제 성공");
 			log.info("(♥♥♥♥♥ 5.deletePOST) redirect:/main/NoticeListPage.jsp로 이동");
 			return "redirect:/main/NoticeListPage";
 		} else {
 			log.info("(♥♥♥♥♥ 5.deletePOST) 삭제 실패;;");
-			return "redirect:/notice/delete";
+			return "redirect:/main/noticeRead?nno="+nno+"&page=1";
 		}
 		
 	}

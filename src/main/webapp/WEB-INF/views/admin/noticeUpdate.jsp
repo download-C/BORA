@@ -50,8 +50,8 @@ $(document).ready(function() {
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/summernote/summernote-lite.css">
 <!-- ======== for 썸머노트 끝 ============== -->
 
-
-<form action="/notice/update" method="post">
+<div class="container">
+<form action="/notice/update" method="post" enctype="multipart/form-data">
 	<div class="insertNotice">
 		<div>
 			글번호
@@ -61,19 +61,18 @@ $(document).ready(function() {
 		</div>
 		<br>
 		<div>
-			제목
 			<div>
 				<input type="text" name="n_title" value="${vo.n_title}">
 			</div>
 		</div>
 		<br>
 		<div>
-			내용
 			<textarea name="n_content"> ${vo.n_content } </textarea>
 		</div>
 		<br>
 		<div>
 			첨부파일 ${vo.n_file }
+			<input type="hidden" name="n_file" value="${vo.n_file }">
 			<div>
 				<input type="file" name="uploadFile" >
 			</div>
@@ -84,7 +83,7 @@ $(document).ready(function() {
 		</div>
 	</div>
 </form>
-
+</div>
 <!-- 태그 적는 곳 -->
 
 

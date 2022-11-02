@@ -6,7 +6,7 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-<!-- 비밀번호 회원정보 수정 시 alert -->
+<!-- 특정 기능을 수행하고 돌아와서 띄울 메세지가 있을 경우 -->
 <script>
 $(document).ready(function() {
     let message = "${msg}";
@@ -29,16 +29,19 @@ $(document).ready(function() {
 	  $(".btn_update").click(function(){
 // 		  alert('정상 동작 중');
 		  // bno폼태그 속성 바꿀 거!!
-		  fr.attr("action", "/notice/update");
+		  fr.attr("action", "/notice/update?nno="+${vo.nno}+"&page="+${page});
 		  fr.attr("method", "get"); // get방식으로 바꿔서 전달 
 		  fr.submit(); // 클릭하면? 속성 바꾸고 -> submit 되게~~
 	  });// 수정 버턴 click
 	  
 	  $(".btn_delete").click(function(){
 		  // 삭제 버턴 클릭했을 때~~
-		  alert(${vo.nno}+'번 공지사항이 삭제되었습니다.');
-		  fr.attr("action", "/notice/delete");
-		  fr.submit(); // 클릭하면? 속성 바꾸고 -> submit 되게~~
+		  var result = confirm("정말 삭제하시겠습니까?")
+		  if(result) {
+			  fr.attr("action", "/notice/delete?nno="+${vo.nno});
+			  fr.attr("method","post")
+			  fr.submit(); // 클릭하면? 속성 바꾸고 -> submit 되게~~
+		  }
 	  });// 삭제 버튼 click
 	  
 	  $(".btn_list").click(function(){
@@ -53,40 +56,36 @@ $(document).ready(function() {
 <!-- 태그 적는 곳 -->
 
 
-<h1>${vo.nno }번 글 🐱🐶 상세 보기 🐱🐶 </h1>
-
-		<!-- 수정, 삭제 시 필요한 글 번호(nno) 저장하는 폼태그 =====================-->
-		<form role="nno_form" method="post">
-			<input type="hidden" name="nno" value="${vo.nno }">
-		</form>
-		<!-- 수정, 삭제 시 필요한 글 번호(nno) 저장하는 폼태그 껏 =====================-->
 
 	<div class="container">
-		<div>
-			<div>글번호</div><div>${vo.nno }</div>
-			<div>조회수</div>
-			<div>${vo.n_readcount }</div>	
-		</div>
-		<div>
-			<div>작성일</div>
-			<div><fmt:formatDate value="${vo.n_regdate }" pattern="yyyy.MM.dd HH:mm"/></div>
-		</div>
-		<br>
-		<div>제목<div>${vo.n_title }</div>
-		</div>
-		<br>
-		<div>내용<div>${vo.n_content }</div>
-		<br>
-		<img src="${pageContext.request.contextPath}/resources/upload/${vo.n_file}"></div>
-		<br>
-		<div>
-		<%if(loginID!=null){if(loginID.equals("admin")) {%>
-			<input type="button" value="수정" class="btn_update">
-			<input type="button" value="삭제" class="btn_delete">
-		<%} }%>
-			<input type="button" value="목록" class="btn_list">
-		</div>
+<h1>${vo.nno }번 글 🐱🐶 상세 보기 🐱🐶 </h1>
+<form role="nno_form">
+	<div>
+		<input type="hidden" name="nno" value="${vo.nno }">
+		<div>글번호</div><div>${vo.nno }</div>
+		<div>조회수</div>
+		<div>${vo.n_readcount }</div>	
 	</div>
+	<div>
+		<div>작성일</div>
+		<div><fmt:formatDate value="${vo.n_regdate }" pattern="yyyy.MM.dd HH:mm"/></div>
+	</div>
+	<div>제목<div>${vo.n_title }</div></div>
+	<br>
+	<div>
+		내용<div>${vo.n_content }</div>
+		<img style="width: 100%;" 
+		src="${pageContext.request.contextPath}/resources/upload/${vo.n_file}">
+	</div>
+</form>
+<div>
+<%if(loginID!=null){if(loginID.equals("admin")) {%>
+	<input type="button" value="수정" class="btn_update">
+	<input type="button" value="삭제" class="btn_delete">
+<%} }%>
+	<input type="button" value="목록" class="btn_list">
+</div>
+</div>
 
 
 

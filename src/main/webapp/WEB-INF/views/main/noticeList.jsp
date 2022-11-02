@@ -5,6 +5,15 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+<script>
+$(document).ready(function() {
+    let message = "${msg}";
+    if (message != "") {
+        alert(message);
+    }
+});
+</script>
 <h1>
 	 <span
 		style="color: white; background-color: orange; font-size: 1.5em">
