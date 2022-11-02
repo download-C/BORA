@@ -94,41 +94,52 @@
 
 
 
-<!-- ======= for 댓글,, comment.js 파일 추가 및 테스트======= -->
+<!-- ======= for 댓글,, comment.js 파일 추가 및 ajax, jquery 작업 ======= -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/comment.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-// 	console.log(cmtService);
+	// 계속 쓸 놈들 ---------------------
 	var bnoValue = '<c:out value="${vo.bno}"/>';
-	var cmtUL = $('#cmt');
+	var cnoValue = $('#cnoValue').val();
+	var loginID = '<c:out value="${loginID}"/>';
+	
 	
 	// 댓글 목록 출력 ----------------------------
+	var cmtUL = $('#cmtUL');
+
 	showCmtList(1);
 	
 	function showCmtList(page){
 // 		alert("showCmtList 작동 성공");
 
+		// 댓글 목록 출력 함수 2.getCmtList
 		cmtService.getCmtList({bno:bnoValue, page:page||1}, function(list){
 			var str="";
 			
 			if( list == null || list.length == 0 ) {
 				cmtUL.html("");
-				
 				return;
 			}
 			
 			// 반복문 돌면서 댓글 list 채우기
 			for (var i = 0, len = list.length||0; i < len; i++) {
-// 				console.log(cmtService.displayTime(1667118528000));
 				str += "<li data-cno='"+list[i].cno+"'>";
-				str += "<div id='cmt-body'><div id='cmt-header'><strong>"+list[i].id+"</strong>";
-// 				str += "<small>"+cmtService.displayTime(list[i].c_regdate)+"</small></div>";
-				str += "<small>"+ list[i].c_regdate +"</small></div>";
-				str += "<p>"+list[i].cno + " / " + list[i].c_content+"</p></div></li>";
-			}
+				str += "<div id='cmt-body'><div id='cmt-header'><strong>"+list[i].id+"</strong>&nbsp;&nbsp;";
+				str += "<small>"+cmtService.displayTime(list[i].c_regdate)+"</small>";
+					if (list[i].id == loginID || list[i].id == 'admin') {
+						// id가 admin이거나 본인일 때만 -> 답글, 수정, 삭제 버턴 나오게 제어
+						str += "<input type='button' value='답글' class='btn btn-primary' id='cmt_btn_re'>";
+						str += "<input type='button' value='수정' class='btn btn-primary' id='cmt_btn_mod'>";
+						str += "<input type='button' value='삭제' class='btn btn-primary' id='cmt_btn_del'>";
+						str += "<input type='hidden' value='"+list[i].cno+"' id='cnoValue'></div>";
+					}
+				str += "<p> cno:"+list[i].cno + " 💖 " + list[i].c_content+"</p>";
+				str += "</div></li>";
+			} // for
 			
 			cmtUL.html(str);
-		}); // getCmtList()
+			
+		}); // 2.getCmtList()
 	}// showCmtList()
 	// 댓글 목록 출력 끝 ----------------------------
 	
@@ -158,26 +169,74 @@ $(document).ready(function(){
 	
 	// 댓글 작성 -------------------------------
 	var cmtRegisterBtn = $("#add_cmt_btn");
-	var id = '<c:out value="${loginID}"/>';
 	
 	cmtRegisterBtn.on("click", function(e){
 		var cmt = {
 			c_content: $('#c_content').val(),
-			id: id,
+			id: loginID,
 			bno: bnoValue
 		};
 		
-		// 댓글 등록 함수 1.add 호출
-		cmtService.add(cmt, function(result){
-			alert(result);
-			$('#c_content').val='';
-// 			document.getElementById("#c_content").value=''; 
-				// 얘 하니까 밑에도 안 먹고,, 거 참
-			showCmtList(1);
-		});
+		// 여기서 제어하지 말고 controller에서 제어?
+		if($('#c_content').val() != null || $('#c_content').val() != ''){
 		
-	});// cmtRegisterBtn click
+		// 댓글 등록 함수 1.add(cmt, callback, error) 호출
+		cmtService.add(
+				// cmt
+				cmt, 
+				// callback
+				function(addResult){
+					console.log("addResult: " + addResult);
+					
+					if(addResult === "success") {
+						alert("댓글이 등록되었습니다 👍 ");
+					}
+					
+					showCmtList(1);
+					
+					// 작성 후에 빈칸으로
+					$('#c_content').val = '';
+// 					document.getElementById("#c_content").value=''; 
+					// 얘 하니까 밑에도 안 먹고,, 거 참
+					
+		}); // 1.add()
+		
+		} else {
+			alert("댓글 내용을 작성해주세요");
+			$('#c_content').focus();
+			return false;
+		} // if-else
+			
+	});// cmtRegisterBtn on click
 	// 댓글 작성 끝 -------------------------------
+	
+	
+	// 댓글 삭제 -------------------------------
+	var cmtDelBtn = $('#cmt_btn_del');
+	
+	cmtDelBtn.click(function(){
+		alert("삭제 버턴 클릭됨");
+		// 삭제 버튼 클릭했을 때~ 
+		// 댓글 삭제 함수 3. deleteCmt(cno, callback, error) 호출
+		cmtService.deleteCmt(
+			// cno
+			cnoValue,
+			// callback
+			function(deleteResult){
+				console.log("deleteResult: " + deleteResult);
+		
+				if(deleteResult === "success") {
+					alert("댓글이 삭제되었습니다 👍 ");
+				}
+			}, 
+			// error
+			function(error){
+				alert("삭제 실패...... ");
+			}
+		);// 3.deleteCmt()
+	}); // cmtDelBtn on click
+	// 댓글 삭제 끝 -------------------------------
+	
 	
 	
 	// 모달로 댓글 하나 조회 ----------------------------
@@ -198,85 +257,10 @@ $(document).ready(function(){
 	// 모달로 댓글 하나 조회 끝 ----------------------------
 	
 	
-	
 }); // jquery ready
 
-
-// 댓 ajax TEST ===================================
-// 1. add(cmt, callback, error)
-// cmtService.add(
-// 	// cmt
-// 	{c_content: "아 쏘 이지네 ㅋ ", id:"ghgh", bno:bnoValue},
-	
-// 	// callback
-// 	function(result){
-// 		alert("RESULT: " + result);
-// 	}
-// );// add()
-
-
-// 2. getCmtList(param, callback, error)
-// cmtService.getCmtList(
-// 		// param
-// 		{bno:bnoValue, page:1}, 
-		
-// 		// callback
-// 		function(rList){
-
-// 			for(var i = 0, len = rList.length || 0; i < len; i++) {
-// 				console.log(rList[i]);
-// 			}
-// 		}
-//  );// getCmtList()
-
- 
-// 3. deleteCmt(cno, callback, error)
-// cmtService.deleteCmt(
-// 		// cno
-// 		12, 
-		
-// 		// callback
-// 		function(deleteResult){
-// 			console.log("deleteResult: " + deleteResult);
-	
-// 			if(deleteResult === "success") {
-// 				alert("댓글이 삭제되었습니다");
-// 			}
-// 		}, 
-	
-// 		// error
-// 		function(error){
-// 			alert("에러...... ");
-// 		}
-// );// deleteCmt()
-
-
-// 4. updateCmt(cmtVO, callback, error)
-// cmtService.updateCmt(
-// 		// cmtVO
-// 		{ cno : 10,
-// 		  bno : bnoValue,
-// 		  c_content : "10번 댓글 수정합니다 수정 수정"},
-		
-// 		// callback
-// 		function(rData){
-// 			alert("댓글 수정 완");
-// 		}
-// );// updateCmt()
-
-
-// 5. getCmtOne(cno, callback, error)
-// cmtService.getCmtOne(
-// 		// cno
-// 		10, 
-		
-// 		// callback
-// 		function(rData){
-// 			console.log(rData);
-// 		});// getCmtOne()
-
 </script>
-<!-- ======= for 댓글,, comment.js 파일 추가 및 테스트 끝 ======= -->
+<!-- ======= for 댓글,, comment.js 파일 추가 및 ajax, jquery 작업 끝 ======= -->
 
 
 
@@ -344,44 +328,37 @@ $(document).ready(function(){
 		<div>
 			<h3>댓글</h3>
 		</div>
-		<ul id="cmt">
-			<li data-cno='1'>
+		<ul id="cmtUL">
+			<li data-cno="">
 				<div id="cmt-body">
 					<div id="cmt-header">
 						<strong> id,, 말고 nick </strong> <small> c_regdate </small>
+						<input type="button" value="답글" class="btn" id="cmt_btn_re">
+						<input type="button" value="수정" class="btn" id="cmt_btn_mod">
+						<input type="button" value="삭제" class="btn" id="cmt_btn_del">
+						<input type="hidden" value="" id="cnoValue">
 					</div>
 					<p>c_content</p>
-	
 				</div>
 			</li>
 		</ul>
 	</div>
-	<%-- 
-			<fmt:formatDate value="${vo.c_regdate }" pattern="yyyy.MM.dd hh:mm" />
-							<!-- 댓글 삭제 버턴,,
-									지 거만 지울 수 있게,,, + admin일 때
-									세션 로그인 아이디 == cdto에서 꺼내온 아이디 -->
-				<c:if test="${sessionScope.loginID eq cdto.id || sessionScope.loginID eq 'admin'}">
-					<input type="button" value="삭제" class="Bbtn btn1" 
-					onclick="location.href='./CommentDelete.bo?c_bno=${cdto.c_bno}&bno=${dto.bno }';"
-					style="padding: 3px; font-size: x-small; margin: 0px;">
-				</c:if>
-	 --%>			
-				<!-- ----------------------- 댓글 리스트 구간 끝^^ --------------------------------- -->
-				
-				<!-- ----------------------- 댓글 작성 구간^^ --------------------------------- -->
-				<div style="border: 1px solid black;">
-					<h3>댓글을 남겨주세요 👇👇 </h3>
-						<div class="form-group">
-							<label for="message">내용</label>
-							<textarea name="content" id="c_content" cols="30" rows="5" class=""></textarea>
-						</div>
-						<div class="btn btn-primary" >
-							<input type="button" value="댓글 달기😘" class="btn btn-primary" id="add_cmt_btn">
-						</div>
-				</div>
-				
-				<!-- ----------------------- 댓글 작성 구간 끝^^ --------------------------------- -->
+	<!-- ----------------------- 댓글 리스트 구간 끝^^ --------------------------------- -->
+
+<!-- ----------------------- 댓글 작성 구간^^ --------------------------------- -->
+<div style="border: 1px solid black;">
+	<h3>댓글을 남겨주세요 👇👇</h3>
+	<div class="form-group">
+		<label for="message">내용</label>
+		<textarea name="content" id="c_content" cols="30" rows="5" class=""></textarea>
+	</div>
+	<div class="btn btn-primary">
+		<input type="button" value="댓글 달기😘" class="btn btn-primary"
+			id="add_cmt_btn">
+	</div>
+</div>
+
+<!-- ----------------------- 댓글 작성 구간 끝^^ --------------------------------- -->
 <!--  모달로 댓글 쓸라고 했는ㄷㅔ^^ ㄷ안되네 -->
 <hr>
 <h3>모달 도전</h3>

@@ -119,7 +119,7 @@ var cmtService = (function(){
 	//   얘를 왜 인식을 못하지??????????????? 
 	function displayTime(timeValue){
 		console.log("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧6.displayTime.............................");
-		alert('displayTime() 호출됨');
+//		alert('displayTime() 호출됨');
 		
 		var today = new Date();
 		var gap = today.getTime() - timeValue;
@@ -170,3 +170,79 @@ var cmtService = (function(){
 	};// return
 	
 })();
+
+
+//댓 ajax TEST ===================================
+// (read.jsp에서 테서터했었음.. 넘 복잡해져서 욜로 뺌) 
+
+//1. add(cmt, callback, error)
+//cmtService.add(
+//	// cmt
+//	{c_content: "아 쏘 이지네 ㅋ ", id:"ghgh", bno:bnoValue},
+	
+//	// callback
+//	function(result){
+//		alert("RESULT: " + result);
+//	}
+//);// add()
+
+
+//2. getCmtList(param, callback, error)
+//cmtService.getCmtList(
+//		// param
+//		{bno:bnoValue, page:1}, 
+		
+//		// callback
+//		function(rList){
+
+//			for(var i = 0, len = rList.length || 0; i < len; i++) {
+//				console.log(rList[i]);
+//			}
+//		}
+//);// getCmtList()
+
+
+//3. deleteCmt(cno, callback, error)
+//cmtService.deleteCmt(
+//		// cno
+//		12, 
+		
+//		// callback
+//		function(deleteResult){
+//			console.log("deleteResult: " + deleteResult);
+	
+//			if(deleteResult === "success") {
+//				alert("댓글이 삭제되었습니다");
+//			}
+//		}, 
+	
+//		// error
+//		function(error){
+//			alert("에러...... ");
+//		}
+//);// deleteCmt()
+
+
+//4. updateCmt(cmtVO, callback, error)
+//cmtService.updateCmt(
+//		// cmtVO
+//		{ cno : 10,
+//		  bno : bnoValue,
+//		  c_content : "10번 댓글 수정합니다 수정 수정"},
+		
+//		// callback
+//		function(rData){
+//			alert("댓글 수정 완");
+//		}
+//);// updateCmt()
+
+
+//5. getCmtOne(cno, callback, error)
+//cmtService.getCmtOne(
+//		// cno
+//		10, 
+		
+//		// callback
+//		function(rData){
+//			console.log(rData);
+//		});// getCmtOne()
