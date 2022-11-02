@@ -162,7 +162,10 @@ var cmtService = (function(){
 		updateCmt : updateCmt,
 		
 		// 5
-		getCmtOne : getCmtOne
+		getCmtOne : getCmtOne, 
+		
+		// 6  이걸 안 넣어서 계속 오류났었네!!
+		displayTime : displayTime
 		
 	};// return
 	
