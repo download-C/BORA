@@ -2,6 +2,8 @@ package com.bora.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -48,6 +50,10 @@ public class OpenBankingApiClient {
 	
 	// 헤더 정보 관리 클래스 
 	private HttpHeaders httpHeaders;
+
+	
+
+	private static final Logger log = LoggerFactory.getLogger(OpenBankingApiClient.class);
 	
 	// 헤더에 엑세스 토큰을 추가하는 setHeaderAccessToken() 메서드 정의
 	// => 파라미터 : 엑세스토큰, 리턴타입 : HttpHeaders
@@ -172,15 +178,15 @@ public class OpenBankingApiClient {
 		// 2.2.1 사용자정보조회 API URL 주소 생성
 		String url = baseUrl + "/account/balance/fin_num";
 			httpHeaders.add("Authorization", "Bearer " + accountBalanceRequestVO.getAccess_token());
-		
+		log.info("&&&&&&&&&&&&&&&&url: "+url);
 		HttpEntity<String> openBankingAccountBalanceRequest = new HttpEntity<String>(httpHeaders);
-		
+		log.info("&&&&&&&&&&&&&&&&"+openBankingAccountBalanceRequest+"");
 		UriComponents uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
 				.queryParam("bank_tran_id", accountBalanceRequestVO.getBank_tran_id())
 				.queryParam("fintech_use_num", accountBalanceRequestVO.getFintech_use_num())
 				.queryParam("tran_dtime", accountBalanceRequestVO.getTran_dtime())
 				.build();
-
+		log.info("&&&&&&&&&&&&&&&&"+uriBuilder);
 		return restTemplate.exchange(uriBuilder.toString(), HttpMethod.GET, openBankingAccountBalanceRequest, AccountBalanceResponseVO.class).getBody();
 	}
 	
