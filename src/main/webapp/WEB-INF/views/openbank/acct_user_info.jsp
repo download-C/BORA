@@ -41,25 +41,34 @@
 <!--     private String transfer_agree_dtime; //출금서비스 동의일시 -->
 <!--     private String account_state; //납부번호 -->
 	
-	<table>
-		<tr>
-			<th>마스킹된 출력용 계좌번호</th>
-			<th>은행명</th>
-			<th>계좌구분</th>
-			<th>계좌종류</th>
-			<th>예금주명</th>
-		</tr>
-		<%-- accountList 객체에 저장되어 있는 계좌 목록(res_list) 가져와서 반복하여 복수개 계좌 접근 --%>
-		<c:forEach var="acct_list" items="${userInfo.res_list }">
-			<tr>
-				<td>${acct_list.account_num_masked }</td>
-				<td>${acct_list.bank_name }</td>
-				<td>${acct_list.account_holder_type }</td>
-				<td>${acct_list.account_type }</td>
-				<td>${acct_list.account_holder_name }</td>
-			</tr>
-		</c:forEach>
-	</table>
+<!-- 	<table> -->
+<!-- 		<tr> -->
+<!-- 			<th>마스킹된 출력용 계좌번호</th> -->
+<!-- 			<th>은행명</th> -->
+<!-- 			<th>계좌구분</th> -->
+<!-- 			<th>계좌종류</th> -->
+<!-- 			<th>예금주명</th> -->
+<!-- 		</tr> -->
+<%-- 		<%-- accountList 객체에 저장되어 있는 계좌 목록(res_list) 가져와서 반복하여 복수개 계좌 접근 --%> 
+<%-- 		<c:forEach var="acct_list" items="${userInfo.res_list }"> --%>
+<!-- 			<tr> -->
+<%-- 				<td>${acct_list.account_num_masked }</td> --%>
+<%-- 				<td>${acct_list.bank_name }</td> --%>
+<%-- 				<td>${acct_list.account_holder_type }</td> --%>
+<%-- 				<td>${acct_list.account_type }</td> --%>
+<%-- 				<td>${acct_list.account_holder_name }</td> --%>
+<!-- 			</tr> -->
+<%-- 		</c:forEach> --%>
+<!-- 	</table> -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </body>
 </html>
