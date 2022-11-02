@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bora.mapper.ReportMapper">
+
+
+	<insert id="create2">
+		insert into bora_report (id, rp_date, rp_money, rp_detail, message,
+		category, rp_num)
+		values (#{id}, #{rp_date}, #{rp_money}, #{rp_detail}, #{message},
+		#{category}, #{rp_num})
+	</insert>
+
+
+
+
+
+
+</mapper>
