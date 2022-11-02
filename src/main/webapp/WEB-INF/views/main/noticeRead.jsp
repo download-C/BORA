@@ -5,22 +5,7 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<%
-if(loginID==null) {%>
-<!-- 세션값(로그인) 확인 -->
-<script>
-// 세션값 여부
-	alert("세션값이 만료되어 로그인 페이지로 이동합니다.");
-	location.href="/main/login";
-	
-	$(document).ready(function() {
-	    let message = "${msg}";
-	    if (message != "") {
-	        alert(message);
-	    }
-	});
-</script>
-<%} %>
+
 <!-- 비밀번호 회원정보 수정 시 alert -->
 <script>
 $(document).ready(function() {
@@ -76,7 +61,7 @@ $(document).ready(function() {
 		</form>
 		<!-- 수정, 삭제 시 필요한 글 번호(nno) 저장하는 폼태그 껏 =====================-->
 
-	<div>
+	<div class="container">
 		<div>
 			<div>글번호</div><div>${vo.nno }</div>
 			<div>조회수</div>
@@ -87,37 +72,23 @@ $(document).ready(function() {
 			<div><fmt:formatDate value="${vo.n_regdate }" pattern="yyyy.MM.dd HH:mm"/></div>
 		</div>
 		<br>
-		<div>
-			제목
-			<div>
-				${vo.n_title }
-			</div>
+		<div>제목<div>${vo.n_title }</div>
+		</div>
+		<br>
+		<div>내용<div>${vo.n_content }</div>
+		</div>
+		<br>
+		<img src="${pageContext.request.contextPath}/resources/upload/${vo.n_file}"></div>
 		</div>
 		<br>
 		<div>
-			내용
-			<div>
-				<textarea id="summernote" name="n_content" readonly>${vo.n_content }</textarea>
-			</div>
-		</div>
-		<br>
-		<div>
-			파일
-			<div>
-				${vo.n_file }
-			</div>
-		</div>
-		<br>
-		<div>
-		<%if(loginID.equals("admin")) {%>
+		<%if(loginID!=null){if(loginID.equals("admin")) {%>
 			<input type="button" value="수정" class="btn_update">
 			<input type="button" value="삭제" class="btn_delete">
-		<%} %>
+		<%} }%>
 			<input type="button" value="목록" class="btn_list">
 		</div>
 	</div>
-
-
 
 
 

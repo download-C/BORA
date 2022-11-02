@@ -3,6 +3,9 @@ package com.bora.controller;
 import java.io.File;
 import java.io.IOException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -46,84 +49,59 @@ public class NoticeController {
 	// 멤버변수 끝 ============================================
 
 	
-//	// 0. 파일 업로드 메서드 (fileupload dependency 사용)
-	
-	public void fileUploadGET(MultipartFile file) {
-		String fileRealName = file.getOriginalFilename(); //파일명을 얻어낼 수 있는 메서드!
-		long size = file.getSize(); //파일 사이즈
-		
-		System.out.println("파일명 : "  + fileRealName);
-		System.out.println("용량크기(byte) : " + size);
-		//서버에 저장할 파일이름 fileextension으로 .jsp이런식의  확장자 명을 구함
-		String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
-		String uploadFolder = "C:\\Users\\USER\\git\\BORA\\src\\main\\webapp\\upload";
-
-		/*
-		  파일 업로드시 파일명이 동일한 파일이 이미 존재할 수도 있고 사용자가 
-		  업로드 하는 파일명이 언어 이외의 언어로 되어있을 수 있습니다. 
-		  타인어를 지원하지 않는 환경에서는 정산 동작이 되지 않습니다.(리눅스가 대표적인 예시)
-		  고유한 랜던 문자를 통해 db와 서버에 저장할 파일명을 새롭게 만들어 준다.
-		 */
-		
-		UUID uuid = UUID.randomUUID();
-		System.out.println(uuid.toString());
-		String[] uuids = uuid.toString().split("-");
-		
-		String uniqueName = uuids[0];
-		System.out.println("생성된 고유문자열" + uniqueName);
-		System.out.println("확장자명" + fileExtension);
-
-		// File saveFile = new File(uploadFolder+"\\"+fileRealName); uuid 적용 전
-		
-		File saveFile = new File(uploadFolder+"\\"+uniqueName + fileExtension);  // 적용 후
-		try {
-			file.transferTo(saveFile); // 실제 파일 저장메서드(filewriter 작업을 손쉽게 한방에 처리해준다.)
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
-	// 파일 업로드 메서드 완성! 파일업로드 필요한 매핑 메서드에서 사용 후 return 값으로 들어오는 변환된 파일명으로 db에 저장하기!
-//	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String uploadFilePOST(@RequestParam("n_file") MultipartFile file) {
-		log.info("uploadFilePOST() 호출");
-		String uploadFolder = "C:\\Users\\ITWILL\\Desktop\\upload";
-		String fileRealName = file.getOriginalFilename();
-		long size = file.getSize(); //파일 사이즈
-		log.info("---------");
-		log.info("파일명: "+fileRealName);
-		log.info("파일 사이즈: "+size);
-		// 기존의 파일명 그대로 저장하기
-//		File saveFile = new File(uploadFolder, file.getOriginalFilename());
+//	// 0. 파일 처리 메서드 (파일명 중 확장자를 제외한 부분을 바꿔서 따로 처리)
+	public String fileProcess(MultipartHttpServletRequest multi) throws Exception{
+		log.info("첨부파일 처리 시작");
+		// 파일의 원제목을 담을 리스트
+		List<String> fileList = new ArrayList<String>();
+		String uploadedFileName ="";
+		// 다음 정보가 있을 경우 차례대로 불러주기
+		Iterator<String> fileNames = multi.getFileNames();
+		while(fileNames.hasNext()) {
+			// 파일의 파라미터명(name)
+			String fileName = fileNames.next();
+			log.info("파라미터명: "+fileName);
+			// 업로드된 파일 정보 가져오기
+			MultipartFile mfile = multi.getFile(fileName);
+			// 업로드된 파일의 원래 이름 가져오기
+			String ofileName = mfile.getOriginalFilename();
+			// 파일 확장자
+			String fileExtension = ofileName.substring(ofileName.lastIndexOf("."),ofileName.length());
+			// 저장 위치
+			String uploadFolder = "C:\\Users\\ITWILL\\git\\BORA\\src\\main\\webapp\\resources\\upload";
 			
-		// 파일 확장자명 구하기
-		String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
-		
-		// 파일명이 겹칠 경우를 대비해서 고유 문자열 생성 후 파일 이름으로 지정
-		UUID uuid = UUID.randomUUID();
-		System.out.println(uuid.toString());
-		String[] uuids = uuid.toString().split("-");
-		String uniqueName = uuids[0];
-		log.info("고유문자열 : "+uniqueName);
-		
-		String savingName = uniqueName + fileExtension;
-		log.info("실제 저장되는 경로 및 이름: "+savingName);
-		// 고유문자열로 만든 파일명으로 저장
-		File saveFile = new File(uploadFolder+"\\"+savingName);  // 적용 후
-		
-		try {
-			// 실제 파일 저장 메서드
-			file.transferTo(saveFile);
-		} catch (Exception e) {
-			log.info(e+"");
-		}
-		
-		return savingName;
-//		return "/main/main";
+			log.info("원래 파일명: "+ofileName);
+			// 업로드될 파일 이름들 저장
+			fileList.add(ofileName);
+			
+			// 파일명이 중복되는 것을 방지하기 위해 바꿔주기
+			UUID uuid = UUID.randomUUID();
+			System.out.println(uuid.toString());
+			String[] uuids = uuid.toString().split("-");
+			String uniqueName = uuids[0];
+			System.out.println("생성된 고유문자열" + uniqueName);
+			System.out.println("확장자명" + fileExtension);
+			
+			// 저장소에 저장될 바뀔 파일명
+			uploadedFileName = uniqueName+fileExtension;
+			
+			// 파일을 저장소에 저장하기 위한 파일 객체 생성 후 지정
+			//			File file = new File("저장경로"+"\\"+"원래파일명");	
+			// 지정된 위치에 파일 저장(위치\\바뀐이름.확장자)
+			
+			File file = new File(uploadFolder+"\\"+uploadedFileName);
+			
+			// 멀티파트로 가져온 파일의 사이즈가 0이 아닐 때 == 파일이 있을 때
+			if(mfile.getSize() != 0) {
+				// 첨부파일 업로드
+				mfile.transferTo(file);
+				log.info("파일 업로드 성공");
+			}
+		}// while	
+		log.info("첨부파일 처리 끝");
+		return uploadedFileName;
 	}
+	
 	
 	// 1. 글쓰기 GET                       
 	// http://localhost:8088/notice/write
@@ -137,41 +115,36 @@ public class NoticeController {
 	
 	// 1-2. 글쓰기 POST
 	@RequestMapping (value="/write", method = RequestMethod.POST)
-	public String writeNoticePOST(HttpServletRequest request, 
-			NoticeVO vo, RedirectAttributes rttr, MultipartFile file) throws Exception {
-		log.info("writeNoticePOST()호출");
-		String n_title = request.getParameter("n_title");
-		String n_content = request.getParameter("n_content");
-		String savePath="C:\\\\Users\\\\ITWILL\\\\Desktop\\\\upload";
-		 
-
-		// 첨부파일이 있을 경우 업로드 후 고유파일명 삽입, 없을 경우 빈칸
-		if(file==null) {
-			vo.setN_file("");
-		} else {
-			String n_file = uploadFilePOST(file);
-			vo.setN_file(n_file);
+	public String noticeWritePOST(MultipartHttpServletRequest multi,
+			HttpSession session) throws Exception {
+		log.info("fileUploadPOST() 호출");
+		log.info("multi: "+multi);
+				
+		// 파일 정보를 담을 객체 생성
+		Map<String, String> map = new HashMap<>();
+		// 뷰 파일의 파라미터와 값을 자동으로 불러줄 객체 생성
+		Enumeration enu = multi.getParameterNames();
+		while(enu.hasMoreElements()) {
+			// 파라미터 이름 불러오기
+			String name = (String)enu.nextElement();
+			// 해당 이름의 파라미터 값 가져오기
+			String value = multi.getParameter(name);
+			// 가져온 파라미터의 이름과 값 넣기
+			map.put(name, value);
 		}
+		log.info("들어온 파라미터: "+map);
+		// 들어온 값 중 파일은 파일 프로세스로 처리하기
+		String uploadedFileName = fileProcess(multi);
+		log.info("fileName: "+uploadedFileName);
+		NoticeVO vo = new NoticeVO();
+		vo.setN_title(map.get("n_title"));
+		vo.setN_content(map.get("n_content"));
+		vo.setN_file(uploadedFileName);
+		log.info("vo: "+vo);
 		
-		vo.setN_title(n_title);
-		vo.setN_content(n_content);
-		
-		
-		log.info("(♥♥♥♥♥ 1-2.writeNoticePOST) 호출됨");
-		
-		// 전달된 정보 저장
-		log.info("(♥♥♥♥♥ 1-2.writeNoticePOST) 들어온 정보 NoticeVO: " + vo);
-		
-		// 컨트롤러 -> 서비스 호출 (글쓰기 동작,, 메서드,,)
-		log.info("(♥♥♥♥♥ 1-2.writeNoticePOST) Service 호출할게요");
 		service.writeNotice(vo);
 		
-		// 페이지 이동(글 목록으로)
-		// 글쓰기 성공 알림 띄우기(일회성)
-		rttr.addFlashAttribute("msg", "OK");  
-		
-		log.info("(♥♥♥♥♥ 1-2.registerPOST) redirect:/main/NoticeListPage 로 이동할거");
-		return "redirect:/main/NoticeListPage"; // 주소줄 변화 O + 페이지 이동 O
+		return "redirect:/main/noticeList";
 	}
 	// 1-2. 글쓰기 POST 끝
 	

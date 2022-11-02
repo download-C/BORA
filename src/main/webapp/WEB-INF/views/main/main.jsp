@@ -19,7 +19,7 @@ $(document).ready(function() {
 <!--  카카오지도 API (나중에 about페이지에 아래 코드 이동)  -->
 <%@ include file="../about/map.jsp"%>
 
-
+<a href='/main/NoticeListPage'>공지사항 목록</a>
 
 
 <%@ include file="../include/footer.jsp"%>

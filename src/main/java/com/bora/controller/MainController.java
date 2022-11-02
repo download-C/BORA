@@ -126,13 +126,15 @@ public class MainController {
 		//    3()으로 정보 전달을 위해..
 		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET) 리턴타입 void라서 들어온 주소 /notice/list.jsp로 이동할 거");
 		
-		return "redirect:/main/NoticeListAll?page="+vo.getPage();
+		return "redirect:/main/noticeList?page="+vo.getPage();
 	}
 	
 	// 2-2. 게시판 리스트 조회 GET                  
-//	 http://localhost:8088/main/noticeListAll
-	@RequestMapping (value = "/noticeListAll", method = RequestMethod.GET)
-	public String getNoticeListAll(@ModelAttribute("pm") PageMakerVO pm, HttpSession session, Model model) throws Exception {
+//	 http://localhost:8088/main/noticeList
+	@RequestMapping (value = "/noticeList", method = RequestMethod.GET)
+	public String getNoticeListAll(@ModelAttribute("pm") PageMakerVO pm, 
+			@ModelAttribute("page") String page, 
+			HttpSession session, Model model) throws Exception {
 		log.info("(♥♥♥♥♥ 2.NoticeListAllGET) 호출됨");
 		
 		// 리스트로 가는 경우의 수

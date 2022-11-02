@@ -34,7 +34,7 @@
 				
 					<tr>
 						<td>${vo.nno}</td>
-						<td> <a href="/notice/read?nno=${vo.nno }&page=1">${vo.n_title }</a> </td>
+						<td> <a href="/main/noticeRead?nno=${vo.nno }&page=1">${vo.n_title }</a> </td>
 						<td>관리자</td>
 						<td> <fmt:formatDate value="${vo.n_regdate }" pattern="YYYY년 MM월 dd일 🌈  HH:mm" /> </td>
 						<td>${vo.n_readcount }</td>

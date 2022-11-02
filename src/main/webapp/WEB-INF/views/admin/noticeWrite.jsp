@@ -29,7 +29,7 @@
 	<%}%>
 <%} %>
 
-
+<%String uploadFolder = "C:\\Users\\ITWILL\\git\\BORA\\src\\main\\webapp\\resources\\upload"; %>
 <!-- 태그 적는 곳 -->
 
 
@@ -54,25 +54,18 @@
 <!-- ======== for 썸머노트 끝 ============== -->
 
 
-<form action="/notice/write" method="post" enctype="multipart/form-data">
-	<div class="insertNotice">
+<div class="insertNotice">
+<!-- 	<form action="/notice/write" method="POST" enctype="multipart/form-data"> -->
+	<form action="/notice/write" method="POST" enctype="multipart/form-data">
+			<input type="text" name="n_title" placeholder="공지사항 제목"><br>
+			<textarea name="n_content" ></textarea>
+<!-- 			<textarea name="n_content" ></textarea> -->
+		<div><input type="file" name="n_file"></div>
 		<div>
-			<div>
-				<input type="text" name="n_title" placeholder="공지사항 제목">
-			</div>
+			<input 	type="submit" value="글쓰기">
 		</div>
-		<br>
-		<div>
-			내용
-			<textarea id="summernote" name="n_content" ></textarea>
-		</div>
-		<div>
-			<input type="submit" value="글쓰기">
-		</div>
-	</div>
-</form>
-
-
+	</form>
+</div>
 
 
 <!-- 태그 적는 곳 -->

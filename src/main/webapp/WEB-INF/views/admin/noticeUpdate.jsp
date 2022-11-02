@@ -69,13 +69,13 @@ $(document).ready(function() {
 		<br>
 		<div>
 			내용
-			<textarea id="summernote" name="n_content"> ${vo.n_content } </textarea>
+			<textarea name="n_content"> ${vo.n_content } </textarea>
 		</div>
 		<br>
 		<div>
-			파일
+			첨부파일
 			<div>
-				<input type="text" name="n_file">
+				<input type="file" name="n_file">
 			</div>
 		</div>
 		<br>

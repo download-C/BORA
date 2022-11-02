@@ -32,10 +32,10 @@ $(document).ready(function() {
 
 
 <fieldset>
-	<form action="/notice/upload" method="post" enctype="multipart/form-data">
+	<form action="/file/upload" method="POST" enctype="multipart/form-data">
 		<input type="text" name="id" placeholder="아이디">
-		<input type="text" name="email" placeholder="이메일">
-	<!-- 	<input type="file" name="n_file" multiple> <br> -->
+		<input type="text" name="email" placeholder="이메일"> <br>
+		<input type="file" name="n_file" > <br>
 	<hr>
 		
 		<div id="filediv"></div>
