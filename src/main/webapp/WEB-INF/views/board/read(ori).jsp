@@ -5,60 +5,7 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-<!-- 모달 스타일 ============================== -->
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<style>
-/* 화면 전체를 어둡게 만들어주는 배경 */
-.background {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100vh;
-	background-color: rgba(0, 0, 0, 0.3);
-	z-index: 1000;
-	/* 숨기기 */
-	z-index: -1;
-	opacity: 0;
-}
-
-.show {
-	opacity: 1;
-	z-index: 1000;
-	transition: all 0.5s;
-}
-
-/* 모달 팝업을 감싸주는 창 */
-.modal-window {
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-
-/* 모달 팝업의 내용을 나타내는 팝업 */
-.modal-content {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: #ffffff;
-	box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
-	width: 500px;
-	height: 500px;
-	/* 초기에 약간 아래에 배치 */
-	transform: translate(-50%, -40%);
-}
-
-.show .modal-content {
-	transform: translate(-50%, -50%);
-	transition: all 0.5s;
-}
-</style>
-<!-- 모달 스타일 끝 ============================== -->
-
-
 <h1>board/read.jsp</h1>
-
 <%-- 
 <%
 	if (loginID == null) {
@@ -93,6 +40,52 @@
 <!-- ======== for 썸머노트 끝 ============== -->
 
 
+<!-- =============== 댓글 쓰기 모달창 ============ -->
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">REPLY M0DAL</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>Reply</label> <input class="form-control" name="c_content"
+						value="NewReply!!!!">
+				</div>
+				<div class="form-group">
+					<label>Replyer</label> <input class="form-control" name="id"
+						value="${loginID}">
+				</div>
+				<div class="form-group">
+					<label>Reply Date</label> <input class="form-control"
+						name="c_regdate" value="">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="modalModBtn" type="button" class="btn btn-warning">
+					Modify</button>
+				<button id="modalRemoveBtn" type="button" class="btn btn-danger">Remove</button>
+				<button id="modalCloseBtn" type="button" class="btn btn-default"
+					data-dismiss="modal">Close</button>
+				<button id="modalClassBtn" type="button" class="btn btn-default"
+					data-dismiss="modal">Close</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- =============== 댓글 쓰기 모달창 끝 ============ -->
+
+
+
+
+
 
 <!-- ======= for 댓글,, comment.js 파일 추가 및 테스트======= -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/comment.js"></script>
@@ -102,12 +95,13 @@ $(document).ready(function(){
 	var bnoValue = '<c:out value="${vo.bno}"/>';
 	var cmtUL = $('#cmt');
 	
-	// 댓글 목록 출력 ----------------------------
+	// 댓글 목록 출력 =====================
 	showCmtList(1);
 	
 	function showCmtList(page){
+		
 // 		alert("showCmtList 작동 성공");
-
+		
 		cmtService.getCmtList({bno:bnoValue, page:page||1}, function(list){
 			var str="";
 			
@@ -128,35 +122,35 @@ $(document).ready(function(){
 			}
 			
 			cmtUL.html(str);
+			
 		}); // getCmtList()
+		
 	}// showCmtList()
-	// 댓글 목록 출력 끝 ----------------------------
 	
 	
  	// 모달 띄우기 (새 댓글 등록 버튼 누르면 입력에 필요없는 항목들은 안 보이게 처리)
-// 	var modal = $(".modal");
-	var modalInputReply = $('#modal_cmt').val();
-	var modalInputReplyer = $('#modal_id').val();
-	var modalInputReplyDate = $('#modal_regdate').val();
+	var modal = $(".modal");
+	var modalInputReply = modal.find("input[name='c_content']");
+	var modalInputReplyer = modal.find("input[name='id']");
+	var modalInputReplyDate = modal.find("input[name='c_regdate']");
 	
 	var modalModBtn = $("#modalModBtn");
 	var modalRemoveBtn = $("#modalRemoveBtn");
 	var modalRegisterBtn = $("#modalRegisterBtn");
 	
-// 	$("#modal-show").on("click", function(e){
-// 		alert("되나~~");
-// 		modal.find("input").val("");
-// 		modalInputReplyDate.closest("div").hide();
-// 		modal.find("button[id !='modalCloseBtn']").hide();
+	$("#addReplyBtn").on("click", function(e){
+		alert("되는데 와이라지");
+		modal.find("input").val("");
+		modalInputReplyDate.closest("div").hide();
+		modal.find("button[id !='modalCloseBtn']").hide();
 		
-// 		modalRegisterBtn.show();
+		modalRegisterBtn.show();
 		
-// 		$(".modal").modal("show");
-// 	});
-	// 모달 띄우기 끝 -------------------------------
+		$(".modal").modal("show");
+		
+	});
 	
-	
-	// 댓글 작성 -------------------------------
+	// 댓글 작성 =====================================
 	var cmtRegisterBtn = $("#add_cmt_btn");
 	var id = '<c:out value="${loginID}"/>';
 	
@@ -177,26 +171,6 @@ $(document).ready(function(){
 		});
 		
 	});// cmtRegisterBtn click
-	// 댓글 작성 끝 -------------------------------
-	
-	
-	// 모달로 댓글 하나 조회 ----------------------------
-	//   ul  -> li로 위임
-// 	$('#cmt').on("click", "li", function(e){
-// 		var cno = $(this).data("cno");
-// 		alert(cno);
-		
-// 		cmtService.getCmtOne(cno, function(rData){
-// 			modalInputReply.val(rData.c_content);
-// 			modalInputReplyer.val(rData.id);
-// 			modalInputReplyDate.val(rData.c_regdate);
-// 			modal.attr("readonly", "readonly");
-// 			document.querySelector("#modal-show").addEventListener("click", modalShow);
-// 		});
-
-// 	}); // on 
-	// 모달로 댓글 하나 조회 끝 ----------------------------
-	
 	
 	
 }); // jquery ready
@@ -280,7 +254,6 @@ $(document).ready(function(){
 
 
 
-
 <h1>${vo.bno }번 글 🐱🐶 상세 보기 🐱🐶 </h1>
 
 		<!-- 수정, 삭제 시 필요한 글 번호(bno) 저장하는 폼태그 =====================-->
@@ -345,7 +318,7 @@ $(document).ready(function(){
 			<h3>댓글</h3>
 		</div>
 		<ul id="cmt">
-			<li data-cno='1'>
+			<li data-cno='2'>
 				<div id="cmt-body">
 					<div id="cmt-header">
 						<strong> id,, 말고 nick </strong> <small> c_regdate </small>
@@ -356,8 +329,7 @@ $(document).ready(function(){
 			</li>
 		</ul>
 	</div>
-	<%-- 
-			<fmt:formatDate value="${vo.c_regdate }" pattern="yyyy.MM.dd hh:mm" />
+<%-- 			<fmt:formatDate value="${vo.c_regdate }" pattern="yyyy.MM.dd hh:mm" /> --%>
 							<!-- 댓글 삭제 버턴,,
 									지 거만 지울 수 있게,,, + admin일 때
 									세션 로그인 아이디 == cdto에서 꺼내온 아이디 -->
@@ -366,15 +338,16 @@ $(document).ready(function(){
 					onclick="location.href='./CommentDelete.bo?c_bno=${cdto.c_bno}&bno=${dto.bno }';"
 					style="padding: 3px; font-size: x-small; margin: 0px;">
 				</c:if>
-	 --%>			
+</div>
 				<!-- ----------------------- 댓글 리스트 구간 끝^^ --------------------------------- -->
 				
+		      
 				<!-- ----------------------- 댓글 작성 구간^^ --------------------------------- -->
 				<div style="border: 1px solid black;">
 					<h3>댓글을 남겨주세요 👇👇 </h3>
 						<div class="form-group">
 							<label for="message">내용</label>
-							<textarea name="content" id="c_content" cols="30" rows="5" class=""></textarea>
+							<textarea name="content" id="c_content" cols="7" rows="3" class="form-control"></textarea>
 						</div>
 						<div class="btn btn-primary" >
 							<input type="button" value="댓글 달기😘" class="btn btn-primary" id="add_cmt_btn">
@@ -386,103 +359,47 @@ $(document).ready(function(){
 <hr>
 <h3>모달 도전</h3>
 <div class="panel-heading">
-<!-- 	<button id='addReplyBtn' class='btn btn-primary'> (가짜임)댓글 쓰기</button> -->
+	<i class="">이태릭?? </i> 댓글~~
+	<button id='addReplyBtn' class='btn btn-primary'> 댓글 쓰기</button>
 </div>
-
-<!-- 모달 자스 ============================== -->
-<button id="modal-show" class='btn btn-primary'>모달로 댓글 쓰기!!!!!</button>
-
-<div class="background" id="myModal">
-	<div class="modal-window">
-		<div class="modal-content">
-			<!--           <button id="close">팝업닫기</button> -->
-			<div class="modal-header">
-				<!-- 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
-				<h4 class="modal-title" id="myModalLabel">REPLY M0DAL</h4>
-			</div>
-
-			<div class="modal-body">
-				<div class="form-group">
-					<label>닉네임</label> <input class="form-control" name="id"
-						value="${loginID}" id="modal_id">
-				</div>
-				<div class="form-group">
-					<label>내용</label> <input class="form-control" name="c_content"
-						value="NewReply!!!!" id="modal_cmt">
-				</div>
-				<div class="form-group">
-					<label>작성일시</label> <input class="form-control" name="c_regdate"
-						value="" id="modal_regdate">
-				</div>
-			</div>
-			<!-- /.modal-body -->
-
-			<div class="modal-footer">
-				<button id="modalModBtn" type="button" class="btn btn-warning"> 수정</button>
-				<button id="modalRemoveBtn" type="button" class="btn btn-danger"> 삭제 </button>
-				<button id="modalCloseBtn" type="button" class="btn btn-default"
-					data-dismiss="modal">닫기</button>
-			</div>
-			<!-- /.modal-footer -->
-
-		</div>
-		<!-- /.modal-content -->
-
-	</div>
-	<!-- /.modal-window -->
-</div>
-<!-- /.background -->
-
-
-<script>
-	function modalShow() {
-		document.querySelector(".background").className = "background show";
-	}
-
-	function modalClose() {
-		document.querySelector(".background").className = "background";
-	}
-
-	document.querySelector("#modal-show").addEventListener("click", modalShow);
-	document.querySelector("#modalCloseBtn").addEventListener("click", modalClose);
-</script>
-
-<!-- 모달 자스 끝 ============================== -->
-
-
 
 
 
 <script type="text/javascript">
-	// jQuery 구간 시작~ =================================================
-	$(document).ready(function() {
-		// 	  alert('jQuery 실행🎊🎊');
-		// 버턴들 제어할 거!!!!!!!!!!!!
+// jQuery 구간 시작~ =================================================
+  $(document).ready(function(){
+// 	  alert('jQuery 실행🎊🎊');
+	  // 버턴들 제어할 거!!!!!!!!!!!!
+	  
+	  // 글번호 정보를 포함하는 폼태그에 접근
+	  var fr = $('form[role="bno_form"]'); // role이 form인 폼태그에 접근해서 그걸 fr 변수에 담기
+	  
+	  
+	  $(".btn_mod").click(function(){
+// 		  alert('정상 동작 중');
+		  // bno폼태그 속성 바꿀 거!!
+		  fr.attr("action", "/board/update");
+		  fr.attr("method", "get"); // get방식으로 바꿔서 전달 
+		  fr.submit(); // 클릭하면? 속성 바꾸고 -> submit 되게~~
+	  });// 수정 버턴 click
+	  
+	  
+	  $(".btn_list").click(function(){
+		  // 목록 버턴 클릭했을 때
+		  history.back();
+	  });// 목록 버턴 click
+	  
+	  
+	  $(".btn_del").click(function(){
+		  // 삭제 버턴 클릭했을 때~~
+		  alert('삭제 버턴 클릭됨');
+		  fr.attr("action", "/board/delete");
+		  fr.submit(); // 클릭하면? 속성 바꾸고 -> submit 되게~~
+	  });// 삭제 버튼 click
+	  
+	  
+  });// jQuery ready
 
-		// 글번호 정보를 포함하는 폼태그에 접근
-		var fr = $('form[role="bno_form"]'); // role이 form인 폼태그에 접근해서 그걸 fr 변수에 담기
-
-		$(".btn_mod").click(function() {
-			// 		  alert('정상 동작 중');
-			// bno폼태그 속성 바꿀 거!!
-			fr.attr("action", "/board/update");
-			fr.attr("method", "get"); // get방식으로 바꿔서 전달 
-			fr.submit(); // 클릭하면? 속성 바꾸고 -> submit 되게~~
-		});// 수정 버턴 click
-
-		$(".btn_list").click(function() {
-			// 목록 버턴 클릭했을 때
-			history.back();
-		});// 목록 버턴 click
-
-		$(".btn_del").click(function() {
-			// 삭제 버턴 클릭했을 때~~
-			alert('삭제 버턴 클릭됨');
-			fr.attr("action", "/board/delete");
-			fr.submit(); // 클릭하면? 속성 바꾸고 -> submit 되게~~
-		});// 삭제 버튼 click
-
-	});// jQuery ready
 </script>
 
 <%@ include file="../include/footer.jsp"%>
