@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>출금이체</h1>
+<h1>입금이체</h1>
 
 </body>
 </html>

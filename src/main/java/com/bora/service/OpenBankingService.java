@@ -13,6 +13,10 @@ import com.bora.domain.openbank.AccountTranRequestVO;
 import com.bora.domain.openbank.AccountTranResponseVO;
 import com.bora.domain.openbank.RequestTokenVO;
 import com.bora.domain.openbank.ResponseTokenVO;
+import com.bora.domain.openbank.TranDepositRequestVO;
+import com.bora.domain.openbank.TranDepositResponseVO;
+import com.bora.domain.openbank.TranResultRequestVO;
+import com.bora.domain.openbank.TranResultResponseVO;
 import com.bora.domain.openbank.TranWithdrawRequestVO;
 import com.bora.domain.openbank.TranWithdrawResponseVO;
 import com.bora.domain.openbank.UserInfoRequestVO;
@@ -60,7 +64,15 @@ public class OpenBankingService {
 		return openBankingApiClient.findTranWithdraw(tranWithdrawRequestVO);
 	}
 	
-	
-	
+	//입금이체
+	public TranDepositResponseVO findTranDeposit(TranDepositRequestVO tranDepositRequestVO) {
+		return openBankingApiClient.findTranDeposit(tranDepositRequestVO);
+	}
+
+	//이체결과조회
+	public TranResultResponseVO findTranResult(TranResultRequestVO tranResultRequestVO) {
+		return openBankingApiClient.findTranResult(tranResultRequestVO);
+	}
+
 	
 }
