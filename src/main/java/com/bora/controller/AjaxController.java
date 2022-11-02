@@ -121,7 +121,7 @@ public class AjaxController {
     	log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgr: " + ctgr);
     	switch (ctgr) {
 		case "모두다BORA":
-//			bService.getBoardList(vo);
+			bService.getBoardList(vo);
 			break;
 		case "골라줘BORA":
 			

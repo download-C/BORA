@@ -33,6 +33,18 @@
 	</select>
 	
 	
+	<!-- 2-2. 페이징 처리한 카테고리별!!! 글 목록 조회 =========================== -->
+	<select id="getBoardList1" resultType="BoardVO" resultMap="vo">
+		select *
+		from bora_cmnt_board
+		where b_ctgr = '골라줘BORA'
+		order by bno desc, b_regdate desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	
+	
+	
 	
 	<!-- 3. 글 1개 정보 가져오기 ====================================-->
 	<select id="getBoard" resultType="BoardVO">
