@@ -5,13 +5,13 @@ import lombok.Data;
 @Data
 public class CardBillsRequestVO {
 	private String access_token;
-	private String bank_tran_id;
-	private String user_seq_no;
-	private String bank_code_std;	
-	private String member_bank_code;
-    private String from_month;
-    private String to_month;
-    private String befor_inquiry_trace_info;
+	private String bank_tran_id; // 거래고유번호(참가기관)
+	private String user_seq_no; // 사용자일련번호
+	private String bank_code_std; // 카드사 대표코드(금융기관 공동코드)
+	private String member_bank_code; // 회원 금융회사 코드(금융기관 공동코드)
+    private String from_month; // 조회 시작월(YYYYMM)
+    private String to_month; // 조회 종료월(YYYYMM)
+    private String befor_inquiry_trace_info; // 직전조회추적정보
     
     public CardBillsRequestVO() {}
     
@@ -27,6 +27,15 @@ public class CardBillsRequestVO {
 		this.to_month = to_month;
 		this.befor_inquiry_trace_info = befor_inquiry_trace_info;
 	}
+
+	@Override
+	public String toString() {
+		return "CardBillsRequestVO [access_token=" + access_token + ", bank_tran_id=" + bank_tran_id + ", user_seq_no="
+				+ user_seq_no + ", bank_code_std=" + bank_code_std + ", member_bank_code=" + member_bank_code
+				+ ", from_month=" + from_month + ", to_month=" + to_month + ", befor_inquiry_trace_info="
+				+ befor_inquiry_trace_info + "]";
+	}
     
+	
 
 }
