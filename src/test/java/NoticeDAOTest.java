@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.bora.domain.NoticeVO;
-import com.bora.domain.PageVO;
+import com.bora.domain.board.NoticeVO;
+import com.bora.domain.board.PageVO;
 import com.bora.persistence.NoticeDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -48,7 +48,7 @@ public class NoticeDAOTest {
 //		vo.setNSubject("수정 제목");
 //		vo.setNContent("수정 내용");
 		
-		dao.updateNotice(1);
+//		dao.updateNotice(1);
 	}
 	
 //	@Test 완료
@@ -57,8 +57,8 @@ public class NoticeDAOTest {
 		PageVO vo = new PageVO();
 		vo.setPage(5);
 		vo.setPerPageNum(10);
-		List<NoticeVO> noticeList = dao.getNoticeList(vo);
-		log.info(noticeList+"");
+//		List<NoticeVO> noticeList = dao.getNoticeList(vo);
+//		log.info(noticeList+"");
 	}
 	
 //	@Test 완료

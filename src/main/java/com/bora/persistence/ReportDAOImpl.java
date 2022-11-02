@@ -6,10 +6,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.bora.domain.CardPayVO;
 import com.bora.domain.ReportVO;
-import com.bora.domain.openbank.TranVO;
 import com.bora.domain.openbank.card.CardDetailBillsVO;
+import com.bora.domain.openbank.card.CardPayVO;
+import com.bora.domain.openbank.tran.TranVO;
 
 @Repository
 public class ReportDAOImpl implements ReportDAO{
@@ -27,8 +27,8 @@ public class ReportDAOImpl implements ReportDAO{
 //	}
 
 	@Override
-	public void insertReport2(ReportVO revo) {
-		sqlSession.insert(Namespace+".create2",revo);
+	public void insertReport2(ReportVO reportVO) {
+		sqlSession.insert(Namespace+".create2",reportVO);
 
 	}
 

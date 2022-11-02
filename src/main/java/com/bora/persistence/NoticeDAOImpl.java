@@ -9,9 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.bora.domain.NoticeVO;
-import com.bora.domain.PageMakerVO;
-import com.bora.domain.PageVO;
+import com.bora.domain.board.NoticeVO;
+import com.bora.domain.board.PageMakerVO;
+import com.bora.domain.board.PageVO;
 
 @Repository
 public class NoticeDAOImpl implements NoticeDAO{

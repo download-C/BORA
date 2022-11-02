@@ -3068,7 +3068,7 @@ var range_WrappedRange = /*#__PURE__*/function () {
       /**
        * [workaround] firefox often create range on not visible point. so normalize here.
        *  - firefox: |<p>text</p>|
-       *  - chrome: <p>|text|</p>
+       *  - chrome: |<p>text</p>|
        */
 
 

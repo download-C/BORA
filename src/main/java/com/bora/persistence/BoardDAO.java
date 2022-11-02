@@ -2,8 +2,8 @@ package com.bora.persistence;
 
 import java.util.List;
 
-import com.bora.domain.BoardVO;
-import com.bora.domain.PageVO;
+import com.bora.domain.board.BoardVO;
+import com.bora.domain.board.PageVO;
 
 public interface BoardDAO {
 	// 1. 글쓰기 insertBoard(vo)

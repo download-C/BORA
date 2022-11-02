@@ -6,15 +6,12 @@
 
 
 	<insert id="create2">
-		insert into bora_report (id, rp_date, rp_money, rp_detail, message,
+		insert into bora_report (id, rp_date, rp_money,	rp_detail, message,
 		category, rp_num)
-		values (#{id}, #{rp_date}, #{rp_money}, #{rp_detail}, #{message},
+		values (#{id}, #{rp_date},
+		#{rp_money}, #{rp_detail}, #{message},
 		#{category}, #{rp_num})
 	</insert>
 
-
-
-
-
-
+	
 </mapper>

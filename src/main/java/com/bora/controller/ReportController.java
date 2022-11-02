@@ -13,9 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bora.domain.CardPayVO;
 import com.bora.domain.ReportVO;
-import com.bora.domain.openbank.TranVO;
+import com.bora.domain.openbank.card.CardPayVO;
+import com.bora.domain.openbank.tran.TranVO;
 import com.bora.service.ReportService;
 
 
@@ -30,6 +30,11 @@ public class ReportController {
 	
 	  @Inject
 	  private ReportService service;
+	  
+	  @RequestMapping(value="/main", method=RequestMethod.GET)
+	  public void reportMainGET() {
+		  log.info("리포트 메인 페이지로 이동");
+	  }
 
 
 	  //http://localhost:8080/report/sumAdd

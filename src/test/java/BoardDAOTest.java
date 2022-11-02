@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.bora.domain.BoardVO;
-import com.bora.domain.CommentVO;
+import com.bora.domain.board.BoardVO;
+import com.bora.domain.board.CommentVO;
 import com.bora.persistence.BoardDAO;
 import com.bora.persistence.CommentDAO;
 

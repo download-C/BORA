@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bora.domain.BoardVO;
-import com.bora.domain.PageMakerVO;
-import com.bora.domain.PageVO;
+import com.bora.domain.board.BoardVO;
+import com.bora.domain.board.PageMakerVO;
+import com.bora.domain.board.PageVO;
 import com.bora.service.BoardService;
 
 @Controller

@@ -2,9 +2,9 @@ package com.bora.persistence;
 
 import java.util.List;
 
-import com.bora.domain.NoticeVO;
-import com.bora.domain.PageMakerVO;
-import com.bora.domain.PageVO;
+import com.bora.domain.board.NoticeVO;
+import com.bora.domain.board.PageMakerVO;
+import com.bora.domain.board.PageVO;
 
 public interface NoticeDAO {
 	public void writeNotice(NoticeVO vo) throws Exception;

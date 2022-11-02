@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bora.domain.CommentVO;
-import com.bora.domain.PageVO;
+import com.bora.domain.board.CommentVO;
+import com.bora.domain.board.PageVO;
 import com.bora.persistence.CommentDAO;
 
 @Service

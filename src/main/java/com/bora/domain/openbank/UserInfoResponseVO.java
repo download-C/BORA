@@ -2,6 +2,8 @@ package com.bora.domain.openbank;
 
 import java.util.List;
 
+import com.bora.domain.openbank.account.AccountVO;
+
 import lombok.Data;
 
 // 2.2.1 사용자정보조회 API 응답 데이터

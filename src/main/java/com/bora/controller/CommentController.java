@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bora.domain.CommentVO;
-import com.bora.domain.PageVO;
+import com.bora.domain.board.CommentVO;
+import com.bora.domain.board.PageVO;
 import com.bora.service.CommentService;
 
 @RestController

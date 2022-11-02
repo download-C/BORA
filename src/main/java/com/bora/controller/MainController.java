@@ -18,9 +18,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.domain.MemberSHA256;
 import com.bora.domain.MemberVO;
-import com.bora.domain.NoticeVO;
-import com.bora.domain.PageMakerVO;
-import com.bora.domain.PageVO;
+import com.bora.domain.board.NoticeVO;
+import com.bora.domain.board.PageMakerVO;
+import com.bora.domain.board.PageVO;
 import com.bora.service.MainService;
 import com.bora.service.MemberService;
 import com.bora.service.NoticeService;
