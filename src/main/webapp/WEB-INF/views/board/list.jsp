@@ -17,6 +17,54 @@
 <%-- 		<h5>${pm.pageVO.page }</h5> --%>
 		<h3><a href="/board/insert">여기를 눌러서 편하게 글쓰기 하십시오 ^^💘💘 </a></h3>
 	</div>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			// 모두다
+			$('.ctgr_btn').click(function(){
+// 				alert('모두');
+				$.ajax({
+					url: "/ajax/ctgr",
+					data: {"ctgr": $(this).val() },
+					type: "get",
+					success: function(data){
+						alert('성공');
+					},
+					error: function(){
+						alert('실패');
+						history.back();
+					}
+					
+				});// ajax
+
+			});// btn_all click
+			
+// 			// 골라줘
+// 			$('#btn_pick').click(function(){
+// // 				alert('골라');
+				
+// 			});// btn_pick click
+			
+// 			// 알려줘
+// 			$('#btn_tip').click(function(){
+// // 				alert('알려');
+				
+// 			});// btn_tip click
+			
+// 			// 친해져
+// 			$('#btn_meet').click(function(){
+// // 				alert('친해');
+				
+// 			});// btn_meet click
+			
+		});// jquery ready
+	</script>
+	
+	<input type="button" value="모두다BORA" class="ctgr_btn" id="btn_all">
+	<input type="button" value="골라줘BORA" class="ctgr_btn" id="btn_pick">
+	<input type="button" value="알려줘BORA" class="ctgr_btn" id="btn_tip">
+	<input type="button" value="친해져BORA" class="ctgr_btn" id="btn_meet">
+
 
 	<div>
 		<table class="table table-bordered">
