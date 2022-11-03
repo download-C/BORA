@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 
 <!--  카카오지도 API   -->
-
 <style>
 .label {
 /* 이름표 위치 */
