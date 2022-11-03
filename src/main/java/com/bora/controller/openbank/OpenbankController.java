@@ -155,13 +155,6 @@ public class OpenbankController {
 			session.setAttribute("bank_tran_id", accountBalanceRequestVO.getBank_tran_id());
 			session.setAttribute("fintech_use_num", accountBalanceRequestVO.getFintech_use_num());
 			log.info("%%%%%%%%%%%은행이름: "+accountBalance.getBank_name());
-			log.info("");
-			log.info("");
-			log.info("");
-			log.info("");
-			log.info("");
-			log.info("");
-			log.info("");
 			
 			
 //			log.info("Access_token : "+accountBalanceRequestVO.getAccess_token());

@@ -5,21 +5,29 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-<!-- ////////////alert 커스텀//////////// -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
 
+<!-- 메세지 불러오고 모달 창 띄우기 -->
 <script>
 $(document).ready(function() {
     let message = "${msg}";
-    if (message != "") {
-        alert(message);
-    }else {
+    if(message!=""){
+		success(message);
     }
+
 })
-
 </script>
-
+<!-- 체크 모달 -->
+<script>
+ function success(message) {
+     Swal.fire(
+         message,
+         '',
+         'success' /*디자인 타입*/
+     )
+ }//success 버튼
+</script>
 
 
 <!--  카카오지도 API (나중에 about페이지에 아래 코드 이동)  -->

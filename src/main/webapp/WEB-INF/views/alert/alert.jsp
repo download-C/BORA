@@ -10,9 +10,7 @@
 
 <!-- alert 대신 사용할 모달 버튼 script 소스 (필수) -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
-<!-- alert 대신 사용할 모달 버튼 script 소스 (필수) -->
-
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
 
     <script>
 		//기본 메시지 출력
@@ -50,8 +48,9 @@
     	
         //success 버튼
         function success() {
+        	let message = "${msg}";
             Swal.fire(
-                '성공',
+                message,
                 '수정되었습니다?',
                 'success' /*디자인 타입*/
             )
@@ -77,7 +76,7 @@
                 cancelButtonColor: '#d33', //cancel 버튼 색깔
                 confirmButtonText: '예',
                 cancelButtonText: '아니요',
-                reverseButtons: true //버튼 순서 거꾸로 
+                reverseButtons: false //버튼 순서 거꾸로 
             }).then((result) => {
                 if (result.isConfirmed) {
                     Swal.fire(
@@ -95,25 +94,18 @@
             })
         }//confirm(예, 아니오 확인) 버튼
 		
-
+		//버튼 배경색 입히는 버튼
         function hzi() {
         	Swal.fire({
         		  title: '버튼 외 바탕의 색을 변경하는 버튼',
 	        	  width: 600,
     	    	  padding: '3em',
-        		  color: '#7A1CF6',
-        		  background: '#fff url(/images/trees.png)',
-        	  	backdrop: `
-        	    	rgba(0,0,123,0.4)
-        	    	url("/img/onyan-cat.gif")
-        	    	left top
-        	    	no-repeat
-        	  	`
-       	 })
-        	
+//         		  color: '#7A1CF6',
+        		  background: '#fff',
+        		  backdrop: 'rgba(122, 28, 246, 0.2)' //#7A1CF6에 투명도
+       	 });
         }	
 
-        
         </script>
 
 	
@@ -129,6 +121,23 @@
     <button onclick="warning()">warning 버튼</button><br>
     <button onclick="confirm()">confirm 버튼(예, 아니오 선택)</button><br>
     <button onclick="hzi()">hzi 버튼</button><br>
+
+
+	<div><input type="submit" value="로그인" id="login"></div>
+	
+<script>
+//success 버튼
+function $login(login) {
+    Swal.fire(
+        '로그인 성공',
+        '"${msg}"님, 환영합니다💕',
+        'success' /*디자인 타입*/
+    )
+}//success 버튼
+
+
+</script>
+
 
 
 <%@ include file="../include/footer.jsp"%>
