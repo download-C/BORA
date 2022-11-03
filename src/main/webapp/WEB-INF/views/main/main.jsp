@@ -27,5 +27,42 @@ $(document).ready(function() {
 
 <a href='/main/NoticeListPage'>공지사항 목록</a>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<div>
+<canvas id="myChart" width="400" height="400"></canvas>
+</div>
+<script>
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ['9월', '10월', '11월', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '합계',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 206, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(153, 102, 255)',
+                'rgb(255, 159, 64)'
+            ]
+        }]
+    },
+    options: {
+  	  responsive: false
+    }
+
+});
+</script>
+
+
+
+
+
+  
+
+
 
 <%@ include file="../include/footer.jsp"%>
