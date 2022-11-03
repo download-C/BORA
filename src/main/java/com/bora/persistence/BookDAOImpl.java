@@ -20,11 +20,10 @@ public class BookDAOImpl implements BookDAO{
 	private static final Logger log = LoggerFactory.getLogger(BookDAOImpl.class);
 
 	@Override
-	public void writeBook(BookDetailVO detail, BookVO vo) throws Exception {
+	public Integer writeBook(BookVO vo, BookDetailVO detail) throws Exception {
 		log.info("writeBook(vo) 호출");
-		int result = session.insert(NAMESPACE+".writeBookDetail");
-		if(result == 1) session.insert(NAMESPACE+".writeBook", vo);
 		log.info("가계부 DB 저장 완료");
+		return session.insert(NAMESPACE+".writeBook", vo);
 	}
 	
 	

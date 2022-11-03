@@ -82,11 +82,11 @@ public class BoardController {
 		// 2. 걍 바로 리스트로 이동하는 경우
 		
 		log.info("(♥♥♥♥♥ 2.listAllGET) Service 호출할게욘");
-		List<BoardVO> boardList = service.getBoardListAll();
+//		List<BoardVO> boardList = service.getBoardList();
 		
-		log.info("(♥♥♥♥♥ 2.listAllGET) Service로부터 정보 받아옴^^ boardList.size: " + boardList.size());
+//		log.info("(♥♥♥♥♥ 2.listAllGET) Service로부터 정보 받아옴^^ boardList.size: " + boardList.size());
 		
-		model.addAttribute("boardList", boardList);
+//		model.addAttribute("boardList", boardList);
 		log.info("(♥♥♥♥♥ 2.listAllGET) 모델 객체에 저장 완");
 		
 		// 세션에 객체 isUpdate 하나  만들어놓기~~~ 
