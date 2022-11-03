@@ -99,9 +99,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	// 계속 쓸 놈들 ---------------------
-	var bnoValue = '<c:out value="${vo.bno}"/>';
-	var cnoValue = $('#cnoValue').val();
 	var loginID = '<c:out value="${loginID}"/>';
+	var bnoValue = '<c:out value="${vo.bno}"/>';
 	
 	
 	// 댓글 목록 출력 ----------------------------
@@ -123,7 +122,7 @@ $(document).ready(function(){
 			
 			// 반복문 돌면서 댓글 list 채우기
 			for (var i = 0, len = list.length||0; i < len; i++) {
-				str += "<li data-cno='"+list[i].cno+"'>";
+				str += "<li id='cmtLI' data-cno='"+list[i].cno+"'>";
 				str += "<div id='cmt-body'><div id='cmt-header'><strong>"+list[i].id+"</strong>&nbsp;&nbsp;";
 				str += "<small>"+cmtService.displayTime(list[i].c_regdate)+"</small>";
 					if (list[i].id == loginID || list[i].id == 'admin') {
@@ -131,10 +130,11 @@ $(document).ready(function(){
 						str += "<input type='button' value='답글' class='btn btn-primary' id='cmt_btn_re'>";
 						str += "<input type='button' value='수정' class='btn btn-primary' id='cmt_btn_mod'>";
 						str += "<input type='button' value='삭제' class='btn btn-primary' id='cmt_btn_del'>";
-						str += "<input type='hidden' value='"+list[i].cno+"' id='cnoValue'></div>";
+						str += "<input type='text' value='"+list[i].cno+"' id='cnoValue'></div>";
 					}
-				str += "<p> cno:"+list[i].cno + " 💖 " + list[i].c_content+"</p>";
+				str += "<p id='cmt_p'>"+list[i].c_content+"</p>";
 				str += "</div></li>";
+				
 			} // for
 			
 			cmtUL.html(str);
@@ -171,14 +171,19 @@ $(document).ready(function(){
 	var cmtRegisterBtn = $("#add_cmt_btn");
 	
 	cmtRegisterBtn.on("click", function(e){
+		
+		if($('#c_content').val() == null || $('#c_content').val() == ''){
+			alert("댓글 내용을 작성해주세요");
+			$('#c_content').focus();
+			return false;
+		}
+		
 		var cmt = {
 			c_content: $('#c_content').val(),
 			id: loginID,
 			bno: bnoValue
 		};
 		
-		// 여기서 제어하지 말고 controller에서 제어?
-		if($('#c_content').val() != null || $('#c_content').val() != ''){
 		
 		// 댓글 등록 함수 1.add(cmt, callback, error) 호출
 		cmtService.add(
@@ -192,30 +197,35 @@ $(document).ready(function(){
 						alert("댓글이 등록되었습니다 👍 ");
 					}
 					
+					$('#c_content').focus();
+					$('#c_content').val = ''; // remove? ㅠ
+					
 					showCmtList(1);
 					
 					// 작성 후에 빈칸으로
-					$('#c_content').val = '';
 // 					document.getElementById("#c_content").value=''; 
 					// 얘 하니까 밑에도 안 먹고,, 거 참
 					
 		}); // 1.add()
 		
-		} else {
-			alert("댓글 내용을 작성해주세요");
-			$('#c_content').focus();
-			return false;
-		} // if-else
+// 		} else {
+// 			alert("댓글 내용을 작성해주세요");
+// 			$('#c_content').focus();
+// 			return false;
+// 		} // if-else
 			
 	});// cmtRegisterBtn on click
 	// 댓글 작성 끝 -------------------------------
 	
 	
 	// 댓글 삭제 -------------------------------
-	var cmtDelBtn = $('#cmt_btn_del');
-	
-	cmtDelBtn.click(function(){
-		alert("삭제 버턴 클릭됨");
+// 	cmtDelBtn.on("click", function(e){ // 버턴이 먹지를 않노 ㄱ-
+	$(document).on("click", "#cmt_btn_del", function(){
+// 		alert("삭제 버턴 클릭됨");
+		// cno는?  삭제 버턴(this) -> 다음 요소의 value값.. 이게 최선?ㅠ
+		var cnoValue = $(this).next().val();
+		console.log("삭제할 cnoValue: " + cnoValue);
+		
 		// 삭제 버튼 클릭했을 때~ 
 		// 댓글 삭제 함수 3. deleteCmt(cno, callback, error) 호출
 		cmtService.deleteCmt(
@@ -228,6 +238,8 @@ $(document).ready(function(){
 				if(deleteResult === "success") {
 					alert("댓글이 삭제되었습니다 👍 ");
 				}
+				
+				showCmtList(1);
 			}, 
 			// error
 			function(error){
@@ -237,6 +249,64 @@ $(document).ready(function(){
 	}); // cmtDelBtn on click
 	// 댓글 삭제 끝 -------------------------------
 	
+	
+	// 댓글 수정 -------------------------------
+	function updateCmtForm(cnoValue, c_content){
+		alert("updateCmtForm 함수 실행됨 cno: " + cnoValue + " / c_content: " + c_content);
+		
+// 		var cmtPcno = $('"#cmt_p"+cnoValue+');
+		
+		var commentsView = "";
+		
+		commentsView += "<textarea name='content' id='c_content'"+cnoValue+" cols='30' rows='5' class=''>"+c_content+"</textarea>";
+		commentsView += "<div><input type='button' value='수정하기' class='btn' id='real_mod_btn'";
+		commentsView += "</div>";
+        
+		
+		$('#cmt_p').replaceWith(commentsView);
+// 		cmtPcno.replaceWith(commentsView);
+		
+	}// updateCmtForm()
+	
+	
+	$(document).on("click", "#cmt_btn_mod", function(){
+		alert("수정 버턴 클릭");
+		var cnoValue = $(this).next().next().val();
+		var c_content = $('#cmt_p').text();
+// 		var c_content = $(this).next().next().next().val();
+		alert("cnoValue: " + cnoValue + " / c_content: " + c_content);
+		
+		// 함수 호출
+		updateCmtForm(cnoValue, c_content);
+		
+		// 수정 버튼 클릭 -> div li data-cno [i] 에 해당하는 div가 -> 입력할 수 있는 form으로 replace됨
+		// 그 입력폼에서 수정 내용 적고 수정 버튼 또 클릭 -> cno, bno, 수정 내용 받아감
+		// -> DB 가서 수정 반영하고, 목록 갱신 함 해서 수정한 내용으로 보이도록..
+		
+		$('#real_mod_btn').click(function(){
+			alert("찐 수정버턴 클릭됨");
+			alert("cnoValue: " + cnoValue + " / bnoValue: " + bnoValue + " / c_content: " +  $('#c_content').val());
+			//4. updateCmt(cmtVO, callback, error)
+			cmtService.updateCmt(
+					// cmtVO
+					{ cno : cnoValue,
+					  bno : bnoValue,
+					  c_content : $('#c_content').val()},
+					  	// 이모티콘은 안 되네 ㄱ- 
+					
+					// callback
+					function(rData){
+						alert("댓글 수정 완");
+						
+						showCmtList(1);
+					}
+			);// updateCmt()
+			
+			
+		});// 찐 수정버튼 click
+		
+	});// on click
+	// 댓글 수정 끝 -------------------------------
 	
 	
 	// 모달로 댓글 하나 조회 ----------------------------
