@@ -28,8 +28,15 @@
      <form method="post" action="/fintech/registCard">
         <%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 		<input type="hidden" name="access_token" value="${responseToken.access_token }">
-		<input type="hidden" name="member_bank_code" value="D">
-		<input type="hidden" name="Info_prvd_agmt_yn" value="V">
+		<input type="hidden" name="bank_tran_id" value="M202202056U000000001">
+		<input type="hidden" name="bank_code_std" value="399">
+		<input type="hidden" name="member_bank_code" value="399">
+		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }">
+<%-- 		<input type="hidden" name="user_name" value="D"> --%>
+<!-- 		<input type="hidden" name="user_ci" value="D"> -->
+<!-- 		<input type="hidden" name="user_email" value="D"> -->
+		<input type="hidden" name="scope" value="${responseToken.scope }">
+		<input type="hidden" name="Info_prvd_agmt_yn" value="Y">
 		<input type="submit" value="카드등록">
      </form>
      

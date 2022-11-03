@@ -229,17 +229,19 @@ public class CardController {
 		log.info("cardUpdateRequestVO : "+cardUpdateRequestVO.getUser_seq_no());
 		log.info("cardUpdateRequestVO : "+cardUpdateRequestVO.getMember_bank_code());
 		log.info("cardUpdateRequestVO : "+cardUpdateRequestVO.getUpdate_user_email());
-								
+		
+		CardUpdateResponseVO result = openBankingService.updateCard(cardUpdateRequestVO);
+		
 		// Model 객체에 CardUpdateResponseVO 객체와 엑세스토큰 저장
 		model.addAttribute("cardUpdate", cardUpdate);
 		model.addAttribute("access_token", cardUpdateRequestVO.getAccess_token());
 
 		return "card/card_update";
 	}
-    // 카드조회해지
+	// 카드조회해지
 	@RequestMapping(value = "/cardDelete", method = RequestMethod.GET)
 	public String getCardDelete( CardDeleteRequestVO cardDeleteRequestVO, Model model) throws Exception {
-												
+											
 		log.info("cardDeleteGET() 호출");
 											
 		// Service 객체의 deleteCard() 메서드를 호출하여 사용자 정보 조회
@@ -250,18 +252,18 @@ public class CardController {
 		log.info("cardDeleteRequestVO : "+cardDeleteRequestVO.getUser_seq_no());
 		log.info("cardDeleteRequestVO : "+cardDeleteRequestVO.getMember_bank_code());
 										
-		// Model 객체에 CardUpdateResponseVO 객체와 엑세스토큰 저장
+		// Model 객체에 CardDeleteResponseVO 객체와 엑세스토큰 저장
 		model.addAttribute("cardDelete", cardDelete);
 		model.addAttribute("access_token", cardDeleteRequestVO.getAccess_token());
-							
+						
 		return "card/card_delete";
 	}
 	// 선불거래내역조회
 	@RequestMapping(value = "/prePaidTran", method = RequestMethod.GET)
 	public String getPrePaidTran( PrePaidTranRequestVO prePaidTranRequestVO, Model model) throws Exception {
-																
+													
 		log.info("prePaidTranGET() 호출");
-																
+													
 		// Service 객체의 prePaidTran() 메서드를 호출하여 사용자 정보 조회
 		// => 파라미터 : PrePaidTranRequestVO, 리턴타입 PrePaidTranResponseVO
 		PrePaidTranResponseVO prePaidTran = openBankingService.prePaidTran(prePaidTranRequestVO);
@@ -269,11 +271,11 @@ public class CardController {
 		log.info("prePaidTranRequestVO : "+prePaidTranRequestVO.getAccess_token());
 		log.info("prePaidTranRequestVO : "+prePaidTranRequestVO.getUser_seq_no());
 		log.info("prePaidTranRequestVO : "+prePaidTranRequestVO.getBank_code_std());
-															
+												
 		// Model 객체에 PrePaidTranResponseVO 객체와 엑세스토큰 저장
 		model.addAttribute("prePaidTran", prePaidTran);
 		model.addAttribute("access_token", prePaidTranRequestVO.getAccess_token());
-											
+						
 		return "card/prepaid_tran";
 	}
 	
