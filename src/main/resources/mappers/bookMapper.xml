@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- bora_book -->
+<!-- #{bk_detail_num}, #{bk_num}, #{id}, #{bk_day}, #{dk_iow}, #{bk_group}, #{bk_category}, #{bk_money}, #{bk_memos} -->
+<mapper namespace="com.bora.mapper.BooklMapper">
+	<insert id="writeBook">
+	</insert>
+	
+</mapper>

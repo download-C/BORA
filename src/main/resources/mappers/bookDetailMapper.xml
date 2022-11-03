@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- bora_book_detail -->
+<!-- #{bk_detail_num}, #{bk_num}, #{id}, #{bk_day}, #{bk_iow}, #{bk_group}, #{bk_category}, #{bk_money}, #{bk_memo} -->
+<mapper namespace="com.bora.mapper.BookDetailMapper">
+	<insert id="writeBookDetail">
+		insert into bora_book_detail(id, bk_day, bk_iow, bk_group, 
+									 bk_category, bk_money, bk_memo)
+		values (#{id}, #{bk_day}, #{bk_iow}, #{bk_group}, 
+				#{bk_category}, #{bk_money}, #{bk_memo});
+	</insert>
+	
+	<select id="getBookDetail" resultType="com.bora.domain.report.BookDetailVO">
+		select * from bora_book_detail
+		where id=#{id} and bk_detail_num=#{bk_detail_num}
+	</select>
+	
+	<update id="updateBookDetail">
+		update bora_book_detail
+		set bk_day=#{bk_day}, bk_group=#{bk_group}, bk_category=#{bk_category}, 
+			bk_money=#{bk_money}, bk_momo=#{bk_memos}
+	</update>
+	
+</mapper>
