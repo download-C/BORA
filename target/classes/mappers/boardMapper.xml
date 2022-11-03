@@ -29,20 +29,18 @@
 		select *
 		from bora_cmnt_board
 		order by bno desc, b_regdate desc
-		limit #{pageStart}, #{perPageNum}
+		limit 1, 10
 	</select>
 	
 	
-	<!-- 2-2. 페이징 처리한 카테고리별!!! 글 목록 조회 =========================== -->
-	<select id="getBoardList1" resultType="BoardVO" resultMap="vo">
-		select *
-		from bora_cmnt_board
-		where b_ctgr = '골라줘BORA'
-		order by bno desc, b_regdate desc
-		limit #{pageStart}, #{perPageNum}
-	</select>
-	
-	
+		<!-- 2-2. 페이징 처리한 카테고리별!!! 글 목록 조회 =========================== -->
+		<select id="getBoardList_ctgr" resultType="BoardVO" resultMap="vo">
+			select *
+			from bora_cmnt_board
+			where b_ctgr = #{b_ctgr}
+			order by bno desc, b_regdate desc
+			limit 1, 10
+		</select>
 	
 	
 	
@@ -67,12 +65,14 @@
 		update bora_cmnt_board
 		set b_title = #{b_title}, b_content = #{b_content}, b_file = #{b_file}
 		where bno = #{bno}
+		and id = #{id}
 	</update>
 	
 	
 	<!-- 5. 글 삭제 ========================================= -->
 	<delete id="deleteBoard">
 		delete from bora_cmnt_board
-		where bno = #{bno}	
+		where bno = #{bno}
+		and id = #{id}	
 	</delete>
 </mapper>
