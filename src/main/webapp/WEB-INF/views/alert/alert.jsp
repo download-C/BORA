@@ -96,38 +96,25 @@
         }//confirm(예, 아니오 확인) 버튼
 		
 
-//         function hzi() {
-//         	Swal.fire({
-//         		  title: '버튼 외 바탕의 색을 변경하는 버튼',
-// 	        	  width: 600,
-//     	    	  padding: '3em',
-//         		  color: '#7A1CF6',
-//         		  background: '#fff url(/images/trees.png)',
-//         	  	backdrop: `
-//         	    	rgba(0,0,123,0.4)
-//         	    	url("/img/onyan-cat.gif")
-//         	    	left top
-//         	    	no-repeat
-//         	  	`
-//        	 })
-        	
-//         }	
         function hzi() {
-        Swal.fire({
-        	  title: 'Custom width, padding, color, background.',
-        	  width: 600,
-        	  padding: '3em',
-        	  color: '#716add',
-        	  background: '#fff url("../img/logo.png")',
-        	  backdrop: `
-        	    rgba(0,0,123,0.4)
-        	    url("../img/logo.png")
-        	    left top
-        	    no-repeat
-        	  `
-        	})
-        }
-    </script>
+        	Swal.fire({
+        		  title: '버튼 외 바탕의 색을 변경하는 버튼',
+	        	  width: 600,
+    	    	  padding: '3em',
+        		  color: '#7A1CF6',
+        		  background: '#fff url(/images/trees.png)',
+        	  	backdrop: `
+        	    	rgba(0,0,123,0.4)
+        	    	url("/img/onyan-cat.gif")
+        	    	left top
+        	    	no-repeat
+        	  	`
+       	 })
+        	
+        }	
+
+        
+        </script>
 
 	
 <!-- 모달창에서 OK 버튼의 text를 수정하고 싶으면 error 버튼을 참고
