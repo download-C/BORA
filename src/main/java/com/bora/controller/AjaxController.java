@@ -126,23 +126,23 @@ public class AjaxController {
     	log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgr: " + ctgr);
     	
     	// 페이징 처리 하단부 정보 저장
-    	PageVO pageVO = new PageVO();
-    	log.info("vo: "+pageVO);
-    	PageMakerVO pm = new PageMakerVO();
-    	pm.setTotalCnt(100);
+//    	PageVO pageVO = new PageVO();
+//    	log.info("vo: "+pageVO);
+//    	PageVO pm = new PageMakerVO();
+//    	pm.setTotalCnt(100);
 //    	int cnt = service.getBoardCnt();
-    	pm.setVo(pageVO);
+//    	pm.setVo(pageVO);
     	
-    	log.info("pm: "+pm);
-
-    	pm.setTotalCnt(100); // 임의로
-    	if(ctgr.equals("모두다BORA") || ctgr=="") {
-		List<BoardVO> boardList = boardService.getBoardList(pm);
-    	} else if(ctgr.equals("알려줘BORA")||ctgr.equals("친해져BORA")||ctgr.equals("골라줘BORA")) {
-		List<BoardVO> boardList = boardService.getBoardList(pm, ctgr);
-			 log.info("boardList: "+boardList);
-			return boardList; 
-    	}
+//    	log.info("pm: "+pm);
+//
+//    	pm.setTotalCnt(100); // 임의로
+//    	if(ctgr.equals("모두다BORA") || ctgr=="") {
+//		List<BoardVO> boardList = boardService.getBoardListPage(pm);
+//    	} else if(ctgr.equals("알려줘BORA")||ctgr.equals("친해져BORA")||ctgr.equals("골라줘BORA")) {
+//		List<BoardVO> boardList = boardService.getBoardListCtgr(pm, ctgr);
+//			 log.info("boardList: "+boardList);
+//			return boardList; 
+//    	}
     	return null;
     }
     // 카테고리 ajax 끝 ==================================

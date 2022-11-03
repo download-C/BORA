@@ -26,6 +26,7 @@ $(document).ready(function() {
 <%-- <%@ include file="../about/map.jsp"%> --%>
 
 <a href='/main/NoticeListPage'>공지사항 목록</a>
+<h3><a href='/board/listAll'>커뮤니티 목록</a></h3>
 
 
 <%@ include file="../include/footer.jsp"%>

@@ -13,11 +13,12 @@
 </h1>
 <div>
 	<div>
-		<h5>EL{msg} : ${msg }</h5>
-		<h5>${pm }</h5>
-<%-- 		<h5>${pm.pageVO.page }</h5> --%>
+		<h6>EL{msg} : ${msg }</h6>
+		<h6>EL{pm} : ${pm }</h6>
+		<h6>EL{pm.vo.page }: ${pm.vo.page }</h6>
 		<h3><a href="/board/insert">여기를 눌러서 편하게 글쓰기 하십시오 ^^💘💘 </a></h3>
 	</div>
+	
 	
 	<!-- // 카테고리 ajax,.,... 일단 보류 -->
 	<script type="text/javascript">
@@ -35,7 +36,6 @@
 					success: function(data){
 						alert('성공');
 					},
-
 					error: function(){
 						alert('실패');
 // 						location.href="/board/list?page="+page;
@@ -71,7 +71,7 @@
 					<tr>
 						<td>${vo.bno}</td>
 						<td>${vo.b_ctgr}</td>
-						<td> <a href="/board/read?bno=${vo.bno }&page=1">${vo.b_title }</a> </td>
+						<td> <a href="/board/read?bno=${vo.bno }&page=${pm.vo.page}">${vo.b_title }</a> </td>
 						<td>${vo.id }</td>
 						<td> <fmt:formatDate value="${vo.b_regdate }" pattern="YYYY년 MM월 dd일 🌈  HH:mm" /> </td>
 						<td>${vo.b_readcount }</td>
@@ -99,7 +99,7 @@
 				<%-- 
 				<li <c:out value="${pm.vo.page == index? 'class=active' : '' }" />>   2.3버전 이하는 c:out 써야 함~ --%>
 				<li ${pm.vo.page == index? 'class=active' : '' }  style="float: left;">
-					<a href="listPage?page=${index }+1"> &nbsp;&nbsp; ${index}+1 &nbsp;&nbsp; </a>
+					<a href="listPage?page=${index }"> &nbsp;&nbsp; ${index} &nbsp;&nbsp; </a>
 				</li>
 			</c:forEach>
 			
