@@ -95,17 +95,117 @@
         }//confirm(예, 아니오 확인) 버튼
 		
 		//버튼 배경색 입히는 버튼
-        function hzi() {
+        function bora() {
         	Swal.fire({
         		  title: '버튼 외 바탕의 색을 변경하는 버튼',
 	        	  width: 600,
     	    	  padding: '3em',
-//         		  color: '#7A1CF6',
         		  background: '#fff',
         		  backdrop: 'rgba(122, 28, 246, 0.2)' //#7A1CF6에 투명도
        	 });
-        }	
+        }//버튼 배경색 입히는 버튼	
 
+        //이미지 넣기 버튼
+        function imgbtn() {
+        	Swal.fire({
+        		  title: '타이틀',
+        		  text: '작은 글씨',
+        		  imageUrl: '${pageContext.request.contextPath}/resources/img/coin(turning).gif',
+        		  imageWidth: 400,
+        		  imageHeight: 200,
+        		  imageAlt: 'Custom image',
+        		})
+        }//버튼 배경색 입히는 버튼	
+
+        //텍스트를 입력하고 확인하는 버튼 -> 비밀번호 입력 시 사용
+        function textbtn() {
+        	(async () => {
+        		const { value: password } = await Swal.fire({
+        		  title: '비밀번호를 입력하시오',
+        		  input: 'password',
+        		  inputLabel: 'Password',
+        		  inputPlaceholder: '비밀번호',
+        		  inputAttributes: {
+        		    maxlength: 10,
+        		    autocapitalize: 'off',
+        		    autocorrect: 'off'
+        		  }
+        		})
+
+        		if (password) {
+        		  Swal.fire(`비밀번호 확인 완료 ${password}`)
+        		}else() {
+        			Swal.fire(`비밀번호 불일치`)
+        		}
+        		})()
+        }//텍스트를 입력하고 확인하는 버튼
+	//VO에 값 불러와서 비교해야
+        
+        
+        
+        
+        //텍스트를 입력하고 확인하는 버튼2 -> 여러 텍스트 입력, JSON으로 출력
+        function textbtn2() {
+        	(async () => {
+        		const { value: formValues } = await Swal.fire({
+        		  title: '다중입력 타이틀',
+        		  html:
+        		    '<input id="swal-input1" class="swal2-input">' +
+        		    '<input id="swal-input2" class="swal2-input">',
+        		  focusConfirm: false,
+        		  preConfirm: () => {
+        		    return [
+        		      document.getElementById('swal-input1').value,
+        		      document.getElementById('swal-input2').value
+        		    ]
+        		  }
+        		})
+
+        		if (formValues) {
+        		  Swal.fire(JSON.stringify(formValues))
+        		}
+
+        		})()
+        }//텍스트를 입력하고 확인하는 버튼
+        
+        //ajax로 request 하는 버튼 ///모르겟네?
+        function ajaxbtn() {
+        	Swal.fire({
+        		  title: 'Submit your Github username',
+        		  input: 'text',
+        		  inputAttributes: {
+        		    autocapitalize: 'off'
+        		  },
+        		  showCancelButton: true,
+        		  confirmButtonText: 'Look up',
+        		  showLoaderOnConfirm: true,
+        		  preConfirm: (login) => {
+        		    return fetch(`//api.github.com/users/${login}`)
+        		      .then(response => {
+        		        if (!response.ok) {
+        		          throw new Error(response.statusText)
+        		        }
+        		        return response.json()
+        		      })
+        		      .catch(error => {
+        		        Swal.showValidationMessage(
+        		          `Request failed: ${error}`
+        		        )
+        		      })
+        		  },
+        		  allowOutsideClick: () => !Swal.isLoading()
+        		}).then((result) => {
+        		  if (result.isConfirmed) {
+        		    Swal.fire({
+        		      title: `${result.value.login}'s avatar`,
+        		      imageUrl: result.value.avatar_url
+        		    })
+        		  }
+        		})
+        }//ajax로 request 하는 버튼        
+        
+        
+        
         </script>
 
 	
@@ -120,23 +220,13 @@
     <button onclick="success()">success 버튼</button><br>
     <button onclick="warning()">warning 버튼</button><br>
     <button onclick="confirm()">confirm 버튼(예, 아니오 선택)</button><br>
-    <button onclick="hzi()">hzi 버튼</button><br>
+    <button onclick="bora()">bora 버튼</button><br>
+    <button onclick="imgbtn()">imgbtn 버튼</button><br>
+    <button onclick="textbtn()">textbtn 버튼</button><br>
+    <button onclick="textbtn2()">textbtn2 버튼</button><br>
+    <button onclick="ajaxbtn()">ajaxbtn 버튼</button><br>
 
-
-	<div><input type="submit" value="로그인" id="login"></div>
 	
-<script>
-//success 버튼
-function $login(login) {
-    Swal.fire(
-        '로그인 성공',
-        '"${msg}"님, 환영합니다💕',
-        'success' /*디자인 타입*/
-    )
-}//success 버튼
-
-
-</script>
 
 
 
