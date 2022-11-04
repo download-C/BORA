@@ -10,6 +10,6 @@ public class CardPayVO {
 	private String cpay_type;
 	private int cpay_code;
 	private String cpay_store;
-	private String id;
+
 
 }
