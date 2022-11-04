@@ -68,33 +68,33 @@ public class BoardController {
 	
 	
 	// 2. 게시판 리스트 조회 GET      전체 글 싹 불러옴
-		@RequestMapping (value = "/listAll", method = RequestMethod.GET)
-		public void listAllGET(@ModelAttribute("msg") String msg, Model model, HttpSession session) throws Exception {
-			log.info("(♥♥♥♥♥ 2.listAllGET) 호출됨");
-			
-			// 리스트로 가는 경우의 수
-			// 1. 글쓰고 나서 -> 리스트로 이동하는 경우
-				log.info("(♥♥♥♥♥ 2.listAllGET) msg: " + msg);
-				// 연결된 view 페이지로 저기서(1-2.registerPOST) 넘어온 정보 전달해보기
-				// 이거 안 해도 넘어가는딩?
-				model.addAttribute("msg", msg);
-			
-			// 2. 걍 바로 리스트로 이동하는 경우
-			
-			log.info("(♥♥♥♥♥ 2.listAllGET) Service 호출할게욘");
-			List<BoardVO> boardList = service.getBoardListAll();
-			
-			log.info("(♥♥♥♥♥ 2.listAllGET) Service로부터 정보 받아옴^^ boardList.size: " + boardList.size());
-			
-			model.addAttribute("boardList", boardList);
-			log.info("(♥♥♥♥♥ 2.listAllGET) 모델 객체에 저장 완");
-			
-			// 세션에 객체 isUpdate 하나  만들어놓기~~~ 
-			//    3()으로 정보 전달을 위해..
-			session.setAttribute("isUpdate", false);
-			
-			log.info("(♥♥♥♥♥ 2.listAllGET) 리턴타입 void.. 들어온 주소 /board/listAll.jsp로 이동할 거");
-		}
+//		@RequestMapping (value = "/listAll", method = RequestMethod.GET)
+//		public void listAllGET(@ModelAttribute("msg") String msg, Model model, HttpSession session) throws Exception {
+//			log.info("(♥♥♥♥♥ 2.listAllGET) 호출됨");
+//			
+//			// 리스트로 가는 경우의 수
+//			// 1. 글쓰고 나서 -> 리스트로 이동하는 경우
+//				log.info("(♥♥♥♥♥ 2.listAllGET) msg: " + msg);
+//				// 연결된 view 페이지로 저기서(1-2.registerPOST) 넘어온 정보 전달해보기
+//				// 이거 안 해도 넘어가는딩?
+//				model.addAttribute("msg", msg);
+//			
+//			// 2. 걍 바로 리스트로 이동하는 경우
+//			
+//			log.info("(♥♥♥♥♥ 2.listAllGET) Service 호출할게욘");
+//			List<BoardVO> boardList = service.getBoardListAll();
+//			
+//			log.info("(♥♥♥♥♥ 2.listAllGET) Service로부터 정보 받아옴^^ boardList.size: " + boardList.size());
+//			
+//			model.addAttribute("boardList", boardList);
+//			log.info("(♥♥♥♥♥ 2.listAllGET) 모델 객체에 저장 완");
+//			
+//			// 세션에 객체 isUpdate 하나  만들어놓기~~~ 
+//			//    3()으로 정보 전달을 위해..
+//			session.setAttribute("isUpdate", false);
+//			
+//			log.info("(♥♥♥♥♥ 2.listAllGET) 리턴타입 void.. 들어온 주소 /board/listAll.jsp로 이동할 거");
+//		}
 		// 2. 게시판 리스트 조회 GET 끝
 		
 		
@@ -103,26 +103,15 @@ public class BoardController {
 		@RequestMapping (value = "/listPage", method = RequestMethod.GET)
 		public String listPageGET(PageVO vo, Model model, HttpSession session) throws Exception {
 			log.info("(♥♥♥♥♥ 2-1.listPageGET) 호출됨");
-			
-//			PageVO vo = new PageVO();
-//			vo.setPage(2);
-//			vo.setPerPageNum(30); // 글 30개씩 불러오고 싶다~ ㅋ
-			// 근데 여기서 이렇게 페이지 설정하지 말고!! 파라메타로 해버리자
-			// 자동으로 파라메타 수집해주니까,,,,,,,,,,
-			// ㄴ   http://localhost:8088/board/listPage?page=2
-			//      http://localhost:8088/board/listPage?page=2&perPageNum=30
-			
-			log.info("(♥♥♥♥♥ 2-1.listPageGET) Service 호출할게욘");
-//			List<BoardVO> boardList = service.getListPage(vo);
-//			model.addAttribute("boardList", boardList);
-			// ㄴ 줄여서 ↓
 			model.addAttribute("boardList", service.getBoardListPage(vo));
 			log.info("(♥♥♥♥♥ 2-1.listPageGET) Service 호출 + 모델 객체에 저장까지 완");
 			
 			// 페이징 처리 하단부 정보 저장
 			PageMakerVO pm = new PageMakerVO();
 			pm.setVo(vo);
-			pm.setTotalCnt(100); // <<찐 글 개수 일단 넣은거고,, 서비스에 이 동작 추가해놓으면 되겠네~ 총 글 개수 불ㄹ러오는
+			int cnt = service.getBoardCnt();
+	    	log.info("글 개수 :"+cnt);
+			pm.setTotalCnt(cnt); // <<찐 글 개수 일단 넣은거고,, 서비스에 이 동작 추가해놓으면 되겠네~ 총 글 개수 불ㄹ러오는
 			
 			// 얘도 model에 담아서 보냅시다..
 			model.addAttribute("pm", pm);

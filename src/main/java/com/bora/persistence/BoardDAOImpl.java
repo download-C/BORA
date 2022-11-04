@@ -118,13 +118,13 @@ public class BoardDAOImpl implements BoardDAO {
 				
 				Map<String, Object> map = new HashMap<String, Object>();
 				
-//				map.put("vo", vo.getVo());
+				map.put("vo", vo);
 				map.put("b_ctgr", ctgr);
-				
+				map.put("pageStart", 1);
+				map.put("perPageNum", 10);
 				return sqlSession.selectList(NAMESPACE+".getBoardList_ctgr", map);
 			}
 			// 2-2. 페이징 처리한 글 목록 조회 VO 끝
-	
 	
 	
 	// 3. 글 1개 정보 가져오기 
@@ -185,6 +185,24 @@ public class BoardDAOImpl implements BoardDAO {
 		return cnt;
 	}
 	// 5. 글 삭제하기 끝
+
+
+
+	@Override
+	public int getBoardCnt() throws Exception {
+			log.info("getBoardCnt() 호출");
+		 log.info(sqlSession.selectOne(NAMESPACE+".getBoardCnt")+"");
+		return sqlSession.selectOne(NAMESPACE+".getBoardCnt");
+	}
+	
+	@Override
+	public int getBoardCntCTGR(String b_ctgr) throws Exception {
+//		log.info("getBoardCnt() 호출");
+//		log.info(sqlSession.selectOne(NAMESPACE+".getBoardCnt")+"");
+		return sqlSession.selectOne(NAMESPACE+".getBoardCntCTGR", b_ctgr);
+	}
+	
+	
 	
 	
 } // class BoardDAOImpl

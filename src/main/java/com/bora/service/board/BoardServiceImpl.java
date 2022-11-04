@@ -74,8 +74,7 @@ public class BoardServiceImpl implements BoardService {
 	// 2-2. 페이징 처리 적용한 글 목록 조회 (카테고리)
 	@Override
 	public List<BoardVO> getBoardListCtgr(PageVO vo, String ctgr) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getBoardListCtgr(vo, ctgr);
 	}
 	// 2-2. 페이징 처리 적용한 글 목록 조회 (카테고리) 끝
 	
@@ -135,5 +134,13 @@ public class BoardServiceImpl implements BoardService {
 	}
 	// 5. 글 삭제하기 끝
 	
+	@Override
+	public int getBoardCnt() throws Exception {
+		return dao.getBoardCnt();
+	}
 	
+	@Override
+	public int getBoardCntCTGR(String ctgr) throws Exception {
+		return dao.getBoardCntCTGR(ctgr);
+	}
 }

@@ -35,6 +35,7 @@ public class AjaxController {
 	@Inject
 	private MemberService service;
 
+	@Inject
 	private BoardService boardService;
 	
 	@RequestMapping(value = "/member/idcheck", method = RequestMethod.GET)
@@ -121,29 +122,35 @@ public class AjaxController {
     
     // 카테고리 ajax ========================================
     @RequestMapping(value = "/ajax/ctgr", method = RequestMethod.GET)
-    public List<BoardVO> ctgr(@RequestParam("ctgr") String ctgr) throws Exception {
+    public ResponseEntity<List<BoardVO>> ctgr(@RequestParam("ctgr") String ctgr,
+    		String pageStart, HttpSession session, PageVO vo,
+    		Model model) throws Exception {
     	log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgr() 호출됨");
     	log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgr: " + ctgr);
     	
-    	// 페이징 처리 하단부 정보 저장
-//    	PageVO pageVO = new PageVO();
-//    	log.info("vo: "+pageVO);
-//    	PageVO pm = new PageMakerVO();
-//    	pm.setTotalCnt(100);
-//    	int cnt = service.getBoardCnt();
-//    	pm.setVo(pageVO);
+    	List<BoardVO> boardList = null;
+    	if(ctgr.equals("알려줘BORA")||ctgr.equals("친해져BORA")||ctgr.equals("골라줘BORA")) {
+    		boardList = boardService.getBoardListCtgr(vo, ctgr);
+    		log.info("boardListCTGR 개수: "+boardList.size());
+    	} else {
+    		boardList = boardService.getBoardListPage(vo);
+    		log.info("boardListALL 개수: "+boardList.size());
+    	}
     	
-//    	log.info("pm: "+pm);
-//
-//    	pm.setTotalCnt(100); // 임의로
-//    	if(ctgr.equals("모두다BORA") || ctgr=="") {
-//		List<BoardVO> boardList = boardService.getBoardListPage(pm);
-//    	} else if(ctgr.equals("알려줘BORA")||ctgr.equals("친해져BORA")||ctgr.equals("골라줘BORA")) {
-//		List<BoardVO> boardList = boardService.getBoardListCtgr(pm, ctgr);
-//			 log.info("boardList: "+boardList);
-//			return boardList; 
-//    	}
-    	return null;
+    	log.info("vo: "+vo);
+    	int cnt = boardService.getBoardCntCTGR(ctgr);
+    	log.info("글 개수 :"+cnt);
+    	PageMakerVO pm = new PageMakerVO();
+    	vo = new PageVO();
+    	pm.setVo(vo);
+    	pm.setTotalCnt(cnt);
+    	
+    	session.setAttribute("isUpdate", false);
+    	
+    	log.info("pm: "+pm);
+    	model.addAttribute("pm, pm");
+    	ResponseEntity<List<BoardVO>> entity = new ResponseEntity<List<BoardVO>>(boardList, HttpStatus.OK);
+    	return entity;
     }
     // 카테고리 ajax 끝 ==================================
 }

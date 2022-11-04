@@ -29,5 +29,9 @@ public interface BoardDAO {
 	public Integer updateBoard(BoardVO vo/* , String id */) throws Exception;
 
 	// 5. 글 삭제하기
-	public int deleteBoard(Integer bno/* , String id */) throws Exception;	
+	public int deleteBoard(Integer bno/* , String id */) throws Exception;
+
+	public int getBoardCnt() throws Exception;	
+	
+	public int getBoardCntCTGR(String ctgr) throws Exception;
 }

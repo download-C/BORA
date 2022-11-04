@@ -15,7 +15,7 @@
 	<div>
 		<h6>EL{msg} : ${msg }</h6>
 		<h6>EL{pm} : ${pm }</h6>
-		<h6>EL{pm.vo.page }: ${pm.vo.page }</h6>
+		<h6>EL{pm.pageStart}: ${pm.pageStart }</h6>
 		<h3><a href="/board/insert">여기를 눌러서 편하게 글쓰기 하십시오 ^^💘💘 </a></h3>
 	</div>
 	
@@ -25,13 +25,16 @@
 		$(document).ready(function(){
 			// 모두다
 			var page = $("#page").val();
+			var pageStart = "<c:out value='${pm.pageStart }' />";
+			alert("pageStart: "+pageStart);
+			alert("page: "+page);
 // 			alert("페이지 번호: "+page);
 			$('.ctgr_btn').click(function(){
 				var ctgr = $(this).val();
 				alert(ctgr);
 				$.ajax({
 					url: "/ajax/ctgr",
-					data: {"ctgr": $(this).val() },
+					data: {"ctgr": $(this).val(), "pageStart":pageStart, "page":page},
 					type: "get",
 					success: function(data){
 						alert('성공');
@@ -90,11 +93,11 @@
 			<!-- 이전 버턴================ -->
 			<c:if test="${pm.prev }"> 
 					<!--      ㄴboolean 타입이니까 false면 걍 패스되는거~ 음 편하군  -->
-				<li><a href="listPage?page=${pm.startPage - 1 }">&laquo;</a></li>
+				<li><a href="listPage?page=${pm.pageStart - 1 }">&laquo;</a></li>
 			</c:if>
 			
 			<!-- 1 2 3 4 .... ================ -->
-			<c:forEach var="index" begin="${pm.startPage }" end="${pm.endPage }"> 
+			<c:forEach var="index" begin="${pm.pageStart }" end="${pm.endPage }"> 
 						<!-- 페이지 블럭에서 내가 선택한 현재 페이지만! active되도록 -->
 				<%-- 
 				<li <c:out value="${pm.vo.page == index? 'class=active' : '' }" />>   2.3버전 이하는 c:out 써야 함~ --%>

@@ -32,5 +32,8 @@ public interface BoardService {
 	// 5. 글 삭제하기
 	public Integer deleteBoard(int bno) throws Exception;
 
-	
+	// 6. 총 글 개수
+	public int getBoardCnt() throws Exception;
+
+	public int getBoardCntCTGR(String ctgr) throws Exception;
 } // class BoardService

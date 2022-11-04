@@ -10,8 +10,7 @@
 	<resultMap type="com.bora.domain.board.BoardVO" id="boardVO">
 		<result property="b_content" column="b_content" />
 	</resultMap>
-
-
+	
     <!-- 1. 글쓰기 =============================================== -->
 	<insert id="insertBoard">
 		insert into bora_cmnt_board (id, b_ctgr, b_title, b_content, b_file)
@@ -25,6 +24,15 @@
 		from bora_cmnt_board
 		where bno &gt; 0
 		order by bno desc
+	</select>
+	
+	<!-- 글 개수 조회 -->
+	<select id="getBoardCnt" resultType="java.lang.Integer">
+		select count(*) from bora_cmnt_board
+	</select>
+	<select id="getBoardCntCTGR" resultType="java.lang.Integer">
+		select count(*) from bora_cmnt_board
+		where b_ctgr=#{b_ctgr}
 	</select>
 	
 		
