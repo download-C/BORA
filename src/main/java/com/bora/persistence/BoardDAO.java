@@ -17,7 +17,7 @@ public interface BoardDAO {
 	public List<BoardVO> getBoardListPage(PageVO vo) throws Exception;
 	
 		// 2-2. 페이징 처리 적용한 글 목록 조회 (카테고리)
-		public List<BoardVO> getBoardListCtgr(PageVO vo, String ctgr) throws Exception;
+		public List<BoardVO> getBoardListCtgr(PageMakerVO pm, String ctgr) throws Exception;
 		
 	// 3. 글 1개 정보 가져오기
 	public BoardVO getBoard(Integer bno) throws Exception;

@@ -26,8 +26,8 @@
 			// 모두다
 			var page = $("#page").val();
 			var pageStart = "<c:out value='${pm.pageStart }' />";
-			alert("pageStart: "+pageStart);
-			alert("page: "+page);
+// 			alert("pageStart: "+pageStart);
+// 			alert("page: "+page);
 // 			alert("페이지 번호: "+page);
 			$('.ctgr_btn').click(function(){
 				var ctgr = $(this).val();
@@ -35,20 +35,50 @@
 				$.ajax({
 					url: "/ajax/ctgr",
 					data: {"ctgr": $(this).val(), "pageStart":pageStart, "page":page},
+					dataType: "JSON",
 					type: "get",
 					success: function(data){
-						alert('성공');
-					},
+// 						alert('성공');
+						
+						$('tbody').html("");
+						$('tbody').html(function(){
+						$.each(data, function(index, item){
+							var bno = item.bno;
+							var b_title = item.b_title;
+							var b_ctgr = item.b_ctgr;
+							var id = item.id;
+							var b_regdate = item.b_regdate;
+							var date = new Date(b_regdate);
+							var regdate = date.getFullYear() +"년 " +(date.getMonth()+1)+"월 "+date.getDate()+"일 🌈"+date.getHours()+":"+date.getMinutes();
+							var b_readcount = item.b_readcount;
+							$('tbody').append(
+							'<tr>'
+								+'<td>'+bno+'</td>'
+								+'<td>'+b_ctgr+'</td>'
+								+'<td><a href=/board/read?bno='+bno+'&page='+page+'>'+b_title+'</a></td>'
+								+'<td>'+id+'</td>'
+								+'<td>'+regdate+'</td>'
+								+'<td>'+b_readcount+'</td>'
+							+'</tr>'		
+							); // append
+						}); //each
+						}); // html
+					}, //success
 					error: function(){
 						alert('실패');
 // 						location.href="/board/list?page="+page;
 					}
 				});// ajax
-
-			});// btn_all click
-			
+				
+				
+				
+				
+			}); // btn click
 		});// jquery ready
 	</script>
+<!-- ajax로 카테고리 호출 시 페이징 처리 대신 하는 메서드 -->
+
+			
 	
 	<input type="button" value="모두다BORA" class="ctgr_btn" id="btn_all">
 	<input type="button" value="골라줘BORA" class="ctgr_btn" id="btn_pick">
@@ -58,7 +88,7 @@
 	<input type="hidden" id="page" value="${pm.vo.page }"> 
 	<div>
 		<table class="table table-bordered">
-			<tbody>
+			<thead>
 				<tr>
 					<th>번호</th>
 					<th>카테고리</th>
@@ -67,8 +97,8 @@
 					<th>작성일</th>
 					<th>조회수</th>
 				</tr>
-				
-				
+			</thead>
+			<tbody>	
 				<c:forEach var="vo" items="${boardList }">
 				
 					<tr>
@@ -81,16 +111,16 @@
 					</tr>
 				
 				</c:forEach>
-				
 			</tbody>
 		</table>
 	</div>
 
 	<!-- ===================== 페이징 처리 구간 ========================== -->
 	<div>
-		<ul type="none">
+		<ul type="none" id="pageUl">
 			
 			<!-- 이전 버턴================ -->
+			
 			<c:if test="${pm.prev }"> 
 					<!--      ㄴboolean 타입이니까 false면 걍 패스되는거~ 음 편하군  -->
 				<li><a href="listPage?page=${pm.pageStart - 1 }">&laquo;</a></li>

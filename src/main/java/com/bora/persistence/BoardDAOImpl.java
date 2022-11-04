@@ -111,14 +111,14 @@ public class BoardDAOImpl implements BoardDAO {
 	
 			// 2-2. 페이징 처리한 글 목록 조회 VO  (카테고리)
 			@Override
-			public List<BoardVO> getBoardListCtgr(PageVO vo, String ctgr) throws Exception {
+			public List<BoardVO> getBoardListCtgr(PageMakerVO pm, String ctgr) throws Exception {
 				log.info("(♥♥♥♥♥ 2-2.getBoardList) Service가 호출함");
 				log.info("(♥♥♥♥♥ 2-2.getBoardList) mapper.xml 갈 거,, 가서 DB처리 하고 -> 바로 Service로 리턴할 거");
 				log.info("(♥♥♥♥♥ 2-2.getBoardList) ctgr: " + ctgr);
 				
 				Map<String, Object> map = new HashMap<String, Object>();
 				
-				map.put("vo", vo);
+				map.put("pm", pm);
 				map.put("b_ctgr", ctgr);
 				map.put("pageStart", 1);
 				map.put("perPageNum", 10);
