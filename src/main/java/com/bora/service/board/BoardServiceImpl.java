@@ -34,55 +34,50 @@ public class BoardServiceImpl implements BoardService {
 		dao.insertBoard(vo);
 		
 		log.info("(♥♥♥♥♥ 1.insertBoard) DAO 갔다 왔고 -> Service(지금 여기) -> 컨트롤러로 갈게요");
-		
 	}
 	// 1. 글쓰기 insertBoard 끝
 	
 	
 	
-	// 2. 전체 글 목록 조회 getBoardListAll
-//	@Override
-//	public List<BoardVO> getBoardListAll() throws Exception {
-//		log.info("(♥♥♥♥♥ 2.getBoardListAll) 컨트롤러가 호출함");
-//		
-//		log.info("(♥♥♥♥♥ 2.getBoardListAll) DAO_listAll() 호출할 거");
-//		List<BoardVO> boardList = dao.getBoardListAll();
-//		
-//		log.info("(♥♥♥♥♥ 2.getBoardListAll) DAO한테 결과 데이터 받았으니 --> Controller로 돌려줄게욥");
-//		
-//		return boardList;
-//	}
-	// 2. 전체 글 목록 조회 getBoardListAll 끝
-	
-	
-	// 2. 페이징 처리 적용한 글 목록 조회 getBoardList
-	@Override
-	public List<BoardVO> getBoardList(PageMakerVO vo) throws Exception {
-		log.info("(♥♥♥♥♥ 2.getBoardList) 컨트롤러가 호출함");
+	// 2. 글 전체 목록 조회
+	@Override	
+	public List<BoardVO> getBoardListAll() throws Exception {
+		log.info("(♥♥♥♥♥ 2.getBoardListAll) 컨트롤러가 호출함");
 		
-		log.info("(♥♥♥♥♥ 2.getBoardList) DAO 호출할 거");
-		List<BoardVO> boardList = dao.getBoardList(vo);
+		log.info("(♥♥♥♥♥ 2.getBoardListAll) DAO_listAll() 호출할 거");
+		List<BoardVO> boardList = dao.getBoardListAll();
 		
-		log.info("(♥♥♥♥♥ 2.getBoardList) DAO한테 결과 데이터 받았으니 --> Controller로 돌려줄게욥");
+		log.info("(♥♥♥♥♥ 2.getBoardListAll) DAO한테 결과 데이터 받았으니 --> Controller로 돌려줄게욥");
 		
 		return boardList;
 	}
-	// 2. 페이징 처리 적용한 글 목록 조회 getBoardList 끝
+	// 2. 글 전체 목록 조회 끝
 	
-		// 2-1. 페이징 처리 적용한 글 목록 조회 getBoardList_ctgr 카테고리
-		@Override
-		public List<BoardVO> getBoardList(PageMakerVO pm, String ctgr) throws Exception {
-			log.info("(♥♥♥♥♥ 2-1.getBoardList_ctgr) 컨트롤러가 호출함");
-			
-			log.info("(♥♥♥♥♥ 2-1.getBoardList_ctgr) DAO 호출할 거");
-			List<BoardVO> boardList = dao.getBoardList(pm, ctgr);
-			
-			log.info("(♥♥♥♥♥ 2-1.getBoardList_ctgr) DAO한테 결과 데이터 받았으니 --> Controller로 돌려줄게욥");
-			
-			return boardList;
-		}
-		// 2-1. 페이징 처리 적용한 글 목록 조회 getBoardList_ctgr 카테고리 끝
-			
+	
+	
+	// 2-1. 페이징 처리 적용한 글 목록 조회
+	@Override
+	public List<BoardVO> getBoardListPage(PageVO vo) throws Exception {
+		log.info("(♥♥♥♥♥ 2-1.getBoardListPage) 컨트롤러가 호출함");
+		
+		log.info("(♥♥♥♥♥ 2-1.getBoardListPage) DAO_listPage(vo) 호출할 거");
+		List<BoardVO> boardList = dao.getBoardListPage(vo);
+		
+		log.info("(♥♥♥♥♥ 2-1.getBoardListPage) DAO한테 결과 데이터 받았으니 --> Controller로 돌려줄게욥");
+		
+		return boardList;
+	}
+	// 2-1. 페이징 처리 적용한 글 목록 조회
+	
+	
+	
+	// 2-2. 페이징 처리 적용한 글 목록 조회 (카테고리)
+	@Override
+	public List<BoardVO> getBoardListCtgr(PageMakerVO pm, String ctgr) throws Exception {
+		return dao.getBoardListCtgr(pm, ctgr);
+	}
+	// 2-2. 페이징 처리 적용한 글 목록 조회 (카테고리) 끝
+	
 	
 	
 	// 3. 글 1개 정보 불러오기 getBoard
@@ -96,7 +91,7 @@ public class BoardServiceImpl implements BoardService {
 	// 3. 글 1개 정보 불러오기 getBoard 끝
 	
 	
-	
+
 	// 3-1. 조회수 1 증가 updateReadCount 
 	@Override
 	public void updateReadCount(Integer bno) throws Exception {
@@ -139,5 +134,13 @@ public class BoardServiceImpl implements BoardService {
 	}
 	// 5. 글 삭제하기 끝
 	
+	@Override
+	public int getBoardCnt() throws Exception {
+		return dao.getBoardCnt();
+	}
 	
+	@Override
+	public int getBoardCntCTGR(String ctgr) throws Exception {
+		return dao.getBoardCntCTGR(ctgr);
+	}
 }

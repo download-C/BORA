@@ -1,5 +1,8 @@
 import java.util.List;
 
+import javax.inject.Inject;
+
+import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -12,6 +15,7 @@ import com.bora.domain.board.BoardVO;
 import com.bora.domain.board.CommentVO;
 import com.bora.persistence.BoardDAO;
 import com.bora.persistence.CommentDAO;
+import com.bora.service.board.BoardService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
@@ -21,14 +25,20 @@ public class BoardDAOTest {
 
 	// 멤버변수 ===========================
 	private static final Logger log = LoggerFactory.getLogger(BoardDAOTest.class);
+	@Inject
+	private SqlSession session;
 	
 	@Autowired
 	private BoardDAO bdao;
 	
 	@Autowired
 	private CommentDAO cdao;
+	
+	@Inject
+	private BoardService service;
 	// 멤버변수 끝 ===========================
 	
+	private static final String NAMESPACE = "com.bora.mapper.BoardMapper";
 	
 	
 //	@Test  // ㅇㅋ
@@ -108,7 +118,7 @@ public class BoardDAOTest {
 	}
 	
 	
-	@Test   // ㅇㅋ
+//	@Test   // ㅇㅋ
 	public void 댓목록() throws Exception {
 		log.info("댓목록(●'◡'●) 호출됨");
 		
@@ -117,6 +127,14 @@ public class BoardDAOTest {
 		log.info("댓목록(●'◡'●) cmtList.size(): " + cmtList.size());
 	}
 	
+//	@Test
+	public void 글개수() throws Exception {
+		log.info("글개수 조회");
+		int cnt = service.getBoardCnt();
+//		Integer cnt = bdao.getBoardCnt();
+//		int cnt = session.selectOne(NAMESPACE+".getBoardCnt");
+		log.info("글개수: "+cnt);
+	}
 	
 	
 	

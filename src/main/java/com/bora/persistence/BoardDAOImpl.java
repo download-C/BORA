@@ -47,26 +47,26 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	
 	// 2. 전체 글 목록 조회
-//	@Override
-//	public List<BoardVO> getBoardListAll() throws Exception {
-//		log.info("(♥♥♥♥♥ 2.listAll) Service가 호출함");
-//		
-//		// DB가서 글 목록 모든 정보 가져오기
-//		log.info("(♥♥♥♥♥ 2.listAll) mapper 갈 거");
-//		List<BoardVO> boardList = sqlSession.selectList(NAMESPACE+".listAll");
-//		
-//		log.info("(♥♥♥♥♥ 2.listAll) mapper 가서 DB 처리 하고 왔고요~~ -> Service로 리턴할 거");
-//		log.info("(♥♥♥♥♥ 2.listAll) 받아온 boardList.size: " + boardList.size());
-//		
-//		return boardList;
-//	}
+	@Override
+	public List<BoardVO> getBoardListAll() throws Exception {
+		log.info("(♥♥♥♥♥ 2.getBoardListAll) Service가 호출함");
+		
+		// DB가서 글 목록 모든 정보 가져오기
+		log.info("(♥♥♥♥♥ 2.getBoardListAll) mapper 갈 거");
+		List<BoardVO> boardList = sqlSession.selectList(NAMESPACE+".getBoardListAll");
+		
+		log.info("(♥♥♥♥♥ 2.getBoardListAll) mapper 가서 DB 처리 하고 왔고요~~ -> Service로 리턴할 거");
+		log.info("(♥♥♥♥♥ 2.getBoardListAll) 받아온 boardList.size: " + boardList.size());
+		
+		return boardList;
+	}
 	// 2. 전체 글 목록 조회 끝
 	
 	
 	/*
 	// 2-1. 페이징 처리한 글 목록 조회 page
 	@Override
-	public List<BoardVO> getBoardList(Integer page) throws Exception {
+	public List<BoardVO> getBoardListPage(Integer page) throws Exception {
 		log.info("(♥♥♥♥♥ 2-1.getBoardList) Service가 호출함");
 
 		if ( page <= 0 ) {
@@ -88,42 +88,43 @@ public class BoardDAOImpl implements BoardDAO {
 		pageObj.put("page", page);
 		pageObj.put("pageSize", pageSize);
 		
-		
 		log.info("(♥♥♥♥♥ 2-1.getBoardList) mapper.xml 갈 거,, 가서 DB처리 하고 -> 바로 Service로 리턴할 거");
 		
-//		return sqlSession.selectList(NAMESPACE+".listPage", page);
 		return sqlSession.selectList(NAMESPACE+".listPage2", pageObj);
 	}
 	// 2-1. 페이징 처리한 글 목록 조회 page 끝
 	*/
 	
 	
-	// 2. 페이징 처리한 글 목록 조회 VO
+	
+	// 2-1. 페이징 처리한 글 목록 조회 VO
 	@Override
-	public List<BoardVO> getBoardList(PageMakerVO pm) throws Exception {
+	public List<BoardVO> getBoardListPage(PageVO vo) throws Exception {
 		log.info("(♥♥♥♥♥ 2.getBoardList) Service가 호출함");
 		log.info("(♥♥♥♥♥ 2.getBoardList) mapper.xml 갈 거,, 가서 DB처리 하고 -> 바로 Service로 리턴할 거");
 		
-		
-		return sqlSession.selectList(NAMESPACE+".getBoardList", pm.getVo());
+		return sqlSession.selectList(NAMESPACE+".getBoardListPage", vo);
 	}
-	// 2. 페이징 처리한 글 목록 조회 VO 끝
-			
-			// 2-1. 페이징 처리한 글 목록 조회 VO  (카테고리)
+	// 2-1. 페이징 처리한 글 목록 조회 VO 끝
+	
+	
+	
+			// 2-2. 페이징 처리한 글 목록 조회 VO  (카테고리)
 			@Override
-			public List<BoardVO> getBoardList(PageMakerVO pm, String ctgr) throws Exception {
+			public List<BoardVO> getBoardListCtgr(PageMakerVO pm, String ctgr) throws Exception {
 				log.info("(♥♥♥♥♥ 2-2.getBoardList) Service가 호출함");
 				log.info("(♥♥♥♥♥ 2-2.getBoardList) mapper.xml 갈 거,, 가서 DB처리 하고 -> 바로 Service로 리턴할 거");
 				log.info("(♥♥♥♥♥ 2-2.getBoardList) ctgr: " + ctgr);
 				
 				Map<String, Object> map = new HashMap<String, Object>();
 				
-				map.put("vo", pm.getVo());
+				map.put("pm", pm);
 				map.put("b_ctgr", ctgr);
-				
+				map.put("pageStart", 1);
+				map.put("perPageNum", 10);
 				return sqlSession.selectList(NAMESPACE+".getBoardList_ctgr", map);
 			}
-			// 2-1. 페이징 처리한 글 목록 조회 VO 끝
+			// 2-2. 페이징 처리한 글 목록 조회 VO 끝
 	
 	
 	// 3. 글 1개 정보 가져오기 
@@ -184,6 +185,24 @@ public class BoardDAOImpl implements BoardDAO {
 		return cnt;
 	}
 	// 5. 글 삭제하기 끝
+
+
+
+	@Override
+	public int getBoardCnt() throws Exception {
+			log.info("getBoardCnt() 호출");
+		 log.info(sqlSession.selectOne(NAMESPACE+".getBoardCnt")+"");
+		return sqlSession.selectOne(NAMESPACE+".getBoardCnt");
+	}
+	
+	@Override
+	public int getBoardCntCTGR(String b_ctgr) throws Exception {
+//		log.info("getBoardCnt() 호출");
+//		log.info(sqlSession.selectOne(NAMESPACE+".getBoardCnt")+"");
+		return sqlSession.selectOne(NAMESPACE+".getBoardCntCTGR", b_ctgr);
+	}
+	
+	
 	
 	
 } // class BoardDAOImpl

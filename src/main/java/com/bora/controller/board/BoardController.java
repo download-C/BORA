@@ -60,108 +60,72 @@ public class BoardController {
 			// 글쓰기 성공 알림 띄우기(일회성)
 		rttr.addFlashAttribute("msg", "OK");  
 		
-		log.info("(♥♥♥♥♥ 1-2.registerPOST) redirect:/board/list 로 이동할거");
-		return "redirect:/board/list"; // 주소줄 변화 O + 페이지 이동 O
+		log.info("(♥♥♥♥♥ 1-2.registerPOST) redirect:/board/listAll 로 이동할거");
+		return "redirect:/board/listAll"; // 주소줄 변화 O + 페이지 이동 O
 	}
 	// 1-2. 글쓰기 POST 끝
 	
 	
 	
-//	// 2. 게시판 리스트 조회 GET                  http://localhost:8088/board/list
-	@RequestMapping (value = "/list", method = RequestMethod.GET)
-	public void listAllGET(@ModelAttribute("msg") String msg, Model model, HttpSession session) throws Exception {
-		log.info("(♥♥♥♥♥ 2.listAllGET) 호출됨");
-		
-		// 리스트로 가는 경우의 수
-		// 1. 글쓰고 나서 -> 리스트로 이동하는 경우
-			log.info("(♥♥♥♥♥ 2.listAllGET) msg: " + msg);
-			// 연결된 view 페이지로 저기서(1-2.registerPOST) 넘어온 정보 전달해보기
-			// 이거 안 해도 넘어가는딩?
-			model.addAttribute("msg", msg);
-		
-		// 2. 걍 바로 리스트로 이동하는 경우
-		
-		log.info("(♥♥♥♥♥ 2.listAllGET) Service 호출할게욘");
-		List<BoardVO> boardList = service.getBoardListAll();
-		
-		log.info("(♥♥♥♥♥ 2.listAllGET) Service로부터 정보 받아옴^^ boardList.size: " + boardList.size());
-		
-		model.addAttribute("boardList", boardList);
-		log.info("(♥♥♥♥♥ 2.listAllGET) 모델 객체에 저장 완");
-		
-		// 세션에 객체 isUpdate 하나  만들어놓기~~~ 
-		//    3()으로 정보 전달을 위해..
-		session.setAttribute("isUpdate", false);
-		
-		log.info("(♥♥♥♥♥ 2.listAllGET) 리턴타입 void.. /board/listAll 입력받았으니 --> /board/listAll.jsp로 이동할 거");
-	}
-	// 2. 게시판 리스트 조회 GET 끝
-	
-	
-	
-	// 2-1. 페이징 처리 적용한 게시판 리스트 조회 GET        http://localhost:8088/board/list
-	@RequestMapping (value = "/list", method = RequestMethod.GET)
-	public void getBoardListGET(PageMakerVO pm, Model model, HttpSession session) throws Exception {
-		log.info("(♥♥♥♥♥ 2-1.getBoardListGET) 호출됨");
-		
-//		vo = new PageVO();
-//		vo.setPage(1);
-//		vo.setPerPageNum(30); // 글 30개씩 불러오고 싶다~ ㅋ
-		// 근데 여기서 이렇게 페이지 설정하지 말고!! 파라메타로 해버리자
-		// 자동으로 파라메타 수집해주니까,,,,,,,,,,
-		// ㄴ   http://localhost:8088/board/listPage?page=2
-		//      http://localhost:8088/board/listPage?page=2&perPageNum=30
-		
-		log.info("(♥♥♥♥♥ 2-1.getBoardListGET) Service 호출할게욘");
-		model.addAttribute("boardList", service.getBoardList(pm));
-		log.info("(♥♥♥♥♥ 2-1.getBoardListGET)   + 모델 객체에 저장까지 완");
-		
-		// 페이징 처리 하단부 정보 저장 + 모델 객체(pm)에 저장
-		PageVO vo = new PageVO();
-		pm.setVo(vo);
-		
-		pm.setTotalCnt(100); // <<찐 글 개수 임의로 일단 넣은거고,, 서비스에 이 동작 추가해놓으면 되겠네~ 총 글 개수 불ㄹ러오는
-		model.addAttribute("pm", pm);
-		log.info("(♥♥♥♥♥ 2-1.getBoardListGET) PageMakerVO도 모델 객체에 저장 완 + pm: " + pm);
+	// 2. 게시판 리스트 조회 GET      전체 글 싹 불러옴
+//		@RequestMapping (value = "/listAll", method = RequestMethod.GET)
+//		public void listAllGET(@ModelAttribute("msg") String msg, Model model, HttpSession session) throws Exception {
+//			log.info("(♥♥♥♥♥ 2.listAllGET) 호출됨");
+//			
+//			// 리스트로 가는 경우의 수
+//			// 1. 글쓰고 나서 -> 리스트로 이동하는 경우
+//				log.info("(♥♥♥♥♥ 2.listAllGET) msg: " + msg);
+//				// 연결된 view 페이지로 저기서(1-2.registerPOST) 넘어온 정보 전달해보기
+//				// 이거 안 해도 넘어가는딩?
+//				model.addAttribute("msg", msg);
+//			
+//			// 2. 걍 바로 리스트로 이동하는 경우
+//			
+//			log.info("(♥♥♥♥♥ 2.listAllGET) Service 호출할게욘");
+//			List<BoardVO> boardList = service.getBoardListAll();
+//			
+//			log.info("(♥♥♥♥♥ 2.listAllGET) Service로부터 정보 받아옴^^ boardList.size: " + boardList.size());
+//			
+//			model.addAttribute("boardList", boardList);
+//			log.info("(♥♥♥♥♥ 2.listAllGET) 모델 객체에 저장 완");
+//			
+//			// 세션에 객체 isUpdate 하나  만들어놓기~~~ 
+//			//    3()으로 정보 전달을 위해..
+//			session.setAttribute("isUpdate", false);
+//			
+//			log.info("(♥♥♥♥♥ 2.listAllGET) 리턴타입 void.. 들어온 주소 /board/listAll.jsp로 이동할 거");
+//		}
+		// 2. 게시판 리스트 조회 GET 끝
 		
 		
-		// 세션에 객체 isUpdate 하나  만들어놓기~~~ 
-		//    3()으로 정보 전달을 위해..
-		session.setAttribute("isUpdate", false);
 		
-		log.info("(♥♥♥♥♥ 2-1.getBoardListGET) 리턴타입 void라서 들어온 주소 /board/list.jsp로 이동할 거");
-	}
-	// 2-1. 페이징 처리 적용한 게시판 리스트 조회 GET
-	
-	
-	// 2-2. 페이징 처리 적용한 게시판 리스트 조회 (카테고리) GET 
-//	@RequestMapping (value = "/listCtgr", method = RequestMethod.GET)
-//	public String getBoardListGET(PageVO vo, Model model, HttpSession session, @RequestParam("b_ctgr") String ctgr) throws Exception {
-//		log.info("(♥♥♥♥♥ 2-1.getBoardListGET) 호출됨");
-//		
-//		vo = new PageVO();
-//		
-//		log.info("(♥♥♥♥♥ 2-1.getBoardListGET) Service 호출할게욘");
-//		model.addAttribute("boardList", service.getBoardList(pm, ));
-//		log.info("(♥♥♥♥♥ 2-1.getBoardListGET)   + 모델 객체에 저장까지 완");
-//		
-//		// 페이징 처리 하단부 정보 저장 + 모델 객체(pm)에 저장
-//		PageMakerVO pm = new PageMakerVO();
-//		pm.setVo(vo);
-//		pm.setTotalCnt(100); // <<찐 글 개수 임의로 일단 넣은거고,, 서비스에 이 동작 추가해놓으면 되겠네~ 총 글 개수 불ㄹ러오는
-//		model.addAttribute("pm", pm);
-//		log.info("(♥♥♥♥♥ 2-1.getBoardListGET) PageMakerVO도 모델 객체에 저장 완 + pm: " + pm);
-//		
-//		
-//		// 세션에 객체 isUpdate 하나  만들어놓기~~~ 
-//		//    3()으로 정보 전달을 위해..
-//		session.setAttribute("isUpdate", false);
-//		
-//		log.info("(♥♥♥♥♥ 2-1.getBoardListGET) 리턴타입 void라서 들어온 주소 /board/list.jsp로 이동할 거");
-//		return "/board/list";
-//	}
-	// 2-1. 페이징 처리 적용한 게시판 리스트 조회 (카테고리) GET
-	
+		// 2-1. 페이징 처리 적용한 게시판 리스트 조회 GET        http://localhost:8088/board/listPage
+		@RequestMapping (value = "/listPage", method = RequestMethod.GET)
+		public String listPageGET(PageVO vo, Model model, HttpSession session) throws Exception {
+			log.info("(♥♥♥♥♥ 2-1.listPageGET) 호출됨");
+			model.addAttribute("boardList", service.getBoardListPage(vo));
+			log.info("(♥♥♥♥♥ 2-1.listPageGET) Service 호출 + 모델 객체에 저장까지 완");
+			
+			// 페이징 처리 하단부 정보 저장
+			PageMakerVO pm = new PageMakerVO();
+			pm.setVo(vo);
+			int cnt = service.getBoardCnt();
+	    	log.info("글 개수 :"+cnt);
+			pm.setTotalCnt(cnt); // <<찐 글 개수 일단 넣은거고,, 서비스에 이 동작 추가해놓으면 되겠네~ 총 글 개수 불ㄹ러오는
+			
+			// 얘도 model에 담아서 보냅시다..
+			model.addAttribute("pm", pm);
+			log.info("(♥♥♥♥♥ 2-1.listPageGET) PageMakerVO도 모델 객체에 저장 완 + pm: " + pm);
+			
+			
+			// 세션에 객체 isUpdate 하나  만들어놓기~~~ 
+			//    3()으로 정보 전달을 위해..
+			session.setAttribute("isUpdate", false);
+			
+			log.info("(♥♥♥♥♥ 2-1.listPageGET) 리턴타입 String --> /board/listAll.jsp로 이동할 거");
+			return "/board/listAll";
+		}
+		// 2-1. 페이징 처리 적용한 게시판 리스트 조회 GET
 	
 	
 	// 3. 글 본문 보기 GET                  http://localhost:8088/board/read
@@ -229,8 +193,8 @@ public class BoardController {
 			
 			// 수정 성공 시 --> listAll 페이지로 이동
 			log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정 성공^^ ㅊㅋㅊㅋ");
-			log.info("(♥♥♥♥♥ 4-1.updatePOST) redirect:/board/list.jsp로 이동");
-			return "redirect:/board/list"; // 주소줄 변화 O + 페이지 이동 O니까 redirect
+			log.info("(♥♥♥♥♥ 4-1.updatePOST) redirect:/board/listAll.jsp로 이동");
+			return "redirect:/board/listAll"; // 주소줄 변화 O + 페이지 이동 O니까 redirect
 		} else {
 			log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정 실패;;  /update?bno=" + vo.getBno()+ ".jsp로 이동");
 			return "/board/update?bno="+vo.getBno();
@@ -255,11 +219,11 @@ public class BoardController {
 		if(result == 1) {
 			rttr.addAttribute("msg", "DEL_OK");
 			log.info("(♥♥♥♥♥ 5.deletePOST) 삭제 성공");
-			log.info("(♥♥♥♥♥ 5.deletePOST) redirect:/board/list.jsp로 이동");
-			return "redirect:/board/list";
+			log.info("(♥♥♥♥♥ 5.deletePOST) redirect:/board/listAll.jsp로 이동");
+			return "redirect:/board/listAll";
 		} else {
 			log.info("(♥♥♥♥♥ 5.deletePOST) 삭제 실패;;");
-			return "redirect:/board/list";
+			return "redirect:/board/listAll";
 		}
 		
 	}

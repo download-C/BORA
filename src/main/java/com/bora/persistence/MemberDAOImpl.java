@@ -44,4 +44,5 @@ public class MemberDAOImpl implements MemberDAO{
 		return session.delete(NAMESPACE+".deleteMember", id);
 	}
 
+	
 }

@@ -12,4 +12,5 @@ public interface MemberDAO {
 
 	public int deleteMember(String id) throws Exception;
 
+
 }
