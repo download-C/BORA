@@ -71,7 +71,41 @@ $().ready(function () {
 
 
 <!-- ////////////alert 커스텀//////////// -->
+<!-- 뉴스 시작 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#news').click(function(){
+		   // ajax 사용 - jtbc 뉴스정보 불러오기
+		   alert('클릭');
+		   
+		   $.ajax({
+			   url:"https://fs.jtbc.co.kr//RSS/sports.xml",
+			   success:function(data){
+				   alert("페이지 다녀오기 성공");
+				   
+				   $(data).find("item").each(function(){
+					   var title = $(this).find("title").text();
+					   var link = $(this).find("link").text();
+					   
+					   $('div').append("<a href='"+link+"'>"+title+"</a><br>");
+				   });
+				   
+			   },
+			   error:function(){
+				   alert("페이지 다녀오기 실패");
+			   }
+		   });
+		   
+	   });//click
+  
+});//jquery
+</script>
 
+   <input type="button" value="뉴스" id="news">
+   <hr>
+     <div></div>
+   <hr>
+<!-- 뉴스끝 -->
 
 
 
