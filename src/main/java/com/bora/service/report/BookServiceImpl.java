@@ -4,11 +4,13 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookVO;
 import com.bora.persistence.BookDAO;
 
+@Service
 public class BookServiceImpl implements BookService{
 	
 	@Inject

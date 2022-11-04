@@ -13,6 +13,7 @@ import com.bora.domain.report.BookVO;
 @Repository
 public class BookDAOImpl implements BookDAO{
 	
+	@Inject
 	SqlSession session;
 	
 	final static String NAMESPACE = "com.bora.mapper.BookMapper";
