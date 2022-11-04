@@ -117,7 +117,7 @@
         		})
         }//버튼 배경색 입히는 버튼	
 
-        //텍스트를 입력하고 확인하는 버튼 -> 비밀번호 입력 시 사용
+//         //텍스트를 입력하고 확인하는 버튼 -> 비밀번호 입력 시 사용
         function textbtn() {
         	(async () => {
         		const { value: password } = await Swal.fire({
@@ -134,14 +134,13 @@
 
         		if (password) {
         		  Swal.fire(`비밀번호 확인 완료 ${password}`)
-        		}else() {
-        			Swal.fire(`비밀번호 불일치`)
         		}
+//         		else() {
+//         			Swal.fire(`비밀번호 불일치`)
+//         		}
         		})()
         }//텍스트를 입력하고 확인하는 버튼
-	//VO에 값 불러와서 비교해야
-        
-        
+// 	//VO에 값 불러와서 비교해야
         
         
         //텍스트를 입력하고 확인하는 버튼2 -> 여러 텍스트 입력, JSON으로 출력
@@ -168,42 +167,6 @@
         		})()
         }//텍스트를 입력하고 확인하는 버튼
         
-        //ajax로 request 하는 버튼 ///모르겟네?
-        function ajaxbtn() {
-        	Swal.fire({
-        		  title: 'Submit your Github username',
-        		  input: 'text',
-        		  inputAttributes: {
-        		    autocapitalize: 'off'
-        		  },
-        		  showCancelButton: true,
-        		  confirmButtonText: 'Look up',
-        		  showLoaderOnConfirm: true,
-        		  preConfirm: (login) => {
-        		    return fetch(`//api.github.com/users/${login}`)
-        		      .then(response => {
-        		        if (!response.ok) {
-        		          throw new Error(response.statusText)
-        		        }
-        		        return response.json()
-        		      })
-        		      .catch(error => {
-        		        Swal.showValidationMessage(
-        		          `Request failed: ${error}`
-        		        )
-        		      })
-        		  },
-        		  allowOutsideClick: () => !Swal.isLoading()
-        		}).then((result) => {
-        		  if (result.isConfirmed) {
-        		    Swal.fire({
-        		      title: `${result.value.login}'s avatar`,
-        		      imageUrl: result.value.avatar_url
-        		    })
-        		  }
-        		})
-        }//ajax로 request 하는 버튼        
-        
         
         
         </script>
@@ -211,7 +174,6 @@
 	
 <!-- 모달창에서 OK 버튼의 text를 수정하고 싶으면 error 버튼을 참고
 	 error 버튼 코드 빼고 다른 버튼의 기본 코드 양식은 동일 -->
-
 
     <button onclick="basic()">기본메세지 버튼</button><br>
     <button onclick="error()">error 버튼</button><br>
@@ -224,10 +186,6 @@
     <button onclick="imgbtn()">imgbtn 버튼</button><br>
     <button onclick="textbtn()">textbtn 버튼</button><br>
     <button onclick="textbtn2()">textbtn2 버튼</button><br>
-    <button onclick="ajaxbtn()">ajaxbtn 버튼</button><br>
-
-	
-
 
 
 <%@ include file="../include/footer.jsp"%>

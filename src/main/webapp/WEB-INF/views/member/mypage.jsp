@@ -12,10 +12,6 @@ if(loginID==null) {%>
 </script>
 <%} %>
 
-<!-- 모달창 script --> 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
-
 
 <script>
 $(document).ready(function() {
@@ -27,25 +23,6 @@ $(document).ready(function() {
 </script>
 
 
-<script>
-// $(document).ready(function() {
-//     let message = "${msg}";
-//     if (message != "") {
-//         modify(message);
-//     }
-})
-</script>
-<script>
-// function modify() {
-//     	let message = "${msg}";
-//         Swal.fire(
-//            message,
-//            '회원정보 수정 완료',
-//            'success' /*디자인 타입*/
-//          )
-}//success 버튼
-</script>        
-        	
 
 <div class="mypage">
 	<div>아이디 
