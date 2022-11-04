@@ -5,61 +5,8 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-<!-- 모달 스타일 ============================== -->
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<style>
-/* 화면 전체를 어둡게 만들어주는 배경 */
-.background {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100vh;
-	background-color: rgba(0, 0, 0, 0.3);
-	z-index: 1000;
-	/* 숨기기 */
-	z-index: -1;
-	opacity: 0;
-}
-
-.show {
-	opacity: 1;
-	z-index: 1000;
-	transition: all 0.5s;
-}
-
-/* 모달 팝업을 감싸주는 창 */
-.modal-window {
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-
-/* 모달 팝업의 내용을 나타내는 팝업 */
-.modal-content {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: #ffffff;
-	box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
-	width: 500px;
-	height: 500px;
-	/* 초기에 약간 아래에 배치 */
-	transform: translate(-50%, -40%);
-}
-
-.show .modal-content {
-	transform: translate(-50%, -50%);
-	transition: all 0.5s;
-}
-</style>
-<!-- 모달 스타일 끝 ============================== -->
-
-
 <h1>board/read.jsp</h1>
 
-<%-- 
 <%
 	if (loginID == null) {
 %>
@@ -70,7 +17,6 @@
 <%
 	}
 %>
- --%>
 
 <!-- ======== for 썸머노트 ============== -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
@@ -99,9 +45,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	// 계속 쓸 놈들 ---------------------
-	var bnoValue = '<c:out value="${vo.bno}"/>';
-	var cnoValue = $('#cnoValue').val();
 	var loginID = '<c:out value="${loginID}"/>';
+	var bnoValue = '<c:out value="${vo.bno}"/>';
 	
 	
 	// 댓글 목록 출력 ----------------------------
@@ -123,18 +68,19 @@ $(document).ready(function(){
 			
 			// 반복문 돌면서 댓글 list 채우기
 			for (var i = 0, len = list.length||0; i < len; i++) {
-				str += "<li data-cno='"+list[i].cno+"'>";
+				str += "<li id='cmtLI' data-cno='"+list[i].cno+"'>";
 				str += "<div id='cmt-body'><div id='cmt-header'><strong>"+list[i].id+"</strong>&nbsp;&nbsp;";
 				str += "<small>"+cmtService.displayTime(list[i].c_regdate)+"</small>";
-					if (list[i].id == loginID || list[i].id == 'admin') {
+					if (list[i].id == loginID || loginID == 'admin') {
 						// id가 admin이거나 본인일 때만 -> 답글, 수정, 삭제 버턴 나오게 제어
 						str += "<input type='button' value='답글' class='btn btn-primary' id='cmt_btn_re'>";
 						str += "<input type='button' value='수정' class='btn btn-primary' id='cmt_btn_mod'>";
 						str += "<input type='button' value='삭제' class='btn btn-primary' id='cmt_btn_del'>";
-						str += "<input type='hidden' value='"+list[i].cno+"' id='cnoValue'></div>";
+						str += "<input type='text' value='"+list[i].cno+"' id='cnoValue'></div>";
 					}
-				str += "<p> cno:"+list[i].cno + " 💖 " + list[i].c_content+"</p>";
+				str += "<p id='c_contentP'>"+list[i].c_content+"</p>";
 				str += "</div></li>";
+				
 			} // for
 			
 			cmtUL.html(str);
@@ -144,41 +90,23 @@ $(document).ready(function(){
 	// 댓글 목록 출력 끝 ----------------------------
 	
 	
- 	// 모달 띄우기 (새 댓글 등록 버튼 누르면 입력에 필요없는 항목들은 안 보이게 처리)
-// 	var modal = $(".modal");
-	var modalInputReply = $('#modal_cmt').val();
-	var modalInputReplyer = $('#modal_id').val();
-	var modalInputReplyDate = $('#modal_regdate').val();
-	
-	var modalModBtn = $("#modalModBtn");
-	var modalRemoveBtn = $("#modalRemoveBtn");
-	var modalRegisterBtn = $("#modalRegisterBtn");
-	
-// 	$("#modal-show").on("click", function(e){
-// 		alert("되나~~");
-// 		modal.find("input").val("");
-// 		modalInputReplyDate.closest("div").hide();
-// 		modal.find("button[id !='modalCloseBtn']").hide();
-		
-// 		modalRegisterBtn.show();
-		
-// 		$(".modal").modal("show");
-// 	});
-	// 모달 띄우기 끝 -------------------------------
-	
-	
 	// 댓글 작성 -------------------------------
 	var cmtRegisterBtn = $("#add_cmt_btn");
 	
 	cmtRegisterBtn.on("click", function(e){
+		
+		if($('#c_content').val() == null || $('#c_content').val() == ''){
+			alert("댓글 내용을 작성해주세요");
+			$('#c_content').focus();
+			return false;
+		}
+		
 		var cmt = {
 			c_content: $('#c_content').val(),
 			id: loginID,
 			bno: bnoValue
 		};
 		
-		// 여기서 제어하지 말고 controller에서 제어?
-		if($('#c_content').val() != null || $('#c_content').val() != ''){
 		
 		// 댓글 등록 함수 1.add(cmt, callback, error) 호출
 		cmtService.add(
@@ -192,30 +120,29 @@ $(document).ready(function(){
 						alert("댓글이 등록되었습니다 👍 ");
 					}
 					
+					$('#c_content').empty();
+// 					$('#c_content').remove(); // remove? ㅠ 아님,,
+					
 					showCmtList(1);
 					
 					// 작성 후에 빈칸으로
-					$('#c_content').val = '';
 // 					document.getElementById("#c_content").value=''; 
 					// 얘 하니까 밑에도 안 먹고,, 거 참
 					
 		}); // 1.add()
-		
-		} else {
-			alert("댓글 내용을 작성해주세요");
-			$('#c_content').focus();
-			return false;
-		} // if-else
 			
 	});// cmtRegisterBtn on click
 	// 댓글 작성 끝 -------------------------------
 	
 	
 	// 댓글 삭제 -------------------------------
-	var cmtDelBtn = $('#cmt_btn_del');
-	
-	cmtDelBtn.click(function(){
-		alert("삭제 버턴 클릭됨");
+// 	cmtDelBtn.on("click", function(e){ // 버턴이 먹지를 않노 ㄱ-
+	$(document).on("click", "#cmt_btn_del", function(){
+// 		alert("삭제 버턴 클릭됨");
+		// cno는?  삭제 버턴(this) -> 다음 요소의 value값.. 이게 최선?ㅠ
+		var cnoValue = $(this).next().val();
+		console.log("삭제할 cnoValue: " + cnoValue);
+		
 		// 삭제 버튼 클릭했을 때~ 
 		// 댓글 삭제 함수 3. deleteCmt(cno, callback, error) 호출
 		cmtService.deleteCmt(
@@ -228,6 +155,8 @@ $(document).ready(function(){
 				if(deleteResult === "success") {
 					alert("댓글이 삭제되었습니다 👍 ");
 				}
+				
+				showCmtList(1);
 			}, 
 			// error
 			function(error){
@@ -238,23 +167,62 @@ $(document).ready(function(){
 	// 댓글 삭제 끝 -------------------------------
 	
 	
-	
-	// 모달로 댓글 하나 조회 ----------------------------
-	//   ul  -> li로 위임
-// 	$('#cmt').on("click", "li", function(e){
-// 		var cno = $(this).data("cno");
-// 		alert(cno);
+	// 댓글 수정 -------------------------------
+	function updateCmtForm(cnoValue, c_content){
+		alert("updateCmtForm 함수 실행됨 cno: " + cnoValue + " / c_content: " + c_content);
 		
-// 		cmtService.getCmtOne(cno, function(rData){
-// 			modalInputReply.val(rData.c_content);
-// 			modalInputReplyer.val(rData.id);
-// 			modalInputReplyDate.val(rData.c_regdate);
-// 			modal.attr("readonly", "readonly");
-// 			document.querySelector("#modal-show").addEventListener("click", modalShow);
-// 		});
-
-// 	}); // on 
-	// 모달로 댓글 하나 조회 끝 ----------------------------
+// 		var cmtPcno = $('"#c_contentP"+cnoValue+');
+		
+		var commentsView = "";
+		
+		commentsView += "<textarea name='content' id='c_content'"+cnoValue+" cols='30' rows='5' class=''>"+c_content+"</textarea>";
+		commentsView += "<div><input type='button' value='수정하기' class='btn' id='real_mod_btn'";
+		commentsView += "</div>";
+        
+		$('#c_contentP').replaceWith(commentsView);
+// 		cmtPcno.replaceWith(commentsView);
+		
+	}// updateCmtForm()
+	
+	// 버튼 클릭 이벤트
+	$(document).on("click", "#cmt_btn_mod", function(){
+// 		alert("수정 버턴 클릭");
+		var cnoValue = $(this).next().next().val();
+		var c_content = $('#c_contentP').text();
+// 		var c_content = $('#c_contentId').val();
+// 		var c_content = $(this).next().next().next().val();
+		alert("cnoValue: " + cnoValue + " / c_content: " + c_content);
+		
+		// 함수 호출
+		updateCmtForm(cnoValue, c_content);
+		
+		// 수정 버튼 클릭 -> div li data-cno [i] 에 해당하는 div가 -> 입력할 수 있는 form으로 replace됨
+		// 그 입력폼에서 수정 내용 적고 수정 버튼 또 클릭 -> cno, bno, 수정 내용 받아감
+		// -> DB 가서 수정 반영하고, 목록 갱신 함 해서 수정한 내용으로 보이도록..
+		
+		$('#real_mod_btn').click(function(){
+// 			alert("찐 수정버턴 클릭됨");
+			alert("cnoValue: " + cnoValue + " / bnoValue: " + bnoValue + " / c_content: " +  $('#c_content').val());
+			//4. updateCmt(cmtVO, callback, error)
+			cmtService.updateCmt(
+					// cmtVO
+					{ cno : cnoValue,
+					  bno : bnoValue,
+					  c_content : $('#c_content').val()},
+					  	// 이모티콘은 안 되네 ㄱ- 
+					
+					// callback
+					function(rData){
+						alert("댓글 수정 완");
+						
+						showCmtList(1);
+					}
+			);// updateCmt()
+			
+		});// 찐 수정버튼 click
+		
+	});// on click
+	// 댓글 수정 끝 -------------------------------
 	
 	
 }); // jquery ready

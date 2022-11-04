@@ -20,7 +20,7 @@
 <!-- 	</insert> -->
 	
 	
-	<select id="getCmtOne" resultType="com.bora.domain.CommentVO">
+	<select id="getCmtOne" resultType="com.bora.domain.board.CommentVO">
 		select * 
 		from bora_cmnt_cmt
 		where cno = #{cno}
@@ -41,7 +41,7 @@
 	</update>
 	
 	
-	<select id="getCmtList" resultType="com.bora.domain.CommentVO">
+	<select id="getCmtList" resultType="com.bora.domain.board.CommentVO">
 		select *
 		from bora_cmnt_cmt
 		where bno = #{bno}

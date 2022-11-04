@@ -1,5 +1,7 @@
 package com.bora.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.domain.SHA256;
+import com.bora.domain.board.BoardVO;
+import com.bora.domain.board.PageMakerVO;
+import com.bora.domain.board.PageVO;
 import com.bora.domain.MemberVO;
 import com.bora.service.MemberService;
 import com.bora.service.board.BoardService;
@@ -30,7 +35,7 @@ public class AjaxController {
 	@Inject
 	private MemberService service;
 
-	private BoardService bService;
+	private BoardService boardService;
 	
 	@RequestMapping(value = "/member/idcheck", method = RequestMethod.GET)
 	public ResponseEntity<String> idcheck(HttpServletRequest request, RedirectAttributes rttr) throws Exception {
@@ -116,39 +121,29 @@ public class AjaxController {
     
     // 카테고리 ajax ========================================
     @RequestMapping(value = "/ajax/ctgr", method = RequestMethod.GET)
-    public ResponseEntity<String> ctgr(@RequestParam("ctgr") String ctgr) throws Exception {
-    	
+    public List<BoardVO> ctgr(@RequestParam("ctgr") String ctgr) throws Exception {
+    	log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgr() 호출됨");
     	log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgr: " + ctgr);
-    	switch (ctgr) {
-		case "모두다BORA":
-//			bService.getBoardList(vo);
-			break;
-		case "골라줘BORA":
-			
-			break;
-			
-		case "알려줘BORA":
-			
-			break;
-			
-		case "친해져BORA":
-			
-			break;
-		
-		default: return null;
+    	
+    	// 페이징 처리 하단부 정보 저장
+    	PageVO pageVO = new PageVO();
+    	log.info("vo: "+pageVO);
+    	PageMakerVO pm = new PageMakerVO();
+    	pm.setTotalCnt(100);
+//    	int cnt = service.getBoardCnt();
+    	pm.setVo(pageVO);
+    	
+    	log.info("pm: "+pm);
 
-		} // switch
-    	
-//    	bService.getBoardList(vo)
-//    	if(encryptPw.equals(vo.getPw())) {
-// 	    	log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡ 비밀번호 일치");
-// 		    // 일치할 경우 메세지 ok 보내기
-// 	    	result = "ok";
-// 	    } 
-// 	    ResponseEntity<String> entity = new ResponseEntity<String>(result, HttpStatus.OK);
-    	
-//    	return entity;
+    	pm.setTotalCnt(100); // 임의로
+    	if(ctgr.equals("모두다BORA") || ctgr=="") {
+		List<BoardVO> boardList = boardService.getBoardList(pm);
+    	} else if(ctgr.equals("알려줘BORA")||ctgr.equals("친해져BORA")||ctgr.equals("골라줘BORA")) {
+		List<BoardVO> boardList = boardService.getBoardList(pm, ctgr);
+			 log.info("boardList: "+boardList);
+			return boardList; 
+    	}
     	return null;
-    	
     }
+    // 카테고리 ajax 끝 ==================================
 }

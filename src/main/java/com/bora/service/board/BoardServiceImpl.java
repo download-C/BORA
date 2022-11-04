@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bora.domain.board.BoardVO;
+import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
 import com.bora.persistence.BoardDAO;
 
@@ -54,20 +55,34 @@ public class BoardServiceImpl implements BoardService {
 	// 2. 전체 글 목록 조회 getBoardListAll 끝
 	
 	
-	// 2-1. 페이징 처리 적용한 글 목록 조회 getBoardList
+	// 2. 페이징 처리 적용한 글 목록 조회 getBoardList
 	@Override
-	public List<BoardVO> getBoardList(PageVO vo) throws Exception {
-		log.info("(♥♥♥♥♥ 2-1.getBoardList) 컨트롤러가 호출함");
+	public List<BoardVO> getBoardList(PageMakerVO vo) throws Exception {
+		log.info("(♥♥♥♥♥ 2.getBoardList) 컨트롤러가 호출함");
 		
-		log.info("(♥♥♥♥♥ 2-1.getBoardList) DAO 호출할 거");
+		log.info("(♥♥♥♥♥ 2.getBoardList) DAO 호출할 거");
 		List<BoardVO> boardList = dao.getBoardList(vo);
 		
-		log.info("(♥♥♥♥♥ 2-1.getBoardList) DAO한테 결과 데이터 받았으니 --> Controller로 돌려줄게욥");
+		log.info("(♥♥♥♥♥ 2.getBoardList) DAO한테 결과 데이터 받았으니 --> Controller로 돌려줄게욥");
 		
 		return boardList;
 	}
-	// 2-1. 페이징 처리 적용한 글 목록 조회 getBoardList 끝
+	// 2. 페이징 처리 적용한 글 목록 조회 getBoardList 끝
 	
+		// 2-1. 페이징 처리 적용한 글 목록 조회 getBoardList_ctgr 카테고리
+		@Override
+		public List<BoardVO> getBoardList(PageMakerVO pm, String ctgr) throws Exception {
+			log.info("(♥♥♥♥♥ 2-1.getBoardList_ctgr) 컨트롤러가 호출함");
+			
+			log.info("(♥♥♥♥♥ 2-1.getBoardList_ctgr) DAO 호출할 거");
+			List<BoardVO> boardList = dao.getBoardList(pm, ctgr);
+			
+			log.info("(♥♥♥♥♥ 2-1.getBoardList_ctgr) DAO한테 결과 데이터 받았으니 --> Controller로 돌려줄게욥");
+			
+			return boardList;
+		}
+		// 2-1. 페이징 처리 적용한 글 목록 조회 getBoardList_ctgr 카테고리 끝
+			
 	
 	
 	// 3. 글 1개 정보 불러오기 getBoard
