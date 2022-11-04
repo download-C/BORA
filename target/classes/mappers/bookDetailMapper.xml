@@ -5,6 +5,19 @@
 <!-- bora_book_detail -->
 <!-- #{bk_detail_num}, #{bk_num}, #{id}, #{bk_day}, #{bk_iow}, #{bk_group}, #{bk_category}, #{bk_money}, #{bk_memo} -->
 <mapper namespace="com.bora.mapper.BookDetailMapper">
+
+	<resultMap type="com.bora.domain.report.BookDetailVO" id="detail">
+		<result property="bk_detail_num" column="bk_detail_num"/>
+		<result property="id" column="id"/>
+		<result property="bk_day" column="bk_day"/>
+		<result property="bk_iow" column="bk_iow"/>
+		<result property="bk_group" column="bk_group"/>
+		<result property="bk_category" column="bk_category"/>
+		<result property="bk_money" column="bk_money"/>
+		<result property="bk_memo" column="bk_memo"/>
+	</resultMap>
+	
+	<!-- 가계부 수기 작성 -->
 	<insert id="writeBookDetail">
 		insert into bora_book_detail(id, bk_day, bk_iow, bk_group, 
 									 bk_category, bk_money, bk_memo)
@@ -12,15 +25,36 @@
 				#{bk_category}, #{bk_money}, #{bk_memo});
 	</insert>
 	
-	<select id="getBookDetail" resultType="com.bora.domain.report.BookDetailVO">
+	<!-- 회원의 가계부 모든 목록 불러오기 -->
+	<select id="getBookDetailList" resultType="com.bora.domain.report.BookDetailVO">
 		select * from bora_book_detail
-		where id=#{id} and bk_detail_num=#{bk_detail_num}
+		where id=#{loginID}
 	</select>
 	
-	<update id="updateBookDetail">
+	<!-- 회원의 특정 가계부 내용 불러오기 -->
+	<select id="getBookDetailContent" resultType="com.bora.domain.report.BookDetailVO">
+		select * from bora_book_detail
+		where id=#{loginID} and bk_detail_num=#{bk_detail_num}
+	</select>
+	
+	<!-- 모든 사람의 가계부 내용 불러오기 -->
+	<select id="getBookDetailAll" resultType="com.bora.domain.report.BookDetailVO">
+		select * from bora_book_detail;
+	</select>
+	
+	<!-- 특정 가계부 내용 수정하기 -->
+	<update id="updateBookDetail" >
 		update bora_book_detail
 		set bk_day=#{bk_day}, bk_group=#{bk_group}, bk_category=#{bk_category}, 
-			bk_money=#{bk_money}, bk_momo=#{bk_memos}
+			bk_money=#{bk_money}, bk_memo=#{bk_memo}
+		where id=#{id} and bk_detail_num=#{bk_detail_num}
 	</update>
+	
+	<delete id="deleteBookDetail">
+		delete from bora_book_detail
+		where bk_detail_num = #{bk_detail_num}
+	</delete>
+	
+	
 	
 </mapper>
