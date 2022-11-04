@@ -5,10 +5,12 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-<!-- ////////////alert 커스텀//////////// -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
 
+<!-- 모달창 script --> 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
+
+<!-- 메세지 불러오고 모달창 띄우기 -->
 <script>
 $(document).on('click', '#login', function(e) {
     swal(
@@ -69,6 +71,22 @@ $(document).ready(function(){
   
 });//jquery
 </script>
+<!-- 체크 모달 -->
+<script>
+function login(message) {
+  	Swal.fire({
+	  title: message,
+	  text: '',
+	  imageUrl: '${pageContext.request.contextPath}/resources/img/logo.png',
+	  imageWidth: 200,
+	  imageHeight: 50,
+	  imageAlt: 'Custom image',
+   	})
+}
+</script>
+
+
+
 
    <input type="button" value="뉴스" id="news">
    <hr>

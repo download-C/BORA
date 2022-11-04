@@ -11,6 +11,8 @@ if(loginID==null) {%>
 	location.href="/member/login";
 </script>
 <%} %>
+
+
 <script>
 $(document).ready(function() {
     let message = "${msg}";
@@ -19,7 +21,8 @@ $(document).ready(function() {
     }
 })
 </script>
-	
+
+
 
 <div class="mypage">
 	<div>아이디 
