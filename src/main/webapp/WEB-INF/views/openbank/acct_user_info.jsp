@@ -10,13 +10,13 @@
 <body>
 	<h1>사용자 정보조회 결과</h1>
 	<h3>고객번호 : ${userInfo.user_seq_no }</h3>
-	<h3>고객CI값 : ${userInfo.user_ci }</h3>
+<%-- 	<h3>고객CI값 : ${userInfo.user_ci }</h3> --%>
 	<h3>고객이름 : ${userInfo.user_name }</h3>
+	<h3>고객등록계좌수 : ${userInfo.res_cnt }</h3> 
 <%-- 	<h3>고객생년월일 : ${userInfo.user_info }</h3> 필요없음 --%>
 <%-- 	<h3>고객성별 : ${userInfo.user_gender }</h3> 필요없음 --%>
 <%-- 	<h3>고객휴대폰번호 : ${userInfo.user_cell_no }</h3> 필요없음 --%>
 <%-- 	<h3>고객이메일주소 : ${userInfo.user_email }</h3> 필요없음 --%>
-	<h3>고객등록계좌수 : ${userInfo.res_cnt }</h3> 
 
 	<hr>
 	

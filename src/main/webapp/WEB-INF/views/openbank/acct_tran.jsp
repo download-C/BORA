@@ -10,10 +10,33 @@
 <body>
 <h1>거래내역</h1>
 
-${accountTran.bank_tran_date }
-${accountTran.api_tran_dtm }
-${accountTran.fintech_use_num }
+${accountTran }
 
+	<table>
+		<tr>
+			<th>거래일자</th>
+			<th>거래시간</th>
+			<th>입출금구분</th>
+			<th>거래타입</th>
+			<th>통장인자내용</th>
+			<th>거래금액</th>
+			<th>거래후잔액</th>
+			<th>거래점명</th>
+		</tr>
+		<%-- accountList 객체에 저장되어 있는 계좌 목록(res_list) 가져와서 반복하여 복수개 계좌 접근 --%>
+		<c:forEach var="accountTran" items="${accountTran.tran_res_list }">
+			<tr>
+				<td>1${accountTran.tran_date }</td>
+				<td>2${accountTran.tran_time }</td>
+				<td>3${accountTran.inout_type }</td>
+				<td>4${accountTran.tran_type }</td>
+				<td>5${accountTran.print_content }</td>
+				<td>6${accountTran.tran_amt }</td>
+				<td>7${accountTran.after_balance_amt }</td>
+				<td>8${accountTran.branch_name }</td>
+			</tr>
+		</c:forEach>
+	</table>
 
 
 <!-- 	private String api_tran_id; //거래고유번호(API) -->

@@ -3,10 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
-<h1>openbank/oauthOK.jsp</h1>
 
 
 <div class="container">
+
+<h1>openbank/oauthOK.jsp</h1>
 
 <h2>세션 토큰 : ${sessionScope.token }</h2>
 <hr>
@@ -17,6 +18,7 @@
 <h4>refresh_token : ${responseToken.refresh_token }</h4>
 <h4>scope : ${responseToken.scope }</h4>
 
+<!--     /////////////// bank_tran_id U 뒤에 9자리 세션값마다 자동으로 난수값 들어가도록 설정 필요 -->
    
 	<hr>
 	<h1>😉사용자정보조회😉</h1>
@@ -51,7 +53,7 @@
 <%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
 <!-- 		<input type="hidden" name="bank_tran_id" value="Y"> -->
 		<input type="hidden" name="bank_tran_id" value="M202202092U523456781">
-		<input type="hidden" name="scope" value="Y">
+		<input type="hidden" name="scope" value="login inquiry transfer">
 <!-- 		<input type="hidden" name="fintech_use_num" value="Y"> -->
 		<input type="hidden" name="fintech_use_num" value="120220209288941286327192">
 		<input type="submit" value="등록계좌해지">
@@ -78,14 +80,14 @@
 		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 		<input type="hidden" name="access_token" value="${sessionScope.token }">
 <%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
-		<input type="hidden" name="bank_tran_id" value="Y">
+		<input type="hidden" name="bank_tran_id" value="M202202092U121444111">
 		<input type="hidden" name="fintech_use_num" value="120220209288941286327192">
-		<input type="hidden" name="inquiry_type" value="Y">
-		<input type="hidden" name="inquiry_base" value="Y">
-		<input type="hidden" name="from_date" value="Y">
-		<input type="hidden" name="to_date" value="Y">
-		<input type="hidden" name="sort_order" value="Y">
-		<input type="hidden" name="tran_dtime" value="Y">
+		<input type="hidden" name="inquiry_type" value='A'>
+		<input type="hidden" name="inquiry_base" value='D'>
+		<input type="hidden" name="from_date" value="20100101">
+		<input type="hidden" name="to_date" value="20221104">
+		<input type="hidden" name="sort_order" value="D">
+		<input type="hidden" name="tran_dtime" value="20221104134521">
 		<input type="submit" value="거래내역조회">
 	</form><hr>    
      
@@ -125,28 +127,6 @@
 	</form><hr>   
 	
 	
-	<h1>💳카드💳<h1>
-	
-	<hr>
-     <form method="post" action="/openbank/card/registCard">
-        <%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
-		<input type="hidden" name="access_token" value="${sessionScope.token }">
-<%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
-		<input type="hidden" name="member_bank_code" value="D">
-		<input type="hidden" name="Info_prvd_agmt_yn" value="V">
-		<input type="submit" value="카드등록">
-     </form>
-     
-     <hr>
-     <form method="get" action="/openbank/card/cardList">
-        <%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
-		<input type="hidden" name="access_token" value="${sessionScope.token }">
-<%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
-		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }">
-		<input type="hidden" name="member_bank_code" value="D">
-		<input type="hidden" name="befor_inquiry_trace_info" value="V">
-		<input type="submit" value="카드목록">
-     </form><hr>
 </div>
 
 

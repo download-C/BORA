@@ -7,7 +7,7 @@ import lombok.Data;
 public class AccountBalanceRequestVO {
     private String access_token;
     //////////////////// bank_tran_id U 뒤에 9자리 세션값마다 자동으로 난수값 들어가도록 설정 필요
-    private String bank_tran_id ="M202202092U823456781"; //은행거래고유번호
+    private String bank_tran_id = "M202202092U823456781"; //은행거래고유번호
 //    private String fintech_use_num; //핀테크이용번호
     private String fintech_use_num = "120220209288941286327192"; //핀테크이용번호
     private String tran_dtime; //요청일시
