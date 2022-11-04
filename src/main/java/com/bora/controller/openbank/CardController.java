@@ -77,38 +77,56 @@ public class CardController {
 //	}
 	
 	// 카드사용자 등록
-	@RequestMapping(value = "/registCard", method = RequestMethod.GET)
-	public String getRegistCard() {
-		log.info("registCardGET() 호출");
-			
-		return "card/regist_card";
-	}
-	// 카드사용자 등록
-	@RequestMapping(value = "/registCardPro", method = RequestMethod.POST)
-	public String getRegistCardPro(RegistCardRequestVO registCardRequestVO, Model model) throws Exception {
+	@RequestMapping(value = "/registCard", method = RequestMethod.POST)
+	public String getRegistCard(RegistCardRequestVO registCardRequestVO, 
+		UserInfoRequestVO userInfoRequestVO, Model model) throws Exception {
 				
 		log.info("registCardPOST() 호출");
-				
+			
+		UserInfoResponseVO userInfo = openBankingService.findUser(userInfoRequestVO);
+			
+//		log.info("userName : "+userInfo.getUser_name());
+//		log.info("userCi : "+userInfo.getUser_ci());
+//		log.info("userEmail : "+userInfo.getUser_email());
+//		log.info("userUser_seq_no : "+userInfo.getUser_seq_no());
+		
+		registCardRequestVO.setUser_name(userInfo.getUser_name());
+		registCardRequestVO.setUser_ci(userInfo.getUser_ci());
+		registCardRequestVO.setUser_email(userInfo.getUser_email());
+			
 		// Service 객체의 registCard() 메서드를 호출하여 사용자 정보 조회
 		// => 파라미터 : RegistCardRequestVO, 리턴타입 RegistCardResponseVO
 		RegistCardResponseVO registCard = openBankingService.registCard(registCardRequestVO);
 
-		log.info("registCardRequestVO : "+registCardRequestVO.getAccess_token());
-		log.info("registCardRequestVO : "+registCardRequestVO.getBank_tran_id());
-		log.info("registCardRequestVO : "+registCardRequestVO.getBank_code_std());
-		log.info("registCardRequestVO : "+registCardRequestVO.getMember_bank_code());
-		log.info("registCardRequestVO : "+registCardRequestVO.getUser_name());
-		log.info("registCardRequestVO : "+registCardRequestVO.getUser_ci());
-		log.info("registCardRequestVO : "+registCardRequestVO.getUser_email());
-		log.info("registCardRequestVO : "+registCardRequestVO.getScope());
-		log.info("registCardRequestVO : "+registCardRequestVO.getInfo_prvd_agmt_yn());
+//		log.info("registCardRequestVO : "+registCardRequestVO.getAccess_token());
+//		log.info("registCardRequestVO : "+registCardRequestVO.getBank_tran_id());
+//	    log.info("registCardRequestVO : "+registCardRequestVO.getBank_code_std());
+//		log.info("registCardRequestVO : "+registCardRequestVO.getMember_bank_code());
+//		log.info("registCardRequestVO : "+registCardRequestVO.getUser_name());
+//		log.info("registCardRequestVO : "+registCardRequestVO.getUser_ci());
+//		log.info("registCardRequestVO : "+registCardRequestVO.getUser_email());
+//		log.info("registCardRequestVO : "+registCardRequestVO.getScope());
+//		log.info("registCardRequestVO : "+registCardRequestVO.getInfo_prvd_agmt_yn());
 				
 		// Model 객체에 RegistCardResponseVO 객체와 엑세스토큰 저장
 		model.addAttribute("registCard", registCard);
 		model.addAttribute("access_token", registCardRequestVO.getAccess_token());
+			
+		log.info(registCard.getApi_tran_id());
+		log.info(registCard.getApi_tran_dtm());
+		log.info(registCard.getRsp_code());
+		log.info(registCard.getRsp_message());
+		log.info(registCard.getBank_tran_id());
+		log.info(registCard.getBank_tran_date());
+		log.info(registCard.getBank_code_tran());
+		log.info(registCard.getBank_rsp_code());
+		log.info(registCard.getBank_rsp_message());
+		log.info(registCard.getBank_name());
+		log.info(registCard.getUser_seq_no());
 
-		return "redirect:/card/bank_main";
+		return "/bank_main";
 	}
+
 
 	// 카드목록 조회
 	@RequestMapping(value = "/cardList", method = RequestMethod.GET)
@@ -210,18 +228,20 @@ public class CardController {
 		log.info("cardUpdateRequestVO : "+cardUpdateRequestVO.getAccess_token());
 		log.info("cardUpdateRequestVO : "+cardUpdateRequestVO.getUser_seq_no());
 		log.info("cardUpdateRequestVO : "+cardUpdateRequestVO.getMember_bank_code());
-				log.info("cardUpdateRequestVO : "+cardUpdateRequestVO.getUpdate_user_email());
-								
+		log.info("cardUpdateRequestVO : "+cardUpdateRequestVO.getUpdate_user_email());
+		
+		CardUpdateResponseVO result = openBankingService.updateCard(cardUpdateRequestVO);
+		
 		// Model 객체에 CardUpdateResponseVO 객체와 엑세스토큰 저장
 		model.addAttribute("cardUpdate", cardUpdate);
 		model.addAttribute("access_token", cardUpdateRequestVO.getAccess_token());
 
 		return "card/card_update";
 	}
-    // 카드조회해지
+	// 카드조회해지
 	@RequestMapping(value = "/cardDelete", method = RequestMethod.GET)
 	public String getCardDelete( CardDeleteRequestVO cardDeleteRequestVO, Model model) throws Exception {
-												
+											
 		log.info("cardDeleteGET() 호출");
 											
 		// Service 객체의 deleteCard() 메서드를 호출하여 사용자 정보 조회
@@ -232,18 +252,18 @@ public class CardController {
 		log.info("cardDeleteRequestVO : "+cardDeleteRequestVO.getUser_seq_no());
 		log.info("cardDeleteRequestVO : "+cardDeleteRequestVO.getMember_bank_code());
 										
-		// Model 객체에 CardUpdateResponseVO 객체와 엑세스토큰 저장
+		// Model 객체에 CardDeleteResponseVO 객체와 엑세스토큰 저장
 		model.addAttribute("cardDelete", cardDelete);
 		model.addAttribute("access_token", cardDeleteRequestVO.getAccess_token());
-							
+						
 		return "card/card_delete";
 	}
 	// 선불거래내역조회
 	@RequestMapping(value = "/prePaidTran", method = RequestMethod.GET)
 	public String getPrePaidTran( PrePaidTranRequestVO prePaidTranRequestVO, Model model) throws Exception {
-																
+													
 		log.info("prePaidTranGET() 호출");
-																
+													
 		// Service 객체의 prePaidTran() 메서드를 호출하여 사용자 정보 조회
 		// => 파라미터 : PrePaidTranRequestVO, 리턴타입 PrePaidTranResponseVO
 		PrePaidTranResponseVO prePaidTran = openBankingService.prePaidTran(prePaidTranRequestVO);
@@ -251,11 +271,11 @@ public class CardController {
 		log.info("prePaidTranRequestVO : "+prePaidTranRequestVO.getAccess_token());
 		log.info("prePaidTranRequestVO : "+prePaidTranRequestVO.getUser_seq_no());
 		log.info("prePaidTranRequestVO : "+prePaidTranRequestVO.getBank_code_std());
-															
+												
 		// Model 객체에 PrePaidTranResponseVO 객체와 엑세스토큰 저장
 		model.addAttribute("prePaidTran", prePaidTran);
 		model.addAttribute("access_token", prePaidTranRequestVO.getAccess_token());
-											
+						
 		return "card/prepaid_tran";
 	}
 	

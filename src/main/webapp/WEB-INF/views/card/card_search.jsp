@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,13 +10,19 @@
 <body>
    <h1>card_search.jsp</h1>
    
-	 <form method="get" action="/fintech/cardBills">
-        <%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
-		<input type="hidden" name="access_token" value="${responseToken.access_token }">
-		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }">
-		<input type="hidden" name="member_bank_code" value="D">
-		<input type="hidden" name="card_id" value="V">
-		<input type="submit" value="카드청구 조회">
-     </form>
+     <table>
+		<tr>
+			<th>카드구분</th>
+			<th>계좌번호</th>
+			<th>카드발급일자</th>
+			
+		</tr>
+			<tr>
+				<td>${cardSearchResponse.card_type }</td>
+				<td>${cardSearchResponse.settlement_account_num }</td>
+				<td>${cardSearchResponse.issue_date }</td>
+			</tr>
+	</table>
+	
 </body>
 </html>
