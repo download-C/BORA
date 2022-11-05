@@ -37,9 +37,9 @@ $().ready(function () {
 // 		  'success'
 // 		)
 </script>
-<button class="btn btn-primary m-2" id="alertStart">Alert 커스텀</button>
+<button class="btn btn-primary m-2" id="alertStart">Alert 커스텀</button> <br>
 
-
+<button class="btn btn-primary m-2" onclick="location.href='/book/write';">가계부 쓰기</button> <br>
 
 <!-- ////////////alert 커스텀//////////// -->
 <!-- 뉴스 시작 -->
@@ -88,7 +88,7 @@ function login(message) {
 
 
 
-   <input type="button" value="뉴스" id="news">
+   <input type="button" class="btn btn-primary m-2" value="뉴스" id="news">
    <hr>
      <div></div>
    <hr>

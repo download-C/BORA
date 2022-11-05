@@ -18,8 +18,8 @@ public class BookServiceImpl implements BookService{
 	
 	private static final Logger log = LoggerFactory.getLogger(BookServiceImpl.class);
 	
-	public Integer writeBook(BookVO vo, BookDetailVO detail) throws Exception {
-		return dao.writeBook(vo, detail);
+	public Integer writeBook(BookVO vo) throws Exception {
+		return dao.writeBook(vo);
 	}
 
 }

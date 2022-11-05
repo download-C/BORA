@@ -24,6 +24,11 @@ public class BookDetailServiceImpl implements BookDetailService{
 		log.info("♡♡♡♡♡♡♡♡♡♡writeBookDetail(detail) 호출");
 		return dao.writeBookDetail(detail);
 	}
+	
+	public Integer getBookDetailMaxNum() throws Exception {
+		log.info("getBookDetailMaxNum() 호출 -> 방금 쓴 가계부 글 번호 가져오기");
+		return dao.getBookDetailMaxNum();
+	}
 
 	@Override
 	public List<BookDetailVO> getBookDetailList(String loginID) throws Exception {

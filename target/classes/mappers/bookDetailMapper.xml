@@ -31,6 +31,11 @@
 		where id=#{loginID}
 	</select>
 	
+	<!-- 방금 가장 최신 가계부 글의 번호 불러오기 -->
+	<select id="getBookDetailMaxNum" resultType="Integer">
+		select max(bk_detail_num) from bora_book_detail
+	</select>
+	
 	<!-- 회원의 특정 가계부 내용 불러오기 -->
 	<select id="getBookDetailContent" resultType="com.bora.domain.report.BookDetailVO">
 		select * from bora_book_detail

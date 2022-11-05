@@ -4,8 +4,10 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- bora_book -->
 <!-- #{bk_detail_num}, #{bk_num}, #{id}, #{bk_day}, #{dk_iow}, #{bk_group}, #{bk_category}, #{bk_money}, #{bk_memos} -->
-<mapper namespace="com.bora.mapper.BooklMapper">
+<mapper namespace="com.bora.mapper.BookMapper">
 	<insert id="writeBook">
+		insert bora_book (id, bk_year, bk_month, bk_budget, bk_detail_num)
+		values(#{id}, #{bk_year}, #{bk_month}, #{bk_budget}, #{bk_detail_num})
 	</insert>
 	
 </mapper>

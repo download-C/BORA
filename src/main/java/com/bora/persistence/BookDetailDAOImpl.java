@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.inject.Inject;
-
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +26,11 @@ public class BookDetailDAOImpl implements BookDetailDAO{
 		log.info("♡♡♡♡♡♡♡♡♡♡writeBookDetail(detail) 호출");
 		return session.insert(NAMESPACE+".writeBookDetail", detail);
 		
+	}
+	
+	public Integer getBookDetailMaxNum() throws Exception {
+		log.info("getBookDetailMaxNum() 호출 -> 방금 쓴 가계부 글 번호 가져오기");
+		return session.selectOne(NAMESPACE+".getBookDetailMaxNum");
 	}
 
 	@Override

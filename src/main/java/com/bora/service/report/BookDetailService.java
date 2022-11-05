@@ -7,6 +7,8 @@ import com.bora.domain.report.BookDetailVO;
 public interface BookDetailService {
 	
 	public Integer writeBookDetail(BookDetailVO detail) throws Exception;
+	
+	public Integer getBookDetailMaxNum() throws Exception;
 
 	public List<BookDetailVO> getBookDetailList(String loginID) throws Exception;
 	

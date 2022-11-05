@@ -5,6 +5,6 @@ import com.bora.domain.report.BookVO;
 
 public interface BookDAO {
 	
-	public Integer writeBook(BookVO vo, BookDetailVO detail) throws Exception;
+	public Integer writeBook(BookVO vo) throws Exception;
 
 }

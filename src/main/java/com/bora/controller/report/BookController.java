@@ -44,13 +44,17 @@ public class BookController {
 	public String wirteBookPOST(HttpServletRequest request,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
 		String id = (String)session.getAttribute("loginID");
+		int bk_year = Integer.parseInt(request.getParameter("bk_year"));
+		int bk_month = Integer.parseInt(request.getParameter("bk_month"));
 		int bk_day = Integer.parseInt(request.getParameter("bk_day"));
 		String bk_iow = request.getParameter("bk_iow");
 		String bk_group = request.getParameter("bk_group");
 		String bk_category = request.getParameter("bk_category");
 		int bk_money = Integer.parseInt(request.getParameter("bk_money"));
+		String bk_title = request.getParameter("bk_title");
 		String bk_memo = request.getParameter("bk_memo");
 		
+		// 가계부 상세정보 받아서 BookDetailVO에 저장
 		BookDetailVO detail = new BookDetailVO();
 		detail.setId(id);
 		detail.setBk_day(bk_day);
@@ -60,14 +64,31 @@ public class BookController {
 		detail.setBk_money(bk_money);
 		detail.setBk_memo(bk_memo);
 		
-		int bk_detail_num = dService.writeBookDetail(detail);
-		BookVO vo = new BookVO();
-		vo.setId(id);
-		vo.setBk_detail_num(bk_detail_num);
-		// detail 매퍼, 서비스, dao에 글 번호 가져오는 거 만들어야됨~~ 
-		service.writeBook(vo, detail);
+		// 디테일 정보 DB 저장 후 해당 내용의 가계부 고유번호 가져오기
+		dService.writeBookDetail(detail);
+		int bk_detail_num = dService.getBookDetailMaxNum();
 		
+		// 디테일 번호 가져왔을 경우 BookVO 생성 후 DB 저장 -> 리스트로 이동
+		if(bk_detail_num != 0) {
+			BookVO vo = new BookVO();
+			vo.setId(id);
+			vo.setBk_year(bk_year);
+			vo.setBk_month(bk_month);
+			vo.setBk_detail_num(bk_detail_num);			
+			service.writeBook(vo);
+			log.info("가계부 작성 성공! 리스트로 이동");
+			rttr.addFlashAttribute("msg", "가계부 작성이 완료되었습니다.");
+			return "/book/bookList";
+		} else {
+			log.info("가계부 작성 실패");
+			rttr.addFlashAttribute("msg", "가계부 작성에 실패했습니다.");
+			return "redirect:/book/write";
+		}
 		
-		return "/book/listPage";
+	}
+	
+	@RequestMapping(value="/bookList", method=RequestMethod.GET)
+	public void bookListGET() throws Exception {
+		log.info("bookListGET()호출");
 	}
 }
