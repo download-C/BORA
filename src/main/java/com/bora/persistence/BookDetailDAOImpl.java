@@ -12,7 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.bora.domain.report.BookAllListVO;
 import com.bora.domain.report.BookDetailVO;
+import com.bora.domain.report.BookLastMonListVO;
+import com.bora.domain.report.BookThisMonListVO;
 
 @Repository
 public class BookDetailDAOImpl implements BookDetailDAO{
@@ -66,7 +69,23 @@ public class BookDetailDAOImpl implements BookDetailDAO{
 		return session.delete(NAMESPACE+".deleteBookDetail", bk_detail_num);
 	}
 	
+	@Override
+	public List<BookLastMonListVO> getBookLastMonList(String loginID) throws Exception {
+		log.info("♡♡♡♡♡♡♡♡♡♡getBookLastMonList(loginID) 호출");
+		return session.selectList(NAMESPACE+".getBookLastMonList", loginID);
+	}
 	
+	@Override
+	public List<BookThisMonListVO> getBookThisMonList(String loginID) throws Exception {
+		log.info("♡♡♡♡♡♡♡♡♡♡getBookThisMonList(loginID) 호출");
+		return session.selectList(NAMESPACE+".getBookThisMonList", loginID);
+	}
+	
+	@Override
+	public List<BookAllListVO> getBookAllList(String loginID) throws Exception {
+		log.info("♡♡♡♡♡♡♡♡♡♡getBookAllList(loginID) 호출");
+		return session.selectList(NAMESPACE+".getBookAllList", loginID);
+	}
 	
 	
 

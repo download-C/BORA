@@ -9,13 +9,18 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bora.domain.report.BookAllListVO;
 import com.bora.domain.report.BookDetailVO;
+import com.bora.domain.report.BookLastMonListVO;
+import com.bora.domain.report.BookThisMonListVO;
 import com.bora.domain.report.BookVO;
+import com.bora.service.report.BookAllListService;
 import com.bora.service.report.BookDetailService;
 import com.bora.service.report.BookService;
 
@@ -29,6 +34,9 @@ public class BookController {
 	
 	@Inject
 	BookDetailService dService;
+	
+	@Inject
+	BookAllListService aService;
 
 	private static final Logger log = LoggerFactory.getLogger(BookController.class);
 	
@@ -70,4 +78,49 @@ public class BookController {
 		
 		return "/book/listPage";
 	}
+	
+	// 2. 저번달 가계부 소비내역 리스트
+	@RequestMapping(value = "/bookLastMonList", method = RequestMethod.GET)
+		public void getBookLastMonList(Model model) throws Exception {
+		// 전달된 정보 저장
+		log.info("bookLastMonList 호출됨");
+
+		// 컨트롤러 -> 서비스 호출 (동작 메서드,,)
+		log.info("bookLastMonList -----> Service 호출됨");
+		
+		List<BookLastMonListVO> bookLastMonList = aService.getBookLastMonList("admin");
+
+		model.addAttribute("bookLastMonlist", bookLastMonList);
+	}
+	
+	// 3. 이번달 가계부 소비 리스트
+	@RequestMapping(value = "/bookThisMonList", method = RequestMethod.GET)
+	     public void getBookThisMonList(Model model) throws Exception {
+		 // 전달된 정보 저장
+		 log.info("bookThisMonList 호출됨");
+
+		 // 컨트롤러 -> 서비스 호출 (동작 메서드,,)
+		 log.info("bookThisMonList -----> Service 호출됨");
+
+		 List<BookThisMonListVO> bookThisMonList = aService.getBookThisMonList("admin");
+
+		 model.addAttribute("bookThisMonlist", bookThisMonList);
+	}
+	
+	// 4. 가계부 리스트 메서드
+	@RequestMapping(value = "/bookAllList", method = RequestMethod.GET)
+	public void getBookAllList(Model model) throws Exception {
+		// 전달된 정보 저장
+		log.info("bookAllList 호출됨");
+
+		// 컨트롤러 -> 서비스 호출 (동작 메서드,,)
+		log.info("bookAllList -----> Service 호출됨");
+        
+		// 서비스 - 
+		List<BookAllListVO> bookAllList = aService.getBookAllList("admin");
+
+		model.addAttribute("bookLastMonlist", bookAllList);
+
+    }
+	
 }
