@@ -55,9 +55,9 @@ public class BookDetailServiceImpl implements BookDetailService{
 	}
 
 	@Override
-	public Integer deleteBookDetail(Integer bk_detail_num) throws Exception {
-		log.info("deleteBookDetail(bk_detail_num) 호출");
-		return dao.deleteBookDetail(bk_detail_num);
+	public Integer deleteBookDetail(Integer bk_detail_num, String loginID) throws Exception {
+		log.info("deleteBookDetail(bk_detail_numk, loginID) 호출");
+		return dao.deleteBookDetail(bk_detail_num, loginID);
 	}
 	
 

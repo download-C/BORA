@@ -123,8 +123,9 @@ public class BookDetailDAOTest {
 //	@Test
 	// 디테일 삭제 성공
 	public void deleteTest() throws Exception{
-		int result = dao.deleteBookDetail(21);
-		if(result==1) log.info("성공"); 
+		
+//		int result = dao.deleteBookDetail(21);
+//		if(result==1) log.info("성공"); 
 	}
 
 }

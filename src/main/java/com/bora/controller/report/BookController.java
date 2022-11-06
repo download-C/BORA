@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.domain.board.PageMakerVO;
@@ -87,7 +88,7 @@ public class BookController {
 			service.writeBook(book, bk_detail_num);
 			log.info("가계부 작성 성공! 리스트로 이동");
 			rttr.addFlashAttribute("msg", "가계부 작성이 완료되었습니다.");
-			return "redirect:/book/bookList";
+			return "redirect:/book/list";
 		} else {
 			log.info("가계부 작성 실패");
 			rttr.addFlashAttribute("msg", "가계부 작성에 실패했습니다.");
@@ -96,40 +97,86 @@ public class BookController {
 		
 	}
 	
-	@RequestMapping(value="/bookList", method=RequestMethod.GET)
-	public String bookListPageGET(Integer bk_detail_num, Model model, PageVO vo) throws Exception {
+	@RequestMapping(value="/list", method=RequestMethod.GET)
+	public String bookListPageGET(PageVO vo, Integer bk_detail_num, Model model) throws Exception {
 		log.info("bookListPageGET()호출");
 		log.info("(♥♥♥♥♥ 2-1.listPageGET) 호출됨");
 		
+		String loginID = (String)session.getAttribute("loginID");
 		// 1. 북 테이블 부르기
+		PageMakerVO pm = new PageMakerVO();
+		pm.setVo(vo);
+		int cnt = service.getBookCnt(loginID);
+		pm.setTotalCnt(cnt);
+		model.addAttribute("pm", pm);
 		
-		// 2. 북 테이블의 디테일넘과 같은 정보를 불러서setBookDetailVO에 삽입
-		if(session!=null) loginID=(String)session.getAttribute("loginID");
-		List<BookVO> bookList = service.getBookListAll(loginID);
-		
+		// 2-1. 북 테이블의 디테일넘과 같은 정보를 불러서setBookDetailVO에 삽입
+		List<BookVO> bookList = service.getBookListPage(loginID, pm);
+				
 		for(BookVO book : bookList) {
 			log.info("bookList: "+book );
 		}
 		model.addAttribute("bookList", bookList);
-//		List<BookDetailVO> detailList = dService.getBookDetailAll();
-//	
-//		
-//		log.info("(♥♥♥♥♥ 2-1.listPageGET) Service 호출 + 모델 객체에 저장까지 완");
-//		
-//		// 페이징 처리 하단부 정보 저장
-//		PageMakerVO pm = new PageMakerVO();
-//		pm.setVo(vo);
-//		int cnt = service.getBookCnt();
-//    	log.info("글 개수 :"+cnt);
-//		pm.setTotalCnt(cnt); // <<찐 글 개수 일단 넣은거고,, 서비스에 이 동작 추가해놓으면 되겠네~ 총 글 개수 불ㄹ러오는
-//		
-//		// 얘도 model에 담아서 보냅시다..
-//		model.addAttribute("pm", pm);
-//		log.info("(♥♥♥♥♥ 2-1.listPageGET) PageMakerVO도 모델 객체에 저장 완 + pm: " + pm);
-//		
-//		log.info("(♥♥♥♥♥ 2-1.listPageGET) 리턴타입 String --> /book/listAll.jsp로 이동할 거");
+		
 		return "/book/bookList";
 	}
 	
+	// 3. 가계부 수정하기
+	@RequestMapping(value="/update", method = RequestMethod.GET)
+	public void bookUpdateGET(String page, @RequestParam("bk_num") int bk_num,
+			Model model) throws Exception {
+		log.info("bookUpdateGET() 호출");
+		BookVO book = service.getBook(bk_num, loginID);
+		model.addAttribute("book", book);
+	}
+	
+	@RequestMapping(value="/update", method = RequestMethod.POST)
+	public String bookUpdatePOST(BookVO book, BookDetailVO detail, String page,
+			RedirectAttributes rttr, Model model) throws Exception {
+		log.info("bookUpdatePOST() 호출");
+		log.info("book: "+book);
+		log.info("detail: "+detail);
+		int result = dService.updateBookDetail(detail);
+		if(result == 1) {
+			int result2 = service.updateBook(book);
+			if(result2 ==1) {
+				log.info("가계부 수정 완료");
+				rttr.addFlashAttribute("msg", "가계부 수정을 완료했습니다.");
+				model.addAttribute("book", book);
+				return "redirect:/book/list";
+			} else {
+				log.info("가계부 수정 	실패");
+				rttr.addFlashAttribute("msg", "가계부 수정에 실패했습니다.");
+				return "redirect:/book/update?page="+page+"&bk_num="+book.getBk_num();
+			}
+		} else {
+			log.info("가계부 디테일 수정 실패");
+			rttr.addFlashAttribute("msg", "가계부 수정에 실패했습니다.");
+			return "redirect:/book/update?page="+page+"&bk_num="+book.getBk_num();
+		}
+	}
+	
+	@RequestMapping(value="/delete", method = RequestMethod.GET)
+	public String bookDeleteGET(Integer bk_num, Integer bk_detail_num,
+			RedirectAttributes rttr) throws Exception {
+		log.info("bookDeleteGET() 호출");
+		String loginID = (String)session.getAttribute("loginID");
+		int result = dService.deleteBookDetail(bk_detail_num, loginID);
+		if(result==1) {
+			int result2 = service.deleteBook(bk_num, loginID);
+			if(result2==1) {
+				log.info("가계부 삭제 성공");
+				rttr.addFlashAttribute("msg", "가계부 삭제를 완료했습니다.");
+				return "redirect:/book/list";
+			} else {
+				log.info("가계부 삭제 실패");
+				rttr.addFlashAttribute("msg", "가계부 삭제에 실패했습니다.");
+				return "redirect:/book/list";
+			}
+		} else {
+			log.info("가계부 디테일 삭제 실패");
+			return "redirect:/book/list";
+		}
+	}
 
 }

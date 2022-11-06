@@ -64,9 +64,12 @@ public class BookDetailDAOImpl implements BookDetailDAO{
 	}
 
 	@Override
-	public Integer deleteBookDetail(Integer bk_detail_num) throws Exception {
+	public Integer deleteBookDetail(Integer bk_detail_num, String loginID) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡ deleteBookDetail(bk_detail_num) 호출");
-		return session.delete(NAMESPACE+".deleteBookDetail", bk_detail_num);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bk_detail_num",bk_detail_num);
+		map.put("id", loginID);
+		return session.delete(NAMESPACE+".deleteBookDetail", map);
 	}
 	
 	

@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
 import com.bora.domain.report.BookVO;
 
@@ -40,16 +41,43 @@ public class BookDAOImpl implements BookDAO{
 	}
 
 	@Override
-	public List<BookVO> getBookListPage(PageVO vo) throws Exception {
+	public List<BookVO> getBookListPage(String id, PageMakerVO pm) throws Exception {
 		log.info("getBookListPage(vo) 호출");
-		return session.selectList(NAMESPACE+".getBookListPage", vo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("pm", pm);
+		log.info("id: "+id+" pm: "+pm);
+		return session.selectList(NAMESPACE+".getBookListPage", map);
 	}
 
 	@Override
-	public Integer getBookCnt() throws Exception {
+	public Integer getBookCnt(String loginID) throws Exception {
 		log.info("getBookCnt() 호출");
-		return session.selectOne(NAMESPACE+".getBookCnt");
+		return session.selectOne(NAMESPACE+".getBookCnt", loginID);
 	}
-	
+
+	@Override
+	public BookVO getBook(int bk_num, String loginID) throws Exception {
+		log.info("getBook(bk_num, loginID) 호출");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bk_num", bk_num);
+		map.put("id", loginID);
+		return session.selectOne(NAMESPACE+".getBook", map);
+	}
+
+	@Override
+	public Integer updateBook(BookVO book) throws Exception {
+		log.info("updateBook(book) 호출");
+		return session.update(NAMESPACE+".updateBook", book);
+	}
+
+	@Override
+	public int deleteBook(Integer bk_num, String loginID) throws Exception {
+		log.info("deleteBook() 호출");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bk_num", bk_num);
+		map.put("id", loginID);
+		return session.delete(NAMESPACE+".deleteBook", map);
+	}
 	
 }

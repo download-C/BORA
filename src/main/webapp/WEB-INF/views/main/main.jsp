@@ -39,7 +39,7 @@ $().ready(function () {
 </script>
 <button class="btn btn-primary m-2" id="alertStart">Alert 커스텀</button> <br>
 
-<button class="btn btn-primary m-2" onclick="location.href='/book/bookList?page=1';">가계부 목록</button> <br>
+<button class="btn btn-primary m-2" onclick="location.href='/book/list?page=1';">가계부 목록</button> <br>
 
 <!-- ////////////alert 커스텀//////////// -->
 <!-- 뉴스 시작 -->

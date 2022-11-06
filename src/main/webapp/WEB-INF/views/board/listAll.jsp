@@ -78,8 +78,6 @@
 	</script>
 <!-- ajax로 카테고리 호출 시 페이징 처리 대신 하는 메서드 -->
 
-			
-	
 	<input type="button" value="모두다BORA" class="ctgr_btn" id="btn_all">
 	<input type="button" value="골라줘BORA" class="ctgr_btn" id="btn_pick">
 	<input type="button" value="알려줘BORA" class="ctgr_btn" id="btn_tip">

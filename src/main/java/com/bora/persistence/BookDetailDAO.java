@@ -18,5 +18,5 @@ public interface BookDetailDAO {
 	
 	public Integer updateBookDetail(BookDetailVO detail) throws Exception;
 	
-	public Integer deleteBookDetail(Integer bk_detail_num) throws Exception;
+	public Integer deleteBookDetail(Integer bk_detail_num, String loginID) throws Exception;
 }

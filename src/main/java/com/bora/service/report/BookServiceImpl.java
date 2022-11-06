@@ -12,6 +12,7 @@ import com.bora.domain.board.PageVO;
 import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookVO;
 import com.bora.persistence.BookDAO;
+import com.bora.domain.board.PageMakerVO;
 
 @Service
 public class BookServiceImpl implements BookService{
@@ -33,16 +34,36 @@ public class BookServiceImpl implements BookService{
 	}
 
 	@Override
-	public List<BookVO> getBookListPage(PageVO vo) throws Exception {
+	public List<BookVO> getBookListPage(String loginID, PageMakerVO pm) throws Exception {
 		log.info("getBookListPage(vo) 호출");
-		return dao.getBookListPage(vo);
+		return dao.getBookListPage(loginID, pm);
 	}
 
 	@Override
-	public Integer getBookCnt() throws Exception {
-		log.info("getBook(vo) 호출");
-		return dao.getBookCnt();
+	public Integer getBookCnt(String loginID) throws Exception {
+		log.info("getBookCnt(vo) 호출");
+		return dao.getBookCnt(loginID);
 	}
+
+	@Override
+	public BookVO getBook(int bk_num, String loginID) throws Exception {
+		log.info("getBook(bk_num) 호출");
+		return dao.getBook(bk_num, loginID);
+	}
+
+	@Override
+	public Integer updateBook(BookVO book) throws Exception {
+		log.info("updateBook(book) 호출");
+		return dao.updateBook(book);
+	}
+
+	@Override
+	public int deleteBook(Integer bk_num, String loginID) throws Exception {
+		log.info("deleteBook(bk_num) 호출");
+		return dao.deleteBook(bk_num, loginID);
+	}
+	
+	
 	
 
 }

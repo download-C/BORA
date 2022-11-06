@@ -57,7 +57,7 @@
 	
 	<delete id="deleteBookDetail">
 		delete from bora_book_detail
-		where bk_detail_num = #{bk_detail_num}
+		where bk_detail_num = #{bk_detail_num} and id=#{id}
 	</delete>
 	
 	
