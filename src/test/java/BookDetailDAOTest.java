@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.bora.domain.report.BookAllListVO;
+import com.bora.domain.report.BookDetailAllListVO;
 import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookLastMonListVO;
 import com.bora.domain.report.BookThisMonListVO;
@@ -130,7 +130,7 @@ public class BookDetailDAOTest {
 		if(result==1) log.info("성공"); 
 	}
 	
-	// 저번달 가계부 소비 내역
+	// 저번달 소비 비교 리스트
 	public void getBookLastMonList() throws Exception{
 		String loginID = "admin";
 		List<BookLastMonListVO> bookLastMonList = 
@@ -139,7 +139,7 @@ public class BookDetailDAOTest {
 		log.info("♡♡♡♡♡♡♡♡♡♡ "+bookLastMonList);
 	}
 	
-	// 이번달 가계부 소비 내역
+	// 이번달 소비 비교 리스트
 	public void getBookThisMonList() throws Exception{
 		String loginID = "admin";
 		List<BookThisMonListVO> bookThisMonList = 
@@ -148,13 +148,13 @@ public class BookDetailDAOTest {
 		log.info("♡♡♡♡♡♡♡♡♡♡ "+bookThisMonList);
 	}
 	
-	// 저번달 가계부 소비 내역
-	public void getBookAllList() throws Exception{
+	// 저번달 소비 비교 리스트
+	public void getBookDetailAllList() throws Exception{
 		String loginID = "admin";
-		List<BookAllListVO> bookListAll = 
-				session.selectList(NAMESPACE+".bookLastMonAll", loginID);
+		List<BookDetailAllListVO> bookDetailListAll = 
+				session.selectList(NAMESPACE+".bookDetailAllList", loginID);
 		log.info("♡♡♡♡♡♡♡♡♡♡ 불러온 정보: ");
-		log.info("♡♡♡♡♡♡♡♡♡♡ "+bookListAll);
+		log.info("♡♡♡♡♡♡♡♡♡♡ "+bookDetailListAll);
 	}
 
 }

@@ -2,7 +2,7 @@ package com.bora.persistence;
 
 import java.util.List;
 
-import com.bora.domain.report.BookAllListVO;
+import com.bora.domain.report.BookDetailAllListVO;
 import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookLastMonListVO;
 import com.bora.domain.report.BookThisMonListVO;
@@ -25,7 +25,7 @@ public interface BookDetailDAO {
 	
 	public List<BookThisMonListVO> getBookThisMonList(String loginID) throws Exception;
 	
-	public List<BookAllListVO> getBookAllList(String loginID) throws Exception;
+	public List<BookDetailAllListVO> getBookDetailAllList(String loginID) throws Exception;
 
 	
 }

@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.bora.domain.report.BookAllListVO;
+import com.bora.domain.report.BookDetailAllListVO;
 import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookLastMonListVO;
 import com.bora.domain.report.BookThisMonListVO;
@@ -82,7 +82,7 @@ public class BookDetailDAOImpl implements BookDetailDAO{
 	}
 	
 	@Override
-	public List<BookAllListVO> getBookAllList(String loginID) throws Exception {
+	public List<BookDetailAllListVO> getBookDetailAllList(String loginID) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡getBookAllList(loginID) 호출");
 		return session.selectList(NAMESPACE+".getBookAllList", loginID);
 	}

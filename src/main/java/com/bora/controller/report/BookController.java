@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bora.domain.report.BookAllListVO;
+import com.bora.domain.report.BookDetailAllListVO;
 import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookLastMonListVO;
 import com.bora.domain.report.BookThisMonListVO;
 import com.bora.domain.report.BookVO;
-import com.bora.service.report.BookAllListService;
+import com.bora.service.report.BookDetailAllListService;
 import com.bora.service.report.BookDetailService;
 import com.bora.service.report.BookService;
 
@@ -36,7 +36,7 @@ public class BookController {
 	BookDetailService dService;
 	
 	@Inject
-	BookAllListService aService;
+	BookDetailAllListService aService;
 
 	private static final Logger log = LoggerFactory.getLogger(BookController.class);
 	
@@ -93,7 +93,7 @@ public class BookController {
 		model.addAttribute("bookLastMonlist", bookLastMonList);
 	}
 	
-	// 3. 이번달 가계부 소비 리스트
+	// 3. 이번달 소비 리스트
 	@RequestMapping(value = "/bookThisMonList", method = RequestMethod.GET)
 	     public void getBookThisMonList(Model model) throws Exception {
 		 // 전달된 정보 저장
@@ -107,19 +107,19 @@ public class BookController {
 		 model.addAttribute("bookThisMonlist", bookThisMonList);
 	}
 	
-	// 4. 가계부 리스트 메서드
-	@RequestMapping(value = "/bookAllList", method = RequestMethod.GET)
-	public void getBookAllList(Model model) throws Exception {
+	// 4. 소비 리스트 메서드
+	@RequestMapping(value = "/bookDetailAllList", method = RequestMethod.GET)
+	public void getBookDetailAllList(Model model) throws Exception {
 		// 전달된 정보 저장
-		log.info("bookAllList 호출됨");
+		log.info("bookDetailAllList 호출됨");
 
 		// 컨트롤러 -> 서비스 호출 (동작 메서드,,)
-		log.info("bookAllList -----> Service 호출됨");
+		log.info("bookDetailAllList -----> Service 호출됨");
         
 		// 서비스 - 
-		List<BookAllListVO> bookAllList = aService.getBookAllList("admin");
+		List<BookDetailAllListVO> bookDetailAllList = aService.getBookDetailAllList("admin");
 
-		model.addAttribute("bookLastMonlist", bookAllList);
+		model.addAttribute("bookDetailAlllist", bookDetailAllList);
 
     }
 	
