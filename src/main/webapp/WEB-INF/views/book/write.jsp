@@ -24,23 +24,23 @@
 			지출<input type="radio" name="bk_iow" value="지출" required="required"> 
 			이체<input type="radio" name="bk_iow" value="이체" required="required"> <br>
 자산 :      <select name="bk_group"  required="required">
+				<option value="체크카드">체크카드</option>
 				<option value="">자산 선택</option>
 				<option value="현금">현금</option>
 				<option value="은행">은행</option>
-				<option value="체크카드">체크카드</option>
 				<option value="신용카드">신용카드</option>
 				<option value="기타">기타</option>
 			</select> <br>
 일자 : 		<select name="bk_year" required="required">				
+				<option value="2022">2022</option>
 				<option value="">연도</option>
 				<option value="2020">2020</option>
 				<option value="2021">2021</option>
-				<option value="2022">2022</option>
 				<option value="2023">2023</option>
 			</select> 년
 			<select name="bk_month" required="required">	
-				<option value="">월</option>
 				<option value="1">1</option>
+				<option value="">월</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
 				<option value="4">4</option>
@@ -54,8 +54,8 @@
 				<option value="12">12</option>
 			</select> 월
 			<select name="bk_day" required="required">
-				<option value="">일</option>
 				<option value="1">1</option>
+				<option value="">일</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
 				<option value="4">4</option>
@@ -88,8 +88,8 @@
 				<option value="31">31</option>
 			</select> 일 <br>
 카테고리 : 	<select name="bk_category" id="category" required="required">
-				<option value="">카테고리</option>
 				<option value="식비">식비</option>
+				<option value="">카테고리</option>
 				<option value="교통비">교통비</option>
 				<option value="편의점/마트">편의점/마트</option>
 				<option value="통신비">통신비</option>

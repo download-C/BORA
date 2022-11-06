@@ -30,11 +30,42 @@ $(document).ready(function() {
 });
 </script>
 <!-- 태그 적는 곳 -->
+
+<div class="container">
 <h1>book/bookList.jsp</h1>
-
-
-
-
+	<input type="button" value="가계부 쓰기" onclick="location.href='/book/write';" >
+	<div class="listTable">
+	작성자 : <%=loginID %>님	
+		<table border="1" style="width: 100%">
+		<thead>
+			<tr>
+				<td width="10%">연</td>
+				<td width="10%">월</td>
+				<td width="5%">일</td>
+				<td width="10%">항목</td>
+				<td width="15%">자산</td>
+				<td width="15%">카테고리</td>
+				<td width="10%">금액</td>
+				<td width="25%">메모</td>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${bookList }" var="list" >
+			<tr>
+				<td>${list.bk_year }년</td>
+				<td>${list.bk_month }월</td>
+				<td>${list.detail.bk_day }일</td>
+				<td>${list.detail.bk_iow }</td>
+				<td>${list.detail.bk_group }</td>
+				<td>${list.detail.bk_category }</td>
+				<td>${list.detail.bk_money }</td>
+				<td>${list.detail.bk_memo }</td>
+			</tr>
+			</c:forEach>
+		</tbody>
+		</table>
+	</div>
+</div>
 
 
 
