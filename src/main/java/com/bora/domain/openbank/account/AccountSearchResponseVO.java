@@ -18,12 +18,6 @@ public class AccountSearchResponseVO {
 	
 	public AccountSearchResponseVO () {}
 	
-	@Override
-	public String toString() {
-		return "AccountSearchResponseVO [api_tran_id=" + api_tran_id + ", rsp_code=" + rsp_code + ", rsp_message="
-				+ rsp_message + ", api_tran_dtm=" + api_tran_dtm + ", user_name=" + user_name + ", res_cnt=" + res_cnt
-				+ ", res_list=" + res_list + "]";
-	}
 	public AccountSearchResponseVO(String api_tran_id, String rsp_code, String rsp_message, String api_tran_dtm,
 			String user_name, String res_cnt, List<AccountVO> res_list) {
 		super();

@@ -1,4 +1,4 @@
-package com.bora.persistence;
+package com.bora.persistence.board;
 
 import java.util.List;
 

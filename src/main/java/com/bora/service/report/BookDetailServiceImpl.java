@@ -8,8 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.report.BookDetailVO;
-import com.bora.persistence.BookDetailDAO;
+import com.bora.domain.report.BookVO;
+import com.bora.persistence.report.BookDetailDAO;
 
 @Service
 public class BookDetailServiceImpl implements BookDetailService{
@@ -24,11 +26,16 @@ public class BookDetailServiceImpl implements BookDetailService{
 		log.info("♡♡♡♡♡♡♡♡♡♡writeBookDetail(detail) 호출");
 		return dao.writeBookDetail(detail);
 	}
+	
+	public Integer getBookDetailMaxNum() throws Exception {
+		log.info("getBookDetailMaxNum() 호출 -> 방금 쓴 가계부 글 번호 가져오기");
+		return dao.getBookDetailMaxNum();
+	}
 
 	@Override
-	public List<BookDetailVO> getBookDetailList(String loginID) throws Exception {
-		log.info("♡♡♡♡♡♡♡♡♡♡getBookDetailList(loginID) 호출");
-		return dao.getBookDetailList(loginID);
+	public List<BookDetailVO> getBookDetailList(String loginID, PageMakerVO pm) throws Exception {
+		log.info("♡♡♡♡♡♡♡♡♡♡getBookDetailList(loginID, pm) 호출");
+		return dao.getBookDetailList(loginID, pm);
 	}
 
 	@Override
@@ -50,10 +57,17 @@ public class BookDetailServiceImpl implements BookDetailService{
 	}
 
 	@Override
-	public Integer deleteBookDetail(Integer bk_detail_num) throws Exception {
-		log.info("deleteBookDetail(bk_detail_num) 호출");
-		return dao.deleteBookDetail(bk_detail_num);
+	public Integer deleteBookDetail(Integer bk_detail_num, String loginID) throws Exception {
+		log.info("deleteBookDetail(bk_detail_numk, loginID) 호출");
+		return dao.deleteBookDetail(bk_detail_num, loginID);
 	}
+
+	@Override
+	public Integer getBookDetailCnt(String loginID) throws Exception {
+		log.info("getBookDetailCnt(loginID) 호출");
+		return dao.getBookDetailCnt(loginID);
+	}
+	
 	
 
 }

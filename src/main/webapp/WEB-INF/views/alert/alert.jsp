@@ -51,7 +51,7 @@
         	let message = "${msg}";
             Swal.fire(
                 message,
-                '수정되었습니다?',
+                '수정되었습니다',
                 'success' /*디자인 타입*/
             )
         }//success 버튼

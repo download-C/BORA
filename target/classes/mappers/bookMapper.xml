@@ -3,9 +3,121 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- bora_book -->
-<!-- #{bk_detail_num}, #{bk_num}, #{id}, #{bk_day}, #{dk_iow}, #{bk_group}, #{bk_category}, #{bk_money}, #{bk_memos} -->
-<mapper namespace="com.bora.mapper.BooklMapper">
+<!-- #{bk_num}, #{bk_detail_num}, #{id}, #{bk_year}, #{dk_month}, #{bk_budget} -->
+<mapper namespace="com.bora.mapper.BookMapper">
+	<resultMap type="com.bora.domain.report.BookDetailVO" id="detail">
+		<result property="bk_detail_num" column="bk_detail_num"/>
+		<result property="bk_num" column="bk_num"/>
+		<result property="id" column="id"/>
+		<result property="bk_day" column="bk_day"/>
+		<result property="bk_iow" column="bk_iow"/>
+		<result property="bk_group" column="bk_group"/>
+		<result property="bk_category" column="bk_category"/>
+		<result property="bk_money" column="bk_money"/>
+		<result property="bk_memo" column="bk_memo"/>
+	</resultMap>
+	
+	<resultMap type="com.bora.domain.report.BookVO" id="book">
+		<result property="bk_num" column="bk_num" />
+		<result property="id" column="id" />
+		<result property="bk_year" column="bk_year" />
+		<result property="bk_month" column="bk_month" />
+		<result property="bk_budget" column="bk_budget" />
+		<collection property="detail" resultMap="detail" />
+	</resultMap>
+	
+	<parameterMap type="com.bora.domain.report.BookVO" id="book">
+		<parameter property="bk_num" />
+		<parameter property="id" />
+		<parameter property="bk_year" />
+		<parameter property="bk_month" />
+		<parameter property="bk_budget" />
+	</parameterMap>
+	
+	
+
+	<!-- 월 별 가계부 작성 -->
 	<insert id="writeBook">
+		insert bora_book (id, bk_year, bk_month, bk_budget)
+		values(#{id}, #{bk_year}, #{bk_month}, #{bk_budget})
 	</insert>
+	
+	<select id="getBookMaxNum" resultType="Integer">
+		select max(bk_num) from bora_book
+	</select>
+	
+	<!-- 예산 설정 -->
+	<update id="setBudget">
+		update bora_book 
+		where id=#{loginID} and bk_year=#{bk_year} and bk_month=#{bk_month}
+	</update>	
+	
+	<!-- 가계부 전체 글 개수 조회 -->
+	<select id="getBookCnt" resultType="Integer">
+		select count(*) from bora_book
+		where id=#{id}
+	</select>
+	
+	<!-- 특정 달 가계부 글 개수 조회 -->
+	<select id="getBookMonthCnt" resultType="Integer">
+		select count(*) from bora_book
+		where bk_year=#{bk_year}, bk_month=#{bk_month}
+	</select>
+	
+	<!-- 모든 가계부 목록 조회 -->
+	<select id="getBookListAll" resultMap="book">
+		select b.bk_num, b.id, b.bk_year, b.bk_month, 
+			   b.bk_budget, d.bk_detail_num, d.bk_day, d.bk_iow, 
+			   d.bk_group, d.bk_category, d.bk_money, d.bk_memo
+		from bora_book b join bora_book_detail d
+		on b.bk_num = d.bk_num
+		where b.id=#{loginID}
+		order by b.bk_num desc, d.bk_detail_num desc
+	</select>
+	
+	<!-- 페이징 처리된 가계부 목록 조회 -->
+	<select id="getBookListPage" resultMap="book">
+		select * 
+		from bora_book b join bora_book_detail d
+		on b.bk_num = d.bk_num
+		where b.id=#{id}
+		order by b.bk_num desc
+	</select>
+	
+	<!-- 특정 달 가계부 목록 조회 -->
+	<select id="getMonthBookList" resultMap="book">
+		select * 
+		from bora_book b join bora_detail_book
+		where bk_year=#{bk_year} and bk_month=#{bk_month} and id=#{id}
+		order by bk_num desc
+	</select>
+	
+	<!-- 특정 가계부 내역 조회 -->
+	<select id="getMonthBook" resultType="com.bora.domain.report.BookVO" resultMap="book">
+		select * 
+		from bora_book
+		where bk_year=#{bk_year} and bk_month=#{bk_month} and id=#{id}
+	</select>
+	
+	<!-- 특정 가계부 내역 조회 -->
+	<select id="getBook" resultType="com.bora.domain.report.BookVO" resultMap="book">
+		select * from bora_book b join bora_book_detail d
+		on b.bk_num = d.bk_num
+		where b.bk_num=#{bk_num} and b.id=#{id}
+	</select>
+	
+	<!-- 가계부 수정 -->
+	<update id="updateBook">
+		update bora_book
+		set bk_year=#{bk_year}, bk_month=#{bk_month}, bk_budget=#{bk_budget}
+		where bk_num=#{bk_num}
+	</update>
+	
+	<!-- 가계부 삭제 -->
+	<delete id="deleteBook">
+		delete from bora_book
+		where bk_num=#{bk_num} 
+			  and id=#{id}
+	</delete>
 	
 </mapper>

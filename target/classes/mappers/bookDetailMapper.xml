@@ -8,6 +8,7 @@
 
 	<resultMap type="com.bora.domain.report.BookDetailVO" id="detail">
 		<result property="bk_detail_num" column="bk_detail_num"/>
+		<result property="bk_num" column="bk_num"/>
 		<result property="id" column="id"/>
 		<result property="bk_day" column="bk_day"/>
 		<result property="bk_iow" column="bk_iow"/>
@@ -17,24 +18,54 @@
 		<result property="bk_memo" column="bk_memo"/>
 	</resultMap>
 	
+	<resultMap type="com.bora.domain.report.BookVO" id="book">
+		<id property="bk_num" column="bk_num" />
+		<id property="id" column="id" />
+		<id property="bk_year" column="bk_year" />
+		<id property="bk_month" column="bk_month" />
+		<id property="bk_budget" column="bk_budget" />
+		<collection property="detail" resultMap="detail" />
+	</resultMap>
+	
 	<!-- 가계부 수기 작성 -->
 	<insert id="writeBookDetail">
-		insert into bora_book_detail(id, bk_day, bk_iow, bk_group, 
+		insert into bora_book_detail(id, bk_num, bk_day, bk_iow, bk_group, 
 									 bk_category, bk_money, bk_memo)
-		values (#{id}, #{bk_day}, #{bk_iow}, #{bk_group}, 
+		values (#{id}, #{bk_num}, #{bk_day}, #{bk_iow}, #{bk_group}, 
 				#{bk_category}, #{bk_money}, #{bk_memo});
 	</insert>
 	
 	<!-- 회원의 가계부 모든 목록 불러오기 -->
 	<select id="getBookDetailList" resultType="com.bora.domain.report.BookDetailVO">
-		select * from bora_book_detail
+		select bk_detail_num, bk_num, id, bk_day, bk_iow, bk_group, bk_category, bk_money, bk_memo 
+		from bora_book_detail
+		where id=#{loginID}
+		limit #{pm.pageStart}, #{pm.vo.perPageNum}
+	</select>
+	
+	<!-- 회원의 특정 연월 가계부 목록 불러오기 -->
+	<select id="getMonthBookDetailList" resultType="com.bora.domain.report.BookDetailVO">
+		select bk_detail_num, bk_num, id, bk_day, bk_iow, bk_group, bk_category, bk_money, bk_memo
+		from bora_book_detail d join bora_book b
+		on b.bk_num = d.bk_num
+		where b.id=#{loginID} and b.bk_year=#{bk_year} and b.bk_month=#{bk_month}
+		limit #{pm.pageStart}, #{pm.vo.perPageNum}
+	</select>
+	
+	<!-- 방금 가장 최신 가계부 글의 번호 불러오기 -->
+	<select id="getBookDetailCnt" resultType="java.lang.Integer">
+		select count(*) from bora_book_detail
 		where id=#{loginID}
 	</select>
 	
 	<!-- 회원의 특정 가계부 내용 불러오기 -->
-	<select id="getBookDetailContent" resultType="com.bora.domain.report.BookDetailVO">
-		select * from bora_book_detail
-		where id=#{loginID} and bk_detail_num=#{bk_detail_num}
+	<select id="getBookDetailContent" resultType="com.bora.domain.report.BookDetailVO"
+		resultMap="detail">
+		select d.bk_detail_num, d.bk_num, d.id, d.bk_day, d.bk_iow, 
+			   d.bk_group, d.bk_category, d.bk_money, d.bk_memo
+		from bora_book_detail d join bora_book d
+		on b.bk_num = d.bk_num
+		where b.id=#{loginID} and d.bk_detail_num=#{bk_detail_num}
 	</select>
 	
 	<!-- 모든 사람의 가계부 내용 불러오기 -->
@@ -42,9 +73,15 @@
 		select * from bora_book_detail;
 	</select>
 	
+	<!-- 가계부 상세번호로 내용 불러오기 -->
+	<select id="getBookDetail" resultType="com.bora.domain.report.BookDetailVO">
+		select * from bora_book_detail
+		where bk_detail_num = #{bk_detail_num}
+	</select>
+	
 	<!-- 특정 가계부 내용 수정하기 -->
 	<update id="updateBookDetail" >
-		update bora_book_detail
+		update bora_book_detail 
 		set bk_day=#{bk_day}, bk_group=#{bk_group}, bk_category=#{bk_category}, 
 			bk_money=#{bk_money}, bk_memo=#{bk_memo}
 		where id=#{id} and bk_detail_num=#{bk_detail_num}
@@ -52,9 +89,7 @@
 	
 	<delete id="deleteBookDetail">
 		delete from bora_book_detail
-		where bk_detail_num = #{bk_detail_num}
+		where bk_detail_num = #{bk_detail_num} and id=#{id}
 	</delete>
-	
-	
-	
+
 </mapper>

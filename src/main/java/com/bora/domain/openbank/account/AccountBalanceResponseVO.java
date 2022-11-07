@@ -56,16 +56,5 @@ public class AccountBalanceResponseVO {
 		this.last_tran_date = last_tran_date;
 	}
 	
-	@Override
-	public String toString() {
-		return "AccountBalanceResponseVO [api_tran_id=" + api_tran_id + ", api_tran_dtm=" + api_tran_dtm + ", rsp_code="
-				+ rsp_code + ", rsp_message=" + rsp_message + ", bank_tran_id=" + bank_tran_id + ", bank_tran_date="
-				+ bank_tran_date + ", bank_code_tran=" + bank_code_tran + ", bank_rsp_code=" + bank_rsp_code
-				+ ", bank_rsp_message=" + bank_rsp_message + ", bank_name=" + bank_name + ", fintech_use_num="
-				+ fintech_use_num + ", balance_amt=" + balance_amt + ", available_amt=" + available_amt
-				+ ", product_name=" + product_name + ", account_issue_date=" + account_issue_date + ", maturity_date="
-				+ maturity_date + ", last_tran_date=" + last_tran_date + "]";
-	}
-
 	
 }

@@ -1,11 +1,10 @@
-package com.bora.domain.openbank.tran;
+package com.bora.domain.openbank.account;
 
 import lombok.Data;
 
 // 2.2 사용자/계좌 관리에서 사용되는 계좌 정보(배열로 전달된 데이터)
 @Data
 public class TranVO {
-	
 	private String tran_date; //거래일자
 	private String tran_time; //거래시간
 	private String inout_type; //입출금구분주4) (입금, 출금, 지급, 기타)_입출금구분이 ‘기타’인 경우에는 ‘거래금액’이 0원으로 세팅됨

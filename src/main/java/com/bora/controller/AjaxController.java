@@ -15,16 +15,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.domain.SHA256;
 import com.bora.domain.board.BoardVO;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
+import com.bora.domain.report.BookVO;
 import com.bora.domain.MemberVO;
 import com.bora.service.MemberService;
 import com.bora.service.board.BoardService;
+import com.bora.service.report.BookDetailService;
+import com.bora.service.report.BookService;
 import com.google.gson.JsonObject;
 
 @Controller
@@ -37,6 +39,16 @@ public class AjaxController {
 
 	@Inject
 	private BoardService boardService;
+	
+	@Inject
+	BookService bookService;
+	
+	@Inject
+	BookDetailService detailService;
+	
+	@Inject
+	HttpSession session;
+	
 	
 	@RequestMapping(value = "/member/idcheck", method = RequestMethod.GET)
 	public ResponseEntity<String> idcheck(HttpServletRequest request, RedirectAttributes rttr) throws Exception {
@@ -195,4 +207,45 @@ public class AjaxController {
     	return entity;
     }
     // 카테고리 ajax 끝 ==================================
+    
+	@RequestMapping(value="/writeBudget", method=RequestMethod.GET)
+	public String writeBudget(Integer bk_num, Integer bk_budget, Integer bk_year,
+			Integer bk_month, 
+			RedirectAttributes rttr)throws Exception {
+		log.info("writeBudget()	호출");
+		
+		
+		String loginID = (String)session.getAttribute("loginID");
+		List<BookVO> boardList = bookService.getBookListAll(loginID);
+		
+		for(int i=0; i<boardList.size(); i++) {
+			if(boardList.get(i).getBk_num()==bk_num) {
+				BookVO book = bookService.getBook(bk_num, loginID);
+				book.setBk_budget(bk_budget);
+				log.info("입력한 예산: "+bk_budget);
+				int result = bookService.updateBook(book);
+				if(result ==1 ) {
+					log.info("예산 입력 성공");
+					log.info("바뀐 정보: "+bookService.getBook(bk_num, loginID));
+					rttr.addFlashAttribute("msg", "ok");
+					return "redirect:/report/dashboard";
+				} else {
+					log.info("예산 입력 실패");
+					rttr.addFlashAttribute("msg", "no");
+					return "redirect:/report/dashboard";
+				}
+			} else {
+				log.info("해당 연월의 가계부가 아직 입력되지 않아 새로 생성");
+				BookVO book = new BookVO();
+				book.setBk_year(bk_year);
+				book.setBk_month(bk_month);
+				book.setBk_budget(bk_budget);
+				book.setId(loginID);
+				bookService.writeBook(book);
+				log.info("예산 입력 성공");
+				return "redirect:/report/dashboard";
+			}
+		}
+		return "redirect:/report/dashboard";
+	}
 }
