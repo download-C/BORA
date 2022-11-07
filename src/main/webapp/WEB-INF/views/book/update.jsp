@@ -4,6 +4,8 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
 <%
 if(loginID==null) {%>
 <!-- 세션값(로그인) 확인 -->
@@ -29,8 +31,9 @@ $(document).ready(function() {
     }
 });
 </script>
+
 <!-- 태그 적는 곳 -->
-	<div class="container">
+<div class="container">
 			
 <!-- DB값으로 미리 선택해놓기 -->
 <script>
@@ -45,11 +48,11 @@ $(document).ready(function(){
 	$("#day").val("${book.detail.bk_day}").attr("selected","selected");
 });//document
 </script>
+
 <form action="/book/update" method="post">
-	<input type="text" name="bk_num" value="${book.bk_num }">
-	<input type="text" name="bk_detail_num" value="${book.detail.bk_detail_num }">
-아이디 :    
-			<input type="text" name="id" value=${sessionScope.loginID }><br>
+	<input type="hidden" name="bk_num" value="${book.bk_num }">
+	<input type="hidden" name="bk_detail_num" value="${book.detail.bk_detail_num }">
+	<input type="hidden" name="id" value=${sessionScope.loginID }><br>
 			
 항목 :		수입<input type="radio" name="bk_iow" class="iow" value="수입" required="required"> 
 			지출<input type="radio" name="bk_iow" class="iow" value="지출" required="required"> 

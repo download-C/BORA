@@ -96,10 +96,12 @@ public class MainController {
 		vo.setPw(encryptPw);
 		MemberVO vo2 = mainService.loginMember(vo);
 		if (vo2 != null) {
+			log.info("로그인 성공");
 			session.setAttribute("loginID", vo2.getId());
 			rttr.addFlashAttribute("msg", vo2.getNick() + "님, 환영합니다♡");
 			return "redirect:/main/main";
 		} else {
+			log.info("로그인 실패");
 			rttr.addFlashAttribute("msg", "아이디가 없거나 아이디 또는 비밀번호가 일치하지 않습니다.");
 			return "redirect:/main/login";
 		}

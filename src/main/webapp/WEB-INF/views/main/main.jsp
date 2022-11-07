@@ -12,34 +12,27 @@
 
 <!-- 메세지 불러오고 모달창 띄우기 -->
 <script>
-$(document).on('click', '#login', function(e) {
-    swal(
-      'message',
-      '로그인 성공',
-      'login'
+function login(message) {
+    Swal.fire(
+        '로그인 성공',
+        message,
+        'login' /*디자인 타입*/
     )
-  });
-  
-$().ready(function () {
-	  
-	  $("#alertStart").click(function () {
-	    Swal.fire({
-	      icon: 'success',
-	      title: 'Alert가 실행되었습니다.',
-	      text: '이곳은 내용이 나타나는 곳입니다.',
-	    });
-	  }); 
-});
-  
-// Swal.fire(
-// 		  'Good job!',
-// 		  'You clicked the button!',
-// 		  'success'
-// 		)
+}//success 버튼
+
+$(document).ready(function(){	
+	let message = "${msg}";
+	if(message!="") {
+		login(message);
+	}
+ });
+//success 버튼
 </script>
+
+<div class="container">
 <button class="btn btn-primary m-2" id="alertStart">Alert 커스텀</button> <br>
 
-<button class="btn btn-primary m-2" onclick="location.href='/book/list?page=1';">가계부 목록</button> <br>
+
 
 <!-- ////////////alert 커스텀//////////// -->
 <!-- 뉴스 시작 -->
@@ -130,8 +123,7 @@ const myChart = new Chart(ctx, {
 });
 </script>
 
-
-
+</div>
 
 
   

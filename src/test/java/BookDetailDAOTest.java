@@ -15,7 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bora.domain.report.BookDetailVO;
-import com.bora.persistence.BookDetailDAO;
+import com.bora.persistence.report.BookDetailDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(

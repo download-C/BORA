@@ -1,8 +1,10 @@
-package com.bora.persistence;
+package com.bora.persistence.report;
 
 import java.util.List;
 
+import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.report.BookDetailVO;
+import com.bora.domain.report.BookVO;
 
 public interface BookDetailDAO {
 	
@@ -10,7 +12,7 @@ public interface BookDetailDAO {
 	
 	public Integer getBookDetailMaxNum() throws Exception;
 	
-	public List<BookDetailVO> getBookDetailList(String loginID) throws Exception;
+	public List<BookDetailVO> getBookDetailList(String loginID, PageMakerVO pm) throws Exception;
 	
 	public BookDetailVO getBookDetailContent(Integer bk_detail_num, String loginID) throws Exception;
 	
@@ -19,4 +21,6 @@ public interface BookDetailDAO {
 	public Integer updateBookDetail(BookDetailVO detail) throws Exception;
 	
 	public Integer deleteBookDetail(Integer bk_detail_num, String loginID) throws Exception;
+
+	public Integer getBookDetailCnt(String loginID) throws Exception;
 }

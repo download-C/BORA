@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.bora.domain.board.PageVO;
 import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookVO;
-import com.bora.persistence.BookDAO;
+import com.bora.persistence.report.BookDAO;
 import com.bora.domain.board.PageMakerVO;
 
 @Service
@@ -62,6 +62,32 @@ public class BookServiceImpl implements BookService{
 		log.info("deleteBook(bk_num) 호출");
 		return dao.deleteBook(bk_num, loginID);
 	}
+
+	@Override
+	public List<BookVO> getMonthBookList(int year, int month, String loginID) throws Exception {
+		log.info("getMonthBookList(year, month, loginID) 호출");
+		return dao.getMonthBookList(year, month, loginID);
+	}
+
+	@Override
+	public BookVO getMonthBook(int year, int month, String loginID) throws Exception {
+		log.info("getMonthBook(year, month, loginID) 호출");
+		return dao.getMonthBook(year, month, loginID);
+	}
+
+	@Override
+	public Integer writeBook(BookVO book) throws Exception {
+		log.info("writeBook(book) 호출");
+		return dao.writeBook(book);
+	}
+
+	@Override
+	public Integer getBookMaxNum() throws Exception {
+		log.info("getBookMaxNum() 호출");
+		return dao.getBookMaxNum();
+	}
+	
+	
 	
 	
 	

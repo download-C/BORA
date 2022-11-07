@@ -1,4 +1,4 @@
-package com.bora.persistence;
+package com.bora.persistence.report;
 
 import java.util.HashMap;
 import java.util.List;
@@ -79,5 +79,39 @@ public class BookDAOImpl implements BookDAO{
 		map.put("id", loginID);
 		return session.delete(NAMESPACE+".deleteBook", map);
 	}
+
+	@Override
+	public List<BookVO> getMonthBookList(int year, int month, String loginID) throws Exception {
+		log.info("getMonthBookList(year, month, loginID) 호출");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bk_year", year);
+		map.put("bk_month", month);
+		map.put("id", loginID);
+		return session.selectList(NAMESPACE+".getMonthBookList", map);
+	}
+
+	@Override
+	public BookVO getMonthBook(int year, int month, String loginID) throws Exception {
+		log.info("getMonthBook(year, month, loginID) 호출");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bk_year", year);
+		map.put("bk_month", month);
+		map.put("id", loginID);
+		return session.selectOne(NAMESPACE+".getMonthBook", map);
+	}
+
+	@Override
+	public Integer getBookMaxNum() throws Exception {
+		log.info("getBookMaxNum() 호출");
+		return session.selectOne(NAMESPACE+".getBookMaxNum");
+	}
+
+	@Override
+	public Integer writeBook(BookVO book) throws Exception {
+		log.info("writeBook(book) 호출");
+		return session.insert(NAMESPACE+".writeBook", book);
+	}
+	
+	
 	
 }

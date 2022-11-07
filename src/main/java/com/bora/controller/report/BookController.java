@@ -1,5 +1,6 @@
 package com.bora.controller.report;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,6 +52,10 @@ public class BookController {
 	@RequestMapping(value="/write", method = RequestMethod.POST)
 	public String wirteBookPOST(HttpServletRequest request,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+		log.info("입력한 가계부 정보 변수로 선언");
+		
+		int bk_num=0;
+		
 		String loginID = (String)session.getAttribute("loginID");
 		int bk_year = Integer.parseInt(request.getParameter("bk_year"));
 		int bk_month = Integer.parseInt(request.getParameter("bk_month"));
@@ -62,7 +66,8 @@ public class BookController {
 		int bk_money = Integer.parseInt(request.getParameter("bk_money"));
 		String bk_memo = request.getParameter("bk_memo");
 		
-		// 가계부 상세정보 받아서 BookDetailVO에 저장
+		BookVO book = service.getMonthBook(bk_year, bk_month, loginID);
+		
 		BookDetailVO detail = new BookDetailVO();
 		detail.setId(loginID);
 		detail.setBk_day(bk_day);
@@ -71,21 +76,27 @@ public class BookController {
 		detail.setBk_category(bk_category);
 		detail.setBk_money(bk_money);
 		detail.setBk_memo(bk_memo);
-		
-		// 디테일 정보 DB 저장 후 해당 내용의 가계부 고유번호 가져오기
-		dService.writeBookDetail(detail);
-		int bk_detail_num = dService.getBookDetailMaxNum();
-		
-		// 디테일 번호 가져왔을 경우 BookVO 생성 후 DB 저장 -> 리스트로 이동
-		if(bk_detail_num != 0) {
-			log.info("bk_detail로 book 저장하기");
-			BookVO book = new BookVO();
+
+		if(book == null) {
+			log.info("해당 연월의 가계부가 없으므로 book 새로 저장하기");
+			book = new BookVO();
 			book.setId(loginID);
 			book.setBk_year(bk_year);
 			book.setBk_month(bk_month);
 			log.info("아이디 "+loginID+" "+bk_year+"년 "+bk_month+"월 가계부");
+			// 가계부 정보 DB 저장 후 해당 내용의 가계부 고유번호 가져오기
+			service.writeBook(book);
+			bk_num = service.getBookMaxNum();
 			
-			service.writeBook(book, bk_detail_num);
+		} else {
+			log.info("이미 작성된 연월이므로 기존의 내용 가져와서 그대로 작성");
+			bk_num = book.getBk_num();
+		}
+
+		// 가계부 번호 가져왔을 경우 BookDetailVO 생성 후 DB 저장 -> 리스트로 이동		
+		if(bk_num != 0) {
+			detail.setBk_num(bk_num);
+			dService.writeBookDetail(detail);
 			log.info("가계부 작성 성공! 리스트로 이동");
 			rttr.addFlashAttribute("msg", "가계부 작성이 완료되었습니다.");
 			return "redirect:/book/list";
@@ -97,6 +108,7 @@ public class BookController {
 		
 	}
 	
+	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String bookListPageGET(PageVO vo, Integer bk_detail_num, Model model) throws Exception {
 		log.info("bookListPageGET()호출");
@@ -106,17 +118,16 @@ public class BookController {
 		// 1. 북 테이블 부르기
 		PageMakerVO pm = new PageMakerVO();
 		pm.setVo(vo);
-		int cnt = service.getBookCnt(loginID);
+		int cnt = dService.getBookDetailCnt(loginID);
 		pm.setTotalCnt(cnt);
 		model.addAttribute("pm", pm);
 		
 		// 2-1. 북 테이블의 디테일넘과 같은 정보를 불러서setBookDetailVO에 삽입
-		List<BookVO> bookList = service.getBookListPage(loginID, pm);
-				
-		for(BookVO book : bookList) {
-			log.info("bookList: "+book );
-		}
+		List<BookVO> bookList = new ArrayList<BookVO>();
+		bookList = service.getBookListAll(loginID);
+
 		model.addAttribute("bookList", bookList);
+//		model.addAttributes("detail", bookList.)
 		
 		return "/book/bookList";
 	}
@@ -126,7 +137,9 @@ public class BookController {
 	public void bookUpdateGET(String page, @RequestParam("bk_num") int bk_num,
 			Model model) throws Exception {
 		log.info("bookUpdateGET() 호출");
+		loginID = (String)session.getAttribute("loginID");
 		BookVO book = service.getBook(bk_num, loginID);
+		log.info(bk_num+"번 가계부: "+book);
 		model.addAttribute("book", book);
 	}
 	
@@ -178,5 +191,23 @@ public class BookController {
 			return "redirect:/book/list";
 		}
 	}
+	
+	public String category(String code) throws Exception{
+	 switch (code) {
+		case "A1": return "가전/전자";	
+		case "B1": return "도서/문구";	
+		case "C1": return "패션/의류";	
+		case "D1": return "스포츠";	
+		case "E1": return "화장품";	
+		case "F1": return "아동/유아";	
+		case "G1": return "식품";	
+		case "H1": return "생활/가구";	
+		case "I1": return "여행/교통";	
+		case "J1": return "문화/레저";	
+		case "K1": return "음식";	
+		case "L1": return "e쿠폰/기타서비스";	
+		default: return "기타";
+		}
+	 }
 
 }

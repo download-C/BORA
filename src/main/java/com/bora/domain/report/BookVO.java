@@ -1,5 +1,6 @@
 package com.bora.domain.report;
 
+
 import lombok.Data;
 
 @Data

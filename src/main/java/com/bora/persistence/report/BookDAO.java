@@ -1,4 +1,4 @@
-package com.bora.persistence;
+package com.bora.persistence.report;
 
 import java.util.List;
 
@@ -22,6 +22,14 @@ public interface BookDAO {
 	public Integer updateBook(BookVO book) throws Exception;
 
 	public int deleteBook(Integer bk_num, String loginID) throws Exception;
+
+	public List<BookVO> getMonthBookList(int year, int month, String loginID) throws Exception;
+
+	public BookVO getMonthBook(int year, int month, String loginID) throws Exception;
+
+	public Integer getBookMaxNum() throws Exception;
+
+	public Integer writeBook(BookVO book) throws Exception;
 	
 
 }

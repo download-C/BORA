@@ -8,8 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.report.BookDetailVO;
-import com.bora.persistence.BookDetailDAO;
+import com.bora.domain.report.BookVO;
+import com.bora.persistence.report.BookDetailDAO;
 
 @Service
 public class BookDetailServiceImpl implements BookDetailService{
@@ -31,9 +33,9 @@ public class BookDetailServiceImpl implements BookDetailService{
 	}
 
 	@Override
-	public List<BookDetailVO> getBookDetailList(String loginID) throws Exception {
-		log.info("♡♡♡♡♡♡♡♡♡♡getBookDetailList(loginID) 호출");
-		return dao.getBookDetailList(loginID);
+	public List<BookDetailVO> getBookDetailList(String loginID, PageMakerVO pm) throws Exception {
+		log.info("♡♡♡♡♡♡♡♡♡♡getBookDetailList(loginID, pm) 호출");
+		return dao.getBookDetailList(loginID, pm);
 	}
 
 	@Override
@@ -59,6 +61,13 @@ public class BookDetailServiceImpl implements BookDetailService{
 		log.info("deleteBookDetail(bk_detail_numk, loginID) 호출");
 		return dao.deleteBookDetail(bk_detail_num, loginID);
 	}
+
+	@Override
+	public Integer getBookDetailCnt(String loginID) throws Exception {
+		log.info("getBookDetailCnt(loginID) 호출");
+		return dao.getBookDetailCnt(loginID);
+	}
+	
 	
 
 }

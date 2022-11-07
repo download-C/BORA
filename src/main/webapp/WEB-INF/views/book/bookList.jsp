@@ -9,7 +9,7 @@ if(loginID==null) {%>
 <!-- 세션값(로그인) 확인 -->
 <script>
 // 세션값 여부
-	alert("세션값이 만료되어 로그인 페이지로 이동합니다.");
+	alert("로그인 후 이용 가능합니다. 로그인 페이지로 이동합니다.");
 	location.href="/main/login";
 	
 	$(document).ready(function() {
@@ -50,7 +50,8 @@ $(document).ready(function() {
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${bookList }" var="list" >
+				
+			<c:forEach items="${bookList }" var="list">
 			<tr>
 				<td>${list.bk_year }년</td> 
 				<td>${list.bk_month }월</td>
@@ -61,10 +62,12 @@ $(document).ready(function() {
 				<td>${list.detail.bk_money }</td>
 				<td>${list.detail.bk_memo }</td>
 				<td>
-					<button onclick="location.href='/book/update?page=1&bk_num=${list.bk_num}';">수정</button>
-					<button onclick="location.href='/book/delete?page=1&bk_num=${list.bk_num}&bk_detail_num=${list.detail.bk_detail_num }';">삭제</button></td>
+					<button onclick="location.href='/book/update?page=1&bk_num=${list.bk_num}&bk_detail_num=${list.detail.bk_detail_num }';">수정</button>
+					<button onclick="location.href='/book/delete?page=1&bk_num=${list.bk_num}&bk_detail_num=${list.detail.bk_detail_num }';">삭제</button>
+				</td>
 			</tr>
 			</c:forEach>
+			
 		</tbody>
 		</table>
 	</div>
