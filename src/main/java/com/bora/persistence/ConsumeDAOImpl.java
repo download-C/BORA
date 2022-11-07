@@ -21,7 +21,7 @@ public class ConsumeDAOImpl implements ConsumeDAO{
 	
 	private final static String NAMESPACE = "com.bora.mapper.ConsumeMapper";
 	
-	private static final Logger log = LoggerFactory.getLogger(BookDetailDAOImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(ConsumeDAOImpl.class);
 	
 	@Override
 	public List<ConsumeLastMonListVO> getConsumeLastMonList(String loginID) throws Exception {

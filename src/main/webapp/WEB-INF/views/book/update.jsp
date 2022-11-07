@@ -39,20 +39,81 @@ $(document).ready(function() {
 <script>
 $(document).ready(function(){
 	// 항목
-	$('input:radio[name=bk_iow]:input[value="${book.detail.bk_iow}"]').attr("checked", true);
+	$('input:radio[name=bk_iow]:input[value="${detail.bk_iow}"]').attr("checked", true);
 	// 자산
-	$("#group").val("${book.detail.bk_group}").attr("selected","selected");
+	$("#group").val("${detail.bk_group}").attr("selected","selected");
 	// 날짜
-	$("#year").val("${book.bk_year}").attr("selected","selected");
-	$("#month").val("${book.bk_month}").attr("selected","selected");
-	$("#day").val("${book.detail.bk_day}").attr("selected","selected");
+	$("#year").val("${detail.book.bk_year}").attr("selected","selected");
+	$("#month").val("${detail.book.bk_month}").attr("selected","selected");
+	$("#day").val("${detail.bk_day}").attr("selected","selected");
 });//document
 </script>
 
-<form action="/book/update" method="post">
-	<input type="hidden" name="bk_num" value="${book.bk_num }">
-	<input type="hidden" name="bk_detail_num" value="${book.detail.bk_detail_num }">
+<!-- 항목이 수입일 경우 자산 바꾸기 -->
+<script>
+$(document).ready(function(){
+	var radio = document.getElementsByName('bk_iow');
+	var bk_group = document.getElementsByName('bk_group');
+	
+	$(radio).click(function(){
+		if(this.value=="수입"){
+			$("#bk_group").html(
+				'<option value="">자산 선택</option>'+
+				'<option value="현금">현금</option>'+
+				'<option value="은행">은행</option>'+
+				'<option value="기타">기타</option>'
+			);
+			$("#bk_category").html(
+				'<option value="">카테고리</option>'+
+				'<option value="월급">월급</option>'+
+				'<option value="부수입">부수입</option>'+
+				'<option value="용돈">용돈</option>'+
+				'<option value="금융소득">금융소득</option>'+
+				'<option value="기타">기타</option>'
+			); 
+		} // radio 수입 
+		else if(this.value=="지출") {
+			$("#bk_group").html(
+			'<option value="">자산 선택</option>'+
+			'<option value="체크카드">체크카드</option>'+
+			'<option value="현금">현금</option>'+
+			'<option value="은행">은행</option>'+
+			'<option value="신용카드">신용카드</option>'+
+			'<option value="기타">기타</option>'
+			);
+			$("#bk_category").html(
+				'<option value="">카테고리</option>'+
+				'<option value="식비">식비</option>'+
+				'<option value="교통비">교통비</option>'+
+				'<option value="편의점/마트">편의점/마트</option>'+
+				'<option value="통신비">통신비</option>'+
+				'<option value="여가비">여가비</option>'+
+				'<option value="뷰티/쇼핑">뷰티/쇼핑</option>'+
+				'<option value="저축">저축</option>'+
+				'<option value="기타">기타</option>'
+			);
+		} // radio 지출
+		else { 
+			$("#bk_group").html(
+				'<option value="">자산 선택</option>'+
+				'<option value="">은행</option>'+
+				'<option value="기타">기타</option>'+
+				'<option value="추가">추가</option>'
+			);
+			$("#bk_category").html(
+				'<option value="">카테고리</option>'
+			);
+
+		} // radio 이체
+	}); // radio click
+}); // document
+</script>
+
+<form action="/book/update?page=${page }" method="post">
+	<input type="hidden" name="bk_num" value="${detail.bk_num }">
+	<input type="hidden" name="bk_detail_num" value="${detail.bk_detail_num }">
 	<input type="hidden" name="id" value=${sessionScope.loginID }><br>
+	
 			
 항목 :		수입<input type="radio" name="bk_iow" class="iow" value="수입" required="required"> 
 			지출<input type="radio" name="bk_iow" class="iow" value="지출" required="required"> 
@@ -125,19 +186,11 @@ $(document).ready(function(){
 				<option value="31">31</option>
 			</select> 일 <br>
 
-카테고리 : 	<select name="bk_category" id="category" required="required">
-				<option value="식비">식비</option>
+카테고리 : 	<select name="bk_category" id="bk_category" required="required">
 				<option value="">카테고리</option>
-				<option value="교통비">교통비</option>
-				<option value="편의점/마트">편의점/마트</option>
-				<option value="통신비">통신비</option>
-				<option value="여가비">여가비</option>
-				<option value="뷰티/쇼핑">뷰티/쇼핑</option>
-				<option value="저축">저축</option>
-				<option value="기타">기타</option>
 			</select> <br>
-금액 : <input type="number" name="bk_money" value="${book.detail.bk_money }" required="required"><br>
-메모 : <textarea rows="5" cols="20" name="bk_memo" required="required">${book.detail.bk_memo }</textarea> <br>
+금액 : <input type="number" name="bk_money" value="${detail.bk_money }" required="required"><br>
+메모 : <textarea rows="5" cols="20" name="bk_memo" required="required">${detail.bk_memo }</textarea> <br>
 <input type="submit" value="수정">
 
 </form>

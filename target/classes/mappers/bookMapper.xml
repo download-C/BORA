@@ -15,26 +15,17 @@
 		<result property="bk_category" column="bk_category"/>
 		<result property="bk_money" column="bk_money"/>
 		<result property="bk_memo" column="bk_memo"/>
+		<collection property="book" resultMap="book" />
 	</resultMap>
 	
 	<resultMap type="com.bora.domain.report.BookVO" id="book">
-		<result property="bk_num" column="bk_num" />
-		<result property="id" column="id" />
-		<result property="bk_year" column="bk_year" />
-		<result property="bk_month" column="bk_month" />
-		<result property="bk_budget" column="bk_budget" />
-		<collection property="detail" resultMap="detail" />
+		<id property="bk_num" column="bk_num" />
+		<id property="id" column="id" />
+		<id property="bk_year" column="bk_year" />
+		<id property="bk_month" column="bk_month" />
+		<id property="bk_budget" column="bk_budget" />
 	</resultMap>
-	
-	<parameterMap type="com.bora.domain.report.BookVO" id="book">
-		<parameter property="bk_num" />
-		<parameter property="id" />
-		<parameter property="bk_year" />
-		<parameter property="bk_month" />
-		<parameter property="bk_budget" />
-	</parameterMap>
-	
-	
+		
 
 	<!-- 월 별 가계부 작성 -->
 	<insert id="writeBook">
@@ -65,7 +56,7 @@
 	</select>
 	
 	<!-- 모든 가계부 목록 조회 -->
-	<select id="getBookListAll" resultMap="book">
+	<select id="getBookList" resultMap="book">
 		select b.bk_num, b.id, b.bk_year, b.bk_month, 
 			   b.bk_budget, d.bk_detail_num, d.bk_day, d.bk_iow, 
 			   d.bk_group, d.bk_category, d.bk_money, d.bk_memo
@@ -93,14 +84,14 @@
 	</select>
 	
 	<!-- 특정 가계부 내역 조회 -->
-	<select id="getMonthBook" resultType="com.bora.domain.report.BookVO" resultMap="book">
+	<select id="getMonthBook" resultType="com.bora.domain.report.BookVO">
 		select * 
 		from bora_book
 		where bk_year=#{bk_year} and bk_month=#{bk_month} and id=#{id}
 	</select>
 	
 	<!-- 특정 가계부 내역 조회 -->
-	<select id="getBook" resultType="com.bora.domain.report.BookVO" resultMap="book">
+	<select id="getBook" resultType="com.bora.domain.report.BookVO">
 		select * from bora_book b join bora_book_detail d
 		on b.bk_num = d.bk_num
 		where b.bk_num=#{bk_num} and b.id=#{id}

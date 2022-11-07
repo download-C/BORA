@@ -91,8 +91,8 @@ public class BookDetailDAOTest {
 	public void getBookDetailAll() throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡ 불러온 정보: ");
 //		List<BookDetailVO> detailList = session.selectList(NAMESPACE+".getBookDetailAll");
-		List<BookDetailVO> detailList = dao.getBookDetailAll();
-		log.info("♡♡♡♡♡♡♡♡♡♡ "+detailList);
+//		List<BookDetailVO> detailList = dao.getBookDetailAll();
+//		log.info("♡♡♡♡♡♡♡♡♡♡ "+detailList);
 	}
 	
 //	@Test

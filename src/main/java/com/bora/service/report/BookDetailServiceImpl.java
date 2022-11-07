@@ -39,15 +39,15 @@ public class BookDetailServiceImpl implements BookDetailService{
 	}
 
 	@Override
-	public BookDetailVO getBookDetailContent(Integer bk_detail_num, String loginID) throws Exception {
-		log.info("♡♡♡♡♡♡♡♡♡♡getBookDetailContent(bk_detail_num, loginID) 호출");
-		return dao.getBookDetailContent(bk_detail_num, loginID);
+	public BookDetailVO getBookDetail(Integer bk_detail_num, String loginID) throws Exception {
+		log.info("♡♡♡♡♡♡♡♡♡♡getBookDetail(bk_detail_num, loginID) 호출");
+		return dao.getBookDetail(bk_detail_num, loginID);
 	}
 
 	@Override
-	public List<BookDetailVO> getBookDetailAll() throws Exception {
-		log.info("♡♡♡♡♡♡♡♡♡♡getBookDetailAll() 호출");
-		return dao.getBookDetailAll();
+	public List<BookDetailVO> getBookDetailAll(String loginID) throws Exception {
+		log.info("♡♡♡♡♡♡♡♡♡♡getBookDetailAll(loginID) 호출");
+		return dao.getBookDetailAll(loginID);
 	}
 
 	@Override
@@ -63,9 +63,15 @@ public class BookDetailServiceImpl implements BookDetailService{
 	}
 
 	@Override
-	public Integer getBookDetailCnt(String loginID) throws Exception {
-		log.info("getBookDetailCnt(loginID) 호출");
-		return dao.getBookDetailCnt(loginID);
+	public Integer getMonthBookDetailCnt(String loginID, int year, int month) throws Exception {
+		log.info("getBookDetailCnt(loginID, year, month) 호출");
+		return dao.getMonthBookDetailCnt(loginID, year, month);
+	}
+
+	@Override
+	public List<BookDetailVO> getMonthBookDetailList(int year, int month, String loginID, PageMakerVO pm) throws Exception {
+		log.info("getMonthBookDetailList(year, month, loginID, pm) 호출");
+		return dao.getMonthBookDetailList(year, month, loginID, pm);
 	}
 	
 	

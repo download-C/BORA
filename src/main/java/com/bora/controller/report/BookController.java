@@ -1,6 +1,7 @@
 package com.bora.controller.report;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -100,7 +101,7 @@ public class BookController {
 			dService.writeBookDetail(detail);
 			log.info("가계부 작성 성공! 리스트로 이동");
 			rttr.addFlashAttribute("msg", "가계부 작성이 완료되었습니다.");
-			return "redirect:/book/list";
+			return "redirect:/book/list?year="+bk_year+"&month="+bk_month;
 		} else {
 			log.info("가계부 작성 실패");
 			rttr.addFlashAttribute("msg", "가계부 작성에 실패했습니다.");
@@ -111,37 +112,52 @@ public class BookController {
 	
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public String bookListPageGET(PageVO vo, Integer bk_detail_num, Model model) throws Exception {
+	public String bookListPageGET(PageVO vo, Integer bk_detail_num, Model model, 
+			int year, int month, RedirectAttributes rttr) throws Exception {
 		log.info("bookListPageGET()호출");
 		log.info("(♥♥♥♥♥ 2-1.listPageGET) 호출됨");
+		log.info(year+"년 "+month+"월 가계부 불러오기");
+		loginID = (String)session.getAttribute("loginID");
 		
-		String loginID = (String)session.getAttribute("loginID");
-		// 1. 북 테이블 부르기
+		// 이번 달 찾기
+		Calendar cal = Calendar.getInstance();
+		if(year == 0) year = cal.get(Calendar.YEAR);
+		if(month == 0) month = cal.get(Calendar.MONTH)+1;
+		
 		PageMakerVO pm = new PageMakerVO();
 		pm.setVo(vo);
-		int cnt = dService.getBookDetailCnt(loginID);
+		int cnt = dService.getMonthBookDetailCnt(loginID, year, month);
 		pm.setTotalCnt(cnt);
 		model.addAttribute("pm", pm);
 		
-		// 2-1. 북 테이블의 디테일넘과 같은 정보를 불러서setBookDetailVO에 삽입
-		List<BookVO> bookList = new ArrayList<BookVO>();
-		bookList = service.getBookListAll(loginID);
-
-		model.addAttribute("bookList", bookList);
-//		model.addAttributes("detail", bookList.)
-		
-		return "/book/bookList";
+		log.info(year+"년 "+month+"달 가계부 불러오기");
+		List<BookDetailVO> detailList = new ArrayList<BookDetailVO>();
+		detailList = dService.getMonthBookDetailList(year, month, loginID, pm);
+		log.info("가져온 가계부 개수: "+detailList.size());
+		if(detailList.size() != 0) {
+			model.addAttribute("detailList", detailList);
+			model.addAttribute("year", year);
+			model.addAttribute("month", month);
+			rttr.addFlashAttribute("msg", year+"년 "+month+"월 가계부를 불러옵니다.");
+			return "/book/bookList";
+		} else {
+			model.addAttribute("year", year);
+			model.addAttribute("month", month);
+			rttr.addFlashAttribute("msg", year+"년 "+month+"월 가계부가 없습니다.");
+			return "/book/bookList";
+		}
 	}
 	
 	// 3. 가계부 수정하기
 	@RequestMapping(value="/update", method = RequestMethod.GET)
-	public void bookUpdateGET(String page, @RequestParam("bk_num") int bk_num,
+	public void bookUpdateGET(String page, int bk_detail_num,
 			Model model) throws Exception {
 		log.info("bookUpdateGET() 호출");
 		loginID = (String)session.getAttribute("loginID");
-		BookVO book = service.getBook(bk_num, loginID);
-		log.info(bk_num+"번 가계부: "+book);
-		model.addAttribute("book", book);
+		BookDetailVO detail = dService.getBookDetail(bk_detail_num, loginID);
+		log.info(bk_detail_num+"번 가계부: "+detail);
+		model.addAttribute("detail", detail);
+		model.addAttribute("page",page);
 	}
 	
 	@RequestMapping(value="/update", method = RequestMethod.POST)
@@ -150,23 +166,23 @@ public class BookController {
 		log.info("bookUpdatePOST() 호출");
 		log.info("book: "+book);
 		log.info("detail: "+detail);
-		int result = dService.updateBookDetail(detail);
+		log.info("page: "+page);
+		int result = service.updateBook(book);
 		if(result == 1) {
-			int result2 = service.updateBook(book);
+			int result2 = dService.updateBookDetail(detail);
 			if(result2 ==1) {
 				log.info("가계부 수정 완료");
 				rttr.addFlashAttribute("msg", "가계부 수정을 완료했습니다.");
-				model.addAttribute("book", book);
-				return "redirect:/book/list";
+				return "redirect:/book/list?page="+page+"&year="+book.getBk_year()+"&month="+book.getBk_month();
 			} else {
 				log.info("가계부 수정 	실패");
 				rttr.addFlashAttribute("msg", "가계부 수정에 실패했습니다.");
-				return "redirect:/book/update?page="+page+"&bk_num="+book.getBk_num();
+				return "redirect:/book/update?page="+page+"&bk_num="+book.getBk_num()+"&bk_detail_num="+detail.getBk_detail_num();
 			}
 		} else {
 			log.info("가계부 디테일 수정 실패");
 			rttr.addFlashAttribute("msg", "가계부 수정에 실패했습니다.");
-			return "redirect:/book/update?page="+page+"&bk_num="+book.getBk_num();
+			return "redirect:/book/update?page="+page+"&bk_num="+book.getBk_num()+"&bk_detail_num="+detail.getBk_detail_num();
 		}
 	}
 	
@@ -174,21 +190,23 @@ public class BookController {
 	public String bookDeleteGET(Integer bk_num, Integer bk_detail_num,
 			RedirectAttributes rttr) throws Exception {
 		log.info("bookDeleteGET() 호출");
+		int year=0;
+		int month=0;
+		// 이번 달 찾기
+		Calendar cal = Calendar.getInstance();
+		if(year == 0) year = cal.get(Calendar.YEAR);
+		if(month == 0) month = cal.get(Calendar.MONTH)+1;
+		
 		String loginID = (String)session.getAttribute("loginID");
 		int result = dService.deleteBookDetail(bk_detail_num, loginID);
 		if(result==1) {
-			int result2 = service.deleteBook(bk_num, loginID);
-			if(result2==1) {
 				log.info("가계부 삭제 성공");
 				rttr.addFlashAttribute("msg", "가계부 삭제를 완료했습니다.");
-				return "redirect:/book/list";
-			} else {
-				log.info("가계부 삭제 실패");
-				rttr.addFlashAttribute("msg", "가계부 삭제에 실패했습니다.");
-				return "redirect:/book/list";
-			}
+				return "redirect:/book/list?page=1&year="+year+"&month="+month;
+			
 		} else {
-			log.info("가계부 디테일 삭제 실패");
+			log.info("가계부 삭제 실패");
+			rttr.addFlashAttribute("msg", "가계부 삭제에 실패했습니다.");
 			return "redirect:/book/list";
 		}
 	}
