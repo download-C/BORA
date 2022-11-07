@@ -1,6 +1,8 @@
 package com.bora.domain.openbank.account;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import com.bora.domain.openbank.tran.TranVO;
 
@@ -13,7 +15,7 @@ public class AccountTranResponseVO {
 	private String api_tran_dtm; //거래일시(밀리세컨드)
 	private String rsp_code; //응답코드(API)
 	private String rsp_message; //응답메세지
-	private String bank_tran_id; //거래고유번호(참가은행)
+//	private String bank_tran_id; //거래고유번호(참가은행)
 	private String bank_tran_date; //거래일자(참가은행)
 	private String bank_code_tran; //응답코드를 부여한 참가은행.표준코드
 	private String bank_rsp_code; //응답코드(참가은행)
@@ -34,7 +36,7 @@ public class AccountTranResponseVO {
 		this.api_tran_dtm = api_tran_dtm;
 		this.rsp_code = rsp_code;
 		this.rsp_message = rsp_message;
-		this.bank_tran_id = bank_tran_id;
+//		this.bank_tran_id = bank_tran_id;
 		this.bank_tran_date = bank_tran_date;
 		this.bank_code_tran = bank_code_tran;
 		this.bank_rsp_code = bank_rsp_code;
@@ -44,14 +46,5 @@ public class AccountTranResponseVO {
 		this.balance_amt = balance_amt;
 		this.tran_res_list = tran_res_list;
 	}
-	@Override
-	public String toString() {
-		return "AccountTranResponseVO [api_tran_id=" + api_tran_id + ", api_tran_dtm=" + api_tran_dtm + ", rsp_code="
-				+ rsp_code + ", rsp_message=" + rsp_message + ", bank_tran_id=" + bank_tran_id + ", bank_tran_date="
-				+ bank_tran_date + ", bank_code_tran=" + bank_code_tran + ", bank_rsp_code=" + bank_rsp_code
-				+ ", bank_rsp_message=" + bank_rsp_message + ", bank_name=" + bank_name + ", fintech_use_num="
-				+ fintech_use_num + ", balance_amt=" + balance_amt + ", tran_res_list=" + tran_res_list + "]";
-	}
-	
 	
 }

@@ -199,9 +199,8 @@ public class OpenBankingApiClient {
 
 		String url = baseUrl + "/account/transaction_list/fin_num";
 		httpHeaders.add("Authorization", "Bearer " + accountTranRequestVO.getAccess_token());
-//		httpHeaders.add("Authorization", "Bearer " + accountTranRequestVO.getBank_tran_id());
+		httpHeaders.add("Authorization", "Bearer " + accountTranRequestVO.getBank_tran_id());
 	
-		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  url: "+url);
 		HttpEntity<String> openBankingAccountTranRequest = new HttpEntity<String>(httpHeaders);
 		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧 "+openBankingAccountTranRequest+"");
 	
@@ -216,7 +215,7 @@ public class OpenBankingApiClient {
 				.queryParam("tran_dtime", accountTranRequestVO.getTran_dtime())
 				.build();
 
-		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧 "+accountTranRequestVO);
+		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧 accountTranRequestVO "+accountTranRequestVO);
 		return restTemplate.exchange(uriBuilder.toString(), HttpMethod.GET, openBankingAccountTranRequest, AccountTranResponseVO.class).getBody();
 	
 	}

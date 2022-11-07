@@ -66,8 +66,7 @@
 		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 		<input type="hidden" name="access_token" value="${sessionScope.token }">
 <%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
-<%-- 		<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }"> --%>
-		<input type="hidden" name="bank_tran_id" value="M202202092U823456781">
+		<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
 		<input type="hidden" name="fintech_use_num" value="120220209288941286327192">
 		<input type="hidden" name="tran_dtime" value="20221104134521">
 		<input type="submit" value="계좌잔액조회">
@@ -80,7 +79,7 @@
 		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 		<input type="hidden" name="access_token" value="${sessionScope.token }">
 <%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
-		<input type="hidden" name="bank_tran_id" value="M202202092U121444111">
+		<input type="hidden" name="bank_tran_id" value="${accountTran.bank_tran_id}">
 		<input type="hidden" name="fintech_use_num" value="120220209288941286327192">
 		<input type="hidden" name="inquiry_type" value='A'>
 		<input type="hidden" name="inquiry_base" value='D'>

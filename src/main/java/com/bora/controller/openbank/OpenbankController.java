@@ -175,6 +175,7 @@ public class OpenbankController {
 //			accountTranRequestVO.setInquiry_type("A");
 //			accountTranRequestVO.setInquiry_base("D");
 //			accountTranRequestVO.setSort_order("C");
+			accountTranRequestVO.getBank_tran_id();
 			// Service 객체의 accountTran() 메서드를 호출하여 사용자 정보 조회
 			// => 파라미터 : AccounttranRequestVO, 리턴타입 AccounttranResponseVO
 			AccountTranResponseVO accountTran = openBankingService.findAccountTran(accountTranRequestVO);
@@ -183,7 +184,10 @@ public class OpenbankController {
 			model.addAttribute("accountTran", accountTran);
 			model.addAttribute("access_token", accountTranRequestVO.getAccess_token());
 			session.setAttribute("bank_tran_id", accountTranRequestVO.getBank_tran_id());
-			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  출력" +accountTran);
+			
+			log.info("bank_tran_id : "+accountTranRequestVO.getBank_tran_id());
+			log.info("fintech_use_num : "+accountTranRequestVO.getFintech_use_num());
+			
 			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  출력" +accountTran);
 			
 			return "/openbank/acct_tran";
