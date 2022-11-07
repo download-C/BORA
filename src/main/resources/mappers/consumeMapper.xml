@@ -19,4 +19,5 @@
 	   select * from bora_consume_list
 	   where id=#{loginID}
 	</select>
+	
 </mapper>

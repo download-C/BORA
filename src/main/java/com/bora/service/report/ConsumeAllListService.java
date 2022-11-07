@@ -17,4 +17,5 @@ public interface ConsumeAllListService {
 	// 이번 소비 리스트 비교 메서드
 	public List<ConsumeAllListVO> getConsumeAllList(String loginID) throws Exception;
 	
+	
 }

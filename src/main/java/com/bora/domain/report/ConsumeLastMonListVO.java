@@ -25,6 +25,5 @@ public class ConsumeLastMonListVO {
 		this.bk_lastmon_total = bk_lastmon_total;
 	}
 	
-	
 
 }

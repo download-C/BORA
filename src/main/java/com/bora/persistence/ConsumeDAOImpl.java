@@ -41,4 +41,5 @@ public class ConsumeDAOImpl implements ConsumeDAO{
 		return session.selectList(NAMESPACE+".getConsumeAllList", loginID);
 	}
 
+	
 }

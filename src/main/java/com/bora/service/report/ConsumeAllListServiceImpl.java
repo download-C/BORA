@@ -37,4 +37,5 @@ public class ConsumeAllListServiceImpl implements ConsumeAllListService{
 		return dao.getConsumeAllList(loginID);
 	}
 
+	
 }

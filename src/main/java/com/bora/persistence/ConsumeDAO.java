@@ -14,4 +14,5 @@ public interface ConsumeDAO {
 	
 	public List<ConsumeAllListVO> getConsumeAllList(String loginID) throws Exception;
 
+	
 }

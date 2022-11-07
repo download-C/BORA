@@ -31,4 +31,5 @@ public class ConsumeAllListVO {
 	public void setBk_consume_compare(Integer bk_consume_compare) {
 		this.bk_consume_compare = bk_consume_compare;
 	}
+	
 }

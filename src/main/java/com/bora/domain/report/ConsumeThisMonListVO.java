@@ -25,6 +25,5 @@ public class ConsumeThisMonListVO {
 		this.bk_thismon_total = bk_thismon_total;
 	}
 	
-	
 
 }

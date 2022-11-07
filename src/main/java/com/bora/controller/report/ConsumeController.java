@@ -79,4 +79,5 @@ public class ConsumeController {
 		return "book/consumeAllList";
 	}
 
+	
 }
