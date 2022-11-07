@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.bora.domain.board.CommentVO;
 import com.bora.domain.board.PageVO;
-import com.bora.persistence.CommentDAO;
+import com.bora.persistence.board.CommentDAO;
 
 @Service
 public class CommentServiceImpl implements CommentService {

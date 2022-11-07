@@ -1,18 +1,18 @@
-package com.bora.service.report;
+package com.bora.persistence.report;
 
 import java.util.List;
 
 import com.bora.domain.board.PageMakerVO;
+import com.bora.domain.board.PageVO;
+import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookVO;
 
-public interface BookService {
-	
-	public Integer writeBook(BookVO book) throws Exception;
+public interface BookDAO {
 	
 	public Integer writeBook(BookVO book, Integer bk_detail_num) throws Exception;
-	
-	public List<BookVO> getBookListAll(String loginID) throws Exception;
 
+	public List<BookVO> getBookListAll(String loginID) throws Exception;
+	
 	public List<BookVO> getBookListPage(String loginID, PageMakerVO pm) throws Exception;
 
 	public Integer getBookCnt(String loginID) throws Exception;
@@ -28,5 +28,8 @@ public interface BookService {
 	public BookVO getMonthBook(int year, int month, String loginID) throws Exception;
 
 	public Integer getBookMaxNum() throws Exception;
+
+	public Integer writeBook(BookVO book) throws Exception;
+	
 
 }

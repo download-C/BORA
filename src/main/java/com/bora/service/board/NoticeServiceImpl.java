@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.bora.domain.board.NoticeVO;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
-import com.bora.persistence.NoticeDAO;
+import com.bora.persistence.board.NoticeDAO;
 
 @Service
 public class NoticeServiceImpl implements NoticeService{

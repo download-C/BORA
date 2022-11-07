@@ -13,8 +13,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bora.domain.board.BoardVO;
 import com.bora.domain.board.CommentVO;
-import com.bora.persistence.BoardDAO;
-import com.bora.persistence.CommentDAO;
+import com.bora.persistence.board.BoardDAO;
+import com.bora.persistence.board.CommentDAO;
 import com.bora.service.board.BoardService;
 
 @RunWith(SpringJUnit4ClassRunner.class)

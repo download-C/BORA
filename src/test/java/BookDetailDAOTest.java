@@ -18,7 +18,8 @@ import com.bora.domain.report.ConsumeAllListVO;
 import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.ConsumeLastMonListVO;
 import com.bora.domain.report.ConsumeThisMonListVO;
-import com.bora.persistence.BookDetailDAO;
+import com.bora.persistence.report.BookDetailDAO;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
@@ -126,8 +127,9 @@ public class BookDetailDAOTest {
 //	@Test
 	// 디테일 삭제 성공
 	public void deleteTest() throws Exception{
-		int result = dao.deleteBookDetail(21);
-		if(result==1) log.info("성공"); 
+		
+//		int result = dao.deleteBookDetail(21);
+//		if(result==1) log.info("성공"); 
 	}
 	
 }

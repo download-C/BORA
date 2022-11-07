@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bora.domain.board.NoticeVO;
 import com.bora.domain.board.PageVO;
-import com.bora.persistence.NoticeDAO;
+import com.bora.persistence.board.NoticeDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(

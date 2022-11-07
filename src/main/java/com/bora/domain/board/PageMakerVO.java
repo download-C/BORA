@@ -33,7 +33,7 @@ public class PageMakerVO {
 		= (int)Math.ceil(vo.getPage()/(double)displayPageNum)*displayPageNum;
 		
 		pageStart
-		= (endPage - displayPageNum) + 1;
+		= (endPage - displayPageNum);
 		
 		// 모든글 개수/페이지사이즈 => 총 필요한 페이지 수
 		int tmpEndPage

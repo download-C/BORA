@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.bora.domain.board.BoardVO;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
-import com.bora.persistence.BoardDAO;
+import com.bora.persistence.board.BoardDAO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
