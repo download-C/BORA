@@ -5,14 +5,10 @@
 <mapper namespace="com.bora.mapper.ReportMapper">
 
 
-	<insert id="create2">
-		insert into bora_report (id, rp_date, rp_money, rp_detail, message,
-		category, rp_num)
-		values (#{id}, #{rp_date}, #{rp_money}, #{rp_detail}, #{message},
-		#{category}, #{rp_num})
-	</insert>
-
-
+	<select id="listAll" resultType="CardPayVO">
+	select * from bora_card_pay order by cpay_date
+	
+	</select>
 
 
 
