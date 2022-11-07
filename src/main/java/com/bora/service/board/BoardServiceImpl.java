@@ -39,19 +39,19 @@ public class BoardServiceImpl implements BoardService {
 	
 	
 	
-	// 2. 글 전체 목록 조회
-	@Override	
-	public List<BoardVO> getBoardListAll() throws Exception {
-		log.info("(♥♥♥♥♥ 2.getBoardListAll) 컨트롤러가 호출함");
-		
-		log.info("(♥♥♥♥♥ 2.getBoardListAll) DAO_listAll() 호출할 거");
-		List<BoardVO> boardList = dao.getBoardListAll();
-		
-		log.info("(♥♥♥♥♥ 2.getBoardListAll) DAO한테 결과 데이터 받았으니 --> Controller로 돌려줄게욥");
-		
-		return boardList;
-	}
-	// 2. 글 전체 목록 조회 끝
+//	// 2. 글 전체 목록 조회
+//	@Override	
+//	public List<BoardVO> getBoardListAll() throws Exception {
+//		log.info("(♥♥♥♥♥ 2.getBoardListAll) 컨트롤러가 호출함");
+//		
+//		log.info("(♥♥♥♥♥ 2.getBoardListAll) DAO_listAll() 호출할 거");
+//		List<BoardVO> boardList = dao.getBoardListAll();
+//		
+//		log.info("(♥♥♥♥♥ 2.getBoardListAll) DAO한테 결과 데이터 받았으니 --> Controller로 돌려줄게욥");
+//		
+//		return boardList;
+//	}
+//	// 2. 글 전체 목록 조회 끝
 	
 	
 	
@@ -80,6 +80,19 @@ public class BoardServiceImpl implements BoardService {
 	
 	
 	
+			// 2-3. 총 글 개수
+			@Override
+			public int getBoardCnt() throws Exception {
+				return dao.getBoardCnt();
+			}
+			
+			@Override
+			public int getBoardCntCTGR(String ctgr) throws Exception {
+				return dao.getBoardCntCTGR(ctgr);
+			}
+	
+	
+			
 	// 3. 글 1개 정보 불러오기 getBoard
 	@Override
 	public BoardVO getBoard(Integer bno) throws Exception {
@@ -134,13 +147,15 @@ public class BoardServiceImpl implements BoardService {
 	}
 	// 5. 글 삭제하기 끝
 	
-	@Override
-	public int getBoardCnt() throws Exception {
-		return dao.getBoardCnt();
-	}
 	
+	
+	// 6. id -> nick
 	@Override
-	public int getBoardCntCTGR(String ctgr) throws Exception {
-		return dao.getBoardCntCTGR(ctgr);
+	public String getNick(String id) throws Exception {
+		log.info("(♥♥♥♥♥ 5.getNick) 호출됨");
+		log.info("(♥♥♥♥♥ 5.getNick) 넘길 id: " + id + " / dao 호출할거^^");
+		return dao.getNick(id);
 	}
+	// 6. id -> nick 끝
+	
 }

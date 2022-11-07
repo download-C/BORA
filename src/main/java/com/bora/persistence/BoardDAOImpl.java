@@ -126,6 +126,22 @@ public class BoardDAOImpl implements BoardDAO {
 			}
 			// 2-2. 페이징 처리한 글 목록 조회 VO 끝
 	
+			
+					// 글 개수 count 
+					@Override
+					public int getBoardCnt() throws Exception {
+						log.info("getBoardCnt() 호출");
+						log.info(sqlSession.selectOne(NAMESPACE+".getBoardCnt")+"");
+						return sqlSession.selectOne(NAMESPACE+".getBoardCnt");
+					}
+					
+					@Override
+					public int getBoardCntCTGR(String b_ctgr) throws Exception {
+						log.info("getBoardCntCTGR() 호출");
+						return sqlSession.selectOne(NAMESPACE+".getBoardCntCTGR", b_ctgr);
+					}
+	
+	
 	
 	// 3. 글 1개 정보 가져오기 
 	@Override
@@ -186,21 +202,19 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	// 5. 글 삭제하기 끝
 
-
-
-	@Override
-	public int getBoardCnt() throws Exception {
-			log.info("getBoardCnt() 호출");
-		 log.info(sqlSession.selectOne(NAMESPACE+".getBoardCnt")+"");
-		return sqlSession.selectOne(NAMESPACE+".getBoardCnt");
-	}
 	
+	
+	// 6. id -> 닉네임 끌고 오기
 	@Override
-	public int getBoardCntCTGR(String b_ctgr) throws Exception {
-//		log.info("getBoardCnt() 호출");
-//		log.info(sqlSession.selectOne(NAMESPACE+".getBoardCnt")+"");
-		return sqlSession.selectOne(NAMESPACE+".getBoardCntCTGR", b_ctgr);
+	public String getNick(String id) throws Exception {
+		log.info("(♥♥♥♥♥ 5.getNick) 호출됨 / 전달받은 id: " + id);
+		
+		log.info("(♥♥♥♥♥ 5.getNick) mapper 갔다가 -> service로 바로 리턴");
+		
+		return sqlSession.selectOne(NAMESPACE+".getNick", id);
 	}
+	// 6. id -> 닉네임 끌고 오기 끝
+
 	
 	
 	

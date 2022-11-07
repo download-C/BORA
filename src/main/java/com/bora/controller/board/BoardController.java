@@ -61,7 +61,7 @@ public class BoardController {
 		rttr.addFlashAttribute("msg", "OK");  
 		
 		log.info("(♥♥♥♥♥ 1-2.registerPOST) redirect:/board/listAll 로 이동할거");
-		return "redirect:/board/listAll"; // 주소줄 변화 O + 페이지 이동 O
+		return "redirect:/board/listPage"; // 주소줄 변화 O + 페이지 이동 O
 	}
 	// 1-2. 글쓰기 POST 끝
 	
@@ -116,6 +116,13 @@ public class BoardController {
 			// 얘도 model에 담아서 보냅시다..
 			model.addAttribute("pm", pm);
 			log.info("(♥♥♥♥♥ 2-1.listPageGET) PageMakerVO도 모델 객체에 저장 완 + pm: " + pm);
+			
+			// session에 있는 loginID -> 닉네임 뽑아내기 + 세션에 담기
+			String id = (String) session.getAttribute("loginID");
+			log.info("(♥♥♥♥♥ 1-2.insertBoardPOST) id: " + id);
+			String nick = service.getNick(id);
+			log.info("(♥♥♥♥♥ 1-2.insertBoardPOST) 닉넴: " + nick);
+			session.setAttribute("nick", nick);
 			
 			
 			// 세션에 객체 isUpdate 하나  만들어놓기~~~ 
@@ -194,7 +201,7 @@ public class BoardController {
 			// 수정 성공 시 --> listAll 페이지로 이동
 			log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정 성공^^ ㅊㅋㅊㅋ");
 			log.info("(♥♥♥♥♥ 4-1.updatePOST) redirect:/board/listAll.jsp로 이동");
-			return "redirect:/board/listAll"; // 주소줄 변화 O + 페이지 이동 O니까 redirect
+			return "redirect:/board/listPage"; // 주소줄 변화 O + 페이지 이동 O니까 redirect
 		} else {
 			log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정 실패;;  /update?bno=" + vo.getBno()+ ".jsp로 이동");
 			return "/board/update?bno="+vo.getBno();
@@ -219,11 +226,11 @@ public class BoardController {
 		if(result == 1) {
 			rttr.addAttribute("msg", "DEL_OK");
 			log.info("(♥♥♥♥♥ 5.deletePOST) 삭제 성공");
-			log.info("(♥♥♥♥♥ 5.deletePOST) redirect:/board/listAll.jsp로 이동");
-			return "redirect:/board/listAll";
+			log.info("(♥♥♥♥♥ 5.deletePOST) redirect:/board/listPage로 이동");
+			return "redirect:/board/listPage";
 		} else {
 			log.info("(♥♥♥♥♥ 5.deletePOST) 삭제 실패;;");
-			return "redirect:/board/listAll";
+			return "redirect:/board/listPage";
 		}
 		
 	}

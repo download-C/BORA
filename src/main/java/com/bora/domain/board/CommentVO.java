@@ -9,6 +9,7 @@ public class CommentVO {
 	private Integer cno;
 	private Integer bno;
 	private String id;
+	private String nick;
 	private String c_content;
 	private Timestamp c_regdate;
 	private Timestamp c_updatedate;

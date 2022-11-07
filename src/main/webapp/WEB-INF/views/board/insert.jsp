@@ -5,7 +5,6 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <h1>board/insert.jsp</h1>
-<%-- 
 <%
 	if (loginID == null) {
 %>
@@ -16,7 +15,6 @@
 <%
 	}
 %>
- --%>
 
 <!-- ======== for 썸머노트 ============== -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
@@ -51,7 +49,7 @@
 		<div>
 			닉네임
 			<div>
-				<input type="text" value="${vo.nick }" readonly="readonly">
+				<input type="text" name="nick" value="${sessionScope.nick }" readonly="readonly">
 			</div>
 			<!-- 		닉네임,, 아이디 -> 닉네임 끌어오는 메서드를 만들어야 하남? DB에 넣을 필욘 없고 걍 보여주기만 -->
 		</div>

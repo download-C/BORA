@@ -121,13 +121,13 @@ public class BoardDAOTest {
 //	@Test   // ㅇㅋ
 	public void 댓목록() throws Exception {
 		log.info("댓목록(●'◡'●) 호출됨");
-		
 		List<CommentVO> cmtList = cdao.getCmtList(null, 2);   // 1번 글 댓글 목록
 		
 		log.info("댓목록(●'◡'●) cmtList.size(): " + cmtList.size());
 	}
 	
 //	@Test
+	
 	public void 글개수() throws Exception {
 		log.info("글개수 조회");
 		int cnt = service.getBoardCnt();
@@ -135,6 +135,22 @@ public class BoardDAOTest {
 //		int cnt = session.selectOne(NAMESPACE+".getBoardCnt");
 		log.info("글개수: "+cnt);
 	}
+	
+	
+//	@Test
+	public void 닉네임() throws Exception {
+		log.info("닉네임(●'◡'●) 호출됨");
+		log.info("닉네임(●'◡'●)  " + bdao.getNick("admin"));
+//		bdao.getNick("admin");
+	}
+	
+	
+	@Test
+	public void 총댓걸개수() throws Exception {
+		log.info("총댓걸개수(●'◡'●) 호출됨");
+		log.info("총댓걸개수(●'◡'●)  " + cdao.getTotalCount(1));
+	}
+	
 	
 	
 	

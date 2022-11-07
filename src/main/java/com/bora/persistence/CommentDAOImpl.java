@@ -124,5 +124,15 @@ public class CommentDAOImpl implements CommentDAO {
 	
 	
 	
+	// 6. bno번 글의 총 댓글 개수 구하기
+	@Override
+	public Integer getTotalCount(Integer bno) throws Exception {
+		log.info("(♥♥♥♥♥ 5.getTotalCount) 호출됨  / 전달받은 bno: " + bno);
+		
+		return sqlSession.selectOne(NAMESPACE+".getTotalCount", bno);
+	}
+	// 6. bno번 글의 총 댓글 개수 구하기 끝
+	
+	
 	
 } // class CommentDAOImpl

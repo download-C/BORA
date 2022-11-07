@@ -104,8 +104,8 @@
 					<tr>
 						<td>${vo.bno}</td>
 						<td>${vo.b_ctgr}</td>
-						<td> <a href="/board/read?bno=${vo.bno }&page=${pm.vo.page}">${vo.b_title }</a> </td>
-						<td>${vo.id }</td>
+						<td> <a href="/board/read?bno=${vo.bno }&page=${pm.vo.page}">${vo.b_title }</a>   </td>
+						<td>${vo.id }  /  ${vo.nick }</td>
 						<td> <fmt:formatDate value="${vo.b_regdate }" pattern="YYYY년 MM월 dd일 🌈  HH:mm" /> </td>
 						<td>${vo.b_readcount }</td>
 					</tr>

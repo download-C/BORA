@@ -47,6 +47,7 @@ $(document).ready(function(){
 	// 계속 쓸 놈들 ---------------------
 	var loginID = '<c:out value="${loginID}"/>';
 	var bnoValue = '<c:out value="${vo.bno}"/>';
+	var nick = '<c:out value="${nick}"/>';
 	
 	
 	// 댓글 목록 출력 ----------------------------
@@ -69,7 +70,7 @@ $(document).ready(function(){
 			// 반복문 돌면서 댓글 list 채우기
 			for (var i = 0, len = list.length||0; i < len; i++) {
 				str += "<li id='cmtLI' data-cno='"+list[i].cno+"'>";
-				str += "<div id='cmt-body'><div id='cmt-header'><strong>"+list[i].id+"</strong>&nbsp;&nbsp;";
+				str += "<div id='cmt-body'><div id='cmt-header'><strong>"+list[i].id +"/ 닉넴:" + list[i].nick + "</strong>&nbsp;&nbsp;";
 				str += "<small>"+cmtService.displayTime(list[i].c_regdate)+"</small>";
 					if (list[i].id == loginID || loginID == 'admin') {
 						// id가 admin이거나 본인일 때만 -> 답글, 수정, 삭제 버턴 나오게 제어
@@ -104,7 +105,8 @@ $(document).ready(function(){
 		var cmt = {
 			c_content: $('#c_content').val(),
 			id: loginID,
-			bno: bnoValue
+			bno: bnoValue,
+			nick: nick
 		};
 		
 		
@@ -251,7 +253,7 @@ $(document).ready(function(){
 		<div>
 			닉네임
 			<div>
-				<input type="text" value="${nick }" readonly>
+				<input type="text" value="${vo.nick }" readonly>
 			</div>
 			<!-- 		닉네임,, 아이디 -> 닉네임 끌어오는 메서드를 만들어야 하남? DB에 넣을 필욘 없고 걍 보여주기만 -->
 		</div>
