@@ -18,7 +18,6 @@
 <h4>refresh_token : ${responseToken.refresh_token }</h4>
 <h4>scope : ${responseToken.scope }</h4>
 
-<!--     /////////////// bank_tran_id U 뒤에 9자리 세션값마다 자동으로 난수값 들어가도록 설정 필요 -->
    
 	<hr>
 	<h1>😉사용자정보조회😉</h1>
@@ -30,6 +29,7 @@
 		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }">
 		<input type="submit" value="사용자정보조회">
 	</form><hr>
+	
 	
 	<h1>💸계좌💸</h1>
 	<!-- 2.2.3 등록계좌조회 API -->
@@ -44,21 +44,7 @@
 		<input type="submit" value="등록계좌조회">
 	</form><hr>    
 
-	<!-- 등록계좌 해지 -->
-	거래고유번호, 거래일시, 거래고유번호
-	등록계좌 해지한 내역만 나오는...!
-	<form method="post" action="/openbank/accountCancel">
-		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
-		<input type="hidden" name="access_token" value="${sessionScope.token }">
-<%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
-<!-- 		<input type="hidden" name="bank_tran_id" value="Y"> -->
-		<input type="hidden" name="bank_tran_id" value="M202202092U523456781">
-		<input type="hidden" name="scope" value="login inquiry transfer">
-<!-- 		<input type="hidden" name="fintech_use_num" value="Y"> -->
-		<input type="hidden" name="fintech_use_num" value="120220209288941286327192">
-		<input type="submit" value="등록계좌해지">
-	</form><hr>    
-    
+
 	<!-- 잔액조회  -->
 	거래일시, 거래일자(참가은행), 은행이름, 계좌잔액(-금액가능), 
 	출금가능금액, 상품명, 계좌개설일, 만기일, 최종거래일
@@ -90,44 +76,8 @@
 		<input type="submit" value="거래내역조회">
 	</form><hr>    
      
-     
-	<!-- 출금이체 -->
-	<form method="post" action="/openbank/tranWithdraw">
-		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
-		<input type="hidden" name="access_token" value="${sessionScope.token }">
-<%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
-		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }">
-		<input type="hidden" name="include_cancel_yn" value="Y">
-		<input type="hidden" name="sort_order" value="D">
-		<input type="submit" value="출금이체">
-	</form><hr>    
-	
-	<!-- 입금이체 -->
-	<form method="post" action="/openbank/tranDeposit">
-		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
-		<input type="hidden" name="access_token" value="${sessionScope.token }">
-<%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
-		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }">
-		<input type="hidden" name="include_cancel_yn" value="Y">
-		<input type="hidden" name="sort_order" value="D">
-		<input type="submit" value="입금이체">
-	</form><hr>   
-	
-	<!-- 이체결과조회 -->
-	<form method="post" action="/openbank/tranResult">
-		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
-		<input type="hidden" name="access_token" value="${sessionScope.token }">
-<%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
-		<input type="hidden" name="check_type" value="Y">
-		<input type="hidden" name="tran_dtime" value="Y">
-		<input type="hidden" name="req_cnt" value="Y">
-		<input type="hidden" name="req_list" value="Y">
-		<input type="submit" value="이체결과조회">
-	</form><hr>   
-	
 	
 </div>
-
 
      
 <%@ include file="../include/footer.jsp"%>

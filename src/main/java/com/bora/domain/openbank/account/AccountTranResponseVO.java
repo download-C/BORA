@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
-import com.bora.domain.openbank.tran.TranVO;
-
 import lombok.Data;
 
 //2.3.2. 거래내역조회
@@ -23,14 +21,14 @@ public class AccountTranResponseVO {
 	private String bank_name; //출금(개설)기관명
 	private String fintech_use_num; //핀테크이용번호
 	private String balance_amt; //계좌잔액(-금액가능)
-	private List<TranVO> tran_res_list; //사용자 등록계좌 목록
+	private List<TranVO> res_list; //사용자 등록계좌 목록
 	
 	public AccountTranResponseVO() {}
 	
 	public AccountTranResponseVO(String api_tran_id, String api_tran_dtm, String rsp_code, String rsp_message,
 			String bank_tran_id, String bank_tran_date, String bank_code_tran, String bank_rsp_code,
 			String bank_rsp_message, String bank_name, String fintech_use_num, String balance_amt,
-			List<TranVO> tran_res_list) {
+			List<TranVO> res_list) {
 		super();
 		this.api_tran_id = api_tran_id;
 		this.api_tran_dtm = api_tran_dtm;
@@ -44,7 +42,7 @@ public class AccountTranResponseVO {
 		this.bank_name = bank_name;
 		this.fintech_use_num = fintech_use_num;
 		this.balance_amt = balance_amt;
-		this.tran_res_list = tran_res_list;
+		this.res_list = res_list;
 	}
 	
 }

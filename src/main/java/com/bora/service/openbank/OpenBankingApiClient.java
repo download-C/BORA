@@ -42,6 +42,7 @@ public class OpenBankingApiClient {
 	private String client_secret="2aab5ea7-0fc7-4e80-b451-95c418a0f5ca";
 	private String redirect_uri="http://localhost:8088/openbank/callback";
 	private String grant_type="authorization_code";
+	
 	// 기본 주소
 	private String baseUrl = "https://testapi.openbanking.or.kr/v2.0";
 	
@@ -61,7 +62,6 @@ public class OpenBankingApiClient {
 		httpHeaders.add("Authorization", "Bearer " + access_token);
 		return httpHeaders;
 	}
-	
 	
 	//토큰발급
 	public ResponseTokenVO requestToken(RequestTokenVO requestTokenVO) {
@@ -177,15 +177,15 @@ public class OpenBankingApiClient {
 		// 2.2.1 사용자정보조회 API URL 주소 생성
 		String url = baseUrl + "/account/balance/fin_num";
 		httpHeaders.add("Authorization", "Bearer " + accountBalanceRequestVO.getAccess_token());
-		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  url: "+url);
+		log.info("🐧🐧🐧🐧🐧🐧🐧🐧  url: "+url);
 		HttpEntity<String> openBankingAccountBalanceRequest = new HttpEntity<String>(httpHeaders);
-		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧 "+openBankingAccountBalanceRequest+"");
+		log.info("🐧🐧🐧🐧🐧🐧🐧🐧  "+openBankingAccountBalanceRequest);
 		UriComponents uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
 				.queryParam("bank_tran_id", accountBalanceRequestVO.getBank_tran_id())
 				.queryParam("fintech_use_num", accountBalanceRequestVO.getFintech_use_num())
 				.queryParam("tran_dtime", accountBalanceRequestVO.getTran_dtime())
 				.build();
-		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧 "+uriBuilder);
+		log.info("🐧🐧🐧🐧🐧🐧🐧🐧  "+uriBuilder);
 		return restTemplate.exchange(uriBuilder.toString(), HttpMethod.GET, openBankingAccountBalanceRequest, AccountBalanceResponseVO.class).getBody();
 	}
 	
@@ -202,7 +202,7 @@ public class OpenBankingApiClient {
 		httpHeaders.add("Authorization", "Bearer " + accountTranRequestVO.getBank_tran_id());
 	
 		HttpEntity<String> openBankingAccountTranRequest = new HttpEntity<String>(httpHeaders);
-		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧 "+openBankingAccountTranRequest+"");
+		log.info("🐧🐧🐧🐧🐧🐧🐧  accountTran "+openBankingAccountTranRequest);
 	
 		UriComponents uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
 				.queryParam("bank_tran_id", accountTranRequestVO.getBank_tran_id())
@@ -215,7 +215,7 @@ public class OpenBankingApiClient {
 				.queryParam("tran_dtime", accountTranRequestVO.getTran_dtime())
 				.build();
 
-		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧 accountTranRequestVO "+accountTranRequestVO);
+		log.info("🐧🐧🐧🐧🐧🐧🐧  accountTranRequestVO "+accountTranRequestVO);
 		return restTemplate.exchange(uriBuilder.toString(), HttpMethod.GET, openBankingAccountTranRequest, AccountTranResponseVO.class).getBody();
 	
 	}
@@ -274,6 +274,7 @@ public class OpenBankingApiClient {
 
 		return restTemplate.exchange(uriBuilder.toString(), HttpMethod.POST, AccountTranDepositRequest, TranDepositResponseVO.class).getBody();
 	}
+	
 	//이체결과조회
 	public TranResultResponseVO findTranResult(TranResultRequestVO tranResultRequestVO) {
 		/// REST 방식 요청에 필요한 객체 생성
