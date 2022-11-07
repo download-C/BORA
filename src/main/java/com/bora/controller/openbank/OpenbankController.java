@@ -47,22 +47,21 @@ public class OpenbankController {
 	// http://localhost:8088/openbank/oauth
 	@RequestMapping(value = "/oauth", method = RequestMethod.GET)
 	public String openbank() {
-		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  /oauth -> oauth.jsp");
+		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  오픈뱅킹 - 계좌");
+		log.info("/oauth -> oauth 로 이동");
 		return "/openbank/oauth";
 	}
 	
 	// http://localhost:8088/openbank/oauth
 	@RequestMapping(value = "/callback", method = RequestMethod.GET)
 	public String getToken(RequestTokenVO requestTokenVO, Model model) throws Exception{
-		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  사용자인증 확인");
+		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  토큰발급 가기");
 		log.info("/openbank/oauthOK 로 이동");
 		
 		//토큰발급
-		ResponseTokenVO responseToken=
-			openBankingService.requestToken(requestTokenVO);
+		ResponseTokenVO responseToken = openBankingService.requestToken(requestTokenVO);
 		
 		//정보들고 토큰발급으로 이동
-//		model.addAttribute("responseToken", responseToken);
 		model.addAttribute("responseToken", responseToken);
 		session.setAttribute("token", responseToken.getAccess_token());
 		
@@ -71,7 +70,6 @@ public class OpenbankController {
 		log.info("clinet_info : "+requestTokenVO.getClient_info());
 		log.info("state : "+requestTokenVO.getState());
 
-		//return "redirect:/openbank/oauth_ok";
 	    return "/openbank/oauthOK";
 	}
 	
@@ -85,7 +83,6 @@ public class OpenbankController {
 			// => 파라미터 : UserInfoRequestVO, 리턴타입 UserInfoResponseVO
 			UserInfoResponseVO userInfo = openBankingService.findUser(userInfoRequestVO);
 			
-			// Model 객체에 UserInfoResponseVO 객체와 엑세스토큰 저장
 			model.addAttribute("userInfo", userInfo);
 			session.setAttribute("access_token", userInfoRequestVO.getAccess_token());
 			
@@ -101,8 +98,6 @@ public class OpenbankController {
 			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  등록계좌 확인");
 			log.info("/openbank/acct_list 로 이동");
 			
-			// Service 객체의 findAccount() 메서드를 호출하여 사용자 정보 조회
-			// => 파라미터 : AccountSearchRequestVO, 리턴타입 AccountSearchResponseVO
 			AccountSearchResponseVO accountList = openBankingService.findAccount(accountSearchRequestVO);
 			
 			model.addAttribute("accountList", accountList);
@@ -120,14 +115,11 @@ public class OpenbankController {
 		// 등록계좌 해지
 		@RequestMapping(value = "/accountCancel", method = RequestMethod.POST)
 		public String cancelAccount( AccountCancelRequestVO accountCancelRequestVO, Model model) {
-			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧   등록계좌 해지!");
+			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧   등록계좌 해지");
 			log.info("/openbank/acct_cancel 로 이동");
 			
-			// Service 객체의 cancelAccount() 메서드를 호출하여 사용자 정보 조회
-			// => 파라미터 : AccountcancelRequestVO, 리턴타입 AccountcancelResponseVO
 			AccountCancelResponseVO accountCancel = openBankingService.cancelAccount(accountCancelRequestVO);
 			
-			// Model 객체에 AccountcancelResponseVO 객체와 엑세스토큰 저장
 			model.addAttribute("accountCancel", accountCancel);
 			session.setAttribute("access_token", accountCancelRequestVO.getAccess_token());
 			
@@ -146,19 +138,13 @@ public class OpenbankController {
 			log.info("/openbank/acct_balance 로 이동");
 			log.info(accountBalanceRequestVO+"");
 			
-			// Service 객체의 balanceAccount() 메서드를 호출하여 사용자 정보 조회
-			// => 파라미터 : AccountbalanceRequestVO, 리턴타입 AccountbalanceResponseVO
 			AccountBalanceResponseVO accountBalance = openBankingService.findAccountBalance(accountBalanceRequestVO);
 			
 			// Model 객체에 AccountcancelResponseVO 객체와 엑세스토큰 저장
 			model.addAttribute("accountBalance", accountBalance);
 			session.setAttribute("bank_tran_id", accountBalanceRequestVO.getBank_tran_id());
 			session.setAttribute("fintech_use_num", accountBalanceRequestVO.getFintech_use_num());
-			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧은행이름: "+accountBalance.getBank_name());
-			
-			
-//			log.info("Access_token : "+accountBalanceRequestVO.getAccess_token());
-			log.info("bank_tran_id : "+accountBalanceRequestVO.getBank_tran_id());
+
 			log.info("fintech_use_num : "+accountBalanceRequestVO.getFintech_use_num());
 			log.info("tran_dtime : "+accountBalanceRequestVO.getTran_dtime());
 			
@@ -171,20 +157,21 @@ public class OpenbankController {
 		public String getAccountTran( AccountTranRequestVO accountTranRequestVO, Model model) {
 			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧   계좌 거래 내역 조회");
 			log.info("/openbank/acct_tran 로 이동");
+			
 			log.info(accountTranRequestVO+"");
 //			accountTranRequestVO.setInquiry_type("A");
 //			accountTranRequestVO.setInquiry_base("D");
 //			accountTranRequestVO.setSort_order("C");
-			// Service 객체의 accountTran() 메서드를 호출하여 사용자 정보 조회
-			// => 파라미터 : AccounttranRequestVO, 리턴타입 AccounttranResponseVO
+			accountTranRequestVO.getBank_tran_id();
+			
 			AccountTranResponseVO accountTran = openBankingService.findAccountTran(accountTranRequestVO);
 			
 			// Model 객체에 AccountcancelResponseVO 객체와 엑세스토큰 저장
 			model.addAttribute("accountTran", accountTran);
-			model.addAttribute("access_token", accountTranRequestVO.getAccess_token());
 			session.setAttribute("bank_tran_id", accountTranRequestVO.getBank_tran_id());
-			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  출력" +accountTran);
-			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  출력" +accountTran);
+			
+			log.info("bank_tran_id : "+accountTranRequestVO.getBank_tran_id());
+			log.info("fintech_use_num : "+accountTranRequestVO.getFintech_use_num());
 			
 			return "/openbank/acct_tran";
 		}
@@ -196,11 +183,8 @@ public class OpenbankController {
 			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  출금이체");
 			log.info("/openbank/tran_withdraw 로 이동");
 			
-			// Service 객체의 tranWithdraw() 메서드를 호출하여 사용자 정보 조회
-			// => 파라미터 : TransWithdrawRequestVO, 리턴타입 TransWithdrawResponseVO
 			TranWithdrawResponseVO tranWithdraw = openBankingService.findTranWithdraw(tranWithdrawRequestVO);
 			
-			// Model 객체에 AccountcancelResponseVO 객체와 엑세스토큰 저장
 			model.addAttribute("tranWithdraw", tranWithdraw);
 			session.setAttribute("access_token", tranWithdrawRequestVO.getAccess_token());
 			
@@ -213,11 +197,8 @@ public class OpenbankController {
 			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧   입금이체");
 			log.info("/openbank/tran_deposit 로 이동");
 					
-			// Service 객체의 tranDeposit() 메서드를 호출하여 사용자 정보 조회
-			// => 파라미터 : TransDepositRequestVO, 리턴타입 TransDepositResponseVO
 			TranDepositResponseVO tranDeposit = openBankingService.findTranDeposit(tranDepositRequestVO);
 					
-			// Model 객체에 tranDepositResponseVO 객체와 엑세스토큰 저장
 			model.addAttribute("tranDeposit", tranDeposit);
 			session.setAttribute("access_token", tranDepositRequestVO.getAccess_token());
 					
@@ -230,11 +211,8 @@ public class OpenbankController {
 			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  이체결과조회");
 			log.info("/openbank/tran_result 로 이동");
 					
-			// Service 객체의 tranResult() 메서드를 호출하여 사용자 정보 조회
-			// => 파라미터 : TransResultRequestVO, 리턴타입 TransResultResponseVO
 			TranResultResponseVO tranResult = openBankingService.findTranResult(tranResultRequestVO);
 					
-			// Model 객체에 tranResultResponseVO 객체와 엑세스토큰 저장
 			model.addAttribute("tranResult", tranResult);
 			session.setAttribute("access_token", tranResultRequestVO.getAccess_token());
 					
