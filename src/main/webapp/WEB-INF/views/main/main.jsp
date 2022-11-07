@@ -91,7 +91,7 @@ function login(message) {
 <%-- <%@ include file="../about/map.jsp"%> --%>
 
 <a href='/main/NoticeListPage'>공지사항 목록</a>
-<h3><a href='/board/listPage?page=1'>커뮤니티 목록</a></h3>
+<h4><a href='/board/list?page=1'>커뮤니티 목록</a></h4>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <div>

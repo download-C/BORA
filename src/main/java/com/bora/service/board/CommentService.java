@@ -21,5 +21,8 @@ public interface CommentService {
 	public Integer updateCmt(CommentVO vo) throws Exception;
 	
 	// 5. 댓글 목록 +페이징 처리
-	public List<CommentVO> getCmtList(PageVO pageVO, Integer bno) throws Exception;	
+	public List<CommentVO> getCmtList(PageVO pageVO, Integer bno) throws Exception;
+	
+	// 6. bno번 글의 총 댓글 개수 구하기
+	public Integer getTotalCount(Integer bno) throws Exception;
 } 

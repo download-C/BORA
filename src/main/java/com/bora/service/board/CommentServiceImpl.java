@@ -80,6 +80,15 @@ public class CommentServiceImpl implements CommentService {
 	// 5. 댓글 목록 +페이징 처리 끝
 	
 	
+	// 6. bno번 글의 총 댓글 개수 구하기
+	@Override
+	public Integer getTotalCount(Integer bno) throws Exception {
+		log.info("(●ˇ∀ˇ●)5.getTotalCount(bno)  호출됨 / 전달받은 bno: " + bno);
+		return dao.getTotalCount(bno);
+	}
+	// 6. bno번 글의 총 댓글 개수 구하기 끝
+	
+	
 	
 	
 } // class CommentServiceImpl
