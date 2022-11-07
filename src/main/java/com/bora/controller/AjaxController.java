@@ -1,6 +1,9 @@
 package com.bora.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.domain.SHA256;
@@ -28,6 +33,7 @@ import com.bora.service.board.BoardService;
 import com.google.gson.JsonObject;
 
 @Controller
+@RestController
 public class AjaxController {
 
 	private static final Logger log = LoggerFactory.getLogger(MemberController.class);
@@ -195,4 +201,25 @@ public class AjaxController {
     	return entity;
     }
     // 카테고리 ajax 끝 ==================================
-}
+    
+    
+    // 썸머노트 파일 업로드 
+    @RequestMapping(value="resources/summerimages", method=RequestMethod.POST)
+	public ResponseEntity<?> summerimage(@RequestParam("file") MultipartFile img, HttpServletRequest request) throws IOException {
+		String path = request.getServletContext().getRealPath("resources/upload");
+		Random random = new Random();
+	
+		long currentTime = System.currentTimeMillis();
+		int	randomValue = random.nextInt(100);
+		String fileName = Long.toString(currentTime) + "_"+randomValue+"_a_"+img.getOriginalFilename();
+		
+		File file = new File(path , fileName);
+		img.transferTo(file);
+		return ResponseEntity.ok().body("resources/summerimages/"+fileName);
+
+	}
+    
+    
+    
+    
+}// class AjaxController

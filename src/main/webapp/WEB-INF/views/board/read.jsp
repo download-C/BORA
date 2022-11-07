@@ -274,7 +274,7 @@ $(document).ready(function(){
 		<br>
 		<div>
 			내용
-			<textarea id="summernote" name="b_content" readonly> ${vo.b_content }</textarea>
+			<div id="" name="b_content" readonly> ${vo.b_content }</div>
 		</div>
 		<br>
 		<div>

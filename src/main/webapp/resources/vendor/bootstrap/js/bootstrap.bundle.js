@@ -755,7 +755,7 @@
     _mergeConfigObj(config, element) {
       const jsonConfig = isElement$1(element) ? Manipulator.getDataAttribute(element, 'config') : {}; // try to parse
 
-      return { ...this.constructor.Default,		
+      return { ...this.constructor.Default,
         ...(typeof jsonConfig === 'object' ? jsonConfig : {}),
         ...(isElement$1(element) ? Manipulator.getDataAttributes(element) : {}),
         ...(typeof config === 'object' ? config : {})
