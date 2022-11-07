@@ -9,13 +9,18 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bora.domain.report.ConsumeAllListVO;
 import com.bora.domain.report.BookDetailVO;
+import com.bora.domain.report.ConsumeLastMonListVO;
+import com.bora.domain.report.ConsumeThisMonListVO;
 import com.bora.domain.report.BookVO;
+import com.bora.service.report.ConsumeAllListService;
 import com.bora.service.report.BookDetailService;
 import com.bora.service.report.BookService;
 
@@ -70,4 +75,6 @@ public class BookController {
 		
 		return "/book/listPage";
 	}
+	
+	
 }

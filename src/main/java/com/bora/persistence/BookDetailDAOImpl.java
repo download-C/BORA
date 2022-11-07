@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bora.domain.report.BookDetailVO;
 
+
 @Repository
 public class BookDetailDAOImpl implements BookDetailDAO{
 	@Inject
@@ -65,9 +66,5 @@ public class BookDetailDAOImpl implements BookDetailDAO{
 		log.info("♡♡♡♡♡♡♡♡♡♡ deleteBookDetail(bk_detail_num) 호출");
 		return session.delete(NAMESPACE+".deleteBookDetail", bk_detail_num);
 	}
-	
-	
-	
-	
 
 }
