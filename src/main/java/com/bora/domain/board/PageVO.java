@@ -5,7 +5,7 @@ public class PageVO {
 	
 		// 멤변 =======================================================
 		private int page;       // 페이지
-		private int perPageNum = 2; // 한번에 보여줄 페이지 수
+		private int perPageNum; // 한번에 보여줄 페이지 수
 		
 		
 		
@@ -14,7 +14,7 @@ public class PageVO {
 			// 페이징 처리의 정보가 하나도!! 없을 때
 			// 기본값 부여하기 위해서 == 초기화!!!!하기 위해서
 			this.page = 1;
-			this.perPageNum = 2;
+			this.perPageNum = 10;
 		}
 		
 		// getter setter ==================================================
