@@ -19,6 +19,10 @@ public interface BoardDAO {
 		// 2-2. 페이징 처리 적용한 글 목록 조회 (카테고리)
 		public List<BoardVO> getBoardListCtgr(PageMakerVO pm, String ctgr) throws Exception;
 		
+			public int getBoardCnt() throws Exception;	
+			
+			public int getBoardCntCTGR(String ctgr) throws Exception;
+	
 	// 3. 글 1개 정보 가져오기
 	public BoardVO getBoard(Integer bno) throws Exception;
 
@@ -31,7 +35,7 @@ public interface BoardDAO {
 	// 5. 글 삭제하기
 	public int deleteBoard(Integer bno/* , String id */) throws Exception;
 
-	public int getBoardCnt() throws Exception;	
+	// 6. id -> 닉네임 끌고 오기
+	public String getNick(String id) throws Exception;
 	
-	public int getBoardCntCTGR(String ctgr) throws Exception;
 }

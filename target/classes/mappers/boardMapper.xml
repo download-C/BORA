@@ -13,8 +13,8 @@
 	
     <!-- 1. 글쓰기 =============================================== -->
 	<insert id="insertBoard">
-		insert into bora_cmnt_board (id, b_ctgr, b_title, b_content, b_file)
-		values (#{id}, #{b_ctgr}, #{b_title}, #{b_content}, #{b_file})
+		insert into bora_cmnt_board (id, nick, b_ctgr, b_title, b_content, b_file)
+		values (#{id}, #{nick}, #{b_ctgr}, #{b_title}, #{b_content}, #{b_file})
 	</insert>
 
 	
@@ -77,7 +77,7 @@
 		update bora_cmnt_board
 		set b_title = #{b_title}, b_content = #{b_content}, b_file = #{b_file}
 		where bno = #{bno}
-		and id = #{id}
+<!-- 		and id = #{id} -->
 	</update>
 	
 	
@@ -85,6 +85,16 @@
 	<delete id="deleteBoard">
 		delete from bora_cmnt_board
 		where bno = #{bno}
-		and id = #{id}	
+<!-- 		and id = #{id}	 -->
 	</delete>
+	
+	
+	<!-- 6. id -> 닉네임 끌고 오기 ============================== -->
+	<select id="getNick" resultType="String" parameterType="com.bora.domain.MemberVO">
+		select nick
+		from bora_members
+		where id=#{id}		
+	</select>
+	
+	
 </mapper>

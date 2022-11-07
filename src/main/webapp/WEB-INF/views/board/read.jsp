@@ -47,6 +47,7 @@ $(document).ready(function(){
 	// 계속 쓸 놈들 ---------------------
 	var loginID = '<c:out value="${loginID}"/>';
 	var bnoValue = '<c:out value="${vo.bno}"/>';
+	var nick = '<c:out value="${nick}"/>';
 	
 	
 	// 댓글 목록 출력 ----------------------------
@@ -69,7 +70,7 @@ $(document).ready(function(){
 			// 반복문 돌면서 댓글 list 채우기
 			for (var i = 0, len = list.length||0; i < len; i++) {
 				str += "<li id='cmtLI' data-cno='"+list[i].cno+"'>";
-				str += "<div id='cmt-body'><div id='cmt-header'><strong>"+list[i].id+"</strong>&nbsp;&nbsp;";
+				str += "<div id='cmt-body'><div id='cmt-header'><strong>"+list[i].id +"/ 닉넴:" + list[i].nick + "</strong>&nbsp;&nbsp;";
 				str += "<small>"+cmtService.displayTime(list[i].c_regdate)+"</small>";
 					if (list[i].id == loginID || loginID == 'admin') {
 						// id가 admin이거나 본인일 때만 -> 답글, 수정, 삭제 버턴 나오게 제어
@@ -104,7 +105,8 @@ $(document).ready(function(){
 		var cmt = {
 			c_content: $('#c_content').val(),
 			id: loginID,
-			bno: bnoValue
+			bno: bnoValue,
+			nick: nick
 		};
 		
 		
@@ -120,17 +122,13 @@ $(document).ready(function(){
 						alert("댓글이 등록되었습니다 👍 ");
 					}
 					
-					$('#c_content').empty();
-// 					$('#c_content').remove(); // remove? ㅠ 아님,,
-					
 					showCmtList(1);
 					
-					// 작성 후에 빈칸으로
-// 					document.getElementById("#c_content").value=''; 
-					// 얘 하니까 밑에도 안 먹고,, 거 참
-					
 		}); // 1.add()
-			
+		
+		// 작성 후에 빈칸으로
+		$('#c_content').val("");
+		
 	});// cmtRegisterBtn on click
 	// 댓글 작성 끝 -------------------------------
 	
@@ -197,8 +195,11 @@ $(document).ready(function(){
 		updateCmtForm(cnoValue, c_content);
 		
 		// 수정 버튼 클릭 -> div li data-cno [i] 에 해당하는 div가 -> 입력할 수 있는 form으로 replace됨
-		// 그 입력폼에서 수정 내용 적고 수정 버튼 또 클릭 -> cno, bno, 수정 내용 받아감
+		// 그 입력폼에서 수정 내용 적고 수정 버튼 또 클릭 -> cno, bno, c_content(수정한 내용) 받아감
 		// -> DB 가서 수정 반영하고, 목록 갱신 함 해서 수정한 내용으로 보이도록..
+		
+		// 문제!!! 수정 누르면 해당 cno 폼이 바뀌는 게 아니라 젤 위에 애가 바뀐다 + 내용도 젤 위에 cno 내용으로 뜸
+		//  --> 근데,, 수정 반영은 클릭한 cno한테 잘 들어감 ㄱ-
 		
 		$('#real_mod_btn').click(function(){
 // 			alert("찐 수정버턴 클릭됨");
@@ -252,7 +253,7 @@ $(document).ready(function(){
 		<div>
 			닉네임
 			<div>
-				<input type="text" value="${nick }" readonly>
+				<input type="text" value="${vo.nick }" readonly>
 			</div>
 			<!-- 		닉네임,, 아이디 -> 닉네임 끌어오는 메서드를 만들어야 하남? DB에 넣을 필욘 없고 걍 보여주기만 -->
 		</div>
@@ -273,7 +274,7 @@ $(document).ready(function(){
 		<br>
 		<div>
 			내용
-			<textarea id="summernote" name="b_content" readonly> ${vo.b_content }</textarea>
+			<div id="" name="b_content" readonly> ${vo.b_content }</div>
 		</div>
 		<br>
 		<div>
@@ -327,73 +328,6 @@ $(document).ready(function(){
 </div>
 
 <!-- ----------------------- 댓글 작성 구간 끝^^ --------------------------------- -->
-<!--  모달로 댓글 쓸라고 했는ㄷㅔ^^ ㄷ안되네 -->
-<hr>
-<h3>모달 도전</h3>
-<div class="panel-heading">
-<!-- 	<button id='addReplyBtn' class='btn btn-primary'> (가짜임)댓글 쓰기</button> -->
-</div>
-
-<!-- 모달 자스 ============================== -->
-<button id="modal-show" class='btn btn-primary'>모달로 댓글 쓰기!!!!!</button>
-
-<div class="background" id="myModal">
-	<div class="modal-window">
-		<div class="modal-content">
-			<!--           <button id="close">팝업닫기</button> -->
-			<div class="modal-header">
-				<!-- 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
-				<h4 class="modal-title" id="myModalLabel">REPLY M0DAL</h4>
-			</div>
-
-			<div class="modal-body">
-				<div class="form-group">
-					<label>닉네임</label> <input class="form-control" name="id"
-						value="${loginID}" id="modal_id">
-				</div>
-				<div class="form-group">
-					<label>내용</label> <input class="form-control" name="c_content"
-						value="NewReply!!!!" id="modal_cmt">
-				</div>
-				<div class="form-group">
-					<label>작성일시</label> <input class="form-control" name="c_regdate"
-						value="" id="modal_regdate">
-				</div>
-			</div>
-			<!-- /.modal-body -->
-
-			<div class="modal-footer">
-				<button id="modalModBtn" type="button" class="btn btn-warning"> 수정</button>
-				<button id="modalRemoveBtn" type="button" class="btn btn-danger"> 삭제 </button>
-				<button id="modalCloseBtn" type="button" class="btn btn-default"
-					data-dismiss="modal">닫기</button>
-			</div>
-			<!-- /.modal-footer -->
-
-		</div>
-		<!-- /.modal-content -->
-
-	</div>
-	<!-- /.modal-window -->
-</div>
-<!-- /.background -->
-
-
-<script>
-	function modalShow() {
-		document.querySelector(".background").className = "background show";
-	}
-
-	function modalClose() {
-		document.querySelector(".background").className = "background";
-	}
-
-	document.querySelector("#modal-show").addEventListener("click", modalShow);
-	document.querySelector("#modalCloseBtn").addEventListener("click", modalClose);
-</script>
-
-<!-- 모달 자스 끝 ============================== -->
-
 
 
 
@@ -415,11 +349,13 @@ $(document).ready(function(){
 			fr.submit(); // 클릭하면? 속성 바꾸고 -> submit 되게~~
 		});// 수정 버턴 click
 
+		
 		$(".btn_list").click(function() {
 			// 목록 버턴 클릭했을 때
 			history.back();
 		});// 목록 버턴 click
 
+		
 		$(".btn_del").click(function() {
 			// 삭제 버턴 클릭했을 때~~
 			alert('삭제 버턴 클릭됨');

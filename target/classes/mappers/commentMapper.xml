@@ -9,9 +9,10 @@
 		from bora_cmnt_cmt
 	</select>
 
+
 	<insert id="insertCmt">
-		insert into bora_cmnt_cmt (cno, bno, id, c_content, c_re_ref, c_re_lev, c_re_seq)
-		values (#{cno}, #{bno}, #{id}, #{c_content}, #{cno}, 0, 0)
+		insert into bora_cmnt_cmt (cno, bno, id, nick, c_content, c_re_ref, c_re_lev, c_re_seq)
+		values (#{cno}, #{bno}, #{id}, #{nick}, #{c_content}, #{cno}, 0, 0)
 	</insert>
 
 <!-- 	<insert id="replyCmt"> -->
@@ -46,6 +47,13 @@
 		from bora_cmnt_cmt
 		where bno = #{bno}
 		order by cno;
+	</select>
+	
+	
+	<select id="getTotalCount" resultType="Integer">
+		select count(*)
+		from bora_cmnt_cmt
+		where bno=#{bno}
 	</select>
 	
 	

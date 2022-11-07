@@ -5,7 +5,7 @@ public class PageVO {
 	
 		// 멤변 =======================================================
 		private int page;       // 페이지
-		private int perPageNum = 10; // 한번에 보여줄 페이지 수
+		private int perPageNum; // 한번에 보여줄 페이지 수
 		
 		
 		

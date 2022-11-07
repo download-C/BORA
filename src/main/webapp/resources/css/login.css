@@ -1,0 +1,23 @@
+body {
+  background: #5107B0;
+  background: linear-gradient(to right, #7A1CF6, #A362F8);
+}
+
+.btn-login {
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+  padding: 0.75rem 1rem;
+}
+.btn-kakao {
+    color: black;
+    background-color: #fae100;
+}
+.btn-google {
+  color: white !important;
+  background-color: #ea4335;
+}
+
+.btn-facebook {
+  color: white !important;
+  background-color: #19ce60;
+}

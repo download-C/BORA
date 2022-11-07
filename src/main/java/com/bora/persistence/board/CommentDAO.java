@@ -28,5 +28,8 @@ public interface CommentDAO {
 			@Param("pageVO") PageVO pageVO,
 			@Param("bno") Integer bno) throws Exception;
 	
+	// 6. bno번 글의 총 댓글 개수 구하기
+	public Integer getTotalCount(Integer bno) throws Exception;
+	
 
 } // interface CommentDAO

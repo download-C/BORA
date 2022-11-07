@@ -6,17 +6,19 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-<h1>
-	board/ <span
-		style="color: white; background-color: orange; font-size: 1.5em">
-		💐💐list😎😎 </span>.jsp
-</h1>
+<!-- title -->
+<div class="section-title">
+  <h2><b>커뮤니티</b></h2>
+  
+</div>
+<!-- End title -->
+
 <div>
 	<div>
 		<h6>EL{msg} : ${msg }</h6>
 		<h6>EL{pm} : ${pm }</h6>
-		<h6>EL{pm.pageStart}: ${pm.pageStart }</h6>
-		<h3><a href="/board/insert">여기를 눌러서 편하게 글쓰기 하십시오 ^^💘💘 </a></h3>
+		<h6>EL{pm.vo.page}: ${pm.vo.page }</h6>
+<!-- 		<h3><a href="/board/insert">여기를 눌러서 편하게 글쓰기 하십시오 ^^💘💘 </a></h3> -->
 	</div>
 	
 	
@@ -31,7 +33,7 @@
 // 			alert("페이지 번호: "+page);
 			$('.ctgr_btn').click(function(){
 				var ctgr = $(this).val();
-				alert(ctgr);
+// 				alert(ctgr);
 				$.ajax({
 					url: "/ajax/ctgr",
 					data: {"ctgr": $(this).val(), "pageStart":pageStart, "page":page},
@@ -70,58 +72,74 @@
 					}
 				});// ajax
 				
-				
-				
-				
 			}); // btn click
 		});// jquery ready
 	</script>
 <!-- ajax로 카테고리 호출 시 페이징 처리 대신 하는 메서드 -->
+
 
 	<input type="button" value="모두다BORA" class="ctgr_btn" id="btn_all">
 	<input type="button" value="골라줘BORA" class="ctgr_btn" id="btn_pick">
 	<input type="button" value="알려줘BORA" class="ctgr_btn" id="btn_tip">
 	<input type="button" value="친해져BORA" class="ctgr_btn" id="btn_meet">
 
-	<input type="hidden" id="page" value="${pm.vo.page }"> 
-	<div>
-		<table class="table table-bordered">
-			<thead>
+
+<!-- table -->
+<div class="row">
+  <div class="col-12">
+   <div class="d-sm-flex align-items-center mb-3">
+	<div class="container">
+		<button type="button" value="모두다BORA" class="ctgr_btn btn" id="btn_all"  style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">모두다<b style="color:#5107B0;">BORA</b></span></button>
+		<button type="button" value="골라줘BORA" class="ctgr_btn btn" id="btn_pick" style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">골라줘<b style="color:#5107B0;">BORA</b></span></button>
+		<button type="button" value="알려줘BORA" class="ctgr_btn btn" id="btn_tip"  style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">알려줘<b style="color:#5107B0;">BORA</b></span></button>
+		<button type="button" value="친해져BORA" class="ctgr_btn btn" id="btn_meet" style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">친해져<b style="color:#5107B0;">BORA</b></span></button>
+		<button type="button" value="글쓰기" onclick="location.href='/board/insert';" class="btn" id="" style="background-color: #5107B0; float: right; width: 120px; margin: 0px 10px 10px 0px;"><span class="btn-inner--text" style="color: white;">글쓰기</span></button>
+			<input type="hidden" id="page" value="${pm.vo.page }"> 
+	</div>
+	</div>
+	
+   <div class="card-body px-0 py-0" >
+    <div class="container">
+		<table  class="table table-hover" style="box-shadow: 7px 14px 90px 3px rgba(163, 174, 184, 0.7);">
+			<thead class="bg-gray-100">
 				<tr>
-					<th>번호</th>
-					<th>카테고리</th>
-					<th>제목</th>
-					<th>id -> 닉으로</th>
-					<th>작성일</th>
-					<th>조회수</th>
+					<th class="text-secondary text-xs font-weight-semibold opacity-7">번호</th>
+					<th class="text-secondary text-xs font-weight-semibold opacity-7">카테고리</th>
+					<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">제목</th>
+					<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">닉네임</th>
+					<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">작성일</th>
+					<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">조회수</th>
 				</tr>
 			</thead>
 			<tbody>	
 				<c:forEach var="vo" items="${boardList }">
 				
 					<tr>
-						<td>${vo.bno}</td>
-						<td>${vo.b_ctgr}</td>
-						<td> <a href="/board/read?bno=${vo.bno }&page=${pm.vo.page}">${vo.b_title }</a> </td>
-						<td>${vo.id }</td>
-						<td> <fmt:formatDate value="${vo.b_regdate }" pattern="YYYY년 MM월 dd일 🌈  HH:mm" /> </td>
-						<td>${vo.b_readcount }</td>
+						<td><span class="text-sm font-weight-normal">${vo.bno}</span></td>
+						<td><div class="my-auto"><h6 class="mb-0 text-sm">${vo.b_ctgr}</h6></div></td>
+						<td><!-- <p class="text-sm font-weight-normal mb-0"> --><a href="/board/read?bno=${vo.bno }&page=${pm.vo.page}">${vo.b_title }</a><!-- </p> --></td>
+						<td><b>${vo.nick }</b></td>
+						<td><span class="text-sm font-weight-normal"> <fmt:formatDate value="${vo.b_regdate }" pattern="YYYY년 MM월 dd일 🌈  HH:mm" /> </span></td>
+						<td><span class="text-sm font-weight-normal">${vo.b_readcount }</span></td>
 					</tr>
 				
 				</c:forEach>
 			</tbody>
 		</table>
-	</div>
-
+	</div> <!-- container -->
+	<br><br>
 	<!-- ===================== 페이징 처리 구간 ========================== -->
 	<div>
-		<ul type="none" id="pageUl">
+		<nav aria-label="Page navigation example">
+		<ul type="none" id="pageUl"  class="pagination justify-content-center">
 			
 			<!-- 이전 버턴================ -->
 			
 			<c:if test="${pm.prev }"> 
 					<!--      ㄴboolean 타입이니까 false면 걍 패스되는거~ 음 편하군  -->
-				<li><a href="listPage?page=${pm.pageStart - 1 }">&laquo;</a></li>
+				<li><a href="listPage?page=${pm.pageStart - 1 }" class="page-item" aria-label="Previous" style="color:#621fb7;">
+						<span aria-hidden="true">&laquo;</span></a>
+				</li>
 			</c:if>
 			
 			<!-- 1 2 3 4 .... ================ -->
@@ -129,19 +147,23 @@
 						<!-- 페이지 블럭에서 내가 선택한 현재 페이지만! active되도록 -->
 				<%-- 
 				<li <c:out value="${pm.vo.page == index? 'class=active' : '' }" />>   2.3버전 이하는 c:out 써야 함~ --%>
-				<li ${pm.vo.page == index? 'class=active' : '' }  style="float: left;">
-					<a href="listPage?page=${index }"> &nbsp;&nbsp; ${index} &nbsp;&nbsp; </a>
+				<li ${pm.vo.page == index? 'class=active' : '' }  style="float: left;"  class="page-item">
+					<a href="listPage?page=${index }" style="color:#621fb7;"  class="page-link" > ${index} </a>
 				</li>
 			</c:forEach>
 			
 			<!-- 다음 버턴================ -->
 			<c:if test="${pm.next }">
-				<li><a href="listPage?page=${pm.endPage + 1 }">&raquo;</a></li>
+				<li class="page-item"><a href="listPage?page=${pm.endPage + 1 }" class="page-link"  aria-label="Next" style="color:#621fb7;">
+					<span aria-hidden="true">&raquo;</span></a></li>
 			</c:if>
 		</ul>
+		</nav>
 	</div>
 	<!-- ===================== 페이징 처리 구간 끝 ========================== -->
 </div>
+</div> <!-- col-12 -->
+</div> <!-- row -->
 
 
 <script type="text/javascript">

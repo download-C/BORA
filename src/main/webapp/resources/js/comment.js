@@ -116,7 +116,7 @@ var cmtService = (function(){
 	
 	// 6. 시간 처리 함수 displayTime()
 	//    24시간이 지난 댓글은 날짜만 표시 / 24시간 이내의 글은 시간으로 표시
-	//   얘를 왜 인식을 못하지??????????????? 
+	//   얘를 왜 인식을 못하지??????????????? << 리턴값 안 줘서 ㄱ- 해결 완ㅇ
 	function displayTime(timeValue){
 		console.log("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧6.displayTime.............................");
 //		alert('displayTime() 호출됨');
