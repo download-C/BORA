@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- consume_list -->
+<!-- #{bk_detail_num}, #{bk_num}, #{id}, #{bk_day}, #{dk_iow}, #{bk_group}, #{bk_category}, #{bk_money}, #{bk_memos} -->
+<mapper namespace="com.bora.mapper.ConsumeMapper">
+	<select id="getConsumeLastMonList" resultType="com.bora.domain.report.ConsumeLastMonListVO">
+	   select * from consume_lastmon_list
+	   where id=#{loginID}
+	</select>
+	
+	<select id="getConsumeThisMonList" resultType="com.bora.domain.report.ConsumeThisMonListVO">
+	   select * from consume_thismon_list
+	   where id=#{loginID}
+	</select>
+	
+	<select id="getConsumeAllList" resultType="com.bora.domain.report.ConsumeAllListVO">
+	   select * from bora_consume_list
+	   where id=#{loginID}
+	</select>
+</mapper>

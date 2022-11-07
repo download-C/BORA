@@ -38,7 +38,7 @@ public class ConsumeDAOImpl implements ConsumeDAO{
 	@Override
 	public List<ConsumeAllListVO> getConsumeAllList(String loginID) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡getConsumeAllList(loginID) 호출");
-		return session.selectList(NAMESPACE+".getBookAllList", loginID);
+		return session.selectList(NAMESPACE+".getConsumeAllList", loginID);
 	}
 
 }
