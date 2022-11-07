@@ -14,10 +14,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.bora.domain.report.BookDetailAllListVO;
+import com.bora.domain.report.ConsumeAllListVO;
 import com.bora.domain.report.BookDetailVO;
-import com.bora.domain.report.BookLastMonListVO;
-import com.bora.domain.report.BookThisMonListVO;
+import com.bora.domain.report.ConsumeLastMonListVO;
+import com.bora.domain.report.ConsumeThisMonListVO;
 import com.bora.persistence.BookDetailDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -130,31 +130,4 @@ public class BookDetailDAOTest {
 		if(result==1) log.info("성공"); 
 	}
 	
-	// 저번달 소비 비교 리스트
-	public void getBookLastMonList() throws Exception{
-		String loginID = "admin";
-		List<BookLastMonListVO> bookLastMonList = 
-				session.selectList(NAMESPACE+".bookLastMonList", loginID);
-		log.info("♡♡♡♡♡♡♡♡♡♡ 불러온 정보: ");
-		log.info("♡♡♡♡♡♡♡♡♡♡ "+bookLastMonList);
-	}
-	
-	// 이번달 소비 비교 리스트
-	public void getBookThisMonList() throws Exception{
-		String loginID = "admin";
-		List<BookThisMonListVO> bookThisMonList = 
-				session.selectList(NAMESPACE+".bookThisMonList", loginID);
-		log.info("♡♡♡♡♡♡♡♡♡♡ 불러온 정보: ");
-		log.info("♡♡♡♡♡♡♡♡♡♡ "+bookThisMonList);
-	}
-	
-	// 저번달 소비 비교 리스트
-	public void getBookDetailAllList() throws Exception{
-		String loginID = "admin";
-		List<BookDetailAllListVO> bookDetailListAll = 
-				session.selectList(NAMESPACE+".bookDetailAllList", loginID);
-		log.info("♡♡♡♡♡♡♡♡♡♡ 불러온 정보: ");
-		log.info("♡♡♡♡♡♡♡♡♡♡ "+bookDetailListAll);
-	}
-
 }

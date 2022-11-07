@@ -1,6 +1,6 @@
 package com.bora.domain.report;
 
-public class BookLastMonListVO {
+public class ConsumeLastMonListVO {
 	private Integer bk_lastmon_num; // 저번 달 소비 번호
 	private String id; // 회원 아이디
 	private String bk_lastmon_category; // 저번 달 카테고리
