@@ -3,6 +3,7 @@ package com.bora.service.report;
 import java.util.List;
 
 import com.bora.domain.board.PageMakerVO;
+import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookVO;
 
 public interface BookService {
@@ -28,5 +29,9 @@ public interface BookService {
 	public BookVO getMonthBook(int year, int month, String loginID) throws Exception;
 
 	public Integer getBookMaxNum() throws Exception;
+
+	public int getMonthBudget(String loginID, int year, int month) throws Exception;
+
+	public int updateMonthBudget(String loginID, Integer year, Integer month, Integer bk_budget) throws Exception;
 
 }

@@ -48,5 +48,5 @@ public class ReportController {
 		   log.info(" @@@@ categorylist() 호출 ");
 		   List<PrePaidTranVO> categorylist = service.getCategoryList();
 	   }
-
+	   
 }

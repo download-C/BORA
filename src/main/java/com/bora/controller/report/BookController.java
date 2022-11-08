@@ -50,6 +50,37 @@ public class BookController {
 		log.info("writeBookGET() 호출");
 	}
 	
+	// 가계부 메인 페이지
+   @RequestMapping(value="/dashboard", method = RequestMethod.GET)
+	   public String bookMainGET(Model model, RedirectAttributes rttr) throws Exception {
+	   log.info("reportMainGET() 호출");
+	   loginID = (String)session.getAttribute("loginID");
+	   
+	   // 로그인 안 한 경우 로그인 페이지로 이동
+	   if(loginID == null) {
+		   rttr.addFlashAttribute("msg", "로그인 후 이용 가능한 페이지입니다.");
+		   return "redirect:/main/login";
+	   }
+	   
+	   // 현재 연과 월을 기본으로 보여줌
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH)+1;
+		model.addAttribute("year", year);
+		model.addAttribute("month", month);
+		log.info("입력된 날짜 :"+year+"년 "+month+"월");
+		List<BookDetailVO> detailList = dService.getDashboardBookDetail(loginID, year, month);
+		model.addAttribute("detailList", detailList);
+		
+		// 해당 연월의 예산 가져오기
+		int bk_budget = service.getMonthBudget(loginID, year, month); 
+		if(bk_budget!=0) model.addAttribute("bk_budget", bk_budget);
+		else model.addAttribute("bk_budget", 0);
+		
+		return "/book/dashboard";
+   }
+
+	
 	// 1. 가계부 상세 내역 작성 메서드
 	@RequestMapping(value="/write", method = RequestMethod.POST)
 	public String wirteBookPOST(HttpServletRequest request,
@@ -129,6 +160,11 @@ public class BookController {
 		int cnt = dService.getMonthBookDetailCnt(loginID, year, month);
 		pm.setTotalCnt(cnt);
 		model.addAttribute("pm", pm);
+		
+		// 해당 연월의 예산 가져오기
+		int bk_budget = service.getMonthBudget(loginID, year, month); 
+		if(bk_budget!=0) model.addAttribute("bk_budget", bk_budget);
+		else model.addAttribute("bk_budget", 0);
 		
 		log.info(year+"년 "+month+"달 가계부 불러오기");
 		List<BookDetailVO> detailList = new ArrayList<BookDetailVO>();

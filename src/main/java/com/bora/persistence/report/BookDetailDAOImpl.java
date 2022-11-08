@@ -97,6 +97,16 @@ public class BookDetailDAOImpl implements BookDetailDAO{
 		map.put("pm", pm);
 		return session.selectList(NAMESPACE+".getMonthBookDetailList", map);
 	}
-	
+
+	@Override
+	public List<BookDetailVO> getDashboardBookDetail(String loginID, int year, int month) throws Exception {
+		log.info("getDashboardBookDetail(loginID, year, month) 호출");
+		Map<String, Object> map = new HashMap<String, Object>();
+		log.info("year: "+year+" month: "+month);
+		map.put("year", year);
+		map.put("month", month);
+		map.put("loginID", loginID);
+		return session.selectList(NAMESPACE+".getDashboardBookDetail", map);
+	}
 
 }

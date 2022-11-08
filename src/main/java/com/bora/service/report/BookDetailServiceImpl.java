@@ -74,6 +74,10 @@ public class BookDetailServiceImpl implements BookDetailService{
 		return dao.getMonthBookDetailList(year, month, loginID, pm);
 	}
 	
-	
+	@Override
+	public List<BookDetailVO> getDashboardBookDetail(String loginID, int year, int month) throws Exception {
+		log.info("getDashboardBookDetail(loginID, year, month) 호출");
+		return dao.getDashboardBookDetail(loginID, year, month);
+	}
 
 }

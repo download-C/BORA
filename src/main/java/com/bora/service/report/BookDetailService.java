@@ -26,6 +26,8 @@ public interface BookDetailService {
 
 	public List<BookDetailVO> getMonthBookDetailList(int year, int month, String loginID, PageMakerVO pm) throws Exception;
 
+	public List<BookDetailVO> getDashboardBookDetail(String loginID, int year, int month) throws Exception;
+
 		
 
 }

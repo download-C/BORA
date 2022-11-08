@@ -36,11 +36,16 @@
 	<select id="getBookMaxNum" resultType="Integer">
 		select max(bk_num) from bora_book
 	</select>
+
+	<select id="getMonthBudget" resultType="Integer">
+		select bk_budget from bora_book
+		where id=#{loginID} and bk_year=#{year} and bk_month=#{month}
+	</select>
 	
-	<!-- 예산 설정 -->
-	<update id="setBudget">
-		update bora_book 
-		where id=#{loginID} and bk_year=#{bk_year} and bk_month=#{bk_month}
+	<update id="updateMonthBudget">
+		update bora_book
+		set bk_budget = #{bk_budget}
+		where id=#{loginID} and bk_year=#{year} and bk_month=#{month} 
 	</update>	
 	
 	<!-- 가계부 전체 글 개수 조회 -->

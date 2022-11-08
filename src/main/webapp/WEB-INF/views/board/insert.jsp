@@ -9,8 +9,8 @@
 	if (loginID == null) {
 %>
 <script>
-	alert("세션값이 만료되어 로그인 페이지로 이동합니다.");
-	location.href = "/member/login";
+	alert("로그인 후 사용 가능한 페이지입니다.");
+	location.href = "/main/login";
 </script>
 <%
 	}

@@ -86,10 +86,18 @@ public class BookServiceImpl implements BookService{
 		log.info("getBookMaxNum() 호출");
 		return dao.getBookMaxNum();
 	}
-	
-	
-	
-	
+
+	@Override
+	public int getMonthBudget(String loginID, int year, int month) throws Exception {
+		log.info("getMonthBudget(loginID, year, month) 호출");
+		return dao.getMonthBudget(loginID, year, month);
+	}
+
+	@Override
+	public int updateMonthBudget(String loginID, Integer year, Integer month, Integer bk_budget) throws Exception {
+		log.info("updateMonthBudget(loginID, year, month, bk_budget) 호출");
+		return dao.updateMonthBudget(loginID, year, month, bk_budget);
+	}
 	
 
 }

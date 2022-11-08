@@ -35,19 +35,32 @@
 				#{bk_category}, #{bk_money}, #{bk_memo});
 	</insert>
 	
-	<!-- 회원의 가계부 모든 목록 불러오기 -->
-	<select id="getBookDetailAll" resultMap="detail">
-		select b.bk_num, b.id,b.bk_year, b.bk_month, b.bk_budget, 
-			   d.bk_detail_num, d.bk_day, d.bk_iow, d.bk_group, 
+
+	
+	<!-- 회원의 대시보드용 최신 10개 목록 불러오기 -->
+	<select id="getDashboardBookDetail" resultMap="detail">
+		select b.bk_num, b.bk_year, b.bk_month, b.bk_budget, 
+			   d.bk_detail_num, b.id, d.bk_day, d.bk_iow, d.bk_group, 
 			   d.bk_category, d.bk_money, d.bk_memo
 		from bora_book_detail d join bora_book b
 		on b.bk_num = d.bk_num
+		where b.id=#{loginID} and b.bk_year=#{year} and b.bk_month=#{month}
+		order by d.bk_day desc
+		limit 0, 10
+	</select>
+	
+	<!-- 회원의 가계부 모든 목록 불러오기 -->
+	<select id="getBookDetailAll" resultMap="detail">
+		select b.bk_num, b.bk_year, b.bk_month, b.bk_budget, 
+			   d.bk_detail_num, b.id, d.bk_day, d.bk_iow, d.bk_group, 
+			   d.bk_category, d.bk_money, d.bk_memo
+		from bora_book_detail d join bora_book b
 	</select>
 	
 	<!-- 회원의 가계부 모든 목록 불러오기 -->
 	<select id="getBookDetailList" resultType="com.bora.domain.report.BookDetailVO">
 		select b.bk_num, b.bk_year, b.bk_month, b.bk_budget, 
-			   d.bk_detail_num, bb.id, d.bk_day, d.bk_iow, d.bk_group, 
+			   d.bk_detail_num, b.id, d.bk_day, d.bk_iow, d.bk_group, 
 			   d.bk_category, d.bk_money, d.bk_memo
 		from bora_book_detail d join bora_book b
 		on b.bk_num = d.bk_num

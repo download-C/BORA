@@ -20,6 +20,7 @@
 		<h6>EL{pm.vo.page}: ${pm.vo.page }</h6>
 <!-- 		<h3><a href="/board/insert">여기를 눌러서 편하게 글쓰기 하십시오 ^^💘💘 </a></h3> -->
 	</div>
+</div>
 	
 	
 	<!-- // 카테고리 ajax,.,... 일단 보류 -->
@@ -165,7 +166,6 @@
 </div> <!-- col-12 -->
 </div> <!-- row -->
 
-
 <script type="text/javascript">
 	// alert(${msg});
 	var result = "${msg}";
@@ -182,6 +182,5 @@
 		alert("글 삭제 완 🥰");
 	}
 </script>
-
 
 <%@ include file="../include/footer.jsp"%>

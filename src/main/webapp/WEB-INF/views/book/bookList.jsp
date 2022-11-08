@@ -5,6 +5,8 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
 <%
 if(loginID==null) {%>
 <!-- 세션값(로그인) 확인 -->
@@ -46,6 +48,36 @@ function changeSelect(){
 
 <script>
 $(document).ready(function() {
+	// 예산 바꾸기
+	$("#budgetBtn").click(function(){
+		let msg = "${msg}";
+		var budget = document.getElementById("bk_budget").value;		
+		var year = "<c:out value='${year}' />";
+		var month = "<c:out value='${month}' />";
+		$.ajax({
+			method: "post",
+			url: "/ajax/writeBudget",
+			dataType: "text",
+			data: {"bk_budget":budget, 
+				   "year": year,
+				   "month": month,
+				   "loginID":"<c:out value='<%=loginID%>' />"
+		    },
+	   		success: function(data){
+// 	   			alert("성공");
+				budget = data;
+				Swal.fire(
+					'예산 설정 완료!',
+                year+'년 '+month+'월 예산이 '+data+'원으로 설정되었습니다.',
+                'success' /*디자인 타입*/
+         	   )
+	   			
+	   		},
+	   		error: function(){
+	   			alert("실패");
+	   		}
+		}); //ajax
+	});//budgetBtn click
 // 비밀번호 회원정보 수정 시 alert 
     let message = "${msg}";
     if (message != "") {
@@ -63,8 +95,8 @@ $(document).ready(function() {
 <div class="container">
 <h3 style="text-align: center">${year }년 ${month }월 가계부</h3>
 	<div>
-		<input type="text" value="${detail.book.bk_budget }" name="bk_budget" id=bk_budget placeholder="${month }월 예산 설정 ">
-		<button id="budgetBtn">설정</button>
+		이번 달 예산 <input type="number" name="bk_budget" id="bk_budget" value="${bk_budget}" >원
+				<button id="budgetBtn">예산 입력</button>
 	</div>
 	<div style="float: right;">
 		<select name="year" id="year" onchange="changeSelect()">
@@ -126,10 +158,10 @@ $(document).ready(function() {
 		</tbody>
 		</table>
 	</div>
-	<div style="margin: auto;">
+	<div style="margin: auto; text-align: center;">
 		<ul type="none" id="pageUl">
 			<c:if test="${pm.prev }"> 
-				<li><a href="/book/list?page=${pm.pageStart+1}&year=${year}&month=${month}">&laquo;</a></li>
+				<li><a href="/book/list?page=${pm.pageStart}&year=${year}&month=${month}">&laquo;</a></li>
 			</c:if>
 			<c:forEach var="index" begin="${pm.pageStart+1 }" end="${pm.endPage }"> 
 				<li ${pm.vo.page == index? 'class=active' : '' }  style="float: left;">

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
+import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookVO;
 
 @Repository
@@ -111,6 +112,29 @@ public class BookDAOImpl implements BookDAO{
 		log.info("writeBook(book) 호출");
 		return session.insert(NAMESPACE+".writeBook", book);
 	}
+
+	@Override
+	public int getMonthBudget(String loginID, int year, int month) throws Exception {
+		log.info("getMonthBudget(loginID, year, month) 호출");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("year", year);
+		map.put("month", month);
+		map.put("loginID", loginID);
+		return session.selectOne(NAMESPACE+".getMonthBudget", map);
+	}
+
+	@Override
+	public int updateMonthBudget(String loginID, Integer year, Integer month, Integer bk_budget) throws Exception {
+		log.info("updateMonthBudget(loginID, year, month, bk_budget) 호출");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("year", year);
+		map.put("month", month);
+		map.put("loginID", loginID);
+		map.put("bk_budget", bk_budget);
+		return session.update(NAMESPACE+".updateMonthBudget", map);
+	}
+	
+	
 	
 	
 	
