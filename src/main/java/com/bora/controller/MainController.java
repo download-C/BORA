@@ -1,5 +1,6 @@
 package com.bora.controller;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -7,6 +8,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -18,15 +21,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.domain.SHA256;
-import com.bora.domain.MemberVO;
 import com.bora.domain.board.NoticeVO;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
+import com.bora.domain.member.MemberVO;
+import com.bora.domain.member.NaverLoginVO;
 import com.bora.domain.report.BookVO;
 import com.bora.service.MainService;
 import com.bora.service.MemberService;
 import com.bora.service.board.NoticeService;
 import com.bora.service.report.BookService;
+import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.google.gson.JsonObject;
+import com.google.protobuf.TextFormat.ParseException;
 
 @RequestMapping("/main/*")
 @Controller
@@ -41,6 +48,15 @@ public class MainController {
 	NoticeService noticeService;
 	@Inject
 	BookService bookService;
+	
+	@Inject
+	private void setNaverLoginVO(NaverLoginVO naverVO) {
+		this.naverVO = naverVO;
+	}
+	
+	private NaverLoginVO naverVO;
+	private String apiResult = null;
+	
 	
 	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
@@ -98,8 +114,10 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public void loginGET() throws Exception {
+	public void loginGET(Model model, HttpSession session) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡loginGET() 호출");
+		
+		
 	}
 
 	// http://localhost:8088/main/login
@@ -124,6 +142,57 @@ public class MainController {
 		}
 
 	}
+	// 네이버 아이디 로그인 시
+	@RequestMapping(value = "/naver", method = {RequestMethod.GET, RequestMethod.POST})
+	public String naverCoginGET(Model model, HttpSession session) throws Exception {
+		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡loginGET() 호출");
+			String naverAuthUrl = naverVO.getAuthorizationUrl(session);
+			//http://localhost:8088/main/naver?code=Xaq08ynLPqVervmn2p&state=451623011891285564847791402461046066880
+			log.info("네이버: "+naverAuthUrl);
+			
+			model.addAttribute("url", naverAuthUrl);
+			return "redirect:/main/callback";
+	}
+	
+	//네이버 로그인 성공시 callback호출 메소드
+		@RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
+		public String callback(Model model, String code, String state, HttpSession session) throws Exception {
+			
+			System.out.println("여기는 callback");
+			OAuth2AccessToken oauthToken;
+	        oauthToken = naverVO.getAccessToken(session, code, state);
+	 
+	        //1. 로그인 사용자 정보를 읽어온다.
+			apiResult = naverVO.getUserProfile(oauthToken);  //String형식의 json데이터
+			
+			/** apiResult json 구조
+			{"resultcode":"00",
+			 "message":"success",
+			 "response":{"id":"33666449","nickname":"shinn****","age":"20-29","gender":"M","email":"sh@naver.com","name":"\uc2e0\ubc94\ud638"}}
+			**/
+			
+			//2. String형식인 apiResult를 json형태로 바꿈
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(apiResult);
+			JSONObject jsonObj = (JSONObject) obj;
+			
+			//3. 데이터 파싱 
+			//Top레벨 단계 _response 파싱
+			JSONObject response_obj = (JSONObject)jsonObj.get("response");
+			//response의 nickname값 파싱
+			String nickname = (String)response_obj.get("nickname");
+	 
+			System.out.println(nickname);
+			
+			//4.파싱 닉네임 세션으로 저장
+			session.setAttribute("sessionId",nickname); //세션 생성
+			
+			model.addAttribute("result", apiResult);
+		     
+			return "/main/main";
+		}
+	
+	
 	
 	// 2-1. 페이징 처리하기 
 	// http://localhost:8088/main/NoticeListPage

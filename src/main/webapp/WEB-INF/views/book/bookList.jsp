@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -28,9 +30,6 @@ if(loginID==null) {%>
 	})
 </script>
 <%} %>
-
-
-
 
 
 <!-- login 성공 메세지 불러오기 -->
@@ -79,6 +78,7 @@ function changeSelect(){
 
 </script>
 
+
 <script>
 $(document).ready(function() {
 	// 예산 바꾸기
@@ -101,7 +101,7 @@ $(document).ready(function() {
 				budget = data;
 				Swal.fire(
 					'예산 설정 완료!',
-                year+'년 '+month+'월 예산이 '+data+'원으로 설정되었습니다.',
+                year+'년 '+month+'월 예산이 '+data+'만원으로 설정되었습니다.',
                 'success' /*디자인 타입*/
          	   )
 	   			
@@ -121,12 +121,36 @@ $(document).ready(function() {
 </script>
 <!-- 태그 적는 곳 -->
 
+<!-- 숫자 콤마 찍는 함수 -->
+<script type="text/javascript">
+function inputNumberFormat(obj) {
+    obj.value = comma(uncomma(obj.value));
+}
+
+function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+
+function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, '');
+}
+</script>
+
 <div class="container">
 <br>
 <h3 style="text-align: center">${year }년 ${month }월 가계부</h3>
-	<div>
-		이번 달 예산 <input type="number" name="bk_budget" id="bk_budget" value="${bk_budget}" >원
-				<button id="budgetBtn">예산 입력</button>
+<div style="display: flex; justify-content: space-between; flex-flow: row nowrap; margin-bottom: 10px;">
+	<div style="float: left;">
+		이번 달 예산 :
+			
+			<input type="number" name="bk_budget" id="bk_budget" value="${bk_budget}"  onkeyup="javascript:inputNumberFormat(this)"
+					 style="text-align: right; width:50px; ">만원	
+				<button id="budgetBtn" class="btn m3" 
+				style="background-color: #5107B0; width: 100px; margin:auto; padding: 0px; color:white" >
+				<span class="btn-inner--text" style="color: white;">예산 입력</span>
+				</button>
 	</div>
 	<div style="float: right;">
 		<select name="year" id="year" onchange="changeSelect()">
@@ -150,8 +174,11 @@ $(document).ready(function() {
 				<option value="11">11월</option>
 				<option value="12">12월</option>
 		</select>
-		<input type="button" value="가계부 쓰기" class="btn btn-primary m-1" onclick="location.href='/book/write';" >
+		<input type="button" value="가계부 쓰기" class="btn m3" 
+			onclick="location.href='/book/write';" style="background-color: #5107B0; width: 100px; margin:auto; padding: 0px; color:white">
 	</div>
+</div>
+
 	<div class="listTable">
 		<table border="1" style="width: 100%; text-align: center">
 		<thead style="background-color: #5107B0; color: white;">
@@ -175,8 +202,8 @@ $(document).ready(function() {
 				<td>${list.bk_day }일</td>
 				<td>${list.bk_iow }</td>
 				<td>${list.bk_group }</td>
-				<td>${list.bk_category }</td>
-				<td>${list.bk_money }원</td>
+				<td >${list.bk_category }</td>
+				<td><fmt:formatNumber value="${list.bk_money }" pattern="#,###" />원</td>
 				<td>${list.bk_memo }</td>
 				<td style="font-size: x-small">
 					<button onclick="location.href='/book/update?page=1&bk_num=${list.bk_num}&bk_detail_num=${list.bk_detail_num }';">수정</button>

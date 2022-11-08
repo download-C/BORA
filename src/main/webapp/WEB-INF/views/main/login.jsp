@@ -1,3 +1,6 @@
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -7,6 +10,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 
 <!-- Template Main CSS File -->
 <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
@@ -55,27 +59,44 @@ $(document).ready(function(){
 				 <div class="d-grid">
                 	<button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">로그인하기</button>
                  </div>
+                 </form>
 			<%-- 	<div><input type="hidden" value="${_csrf.token }" name=${_csrf.parameterName }></div> --%>
 				 <hr class="my-4">
                  <div class="d-grid mb-2">
-	                 <button class="btn btn-kakao btn-login text-uppercase fw-bold" type="submit">
+	                 <button class="btn btn-kakao btn-login text-uppercase fw-bold">
 	                  카카오 아이디로 로그인하기	                  
 	                 </button>
               	 </div>
               	 <div class="d-grid mb-2">
-	                 <button class="btn btn-google btn-login text-uppercase fw-bold" type="submit">
-	                 	구글 아이디	로 로그인하기
+	                 <button class="btn btn-google btn-login text-uppercase fw-bold" >
+	                 	구글 아이디로 로그인하기
 	                 </button>
                  </div>
-             	 <div class="d-grid mb-2">
-	                 <button class="btn btn-facebook btn-login text-uppercase fw-bold" type="submit">
+				<%
+					// 네이버 아이디로 로그인
+				   String clientId = "lHzDm6WPNUoeiSbI4Vaq";//애플리케이션 클라이언트 아이디값";
+				   String redirectURI = URLEncoder.encode("http://localhost:8088/main/naver", "UTF-8");
+				   SecureRandom random = new SecureRandom();
+				   String state = new BigInteger(130, random).toString();
+				   String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code"
+				        + "&client_id=" + clientId
+				        + "&redirect_uri=" + redirectURI
+				        + "&state=" + state;
+				   session.setAttribute("state", state);
+				 %>
+             	 <div id="naver_id_login" class="d-grid mb-2">
+	                 <button class="btn btn-facebook btn-login text-uppercase fw-bold" 
+	                 	onclick="location.href='<%=apiURL%>';">
 	                  네이버 아이디로 로그인하기
 	                 </button>
               	 </div>
-				 </form>
+				 
 				 </div>
 			</div>
 		</div>
 	</div>
 </div>
+
+
+
 <%@ include file="../include/footer.jsp"%>

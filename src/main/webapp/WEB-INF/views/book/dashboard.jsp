@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -40,7 +41,7 @@ $(document).ready(function(){
 				budget = data;
 				Swal.fire(
 					'예산 설정 완료!',
-                year+'년 '+month+'월 예산이 '+data+'원으로 설정되었습니다.',
+                year+'년 '+month+'월 예산이 '+data+'만원으로 설정되었습니다.',
                 'success' /*디자인 타입*/
          	   )
 	   			
@@ -79,7 +80,7 @@ $(document).ready(function(){
 		<div style="display: flex; justify-content: space-between;  flex-flow: row nowrap;">
 			<div id="budget">
 				이번 달 예산 <input style="text-align: right; width: 120px;" type="number" name="bk_budget" id="bk_budget" value="${bk_budget}" >원
-				<button id="budgetBtn" class="btn btn-primary m-1">예산 입력</button>
+				<button id="budgetBtn" style="background-color: #5107B0; float: right; width: 120px; margin: 0px 10px 10px 0px;">예산 입력</button>
 			</div>
 			<input type="button" id="bookBtn" value="가계부 쓰기" 
 					class="btn btn-primary m-2"
@@ -103,7 +104,7 @@ $(document).ready(function(){
 				<td>${list.bk_iow }</td>
 				<td>${list.bk_group }</td>
 				<td>${list.bk_category }</td>
-				<td>${list.bk_money }원</td>
+				<td><fmt:formatNumber value="${list.bk_money }" pattern="#,###" />원</td>
 				<td>${list.bk_memo }</td>
 			</tr>
 			</c:forEach>
