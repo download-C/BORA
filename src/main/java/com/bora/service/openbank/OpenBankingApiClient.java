@@ -38,8 +38,8 @@ import com.bora.domain.openbank.tran.withdraw.TranWithdrawResponseVO;
 @Service
 public class OpenBankingApiClient {
 	// 변수 정의 
-	private String client_id="d30735e2-bd2d-4a1d-84c7-414bd28660c1";
-	private String client_secret="2aab5ea7-0fc7-4e80-b451-95c418a0f5ca";
+	private String client_id="2ce89526-eccf-45b0-a59f-1ca10bc64b30";
+	private String client_secret="d4f6ae0c-2f45-497a-8833-bc4058ada4d1";
 	private String redirect_uri="http://localhost:8088/openbank/callback";
 	private String grant_type="authorization_code";
 	
