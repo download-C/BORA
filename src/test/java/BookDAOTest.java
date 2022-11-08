@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookVO;
 import com.bora.persistence.report.BookDAO;
+import com.bora.persistence.report.BookDetailDAO;
 import com.bora.service.report.BookServiceImpl;
 
 
@@ -24,6 +25,9 @@ public class BookDAOTest {
 
 	@Inject
 	BookDAO dao;
+	
+	@Inject
+	BookDetailDAO dDao;
 	
 	@Inject
 	SqlSession session;
@@ -39,11 +43,15 @@ public class BookDAOTest {
 	
 	@Test // 성공
 	public void admin가계부목록가져오기() throws Exception {
-		log.info("admin의 가계부목록가져오기() 호출");
-		List<BookVO> bookList = dao.getBookListAll("admin");
-		for(BookVO book:bookList) {
-			log.info("admin의 가계부 리스트"+book);
-		}
+		log.info("admin의 가계부목록가져오기() 호출");	
+		String loginID = "admin";
+//		List<BookVO> bookList = dao.getBookListAll(loginID);
+//		log.info("bookList: "+bookList);
+		
+		List<BookDetailVO> detailList = dDao.getBookDetailAll(loginID);
+		log.info("admin의 가계부 글 개수 "+detailList.size());
+//		log.info("admin의 가계부 글 개수"+bookList.size());
+		
 	}
 	
 //	@Test

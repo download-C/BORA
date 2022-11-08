@@ -79,7 +79,7 @@ public class BookDetailDAOTest {
 	public void getBookDetailContent() throws Exception {
 		String loginID = "admin";
 		int bk_detail_num = 20;
-		BookDetailVO vo = dao.getBookDetailContent(bk_detail_num, loginID);
+		BookDetailVO vo = dao.getBookDetail(bk_detail_num, loginID);
 		log.info("♡♡♡♡♡♡♡♡♡♡ 불러온 정보: "+vo);
 		
 	}
@@ -89,8 +89,8 @@ public class BookDetailDAOTest {
 	public void getBookDetailAll() throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡ 불러온 정보: ");
 //		List<BookDetailVO> detailList = session.selectList(NAMESPACE+".getBookDetailAll");
-		List<BookDetailVO> detailList = dao.getBookDetailAll();
-		log.info("♡♡♡♡♡♡♡♡♡♡ "+detailList);
+//		List<BookDetailVO> detailList = dao.getBookDetailAll();
+//		log.info("♡♡♡♡♡♡♡♡♡♡ "+detailList);
 	}
 	
 //	@Test
@@ -102,7 +102,7 @@ public class BookDetailDAOTest {
 		map.put("loginID",loginID);
 		map.put("user_detail_num",bk_detail_num);
 		
-		BookDetailVO detail = dao.getBookDetailContent(bk_detail_num, loginID);
+		BookDetailVO detail = dao.getBookDetail(bk_detail_num, loginID);
 //		BookDetailVO detail = dao.getBookDetailContent(19,loginID);
 		log.info("불러온 정보: "+detail);
 		detail.setBk_day(10);
@@ -115,7 +115,7 @@ public class BookDetailDAOTest {
 		int result = dao.updateBookDetail(detail);
 		if(result == 1) {
 			log.info("성공");
-			BookDetailVO detail2 = dao.getBookDetailContent(bk_detail_num,loginID);
+			BookDetailVO detail2 = dao.getBookDetail(bk_detail_num,loginID);
 			log.info("detail2: "+detail2);
 		} else {
 			log.info("실패");

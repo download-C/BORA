@@ -25,7 +25,7 @@ function warning(message) {
 <!-- document.ready -->
 <script>
 $(document).ready(function(){
-	let message = "${msg}";
+	let message = "${msg }";
 	if(message!="") {
 		warning(message);
 	}

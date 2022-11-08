@@ -37,13 +37,20 @@ $(document).ready(function(){
 		if(this.value=="수입"){
 			$("#bk_group").html(
 				'<option value="">자산 선택</option>'+
+				'<option value="현금">현금</option>'+
+				'<option value="은행">은행</option>'+
+				'<option value="기타">기타</option>'
+			);
+			$("#bk_category").html(
+				'<option value="">카테고리</option>'+
 				'<option value="월급">월급</option>'+
 				'<option value="부수입">부수입</option>'+
 				'<option value="용돈">용돈</option>'+
 				'<option value="금융소득">금융소득</option>'+
 				'<option value="기타">기타</option>'
-			);
-		} else if(this.value=="지출") {
+			); 
+		} // radio 수입 
+		else if(this.value=="지출") {
 			$("#bk_group").html(
 			'<option value="">자산 선택</option>'+
 			'<option value="체크카드">체크카드</option>'+
@@ -52,17 +59,32 @@ $(document).ready(function(){
 			'<option value="신용카드">신용카드</option>'+
 			'<option value="기타">기타</option>'
 			);
-		} else {
+			$("#bk_category").html(
+				'<option value="">카테고리</option>'+
+				'<option value="식비">식비</option>'+
+				'<option value="교통비">교통비</option>'+
+				'<option value="편의점/마트">편의점/마트</option>'+
+				'<option value="통신비">통신비</option>'+
+				'<option value="여가비">여가비</option>'+
+				'<option value="뷰티/쇼핑">뷰티/쇼핑</option>'+
+				'<option value="저축">저축</option>'+
+				'<option value="기타">기타</option>'
+			);
+		} // radio 지출
+		else { 
 			$("#bk_group").html(
-				'<option value="">은행</option>'+
 				'<option value="">자산 선택</option>'+
+				'<option value="">은행</option>'+
 				'<option value="기타">기타</option>'+
 				'<option value="추가">추가</option>'
-				);
-		}
-		
-	});
-});
+			);
+			$("#bk_category").html(
+				'<option value="">카테고리</option>'
+			);
+
+		} // radio 이체
+	}); // radio click
+}); // document
 </script>
 
 <div class="container">
@@ -129,16 +151,8 @@ $(document).ready(function(){
 					<option value="30">30</option>
 					<option value="31">31</option>
 				</select> 일 <br>
-	카테고리 : 	<select name="bk_category" id="category" required="required">
+	카테고리 : 	<select name="bk_category" id="bk_category" required="required">
 					<option value="">카테고리</option>
-					<option value="식비">식비</option>
-					<option value="교통비">교통비</option>
-					<option value="편의점/마트">편의점/마트</option>
-					<option value="통신비">통신비</option>
-					<option value="여가비">여가비</option>
-					<option value="뷰티/쇼핑">뷰티/쇼핑</option>
-					<option value="저축">저축</option>
-					<option value="기타">기타</option>
 				</select> <br>
 	금액 : <input type="number" name="bk_money" required="required"><br>
 	메모 : <textarea rows="5" cols="20" name="bk_memo" required="required"></textarea> <br>

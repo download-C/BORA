@@ -30,10 +30,10 @@ public class PageMakerVO {
 		System.out.println(" 페이징 처리 필요값 계산 하기 ");
 		
 		endPage
-		= (int)Math.ceil(vo.getPage()/(double)displayPageNum)*displayPageNum;
+		= ((int)Math.ceil(vo.getPage()/(double)displayPageNum)*displayPageNum);
 		
 		pageStart
-		= (endPage - displayPageNum);
+		= (endPage - displayPageNum)+1;
 		
 		// 모든글 개수/페이지사이즈 => 총 필요한 페이지 수
 		int tmpEndPage

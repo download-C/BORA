@@ -30,7 +30,7 @@ public class BookDetailDAOImpl implements BookDetailDAO{
 		return session.insert(NAMESPACE+".writeBookDetail", detail);
 		
 	}
-	
+	@Override
 	public Integer getBookDetailMaxNum() throws Exception {
 		log.info("getBookDetailMaxNum() 호출 -> 방금 쓴 가계부 글 번호 가져오기");
 		return session.selectOne(NAMESPACE+".getBookDetailMaxNum");
@@ -47,19 +47,18 @@ public class BookDetailDAOImpl implements BookDetailDAO{
 	}
 	
 	@Override
-	public BookDetailVO getBookDetailContent(Integer bk_detail_num, String loginID) throws Exception {
-		log.info("♡♡♡♡♡♡♡♡♡♡getBookDetailContent(bk_detail_num, loginID) 호출");
+	public BookDetailVO getBookDetail(Integer bk_detail_num, String loginID) throws Exception {
+		log.info("♡♡♡♡♡♡♡♡♡♡getBookDetail(bk_detail_num, loginID) 호출");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("loginID",loginID);
 		map.put("bk_detail_num",bk_detail_num);
-		
-		return session.selectOne(NAMESPACE+".getBookDetailContent", map);
+		return session.selectOne(NAMESPACE+".getBookDetail", map);
 	}
 	
-	public List<BookDetailVO> getBookDetailAll() {
+	public List<BookDetailVO> getBookDetailAll(String loginID) {
 		log.info("♡♡♡♡♡♡♡♡♡♡ getBookDetailAll() 호출");
 		List<BookDetailVO> detailList = new ArrayList<BookDetailVO>();
-		detailList = session.selectList(NAMESPACE+".getBookDetailAll");
+		detailList = session.selectList(NAMESPACE+".getBookDetailAll", loginID);
 		log.info("글 개수: "+detailList.size());
 		return detailList;
 	}
@@ -80,9 +79,34 @@ public class BookDetailDAOImpl implements BookDetailDAO{
 	}
 
 	@Override
-	public Integer getBookDetailCnt(String loginID) throws Exception {
+	public Integer getMonthBookDetailCnt(String loginID, int year, int month) throws Exception {
 		log.info("getBookDetailCnt(loginID) 호출");
-		return session.selectOne(NAMESPACE+".getBookDetailCnt", loginID);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bk_year", year);
+		map.put("bk_month", month);
+		map.put("loginID", loginID);
+		return session.selectOne(NAMESPACE+".getMonthBookDetailCnt", map);
+	}
+	@Override
+	public List<BookDetailVO> getMonthBookDetailList(int year, int month, String loginID, PageMakerVO pm) throws Exception {
+		log.info("getMonthBookDetailList(year, month, loginID) 호출");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bk_year", year);
+		map.put("bk_month", month);
+		map.put("loginID", loginID);
+		map.put("pm", pm);
+		return session.selectList(NAMESPACE+".getMonthBookDetailList", map);
+	}
+
+	@Override
+	public List<BookDetailVO> getDashboardBookDetail(String loginID, int year, int month) throws Exception {
+		log.info("getDashboardBookDetail(loginID, year, month) 호출");
+		Map<String, Object> map = new HashMap<String, Object>();
+		log.info("year: "+year+" month: "+month);
+		map.put("year", year);
+		map.put("month", month);
+		map.put("loginID", loginID);
+		return session.selectList(NAMESPACE+".getDashboardBookDetail", map);
 	}
 
 }
