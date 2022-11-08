@@ -73,4 +73,5 @@ public class ConsumePageVO {
 	public void setConsumeEndPage(int consumeEndPage) {
 		this.consumeEndPage = consumeEndPage;
 	}
+	
 }

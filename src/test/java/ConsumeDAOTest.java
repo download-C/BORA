@@ -62,4 +62,5 @@ public class ConsumeDAOTest {
 			log.info("♡♡♡♡♡♡♡♡♡♡ "+consumeList);
 		}
 
+		
 }

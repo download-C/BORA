@@ -27,11 +27,16 @@ import com.bora.domain.board.BoardVO;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
 import com.bora.domain.report.BookVO;
+import com.bora.domain.report.ConsumeAllListVO;
+import com.bora.domain.report.ConsumeLastMonListVO;
+import com.bora.domain.report.ConsumePageVO;
+import com.bora.domain.report.ConsumeThisMonListVO;
 import com.bora.domain.MemberVO;
 import com.bora.service.MemberService;
 import com.bora.service.board.BoardService;
 import com.bora.service.report.BookDetailService;
 import com.bora.service.report.BookService;
+import com.bora.service.report.ConsumeAllListService;
 import com.google.gson.JsonObject;
 
 @Controller
@@ -51,6 +56,9 @@ public class AjaxController {
 	
 	@Inject
 	BookDetailService detailService;
+	
+	@Inject
+	ConsumeAllListService consumeService;
 	
 	@Inject
 	HttpSession session;
@@ -255,7 +263,6 @@ public class AjaxController {
 		}
 		return "redirect:/report/dashboard";
 	}
-}
 
     // 썸머노트 파일 업로드 
     @RequestMapping(value="resources/summerimages", method=RequestMethod.POST)
@@ -273,7 +280,53 @@ public class AjaxController {
 
 	}
     
+	@RequestMapping(value = "/consume/listJson1", method = RequestMethod.GET)
+	public ResponseEntity<List<ConsumeLastMonListVO>> list1(HttpServletRequest request) throws Exception {
+		ConsumePageVO vo=new ConsumePageVO();
+		vo.setConsumePageNum("1");
+		vo.setConsumePageSize(3);
+		vo.setConsumeCurrentPage(1);
+		
+		List<ConsumeLastMonListVO> list1 = consumeService.getConsumeLastMonList(vo);
+
+		ResponseEntity<List<ConsumeLastMonListVO>> entity=
+				new ResponseEntity<List<ConsumeLastMonListVO>>(list1,HttpStatus.OK);
+		// List<ConsumeLastMonListVO> => 자동으로 json 변경하는 프로그램 설치
+		// jackson-databind
+		return entity;
+	}
     
-    
+	@RequestMapping(value = "/consume/listJson2", method = RequestMethod.GET)
+	public ResponseEntity<List<ConsumeThisMonListVO>> list2(HttpServletRequest request) throws Exception {
+		ConsumePageVO vo=new ConsumePageVO();
+		vo.setConsumePageNum("1");
+		vo.setConsumePageSize(3);
+		vo.setConsumeCurrentPage(1);
+		
+		List<ConsumeThisMonListVO> list2 = consumeService.getConsumeThisMonList(vo);
+
+		ResponseEntity<List<ConsumeThisMonListVO>> entity=
+				new ResponseEntity<List<ConsumeThisMonListVO>>(list2,HttpStatus.OK);
+		// List<ConsumeThisMonListVO> => 자동으로 json 변경하는 프로그램 설치
+		// jackson-databind
+		return entity;
+	}
+	
+	@RequestMapping(value = "/consume/listJson3", method = RequestMethod.GET)
+	public ResponseEntity<List<ConsumeAllListVO>> list3(HttpServletRequest request) throws Exception {
+		ConsumePageVO vo=new ConsumePageVO();
+		vo.setConsumePageNum("1");
+		vo.setConsumePageSize(5);
+		vo.setConsumeCurrentPage(1);
+		
+		List<ConsumeAllListVO> list3 = consumeService.getConsumeAllList(vo);
+
+		ResponseEntity<List<ConsumeAllListVO>> entity=
+				new ResponseEntity<List<ConsumeAllListVO>>(list3,HttpStatus.OK);
+		// List<ConsumeAllListVO> => 자동으로 json 변경하는 프로그램 설치
+		// jackson-databind
+		return entity;
+	}
+  
     
 }// class AjaxController

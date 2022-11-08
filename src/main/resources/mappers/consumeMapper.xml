@@ -3,21 +3,26 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- consume_list -->
-<!-- #{bk_detail_num}, #{bk_num}, #{id}, #{bk_day}, #{dk_iow}, #{bk_group}, #{bk_category}, #{bk_money}, #{bk_memos} -->
 <mapper namespace="com.bora.mapper.ConsumeMapper">
 	<select id="getConsumeLastMonList" resultType="com.bora.domain.report.ConsumeLastMonListVO">
 	   select * from consume_lastmon_list
 	   where id=#{loginID}
+	   order by bk_lastmon_num limit #{consumeStartRow}-1,#{consumePageSize}
 	</select>
 	
 	<select id="getConsumeThisMonList" resultType="com.bora.domain.report.ConsumeThisMonListVO">
 	   select * from consume_thismon_list
 	   where id=#{loginID}
+	   order by bk_thismon_num limit #{consumeStartRow}-1,#{consumePageSize}
 	</select>
 	
 	<select id="getConsumeAllList" resultType="com.bora.domain.report.ConsumeAllListVO">
-	   select * from bora_consume_list
+	   select bk_consume_sum, bk_category, (bk_thismon_total - bk_lastmon_total) as bk_total_consume,
+	   ((bk_thismon_total - bk_lastmon_total)/bk_lastmon_total)*100 as bk_consume_compare 
+	   from bora_consume_list
 	   where id=#{loginID}
+	   order by bk_consume_num limit #{consumeStartRow}-1,#{consumePageSize}
 	</select>
+	
 	
 </mapper>
