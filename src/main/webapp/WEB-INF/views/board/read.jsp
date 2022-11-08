@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <h1>board/read.jsp</h1>
@@ -17,6 +19,7 @@
 <%
 	}
 %>
+
 
 <!-- ======== for 썸머노트 ============== -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
@@ -333,6 +336,21 @@ $(document).ready(function(){
 
 
 <script type="text/javascript">
+	
+	
+// 	//success 버튼
+// 	function success() {
+// 		let message = "${msg}";
+// 	    Swal.fire(
+// 	        message,
+// 	        '수정되었습니다',
+// 	        'success' /*디자인 타입*/
+// 	    )
+// 	}//success 버튼
+
+
+
+
 	// jQuery 구간 시작~ =================================================
 	$(document).ready(function() {
 		// 	  alert('jQuery 실행🎊🎊');

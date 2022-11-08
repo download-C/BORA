@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <!-- title -->
@@ -161,19 +163,31 @@
 
 
 <script type="text/javascript">
+
+	// success 버튼
+	function success(result) {
+	    Swal.fire(
+	        result,
+	        '',
+	        'success' /*디자인 타입*/
+	    )
+	}//success 버튼
+	
+	
 	// alert(${msg});
-	var result = "${msg}";
+	let result = "${msg}";
 	
 	if(result == "OK") {
-		alert("글쓰기 완 🥰");
+		success("글 작성이 완료되었습니다 🥰");
 	}
 	
 	if(result == "MOD_OK"){
-		alert("글 수정 완 🥰");
+		success("수정이 완료되었습니다 🥰");
+// 		alert("글 수정 완 🥰");
 	}
 	
 	if(result == "DEL_OK"){
-		alert("글 삭제 완 🥰");
+		success("삭제가 완료되었습니다 🥰");
 	}
 </script>
 
