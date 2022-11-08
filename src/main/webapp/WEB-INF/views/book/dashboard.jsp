@@ -71,7 +71,7 @@ $(document).ready(function(){
 
 <div class="container">
 	<div class="box" style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
-	<div style="border: 3px solid red; width: 35%;">
+	<div style="border: 3px solid red; width: 38%;">
 	<h1>그래프 자리???</h1> 
 	 <br><br><br><br><br><br><br><br><br><br><br><br>
 	</div> 
