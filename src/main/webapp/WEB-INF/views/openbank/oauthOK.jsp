@@ -3,6 +3,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
+<%
+	if (loginID == null) {
+%>
+<script>
+	alert("세션값이 만료되어 로그인 페이지로 이동합니다.");
+	location.href = "/member/login";
+</script>
+<%
+	}
+%>
 
 
 <div class="container">
