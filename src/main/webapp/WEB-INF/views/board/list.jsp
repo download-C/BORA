@@ -15,13 +15,11 @@
 </div>
 <!-- End title -->
 
-<div>
-	<div>
-		<p>EL{msg} : ${msg }</p>
-		<p>EL{pm} : ${pm }</p>
-		<p>EL{pm.vo.page}: ${pm.vo.page }</p>
-	</div>
-</div>
+<!-- 	<div> -->
+<%-- 		<p>EL{msg} : ${msg }</p> --%>
+<%-- 		<p>EL{pm} : ${pm }</p> --%>
+<%-- 		<p>EL{pm.vo.page}: ${pm.vo.page }</p> --%>
+<!-- 	</div> -->
 	
 <!-- ajax로 카테고리 호출 시 페이징 처리 대신 하는 메서드 -->
 <script type="text/javascript">

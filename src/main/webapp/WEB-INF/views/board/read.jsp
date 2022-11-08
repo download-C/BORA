@@ -7,7 +7,6 @@
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-<h1>board/read.jsp</h1>
 
 <%
 	if (loginID == null) {
@@ -70,19 +69,37 @@ $(document).ready(function(){
 				return;
 			}
 			
+// 			// 반복문 돌면서 댓글 list 채우기
+// 			for (var i = 0, len = list.length||0; i < len; i++) {
+// 				str += "<li id='cmtLI' data-cno='"+list[i].cno+"'>";
+// 				str += "<div id='cmt-body'><div id='cmt-header'><strong>"+list[i].id +"/ 닉넴:" + list[i].nick + "</strong>&nbsp;&nbsp;";
+// 				str += "<small>"+cmtService.displayTime(list[i].c_regdate)+"</small>";
+// 					if (list[i].id == loginID || loginID == 'admin') {
+// 						// id가 admin이거나 본인일 때만 -> 답글, 수정, 삭제 버턴 나오게 제어
+// 						str += "<input type='button' value='답글' class='btn btn-primary' id='cmt_btn_re'>";
+// 						str += "<input type='button' value='수정' class='btn btn-primary' id='cmt_btn_mod'>";
+// 						str += "<input type='button' value='삭제' class='btn btn-primary' id='cmt_btn_del'>";
+// 						str += "<input type='text' value='"+list[i].cno+"' id='cnoValue'></div>";
+// 					}
+// 				str += "<p id='c_contentP'>"+list[i].c_content+"</p>";
+// 				str += "</div></li>";
+				
+// 			} // for
+			
+			
 			// 반복문 돌면서 댓글 list 채우기
 			for (var i = 0, len = list.length||0; i < len; i++) {
-				str += "<li id='cmtLI' data-cno='"+list[i].cno+"'>";
-				str += "<div id='cmt-body'><div id='cmt-header'><strong>"+list[i].id +"/ 닉넴:" + list[i].nick + "</strong>&nbsp;&nbsp;";
-				str += "<small>"+cmtService.displayTime(list[i].c_regdate)+"</small>";
+				str += "<li id='cmtLI' data-cno='"+list[i].cno+"' class='mb-5'>";
+				str += "<div id='cmt-body'><div id='cmt-header'><strong>" + list[i].nick +" /cno: " + list[i].cno + "</strong>&nbsp;&nbsp;&nbsp;";
+				str += "<span><small> "+cmtService.displayTime(list[i].c_regdate)+"</small></span><span>";
 					if (list[i].id == loginID || loginID == 'admin') {
 						// id가 admin이거나 본인일 때만 -> 답글, 수정, 삭제 버턴 나오게 제어
-						str += "<input type='button' value='답글' class='btn btn-primary' id='cmt_btn_re'>";
-						str += "<input type='button' value='수정' class='btn btn-primary' id='cmt_btn_mod'>";
-						str += "<input type='button' value='삭제' class='btn btn-primary' id='cmt_btn_del'>";
-						str += "<input type='text' value='"+list[i].cno+"' id='cnoValue'></div>";
+						str += "<button id='cmt_btn_re' style='border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px;'> 답글</button>";
+						str += "<button id='cmt_btn_mod' style='border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px;'>수정</button>";
+						str += "<button id='cmt_btn_del' style='border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px;'>삭제</button>";
+						str += "<input type='hidden' value='"+list[i].cno+"' id='cnoValue'></span></div>";
 					}
-				str += "<p id='c_contentP'>"+list[i].c_content+"</p>";
+				str += "<div id='c_contentP'>" + list[i].c_content+"</div>";
 				str += "</div></li>";
 				
 			} // for
@@ -170,16 +187,21 @@ $(document).ready(function(){
 	
 	// 댓글 수정 -------------------------------
 	function updateCmtForm(cnoValue, c_content){
-		alert("updateCmtForm 함수 실행됨 cno: " + cnoValue + " / c_content: " + c_content);
+		alert("updateCmtForm 함수 실행됨 클릭한 cno: " + cnoValue + " / 기존 c_content: " + c_content);
 		
 // 		var cmtPcno = $('"#c_contentP"+cnoValue+');
 		
 		var commentsView = "";
 		
-		commentsView += "<textarea name='content' id='c_content'"+cnoValue+" cols='30' rows='5' class=''>"+c_content+"</textarea>";
-		commentsView += "<div><input type='button' value='수정하기' class='btn' id='real_mod_btn'";
-		commentsView += "</div>";
+// 		commentsView += "<textarea class='form-control' name='content' id='c_content'"+cnoValue+">"+c_content+"</textarea>";
+		commentsView += "<textarea class='form-control' id='c_content_MOD'>"+c_content+"</textarea>";
+		commentsView += "<div><button class='btn' id='real_mod_btn' style='background-color: #5107B0; color: white; float: right; width: 80px; margin: 10px; font-size: 16px;'><span class='btn-inner-text' style='color: white;'> 수정 </span> ";
+		commentsView += "</button></div>";
+// 		commentsView += "<button><input type='button' value='수정하기' class='btn' id='real_mod_btn' style='background-color: #5107B0; color: white; float: right; width: 80px; margin: 10px; font-size: 16px;'";
+// 		commentsView += "</button>";
         
+		console.log("@@@@@@@@@@@ commentsView: " + commentsView);
+		
 		$('#c_contentP').replaceWith(commentsView);
 // 		cmtPcno.replaceWith(commentsView);
 		
@@ -205,14 +227,14 @@ $(document).ready(function(){
 		//  --> 근데,, 수정 반영은 클릭한 cno한테 잘 들어감 ㄱ-
 		
 		$('#real_mod_btn').click(function(){
-// 			alert("찐 수정버턴 클릭됨");
-			alert("cnoValue: " + cnoValue + " / bnoValue: " + bnoValue + " / c_content: " +  $('#c_content').val());
+			alert("찐 수정버턴 클릭됨");
+			alert("cnoValue: " + cnoValue + " / bnoValue: " + bnoValue + " / c_content_MOD: " +  $('#c_content_MOD').val());
 			//4. updateCmt(cmtVO, callback, error)
 			cmtService.updateCmt(
 					// cmtVO
 					{ cno : cnoValue,
 					  bno : bnoValue,
-					  c_content : $('#c_content').val()},
+					  c_content : $('#c_content_MOD').val()},
 					  	// 이모티콘은 안 되네 ㄱ- 
 					
 					// callback
@@ -237,119 +259,156 @@ $(document).ready(function(){
 
 
 
-<h1>${vo.bno }번 글 🐱🐶 상세 보기 🐱🐶 </h1>
 
 		<!-- 수정, 삭제 시 필요한 글 번호(bno) 저장하는 폼태그 =====================-->
 		<form role="bno_form" method="post">
 			<input type="hidden" name="bno" value="${vo.bno }">
 		</form>
 		<!-- 수정, 삭제 시 필요한 글 번호(bno) 저장하는 폼태그 껏 =====================-->
+			<input type="hidden" name="id" value="${vo.id}" readonly>
 
-	<div>
-		<div>
-			아이디
-			<div>  <!-- hidden으로 바꾸기!!!  -->
-				<input type="text" name="id" value="${vo.id}" readonly>
-			</div>
-		</div>
-		<br>
-		<div>
-			닉네임
-			<div>
-				<input type="text" value="${vo.nick }" readonly>
-			</div>
-			<!-- 		닉네임,, 아이디 -> 닉네임 끌어오는 메서드를 만들어야 하남? DB에 넣을 필욘 없고 걍 보여주기만 -->
-		</div>
-		<br>
-		<div>
-			카테고리
-			<div>
-				<input type="text" value="${vo.b_ctgr }" readonly></span>
-			</div>
-		</div>
-		<br>
-		<div>
-			제목
-			<div>
-				<input type="text" name="b_title" value="${vo.b_title }" readonly>
-			</div>
-		</div>
-		<br>
-		<div>
-			내용
-			<div id="" name="b_content" readonly> ${vo.b_content }</div>
-		</div>
-		<br>
-		<div>
-			파일
-			<div>
-				<input type="text" name="b_file" value="${vo.b_file }" readonly>
-			</div>
-		</div>
-		<br>
-		<div>
-			<input type="button" value="수정" class="btn_mod">
-			<input type="button" value="삭제" class="btn_del">
-			<input type="button" value="목록" class="btn_list">
-		</div>
-	</div>
-	
-	
-	<!-- ----------------------- 댓글 리스트 구간 --------------------------------- -->
-	<div style="border: 1px solid black">
-		<div>
-			<h3>댓글</h3>
-		</div>
-		<ul id="cmtUL">
-			<li data-cno="">
-				<div id="cmt-body">
-					<div id="cmt-header">
-						<strong> id,, 말고 nick </strong> <small> c_regdate </small>
-						<input type="button" value="답글" class="btn" id="cmt_btn_re">
-						<input type="button" value="수정" class="btn" id="cmt_btn_mod">
-						<input type="button" value="삭제" class="btn" id="cmt_btn_del">
-						<input type="hidden" value="" id="cnoValue">
+<div class="container mt-5 ">
+	<div class="row" style="justify-content: center; align-items: center;">
+		<div class="col-lg-8">
+			<!-- Post content-->
+			<article>
+				<!-- Post header-->
+				<header class="mb-4">
+					<!-- Post title-->
+					<h1 class="fw-bolder mb-1"><small>[ ${vo.b_ctgr} ]</small> <br> ${vo.b_title }</h1>
+					<!-- Post meta content-->
+					<div class="text-muted fst-italic mb-2">
+						<b>작성일시: </b>  ${vo.b_regdate } &nbsp;&nbsp;&nbsp; <b>작성자: </b> ${vo.nick }</div>
+				</header>
+				<!-- Preview image figure-->
+				<figure class="mb-4">
+					<img class="img-fluid rounded"
+						src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
+				</figure>
+				<!-- Post content-->
+				<section class="mb-5">
+					<p class="fs-5 mb-4">${vo.b_content }</p>
+				</section>
+				<button class="btn_mod"
+					style="border: none; margin: 2px; background-color: #5107B0; color: white; border-radius: 5px;">수정</button>
+				<button class="btn_del"
+					style="border: none; margin: 2px; background-color: #5107B0; color: white; border-radius: 5px;">삭제</button>
+				<button class="btn_list"
+					style="border: none; margin: 2px; background-color: #5107B0; color: white; border-radius: 5px;">목록</button>
+			</article>
+			<br>
+
+			<!-- 							파일 -->
+			<!-- 							<div> -->
+			<%-- 								<input type="text" name="b_file" value="${vo.b_file }" readonly> --%>
+			<!-- 							</div> -->
+
+			<!-- 							<input type="button" value="수정" class="btn_mod"> <input -->
+			<!-- 								type="button" value="삭제" class="btn_del"> <input -->
+			<!-- 								type="button" value="목록" class="btn_list"> -->
+
+
+
+			<!-- Comments section-->
+			<section class="mb-5">
+				<div class="card bg-light">
+					<div class="card-body">
+						<!-- 댓글입력창 !-->
+						<form class="mb-4">
+							<textarea class="form-control" rows="3" name="content"
+								id="c_content" placeholder="댓글을 입력해주세요 !"></textarea>
+							<button type="button" class="btn" id="add_cmt_btn"
+								style="background-color: #5107B0; float: right; width: 80px; margin: 10px; font-size: 16px;">
+								<span class="btn-inner-text" style="color: white;">등 록</span>
+							</button>
+						</form>
+						<br> <br>
+						<!-- 댓글입력창 !-->
+
+						<!-- Single comment-->
+						<div class="d-flex">
+							<div class="flex-shrink-0"></div>
+							<ul id="cmtUL" >
+								<li data-cno="" class="mb-4">
+									<div id="cmt-body" class="ms-3">
+										<div id="cmt-header" class="fw-bold">
+											<strong> 닉네임 </strong> 
+											<span> <small> c_regdate </small> </span>
+											<span>
+												<button id="cmt_btn_re"
+													style="border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px;">답글</button>
+												<button id="cmt_btn_mod"
+													style="border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px;">수정</button>
+												<button id="cmt_btn_del"
+													style="border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px;">삭제</button>
+												<input type="hidden" value="" id="cnoValue">
+											</span>
+										</div>
+										<p id='c_contentP'>c_content</p>
+<!-- 										<p id="'c_content'+cnoValue">c_content</p> -->
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!-- 댓글 리스트 구간 끝 -->
 					</div>
-					<p>c_content</p>
+					<!-- class="card-body" -->
 				</div>
-			</li>
-		</ul>
-	</div>
-	<!-- ----------------------- 댓글 리스트 구간 끝^^ --------------------------------- -->
-
-<!-- ----------------------- 댓글 작성 구간^^ --------------------------------- -->
-<div style="border: 1px solid black;">
-	<h3>댓글을 남겨주세요 👇👇</h3>
-	<div class="form-group">
-		<label for="message">내용</label>
-		<textarea name="content" id="c_content" cols="30" rows="5" class=""></textarea>
-	</div>
-	<div class="btn btn-primary">
-		<input type="button" value="댓글 달기😘" class="btn btn-primary"
-			id="add_cmt_btn">
-	</div>
-</div>
-
-<!-- ----------------------- 댓글 작성 구간 끝^^ --------------------------------- -->
+			</section>
 
 
+		</div>
+    </div>
+  </div>
 
-
-<script type="text/javascript">
-	
-	
-// 	//success 버튼
-// 	function success() {
-// 		let message = "${msg}";
-// 	    Swal.fire(
-// 	        message,
-// 	        '수정되었습니다',
-// 	        'success' /*디자인 타입*/
-// 	    )
-// 	}//success 버튼
+						<!-- ----------------------- 댓글 리스트 구간 --------------------------------- -->
+<!-- 						<div style="border: 1px solid black"> -->
+<!-- 							<div> -->
+<!-- 								<h3>댓글</h3> -->
+<!-- 							</div> -->
+<!-- 							<ul id="cmtUL"> -->
+<!-- 								<li data-cno=""> -->
+<!-- 									<div id="cmt-body"> -->
+<!-- 										<div id="cmt-header"> -->
+<!-- 											<strong> id,, 말고 nick </strong> <small> c_regdate </small> <input -->
+<!-- 												type="button" value="답글" class="btn" id="cmt_btn_re"> -->
+<!-- 											<input type="button" value="수정" class="btn" id="cmt_btn_mod"> -->
+<!-- 											<input type="button" value="삭제" class="btn" id="cmt_btn_del"> -->
+<!-- 											<input type="hidden" value="" id="cnoValue"> -->
+<!-- 										</div> -->
+<!-- 										<p>c_content</p> -->
+<!-- 									</div> -->
+<!-- 								</li> -->
+<!-- 							</ul> -->
+<!-- 						</div> -->
+						<!-- ----------------------- 댓글 리스트 구간 끝^^ --------------------------------- -->
 
 
 
+
+						<!-- ----------------------- 댓글 작성 구간^^ --------------------------------- -->
+						<!-- 						<div style="border: 1px solid black;"> -->
+						<!-- 							<h3>댓글을 남겨주세요 👇👇</h3> -->
+						<!-- 							<div class="form-group"> -->
+						<!-- 								<label for="message">내용</label> -->
+						<!-- 								<textarea name="content" id="c_content" cols="30" rows="5" -->
+						<!-- 									class=""></textarea> -->
+						<!-- 							</div> -->
+						<!-- 							<div class="btn btn-primary"> -->
+						<!-- 								<input type="button" value="댓글 달기😘" class="btn btn-primary" -->
+						<!-- 									id="add_cmt_btn"> -->
+						<!-- 							</div> -->
+						<!-- 						</div> -->
+
+						<!-- ----------------------- 댓글 작성 구간 끝^^ --------------------------------- -->
+
+
+
+
+
+
+
+						<script type="text/javascript">
 
 	// jQuery 구간 시작~ =================================================
 	$(document).ready(function() {
@@ -384,4 +443,4 @@ $(document).ready(function(){
 	});// jQuery ready
 </script>
 
-<%@ include file="../include/footer.jsp"%>
+						<%@ include file="../include/footer.jsp"%>

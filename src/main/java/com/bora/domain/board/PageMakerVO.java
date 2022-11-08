@@ -26,6 +26,10 @@ public class PageMakerVO {
 		calcData();
 	}
 	
+	public int getStartRow() {
+        return (vo.getPage()-1)*vo.getPerPageNum();
+	}
+	
 	public void calcData() {
 		System.out.println(" 페이징 처리 필요값 계산 하기 ");
 		
