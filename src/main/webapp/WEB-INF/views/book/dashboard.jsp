@@ -50,23 +50,18 @@ $(document).ready(function(){
 	   		}
 		}); //ajax
 	});//budgetBtn click
-	
-	
-	if(msg!="") {
-		if(msg=="ok"){
-			
-		}else {
-			Swal.fire(
-	            '경고',
-	            '예산 수정 실패',
-	            'warning' /*디자인 타입*/
-            )
-		}
-	}
 })
 </script>
 
-
+<!-- 메세지 있을 때 -->
+<script>
+$(document).ready(function(){	
+	let message = "${msg}";
+	if(message!="") {
+		login(message);
+	}
+ });
+</script>
 
 
 <div class="container">
@@ -75,17 +70,16 @@ $(document).ready(function(){
 	<h1>그래프 자리???</h1> 
 	 <br><br><br><br><br><br><br><br><br><br><br><br>
 	</div> 
-			
 	<div class="bookList" style="border: 3px solid yellow; width: 60%;"> <br>
 	
 		<div class="bookListTitle" >
-			<h3><a href="/book/list?page=1&year=${year}&month=${month }">${year }월 ${month }월 가계부</a></h3>
+			<h3 style="text-align: center;"><a href="/book/list?page=1&year=${year}&month=${month }" style="color: black;">${year }월 ${month }월 가계부</a></h3>
 			
 		</div>
 		<div style="display: flex; justify-content: space-between;  flex-flow: row nowrap;">
 			<div id="budget">
-				이번 달 예산 <input type="number" name="bk_budget" id="bk_budget" value="${bk_budget}" >원
-				<button id="budgetBtn">예산 입력</button>
+				이번 달 예산 <input style="text-align: right; width: 120px;" type="number" name="bk_budget" id="bk_budget" value="${bk_budget}" >원
+				<button id="budgetBtn" class="btn btn-primary m-1">예산 입력</button>
 			</div>
 			<input type="button" id="bookBtn" value="가계부 쓰기" 
 					class="btn btn-primary m-2"

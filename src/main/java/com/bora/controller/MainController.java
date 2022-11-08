@@ -1,5 +1,6 @@
 package com.bora.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,9 +22,11 @@ import com.bora.domain.MemberVO;
 import com.bora.domain.board.NoticeVO;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
+import com.bora.domain.report.BookVO;
 import com.bora.service.MainService;
 import com.bora.service.MemberService;
 import com.bora.service.board.NoticeService;
+import com.bora.service.report.BookService;
 
 @RequestMapping("/main/*")
 @Controller
@@ -36,6 +39,8 @@ public class MainController {
 	MemberService memberService;
 	@Inject
 	NoticeService noticeService;
+	@Inject
+	BookService bookService;
 	
 	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
@@ -71,6 +76,18 @@ public class MainController {
 		vo.setNick(nick);
 		vo.setPhone(phone);
 		vo.setEmail(email);
+		
+		// 회원가입 하자마자 가계부 기본 데이터베이스 만들어버리기!
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH)+1;
+		
+		BookVO book = new BookVO();
+		book.setBk_year(year);
+		book.setBk_month(month);
+		book.setId(id);
+		book.setBk_budget(0);
+		bookService.writeBook(book);
 
 		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡회원가입 정보: " + vo);
 

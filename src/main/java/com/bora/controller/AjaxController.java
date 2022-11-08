@@ -240,15 +240,7 @@ public class AjaxController {
 				log.info("예산 입력 실패");
 				rttr.addFlashAttribute("msg", "no");
 			}
-		} else {
-			// DB에 해당 연월에 대한 가계부가 없어서 새로 생성해야 할 때
-			BookVO book = new BookVO();
-			book.setBk_year(year);
-			book.setBk_month(month);
-			book.setId(loginID);
-			book.setBk_budget(bk_budget);
-			bookService.writeBook(book);
-		}
+		} 	
 		return bk_budget;
 	}
 

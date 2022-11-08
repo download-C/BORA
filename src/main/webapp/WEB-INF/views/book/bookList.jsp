@@ -1,12 +1,17 @@
+<%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+
+<!-- alert 모달 필수  --> 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
+
+
 <%
 if(loginID==null) {%>
 <!-- 세션값(로그인) 확인 -->
@@ -23,6 +28,34 @@ if(loginID==null) {%>
 	})
 </script>
 <%} %>
+
+
+
+
+
+<!-- login 성공 메세지 불러오기 -->
+<script>
+$(document).ready(function(){	
+	let message = "${msg}";
+	if(message!="") {
+		login(message);
+	}
+ });
+</script>
+
+<!-- login 성공 alert 모달 -->
+<script>
+function login(message) {
+  	Swal.fire({
+	  title: message,
+	  text: '',
+	  imageUrl: '${pageContext.request.contextPath}/resources/img/logo.png',
+	  imageWidth: 200,
+	  imageHeight: 50,
+	  imageAlt: 'Custom image',
+   	})
+}
+</script>
 
 <!-- 날짜 선택 시 해당 선택한 연 월의 가계부 출력 -->
 <script>
@@ -78,11 +111,7 @@ $(document).ready(function() {
 	   		}
 		}); //ajax
 	});//budgetBtn click
-// 비밀번호 회원정보 수정 시 alert 
-    let message = "${msg}";
-    if (message != "") {
-        alert(message);
-    }
+
     // DB에서 가져온 값으로 선택하기
  // 항목
 
@@ -93,6 +122,7 @@ $(document).ready(function() {
 <!-- 태그 적는 곳 -->
 
 <div class="container">
+<br>
 <h3 style="text-align: center">${year }년 ${month }월 가계부</h3>
 	<div>
 		이번 달 예산 <input type="number" name="bk_budget" id="bk_budget" value="${bk_budget}" >원
@@ -120,7 +150,7 @@ $(document).ready(function() {
 				<option value="11">11월</option>
 				<option value="12">12월</option>
 		</select>
-		<input type="button" value="가계부 쓰기" onclick="location.href='/book/write';" >
+		<input type="button" value="가계부 쓰기" class="btn btn-primary m-1" onclick="location.href='/book/write';" >
 	</div>
 	<div class="listTable">
 		<table border="1" style="width: 100%; text-align: center">
