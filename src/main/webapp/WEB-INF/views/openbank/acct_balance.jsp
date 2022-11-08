@@ -1,14 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<h1>잔액조회</h1>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ include file="../include/header.jsp"%>
+<!-- ${pageContext.request.contextPath} -->
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<h1>board/insert.jsp</h1>
+<%
+	if (loginID == null) {
+%>
+<script>
+	alert("세션값이 만료되어 로그인 페이지로 이동합니다.");
+	location.href = "/member/login";
+</script>
+<%
+	}
+%>
+
+<!-- title -->
+<div class="section-title">
+  <h2><b>계좌 잔액 조회</b></h2>
+  
+</div>
+<!-- End title -->
+
 
 <h3>계좌종류 1:수시입출금, 2:예적금 6:수익증권, T:종합계좌</h3>
 
@@ -27,8 +41,6 @@
 	<h3>최종거래일 : ${accountBalance.last_tran_date }</h3>
 	
 	
-	
 
 
-</body>
-</html>
+<%@ include file="../include/footer.jsp"%>

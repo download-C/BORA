@@ -4,7 +4,16 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <h1> openbank/oauth.jsp</h1>
-
+<%
+	if (loginID == null) {
+%>
+<script>
+	alert("세션값이 만료되어 로그인 페이지로 이동합니다.");
+	location.href = "/member/login";
+</script>
+<%
+	}
+%>
 
 <h1>인증 요청 작업</h1>
 
