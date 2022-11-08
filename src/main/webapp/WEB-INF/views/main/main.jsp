@@ -69,9 +69,10 @@ $(document).ready(function(){
    <hr>
 <!-- 뉴스끝 -->
 
-<a href='/main/NoticeListPage'>공지사항 목록</a>
-<h3><a href='/board/listPage?page=1'>커뮤니티 목록</a></h3>
-<h3><a href='/book/dashboard'>가계부 대시보드로 이동</a></h3>
+<h3><a href='/main/NoticeListPage'>공지사항 목록</a></h3> <br>
+<h3><a href='/board/list?page=1'>커뮤니티 목록</a></h3> <br>
+<h3><a href='/book/dashboard'>가계부 대시보드로 이동</a></h3> <br>
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <div>

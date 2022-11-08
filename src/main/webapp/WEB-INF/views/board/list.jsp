@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <!-- title -->
@@ -15,74 +17,66 @@
 
 <div>
 	<div>
-		<h6>EL{msg} : ${msg }</h6>
-		<h6>EL{pm} : ${pm }</h6>
-		<h6>EL{pm.vo.page}: ${pm.vo.page }</h6>
-<!-- 		<h3><a href="/board/insert">여기를 눌러서 편하게 글쓰기 하십시오 ^^💘💘 </a></h3> -->
+		<p>EL{msg} : ${msg }</p>
+		<p>EL{pm} : ${pm }</p>
+		<p>EL{pm.vo.page}: ${pm.vo.page }</p>
 	</div>
 </div>
 	
-	
-	<!-- // 카테고리 ajax,.,... 일단 보류 -->
-	<script type="text/javascript">
-		$(document).ready(function(){
-			// 모두다
-			var page = $("#page").val();
-			var pageStart = "<c:out value='${pm.pageStart }' />";
-// 			alert("pageStart: "+pageStart);
-// 			alert("page: "+page);
-// 			alert("페이지 번호: "+page);
-			$('.ctgr_btn').click(function(){
-				var ctgr = $(this).val();
-// 				alert(ctgr);
-				$.ajax({
-					url: "/ajax/ctgr",
-					data: {"ctgr": $(this).val(), "pageStart":pageStart, "page":page},
-					dataType: "JSON",
-					type: "get",
-					success: function(data){
-// 						alert('성공');
-						
-						$('tbody').html("");
-						$('tbody').html(function(){
-						$.each(data, function(index, item){
-							var bno = item.bno;
-							var b_title = item.b_title;
-							var b_ctgr = item.b_ctgr;
-							var id = item.id;
-							var b_regdate = item.b_regdate;
-							var date = new Date(b_regdate);
-							var regdate = date.getFullYear() +"년 " +(date.getMonth()+1)+"월 "+date.getDate()+"일 🌈"+date.getHours()+":"+date.getMinutes();
-							var b_readcount = item.b_readcount;
-							$('tbody').append(
-							'<tr>'
-								+'<td>'+bno+'</td>'
-								+'<td>'+b_ctgr+'</td>'
-								+'<td><a href=/board/read?bno='+bno+'&page='+page+'>'+b_title+'</a></td>'
-								+'<td>'+id+'</td>'
-								+'<td>'+regdate+'</td>'
-								+'<td>'+b_readcount+'</td>'
-							+'</tr>'		
-							); // append
-						}); //each
-						}); // html
-					}, //success
-					error: function(){
-						alert('실패');
-// 						location.href="/board/list?page="+page;
-					}
-				});// ajax
-				
-			}); // btn click
-		});// jquery ready
-	</script>
 <!-- ajax로 카테고리 호출 시 페이징 처리 대신 하는 메서드 -->
+<script type="text/javascript">
 
+	$(document).ready(function(){
+		// 모두다
+		var page = $("#page").val();
+		var pageStart = "<c:out value='${pm.pageStart }' />";
+		$('.ctgr_btn').click(function(){
+			var ctgr = $(this).val();
+				// alert(ctgr);
+			$.ajax({
+				url: "/ajax/ctgr",
+				data: {"ctgr": $(this).val(), "pageStart":pageStart, "page":page},
+				dataType: "JSON",
+				type: "get",
+				success: function(data){
+						// alert('성공');
+					
+					$('tbody').html("");
+					$('tbody').html(function(){
+					$.each(data, function(index, item){
+						var bno = item.bno;
+						var b_title = item.b_title;
+						var b_ctgr = item.b_ctgr;
+						var nick = item.nick;
+						var b_regdate = item.b_regdate;
+						var date = new Date(b_regdate);
+						var regdate = date.getFullYear() +"년 " +(date.getMonth()+1)+"월 "+date.getDate()+"일 🌈"+date.getHours()+":"+date.getMinutes();
+						var b_readcount = item.b_readcount;
+						$('tbody').append(
+						'<tr>'
+							+'<td>'+bno+'</td>'
+							+'<td>'+b_ctgr+'</td>'
+							+'<td><a href=/board/read?bno='+bno+'&page='+page+'>'+b_title+'</a></td>'
+							+'<td>'+nick+'</td>'
+							+'<td>'+regdate+'</td>'
+							+'<td>'+b_readcount+'</td>'
+						+'</tr>'		
+						); // append
+					}); //each
+					}); // html
+				}, //success
+				error: function(){
+					alert('실패');
+						// location.href="/board/list?page="+page;
+				}
+			});// ajax
+			
+		}); // btn click
+		
+	});// jquery ready
+</script>
+<!-- ajax로 카테고리 호출 시 페이징 처리 대신 하는 메서드 끝 -->
 
-	<input type="button" value="모두다BORA" class="ctgr_btn" id="btn_all">
-	<input type="button" value="골라줘BORA" class="ctgr_btn" id="btn_pick">
-	<input type="button" value="알려줘BORA" class="ctgr_btn" id="btn_tip">
-	<input type="button" value="친해져BORA" class="ctgr_btn" id="btn_meet">
 
 
 <!-- table -->
@@ -113,12 +107,13 @@
 				</tr>
 			</thead>
 			<tbody>	
-				<c:forEach var="vo" items="${boardList }">
+				<c:forEach var="vo" items="${boardList }" varStatus="status">
 				
 					<tr>
 						<td><span class="text-sm font-weight-normal">${vo.bno}</span></td>
 						<td><div class="my-auto"><h6 class="mb-0 text-sm">${vo.b_ctgr}</h6></div></td>
-						<td><!-- <p class="text-sm font-weight-normal mb-0"> --><a href="/board/read?bno=${vo.bno }&page=${pm.vo.page}">${vo.b_title }</a><!-- </p> --></td>
+						<td><!-- <p class="text-sm font-weight-normal mb-0"> --><a href="/board/read?bno=${vo.bno }&page=${pm.vo.page}">${vo.b_title }</a><!-- </p> -->
+							&nbsp; (${cmtList[status.index] }) </td>
 						<td><b>${vo.nick }</b></td>
 						<td><span class="text-sm font-weight-normal"> <fmt:formatDate value="${vo.b_regdate }" pattern="YYYY년 MM월 dd일 🌈  HH:mm" /> </span></td>
 						<td><span class="text-sm font-weight-normal">${vo.b_readcount }</span></td>
@@ -138,7 +133,7 @@
 			
 			<c:if test="${pm.prev }"> 
 					<!--      ㄴboolean 타입이니까 false면 걍 패스되는거~ 음 편하군  -->
-				<li><a href="listPage?page=${pm.pageStart - 1 }" class="page-item" aria-label="Previous" style="color:#621fb7;">
+				<li><a href="list?page=${pm.pageStart - 1 }" class="page-item" aria-label="Previous" style="color:#621fb7;">
 						<span aria-hidden="true">&laquo;</span></a>
 				</li>
 			</c:if>
@@ -149,13 +144,13 @@
 				<%-- 
 				<li <c:out value="${pm.vo.page == index? 'class=active' : '' }" />>   2.3버전 이하는 c:out 써야 함~ --%>
 				<li ${pm.vo.page == index? 'class=active' : '' }  style="float: left;"  class="page-item">
-					<a href="listPage?page=${index }" style="color:#621fb7;"  class="page-link" > ${index} </a>
+					<a href="list?page=${index }" style="color:#621fb7;"  class="page-link" > ${index} </a>
 				</li>
 			</c:forEach>
 			
 			<!-- 다음 버턴================ -->
 			<c:if test="${pm.next }">
-				<li class="page-item"><a href="listPage?page=${pm.endPage + 1 }" class="page-link"  aria-label="Next" style="color:#621fb7;">
+				<li class="page-item"><a href="list?page=${pm.endPage + 1 }" class="page-link"  aria-label="Next" style="color:#621fb7;">
 					<span aria-hidden="true">&raquo;</span></a></li>
 			</c:if>
 		</ul>
@@ -167,19 +162,31 @@
 </div> <!-- row -->
 
 <script type="text/javascript">
+
+	// success 버튼
+	function success(result) {
+	    Swal.fire(
+	        result,
+	        '',
+	        'success' /*디자인 타입*/
+	    )
+	}//success 버튼
+	
+	
 	// alert(${msg});
-	var result = "${msg}";
+	let result = "${msg}";
 	
 	if(result == "OK") {
-		alert("글쓰기 완 🥰");
+		success("글 작성이 완료되었습니다 🥰");
 	}
 	
 	if(result == "MOD_OK"){
-		alert("글 수정 완 🥰");
+		success("수정이 완료되었습니다 🥰");
+// 		alert("글 수정 완 🥰");
 	}
 	
 	if(result == "DEL_OK"){
-		alert("글 삭제 완 🥰");
+		success("삭제가 완료되었습니다 🥰");
 	}
 </script>
 

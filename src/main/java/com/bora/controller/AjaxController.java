@@ -252,7 +252,6 @@ public class AjaxController {
 		return bk_budget;
 	}
 
-
     // 썸머노트 파일 업로드 
     @RequestMapping(value="resources/summerimages", method=RequestMethod.POST)
 	public ResponseEntity<?> summerimage(@RequestParam("file") MultipartFile img, HttpServletRequest request) throws IOException {

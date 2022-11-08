@@ -1,5 +1,6 @@
 package com.bora.controller.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +21,7 @@ import com.bora.domain.board.BoardVO;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
 import com.bora.service.board.BoardService;
+import com.bora.service.board.CommentService;
 
 @Controller
 @RequestMapping("/board/*")
@@ -29,6 +32,9 @@ public class BoardController {
 	   // 서비스 객체 필요~ root-context.xml 마트에 있는 거 주입하기
 	@Inject
 	private BoardService service;
+	
+	@Autowired
+	private CommentService cmtService;
 	
 	// 멤버변수 끝 ============================================
 	
@@ -60,8 +66,8 @@ public class BoardController {
 			// 글쓰기 성공 알림 띄우기(일회성)
 		rttr.addFlashAttribute("msg", "OK");  
 		
-		log.info("(♥♥♥♥♥ 1-2.registerPOST) redirect:/board/listAll 로 이동할거");
-		return "redirect:/board/listPage"; // 주소줄 변화 O + 페이지 이동 O
+		log.info("(♥♥♥♥♥ 1-2.registerPOST) redirect:/board/list 로 이동할거");
+		return "redirect:/board/list"; // 주소줄 변화 O + 페이지 이동 O
 	}
 	// 1-2. 글쓰기 POST 끝
 	
@@ -93,24 +99,39 @@ public class BoardController {
 //			//    3()으로 정보 전달을 위해..
 //			session.setAttribute("isUpdate", false);
 //			
-//			log.info("(♥♥♥♥♥ 2.listAllGET) 리턴타입 void.. 들어온 주소 /board/listAll.jsp로 이동할 거");
+//			log.info("(♥♥♥♥♥ 2.listAllGET) 리턴타입 void.. 들어온 주소 /board/list.jsp로 이동할 거");
 //		}
 		// 2. 게시판 리스트 조회 GET 끝
 		
 		
 		
-		// 2-1. 페이징 처리 적용한 게시판 리스트 조회 GET        http://localhost:8088/board/listPage
-		@RequestMapping (value = "/listPage", method = RequestMethod.GET)
+		// 2-1. 페이징 처리 적용한 게시판 리스트 조회 GET        http://localhost:8088/board/list
+		@RequestMapping (value = "/list", method = RequestMethod.GET)
 		public String listPageGET(PageVO vo, Model model, HttpSession session) throws Exception {
 			log.info("(♥♥♥♥♥ 2-1.listPageGET) 호출됨");
+			
+			List<BoardVO> boardList = service.getBoardListPage(vo);
+			log.info("(♥♥♥♥♥ 2-1.listPageGET) boardList: " + boardList);
 			model.addAttribute("boardList", service.getBoardListPage(vo));
 			log.info("(♥♥♥♥♥ 2-1.listPageGET) Service 호출 + 모델 객체에 저장까지 완");
+			
+			// 댓글 개수 출력을 위해 글 리스트에서 -> bno 뽑아와서 -> cmtList에 add하고 모델에 저장
+			List<Integer> cmtList = new ArrayList<Integer>();
+			
+			for(int i = 0; i < boardList.size(); i++) {
+				int bno = boardList.get(i).getBno();
+				log.info("(♥♥♥♥♥ 2-1.listPageGET) " + bno + "번 글의 댓글 개수: " + cmtService.getTotalCount(bno));
+				cmtList.add(cmtService.getTotalCount(bno));
+			}
+			
+			model.addAttribute("cmtList", cmtList);
+			log.info("(♥♥♥♥♥ 2-1.listPageGET) model에 저장한 cmtList: " + cmtList);
 			
 			// 페이징 처리 하단부 정보 저장
 			PageMakerVO pm = new PageMakerVO();
 			pm.setVo(vo);
 			int cnt = service.getBoardCnt();
-	    	log.info("글 개수 :"+cnt);
+	    	log.info("(♥♥♥♥♥ 2-1.listPageGET) 글 개수 :"+cnt);
 			pm.setTotalCnt(cnt); // <<찐 글 개수 일단 넣은거고,, 서비스에 이 동작 추가해놓으면 되겠네~ 총 글 개수 불ㄹ러오는
 			
 			// 얘도 model에 담아서 보냅시다..
@@ -124,15 +145,15 @@ public class BoardController {
 			log.info("(♥♥♥♥♥ 1-2.insertBoardPOST) 닉넴: " + nick);
 			session.setAttribute("nick", nick);
 			
-			
 			// 세션에 객체 isUpdate 하나  만들어놓기~~~ 
 			//    3()으로 정보 전달을 위해..
 			session.setAttribute("isUpdate", false);
 			
-			log.info("(♥♥♥♥♥ 2-1.listPageGET) 리턴타입 String --> /board/listAll.jsp로 이동할 거");
-			return "/board/listAll";
+			log.info("(♥♥♥♥♥ 2-1.listPageGET) 리턴타입 String --> /board/list.jsp로 이동할 거");
+			return "/board/list";
 		}
 		// 2-1. 페이징 처리 적용한 게시판 리스트 조회 GET
+	
 	
 	
 	// 3. 글 본문 보기 GET                  http://localhost:8088/board/read
@@ -198,10 +219,10 @@ public class BoardController {
 		if(cnt == 1) {
 			rttr.addFlashAttribute("msg", "MOD_OK");
 			
-			// 수정 성공 시 --> listAll 페이지로 이동
+			// 수정 성공 시 --> list.jsp 페이지로 이동
 			log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정 성공^^ ㅊㅋㅊㅋ");
-			log.info("(♥♥♥♥♥ 4-1.updatePOST) redirect:/board/listAll.jsp로 이동");
-			return "redirect:/board/listPage"; // 주소줄 변화 O + 페이지 이동 O니까 redirect
+			log.info("(♥♥♥♥♥ 4-1.updatePOST) redirect:/board/list.jsp로 이동");
+			return "redirect:/board/list"; // 주소줄 변화 O + 페이지 이동 O니까 redirect
 		} else {
 			log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정 실패;;  /update?bno=" + vo.getBno()+ ".jsp로 이동");
 			return "/board/update?bno="+vo.getBno();
@@ -226,11 +247,11 @@ public class BoardController {
 		if(result == 1) {
 			rttr.addAttribute("msg", "DEL_OK");
 			log.info("(♥♥♥♥♥ 5.deletePOST) 삭제 성공");
-			log.info("(♥♥♥♥♥ 5.deletePOST) redirect:/board/listPage로 이동");
-			return "redirect:/board/listPage";
+			log.info("(♥♥♥♥♥ 5.deletePOST) redirect:/board/list로 이동");
+			return "redirect:/board/list";
 		} else {
 			log.info("(♥♥♥♥♥ 5.deletePOST) 삭제 실패;;");
-			return "redirect:/board/listPage";
+			return "redirect:/board/list";
 		}
 		
 	}
