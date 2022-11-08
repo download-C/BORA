@@ -28,9 +28,8 @@ import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
 import com.bora.domain.report.BookVO;
 import com.bora.domain.report.ConsumeAllListVO;
-import com.bora.domain.report.ConsumeLastMonListVO;
+import com.bora.domain.report.ConsumeLastThisListVO;
 import com.bora.domain.report.ConsumePageVO;
-import com.bora.domain.report.ConsumeThisMonListVO;
 import com.bora.domain.MemberVO;
 import com.bora.service.MemberService;
 import com.bora.service.board.BoardService;
@@ -281,48 +280,33 @@ public class AjaxController {
 	}
     
 	@RequestMapping(value = "/consume/listJson1", method = RequestMethod.GET)
-	public ResponseEntity<List<ConsumeLastMonListVO>> list1(HttpServletRequest request) throws Exception {
+	public ResponseEntity<List<ConsumeLastThisListVO>> list1(HttpServletRequest request) throws Exception {
 		ConsumePageVO vo=new ConsumePageVO();
 		vo.setConsumePageNum("1");
 		vo.setConsumePageSize(3);
 		vo.setConsumeCurrentPage(1);
 		
-		List<ConsumeLastMonListVO> list1 = consumeService.getConsumeLastMonList(vo);
+		List<ConsumeLastThisListVO> list1 = consumeService.getConsumeLastThisList(vo);
 
-		ResponseEntity<List<ConsumeLastMonListVO>> entity=
-				new ResponseEntity<List<ConsumeLastMonListVO>>(list1,HttpStatus.OK);
+		ResponseEntity<List<ConsumeLastThisListVO>> entity=
+				new ResponseEntity<List<ConsumeLastThisListVO>>(list1,HttpStatus.OK);
 		// List<ConsumeLastMonListVO> => 자동으로 json 변경하는 프로그램 설치
 		// jackson-databind
 		return entity;
 	}
-    
-	@RequestMapping(value = "/consume/listJson2", method = RequestMethod.GET)
-	public ResponseEntity<List<ConsumeThisMonListVO>> list2(HttpServletRequest request) throws Exception {
-		ConsumePageVO vo=new ConsumePageVO();
-		vo.setConsumePageNum("1");
-		vo.setConsumePageSize(3);
-		vo.setConsumeCurrentPage(1);
-		
-		List<ConsumeThisMonListVO> list2 = consumeService.getConsumeThisMonList(vo);
-
-		ResponseEntity<List<ConsumeThisMonListVO>> entity=
-				new ResponseEntity<List<ConsumeThisMonListVO>>(list2,HttpStatus.OK);
-		// List<ConsumeThisMonListVO> => 자동으로 json 변경하는 프로그램 설치
-		// jackson-databind
-		return entity;
-	}
+  
 	
-	@RequestMapping(value = "/consume/listJson3", method = RequestMethod.GET)
-	public ResponseEntity<List<ConsumeAllListVO>> list3(HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/consume/listJson2", method = RequestMethod.GET)
+	public ResponseEntity<List<ConsumeAllListVO>> list2(HttpServletRequest request) throws Exception {
 		ConsumePageVO vo=new ConsumePageVO();
 		vo.setConsumePageNum("1");
 		vo.setConsumePageSize(5);
 		vo.setConsumeCurrentPage(1);
 		
-		List<ConsumeAllListVO> list3 = consumeService.getConsumeAllList(vo);
+		List<ConsumeAllListVO> list2 = consumeService.getConsumeAllList(vo);
 
 		ResponseEntity<List<ConsumeAllListVO>> entity=
-				new ResponseEntity<List<ConsumeAllListVO>>(list3,HttpStatus.OK);
+				new ResponseEntity<List<ConsumeAllListVO>>(list2,HttpStatus.OK);
 		// List<ConsumeAllListVO> => 자동으로 json 변경하는 프로그램 설치
 		// jackson-databind
 		return entity;

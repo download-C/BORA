@@ -10,8 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bora.domain.report.ConsumeAllListVO;
-import com.bora.domain.report.ConsumeLastMonListVO;
-import com.bora.domain.report.ConsumeThisMonListVO;
+import com.bora.domain.report.ConsumeLastThisListVO;
 import com.bora.persistence.ConsumeDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -35,23 +34,15 @@ public class ConsumeDAOTest {
 		log.info(dao+"");
 	}
 	
-	// 저번달 소비 비교 리스트
+	// 저번, 이번 달 소비 비교 리스트
 		public void getConsumeLastMonList() throws Exception{
 			String loginID = "admin";
-			List<ConsumeLastMonListVO> consumeLastMon = 
+			List<ConsumeLastThisListVO> consumeLastMon = 
 					session.selectList(NAMESPACE+".consumeLastMonList", loginID);
 			log.info("♡♡♡♡♡♡♡♡♡♡ 불러온 정보: ");
 			log.info("♡♡♡♡♡♡♡♡♡♡ "+consumeLastMon);
 		}
 		
-		// 이번달 소비 비교 리스트
-		public void getConsumeThisMonList() throws Exception{
-			String loginID = "admin";
-			List<ConsumeThisMonListVO> consumeThisMon = 
-					session.selectList(NAMESPACE+".consumeThisMonList", loginID);
-			log.info("♡♡♡♡♡♡♡♡♡♡ 불러온 정보: ");
-			log.info("♡♡♡♡♡♡♡♡♡♡ "+consumeThisMon);
-		}
 		
 		// 저번달 소비 비교 리스트
 		public void getConsumeAllList() throws Exception{

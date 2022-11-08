@@ -9,9 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bora.domain.report.ConsumeAllListVO;
-import com.bora.domain.report.ConsumeLastMonListVO;
+import com.bora.domain.report.ConsumeLastThisListVO;
 import com.bora.domain.report.ConsumePageVO;
-import com.bora.domain.report.ConsumeThisMonListVO;
 import com.bora.persistence.ConsumeDAO;
 
 @Service
@@ -22,27 +21,17 @@ public class ConsumeAllListServiceImpl implements ConsumeAllListService{
 	
 	private static final Logger log = LoggerFactory.getLogger(ConsumeAllListService.class);
 
-	public List<ConsumeLastMonListVO> getConsumeLastMonList(ConsumePageVO vo) throws Exception {
-		log.info("♡♡♡♡♡♡♡♡♡♡getConsumeLastList(loginID) 호출");
+	public List<ConsumeLastThisListVO> getConsumeLastThisList(ConsumePageVO vo) throws Exception {
+		log.info("♡♡♡♡♡♡♡♡♡♡getConsumeLastThisList(vo) 호출");
 		// startRow, endRow 구하기
 		int startRow = (vo.getConsumeCurrentPage()-1)*vo.getConsumePageSize()+1;
 		int endRow = vo.getConsumeCurrentPage() * vo.getConsumePageSize();
 		vo.setConsumeStartRow(startRow);
 		vo.setConsumeEndRow(endRow);
 		
-		return dao.getConsumeLastMonList(vo);
+		return dao.getConsumeLastThisList(vo);
 	}
 	
-	public List<ConsumeThisMonListVO> getConsumeThisMonList(ConsumePageVO vo) throws Exception {
-		log.info("♡♡♡♡♡♡♡♡♡♡getConsumeThisList(loginID) 호출");
-		// startRow, endRow 구하기
-		int startRow = (vo.getConsumeCurrentPage()-1)*vo.getConsumePageSize()+1;
-		int endRow = vo.getConsumeCurrentPage() * vo.getConsumePageSize();
-		vo.setConsumeStartRow(startRow);
-		vo.setConsumeEndRow(endRow);
-		
-		return dao.getConsumeThisMonList(vo);
-	}
 
 	@Override
 	public List<ConsumeAllListVO> getConsumeAllList(ConsumePageVO vo) throws Exception {

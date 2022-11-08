@@ -17,8 +17,6 @@ import com.bora.domain.report.ConsumeAllListVO;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
 import com.bora.domain.report.BookDetailVO;
-import com.bora.domain.report.ConsumeLastMonListVO;
-import com.bora.domain.report.ConsumeThisMonListVO;
 import com.bora.domain.report.BookVO;
 import com.bora.service.report.ConsumeAllListService;
 import com.bora.service.report.BookDetailService;

@@ -5,13 +5,15 @@
 <!-- consume_list -->
 <mapper namespace="com.bora.mapper.ConsumeMapper">
 	<select id="getConsumeLastMonList" resultType="com.bora.domain.report.ConsumeLastMonListVO">
-	   select * from consume_lastmon_list
+	   select bk_lastmon_num, bk_lastmon_category, bk_lastmon_total 
+	   from consume_last_this_list
 	   where id=#{loginID}
 	   order by bk_lastmon_num limit #{consumeStartRow}-1,#{consumePageSize}
 	</select>
 	
 	<select id="getConsumeThisMonList" resultType="com.bora.domain.report.ConsumeThisMonListVO">
-	   select * from consume_thismon_list
+	   select bk_thismon_num, bk_thismon_category, bk_thismon_total 
+	   from consume_last_this_list
 	   where id=#{loginID}
 	   order by bk_thismon_num limit #{consumeStartRow}-1,#{consumePageSize}
 	</select>

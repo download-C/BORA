@@ -10,10 +10,10 @@
     <th>카테고리</th>
     <th>소비합계</th>
   </tr>
-  <c:forEach var="last" items="${consumeLastMon }">
+  <c:forEach var="LastThis" items="${consumeLastThisList }">
   <tr>
-    <td>${last.bk_lastmon_category }</td>
-    <td>${last.bk_lastmon_total }</td>
+    <td>${LastThis.bk_lastmon_category }</td>
+    <td>${LastThis.bk_lastmon_total }</td>
   </tr>
   </c:forEach>
 </table>
@@ -24,10 +24,10 @@
     <th>카테고리</th>
     <th>소비합계</th>
   </tr>
-  <c:forEach var="this" items="${consumeThisMon }">
+  <c:forEach var="LastThis" items="${consumeLastThisList }">
   <tr>
-    <td>${this.bk_thismon_category }</td>
-    <td>${this.bk_thismon_total }</td>
+    <td>${LastThis.bk_thismon_category }</td>
+    <td>${LastThis.bk_thismon_total }</td>
   </tr>
   </c:forEach>
 </table>

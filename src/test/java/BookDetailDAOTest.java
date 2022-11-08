@@ -16,8 +16,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bora.domain.report.ConsumeAllListVO;
 import com.bora.domain.report.BookDetailVO;
-import com.bora.domain.report.ConsumeLastMonListVO;
-import com.bora.domain.report.ConsumeThisMonListVO;
 import com.bora.persistence.report.BookDetailDAO;
 
 

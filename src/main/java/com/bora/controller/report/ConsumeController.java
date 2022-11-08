@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bora.domain.report.ConsumeAllListVO;
-import com.bora.domain.report.ConsumeLastMonListVO;
+import com.bora.domain.report.ConsumeLastThisListVO;
 import com.bora.domain.report.ConsumePageVO;
-import com.bora.domain.report.ConsumeThisMonListVO;
 import com.bora.service.report.ConsumeAllListService;
 
 @Controller
@@ -29,8 +28,8 @@ public class ConsumeController {
 		
 	// 소비 리스트 메서드
 	@RequestMapping(value = "/consumeAllList", method = RequestMethod.GET)
-	public String getConsumeAllList(Model model, ConsumeLastMonListVO consumeLastMonList,
-			ConsumeThisMonListVO consumeThisMonList, ConsumeAllListVO consumeAllList, 
+	public String getConsumeAllList(Model model, ConsumeLastThisListVO consumeLastThis 
+			,ConsumeAllListVO consumeAllList, 
 			HttpServletRequest request) throws Exception {
 		// 목록 데이터
 		String consumePageNum = request.getParameter("consumePageNum");
@@ -45,24 +44,14 @@ public class ConsumeController {
 		vo.setConsumePageSize(consumePageSize);
 		vo.setConsumeCurrentPage(consumeCurrentPage);
 		
-		// 1. 저번 달 소비 리스트
+		// 1. 저번, 이번 달 소비 리스트
 		// 전달된 정보 저장
-		log.info("consumeLastMonList 호출됨");
+		log.info("consumeLastThisList 호출됨");
 
 		// 컨트롤러 -> 서비스 호출 (동작 메서드,,)
-		log.info("consumeLastMonList -----> Service 호출됨");
-					
-		List<ConsumeLastMonListVO> consumeLastMon = cService.getConsumeLastMonList(vo);
+		log.info("consumeLastThisList -----> Service 호출됨");
 
-		
-		// 2. 이번 달 소비 리스트
-		// 전달된 정보 저장
-		log.info("consumeThisMonList 호출됨");
-
-		// 컨트롤러 -> 서비스 호출 (동작 메서드,,)
-		log.info("consumeThisMonList -----> Service 호출됨");
-
-		List<ConsumeThisMonListVO> consumeThisMon = cService.getConsumeThisMonList(vo);
+		List<ConsumeLastThisListVO> consumeLastThisList = cService.getConsumeLastThisList(vo);
 
 		
 		// 3. 이번 소비 비교 리스트
@@ -97,13 +86,12 @@ public class ConsumeController {
 		int bk_total_consume = (bk_thismon_total - bk_lastmon_total);
 		int bk_consume_compare = ((bk_thismon_total - bk_lastmon_total)/ bk_lastmon_total) * 100;
 		
-		consumeLastMonList.setBk_lastmon_total(bk_lastmon_total);
-		consumeThisMonList.setBk_thismon_total(bk_thismon_total);
+		consumeLastThis.setBk_lastmon_total(bk_lastmon_total);
+		consumeLastThis.setBk_thismon_total(bk_thismon_total);
 		consumeAllList.setBk_total_consume(bk_total_consume);
 		consumeAllList.setBk_consume_compare(bk_consume_compare);
 		
-		model.addAttribute("consumeLastMon", consumeLastMon);
-		model.addAttribute("consumeThisMon", consumeThisMon);
+		model.addAttribute("consumeLastThisList", consumeLastThisList);
 		model.addAttribute("consumeList", consumeList);
 		model.addAttribute("vo", vo);
 		
