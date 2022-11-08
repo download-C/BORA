@@ -4,21 +4,21 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- consume_list -->
 <mapper namespace="com.bora.mapper.ConsumeMapper">
-	<select id="getConsumeLastMonList" resultType="com.bora.domain.report.ConsumeLastMonListVO">
+	<select id="getConsumeLastMonList" resultType="com.bora.domain.report.ConsumeLastThisListVO">
 	   select bk_lastmon_num, bk_lastmon_category, bk_lastmon_total 
 	   from consume_last_this_list
 	   where id=#{loginID}
 	   order by bk_lastmon_num limit #{consumeStartRow}-1,#{consumePageSize}
 	</select>
 	
-	<select id="getConsumeThisMonList" resultType="com.bora.domain.report.ConsumeThisMonListVO">
+	<select id="getConsumeThisMonList" resultType="com.bora.domain.report.ConsumeLastThisListVO">
 	   select bk_thismon_num, bk_thismon_category, bk_thismon_total 
 	   from consume_last_this_list
 	   where id=#{loginID}
 	   order by bk_thismon_num limit #{consumeStartRow}-1,#{consumePageSize}
 	</select>
 	
-	<select id="getConsumeAllList" resultType="com.bora.domain.report.ConsumeAllListVO">
+	<select id="getConsumeAllList" resultType="com.bora.domain.report.ConsumeLastThisListVO">
 	   select bk_consume_sum, bk_category, (bk_thismon_total - bk_lastmon_total) as bk_total_consume,
 	   ((bk_thismon_total - bk_lastmon_total)/bk_lastmon_total)*100 as bk_consume_compare 
 	   from bora_consume_list
