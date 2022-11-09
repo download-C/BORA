@@ -28,8 +28,6 @@ import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
 import com.bora.domain.member.MemberVO;
 import com.bora.domain.report.BookVO;
-import com.bora.domain.report.ConsumeAllListVO;
-import com.bora.domain.report.ConsumeLastThisListVO;
 import com.bora.service.MemberService;
 import com.bora.service.board.BoardService;
 import com.bora.service.report.BookDetailService;
@@ -279,41 +277,6 @@ public class AjaxController {
 
 	}
     
-	@RequestMapping(value = "/consume/listJson1", method = RequestMethod.GET)
-	public ResponseEntity<List<ConsumeLastThisListVO>> list1(HttpServletRequest request) throws Exception {
-		
-		List<ConsumeLastThisListVO> list1 = consumeService.getConsumeLastMonList("admin");
-
-		ResponseEntity<List<ConsumeLastThisListVO>> entity=
-				new ResponseEntity<List<ConsumeLastThisListVO>>(list1,HttpStatus.OK);
-		// List<ConsumeLastMonListVO> => 자동으로 json 변경하는 프로그램 설치
-		// jackson-databind
-		return entity;
-	}
-    
-	@RequestMapping(value = "/consume/listJson2", method = RequestMethod.GET)
-	public ResponseEntity<List<ConsumeLastThisListVO>> list2(HttpServletRequest request) throws Exception {
-		
-		List<ConsumeLastThisListVO> list2 = consumeService.getConsumeThisMonList("admin");
-
-		ResponseEntity<List<ConsumeLastThisListVO>> entity=
-				new ResponseEntity<List<ConsumeLastThisListVO>>(list2,HttpStatus.OK);
-		// List<ConsumeThisMonListVO> => 자동으로 json 변경하는 프로그램 설치
-		// jackson-databind
-		return entity;
-	}
-	
-	@RequestMapping(value = "/consume/listJson3", method = RequestMethod.GET)
-	public ResponseEntity<List<ConsumeAllListVO>> list3(HttpServletRequest request) throws Exception {
-		
-		List<ConsumeAllListVO> list3 = consumeService.getConsumeAllList("admin");
-
-		ResponseEntity<List<ConsumeAllListVO>> entity=
-				new ResponseEntity<List<ConsumeAllListVO>>(list3,HttpStatus.OK);
-		// List<ConsumeAllListVO> => 자동으로 json 변경하는 프로그램 설치
-		// jackson-databind
-		return entity;
-	}
   
     
 }// class AjaxController
