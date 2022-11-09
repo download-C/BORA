@@ -24,6 +24,7 @@ import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
 import com.bora.domain.member.MemberVO;
 import com.bora.domain.member.NaverLoginBO;
+
 import com.bora.domain.report.BookVO;
 import com.bora.service.MainService;
 import com.bora.service.MemberService;
@@ -31,12 +32,14 @@ import com.bora.service.board.NoticeService;
 import com.bora.service.report.BookService;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
-
 @RequestMapping("/main/*")
 @Controller
 public class MainController {
 	private static final Logger log = LoggerFactory.getLogger(MainController.class);
 
+	@Inject
+	BookService bookService;
+	
 	@Inject
 	MainService mainService;
 	@Inject
@@ -69,47 +72,49 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public String joinPOST(MemberVO vo, HttpServletRequest request) throws Exception {
-		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡joinPOST(vo) -> login.jsp");
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
-		log.info("비밀번호: " + pw);
-		// 비밀번호 암호화
-		String encryptPw = SHA256.encrypt(pw);
-		log.info("암호화된 비밀번호: " + encryptPw);
-		String name = request.getParameter("name");
-		String nick = request.getParameter("nick");
 
-		String phone = request.getParameter("phone");
+	   public String joinPOST(MemberVO vo, HttpServletRequest request) throws Exception {
+	      log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡joinPOST(vo) -> login.jsp");
+	      String id = request.getParameter("id");
+	      String pw = request.getParameter("pw");
+	      log.info("비밀번호: " + pw);
+	      // 비밀번호 암호화
+	      String encryptPw = SHA256.encrypt(pw);
+	      log.info("암호화된 비밀번호: " + encryptPw);
+	      String name = request.getParameter("name");
+	      String nick = request.getParameter("nick");
 
-		String email = request.getParameter("email");
+	      String phone = request.getParameter("phone");
 
-		vo.setId(id);
-		vo.setPw(encryptPw);
-		vo.setName(name);
-		vo.setNick(nick);
-		vo.setPhone(phone);
-		vo.setEmail(email);
-		
-		// 회원가입 하자마자 가계부 기본 데이터베이스 만들어버리기!
-		Calendar cal = Calendar.getInstance();
-		int year = cal.get(Calendar.YEAR);
-		int month = cal.get(Calendar.MONTH)+1;
-		
-		BookVO book = new BookVO();
-		book.setBk_year(year);
-		book.setBk_month(month);
-		book.setId(id);
-		book.setBk_budget(0);
-		bookService.writeBook(book);
+	      String email = request.getParameter("email");
 
-		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡회원가입 정보: " + vo);
+	      vo.setId(id);
+	      vo.setPw(encryptPw);
+	      vo.setName(name);
+	      vo.setNick(nick);
+	      vo.setPhone(phone);
+	      vo.setEmail(email);
+	      
+	      // 회원가입 하자마자 가계부 기본 데이터베이스 만들어버리기!
+	      Calendar cal = Calendar.getInstance();
+	      int year = cal.get(Calendar.YEAR);
+	      int month = cal.get(Calendar.MONTH)+1;
+	      
+	      BookVO book = new BookVO();
+	      book.setBk_year(year);
+	      book.setBk_month(month);
+	      book.setId(id);
+	      book.setBk_budget(0);
+	      bookService.writeBook(book);
 
-		mainService.joinMember(vo);
-		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡회원가입 성공");
+	      log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡회원가입 정보: " + vo);
 
-		return "redirect:/main/login";
-	}
+	      mainService.joinMember(vo);
+	      log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡회원가입 성공");
+
+	      return "redirect:/main/login";
+	   }
+
 
 	@RequestMapping(value = "/login", method = {RequestMethod.GET,})
 	public String loginGET(HttpServletRequest request, Model model, HttpSession session) throws Exception {
