@@ -84,39 +84,6 @@
 		</table>
 	</div> <!-- container -->
 	<br><br>
-	<!-- ===================== 페이징 처리 구간 ========================== -->
-	<div>
-		<nav aria-label="Page navigation example">
-		<ul type="none" id="pageUl"  class="pagination justify-content-center">
-			
-			<!-- 이전 버턴================ -->
-			
-			<c:if test="${pm.prev }"> 
-					<!--      ㄴboolean 타입이니까 false면 걍 패스되는거~ 음 편하군  -->
-				<li><a href="listPage?page=${pm.pageStart - 1 }" class="page-item" aria-label="Previous" style="color:#621fb7;">
-						<span aria-hidden="true">&laquo;</span></a>
-				</li>
-			</c:if>
-			
-			<!-- 1 2 3 4 .... ================ -->
-			<c:forEach var="index" begin="${pm.pageStart }" end="${pm.endPage }"> 
-						<!-- 페이지 블럭에서 내가 선택한 현재 페이지만! active되도록 -->
-				<%-- 
-				<li <c:out value="${pm.vo.page == index? 'class=active' : '' }" />>   2.3버전 이하는 c:out 써야 함~ --%>
-				<li ${pm.vo.page == index? 'class=active' : '' }  style="float: left;"  class="page-item">
-					<a href="listPage?page=${index }" style="color:#621fb7;"  class="page-link" > ${index} </a>
-				</li>
-			</c:forEach>
-			
-			<!-- 다음 버턴================ -->
-			<c:if test="${pm.next }">
-				<li class="page-item"><a href="listPage?page=${pm.endPage + 1 }" class="page-link"  aria-label="Next" style="color:#621fb7;">
-					<span aria-hidden="true">&raquo;</span></a></li>
-			</c:if>
-		</ul>
-		</nav>
-	</div>
-	<!-- ===================== 페이징 처리 구간 끝 ========================== -->
 </div>
 </div> <!-- col-12 -->
 </div> <!-- row -->
