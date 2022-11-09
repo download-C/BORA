@@ -4,6 +4,10 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<!-- alert 모달 필수  --> 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
+
 <%
 if(loginID==null) {%>
 <!-- 세션값(로그인) 확인 -->
@@ -18,29 +22,32 @@ $(document).ready(function() {
 })
 </script>
 <%} %>
-<!-- 비밀번호 회원정보 수정 시 alert -->
+
+
+<!-- login 성공 메세지 불러오기 -->
 <script>
-$(document).ready(function() {
-    let message = "${msg}";
-    if (message != "") {
-        alert(message);
-    }
-    
-    let msg1 = "${msg1}";
+$(document).ready(function(){	
+	let msg1 = "${msg1}";
 	let msg2 = "${msg2}";
-	if(msg1!="" && msg2!=""){
+// 	alert()
+	if(msg1!=""&&msg2!="") {
 		warning(msg1, msg2);
 	}
-});
-
-function warning(msg1, msg2) {
-    Swal.fire(
-        msg1,
-        msg2,
-        'warning' /*디자인 타입*/
-    )
-}//warning 버튼
+ });
 </script>
+
+<!-- login 성공 alert 모달 -->
+<script>
+function warning(message, message2) {
+   Swal.fire(
+       message,
+       message2,
+       'warning' /*디자인 타입*/
+   )
+}
+</script>
+
+
 <!-- 비밀번호 유효성 검사 -->
 <script type="text/javascript">
 // 비밀번호 유효성 검사

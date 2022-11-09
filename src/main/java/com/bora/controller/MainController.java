@@ -191,7 +191,7 @@ public class MainController {
 		// 네이버에서 사용하는 닉네임이 이미 DB에 존재할 경우
 		if(memberService.getMemberNick(nick)!=null) {
 			log.info("닉네임 :"+nick);
-			model.addAttribute("msg", "'"+nick+"'"+"은 이미 존재하는 닉네임입니다.");
+			model.addAttribute("msg1", "'"+nick+"'"+"은 이미 존재하는 닉네임입니다.");
 			model.addAttribute("msg2", "새로운 닉네임 입력 페이지로 이동합니다.");
 			session.setAttribute("member", member);
 			return "redirect:/main/nickCheck";
@@ -216,8 +216,11 @@ public class MainController {
 			
 			//4.파싱 아이디 세션으로 저장
 			session.setAttribute("loginID",id); //세션 생성
-			rttr.addFlashAttribute("message", nick+"님의 회원가입 완료!");
-			rttr.addFlashAttribute("message2", "현재 임시 비밀번호 상태이니 마이페이지에서 	반드시 비밀번호를 변경해주세요.");
+			
+			rttr.addFlashAttribute("msg1", "'"+nick+"'님의 회원가입 완료!");
+			rttr.addFlashAttribute("msg2", "현재 임시 비밀번호 상태이니 마이페이지에서 반드시 비밀번호를 변경해주세요.");
+			log.info("어트리뷰트 생성 성공");
+			
 			return "redirect:/member/update";
 		}
 	}
@@ -279,16 +282,15 @@ public class MainController {
 		// 네이버에서 사용하는 닉네임이 이미 DB에 존재할 경우
 		if(memberService.getMemberNick(nick)!=null) {
 			log.info("닉네임 :"+nick);
-			model.addAttribute("msg1", "'"+nick+"'"+"은 이미 존재하는 닉네임입니다.");
-			model.addAttribute("msg2", "새로운 닉네임 입력 페이지로 이동합니다.");
+			rttr.addFlashAttribute("msg1", "'"+nick+"'"+"은 이미 존재하는 닉네임입니다.");
+			rttr.addFlashAttribute("msg2", "새로운 닉네임 입력 페이지로 이동합니다.");
 			session.setAttribute("member", member);
 			return "/main/nickCheck";
 		} else {
 		
 		
-		// 네이버 정보로 회원가입한 적 없는 회원이 경우 자동 회원가입
-		log.info("회원가입 한 적 없는 사용자입니다.");
-		
+			// 네이버 정보로 회원가입한 적 없는 회원이 경우 자동 회원가입
+			log.info("회원가입 한 적 없는 사용자입니다.");
 			mainService.joinMember(member);
 			
 			// 해당 회원의 해당 연 월 가계부 자동 생성
@@ -305,9 +307,12 @@ public class MainController {
 			
 			//4.파싱 아이디 세션으로 저장
 			session.setAttribute("loginID",id); //세션 생성
-			rttr.addFlashAttribute("message", nick+"님의 회원가입 완료!");
-			rttr.addFlashAttribute("message2", "현재 임시 비밀번호 상태이니 마이페이지에서 	반드시 비밀번호를 변경해주세요.");
-			return "redirect:/member/update";
+			
+			rttr.addFlashAttribute("msg1", nick+"님의 회원가입 완료!");
+			rttr.addFlashAttribute("msg2", "현재 임시 비밀번호 상태이니 마이페이지에서 	반드시 비밀번호를 변경해주세요.");
+			
+			log.info("어트리뷰트 생성 완료");
+			return "/member/update";
 		}
 		
 	}

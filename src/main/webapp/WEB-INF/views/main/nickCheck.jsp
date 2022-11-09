@@ -13,19 +13,16 @@
 <!-- login 성공 메세지 불러오기 -->
 <script>
 $(document).ready(function(){	
-	let message = "${msg}";
-	let message2 = "${msg2}";
+	let msg1 = "${msg1}";
+	let msg2 = "${msg2}";
 // 	alert()
-	if(message!="") {
-		warning(message, message2);
+	if(msg1!=""&&msg2!="") {
+		warning(msg1, msg2);
 	}
  });
 </script>
 
 <!-- login 성공 alert 모달 -->
-
-
-
 <script>
 function warning(message, message2) {
    Swal.fire(
