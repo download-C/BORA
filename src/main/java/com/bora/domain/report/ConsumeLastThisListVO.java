@@ -12,4 +12,5 @@ public class ConsumeLastThisListVO {
 	private Integer bk_thismon_total; // 이번 달 소비합계
 	private String id; // 회원 아이디
 
+	
 }
