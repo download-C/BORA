@@ -82,7 +82,7 @@ if(session!=null) {
           <li><a class="nav-link scrollto active" href="/main/main">Home</a></li>
           <li><a class="nav-link scrollto" href="/about">About</a></li>
           <li><a class="nav-link scrollto" href="#">리포트</a></li>
-          <li><a class="nav-link scrollto " href="/openbank/oauth">자산관리</a></li>
+          <li><a class="nav-link scrollto " href="/openbank/oauthOK">자산관리</a></li>
           <li><a class="nav-link scrollto" href="/member/mypage">마이페이지</a></li>
           <li><a class="nav-link scrollto" href="#contact">고객센터</a></li>
         </ul>
