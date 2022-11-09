@@ -5,16 +5,7 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <h1>board/insert.jsp</h1>
-<%
-	if (loginID == null) {
-%>
-<script>
-	alert("세션값이 만료되어 로그인 페이지로 이동합니다.");
-	location.href = "/member/login";
-</script>
-<%
-	}
-%>
+
 
 <!-- title -->
 <div class="section-title">
@@ -39,6 +30,11 @@
 	<h3>계좌개설일 : ${accountBalance.account_issue_date }</h3>
 	<h3>만기일 : ${accountBalance.maturity_date }</h3>
 	<h3>최종거래일 : ${accountBalance.last_tran_date }</h3>
+	
+	
+	
+	
+	
 	
 	
 

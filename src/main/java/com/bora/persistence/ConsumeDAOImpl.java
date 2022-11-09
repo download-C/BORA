@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.bora.domain.report.ConsumeAllListVO;
 import com.bora.domain.report.ConsumeLastThisListVO;
-import com.bora.domain.report.ConsumePageVO;
 
 @Repository
 public class ConsumeDAOImpl implements ConsumeDAO{
@@ -24,22 +23,24 @@ public class ConsumeDAOImpl implements ConsumeDAO{
 	private static final Logger log = LoggerFactory.getLogger(ConsumeDAOImpl.class);
 	
 	@Override
-	public List<ConsumeLastThisListVO> getConsumeLastThisList(ConsumePageVO vo) throws Exception {
+	public List<ConsumeLastThisListVO> getConsumeLastMonList(String loginID) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡getConsumeLastMonList(loginID) 호출");
-		return session.selectList(NAMESPACE+".getConsumeLastMonList", vo);
+		return session.selectList(NAMESPACE+".getConsumeLastMonList", loginID);
 	}
 	
 	@Override
-	public List<ConsumeAllListVO> getConsumeAllList(ConsumePageVO vo) throws Exception {
+	public List<ConsumeLastThisListVO> getConsumeThisMonList(String loginID) throws Exception {
+		log.info("♡♡♡♡♡♡♡♡♡♡getConsumeThisMonList(loginID) 호출");
+		return session.selectList(NAMESPACE+".getConsumeThisMonList", loginID);
+	}
+	
+	@Override
+	public List<ConsumeAllListVO> getConsumeAllList(String loginID) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡getConsumeAllList(loginID) 호출");
-		return session.selectList(NAMESPACE+".getConsumeAllList", vo);
+		return session.selectList(NAMESPACE+".getConsumeAllList", loginID);
 	}
 	
-	@Override
-	public int getConsumeCount(){
-		
-		return 0;
-	}
+
 
 	
 }

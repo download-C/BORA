@@ -8,22 +8,21 @@
 	   select bk_lastmon_num, bk_lastmon_category, bk_lastmon_total 
 	   from consume_last_this_list
 	   where id=#{loginID}
-	   order by bk_lastmon_num limit #{consumeStartRow}-1,#{consumePageSize}
+	   order by bk_lastmon_num desc
 	</select>
 	
 	<select id="getConsumeThisMonList" resultType="com.bora.domain.report.ConsumeLastThisListVO">
-	   select bk_thismon_num, bk_thismon_category, bk_thismon_total 
+	   select bk_thismon_num, bk_thismon_category, bk_thismon_total
 	   from consume_last_this_list
 	   where id=#{loginID}
-	   order by bk_thismon_num limit #{consumeStartRow}-1,#{consumePageSize}
+	   order by bk_thismon_num desc
 	</select>
 	
-	<select id="getConsumeAllList" resultType="com.bora.domain.report.ConsumeLastThisListVO">
-	   select bk_consume_sum, bk_category, (bk_thismon_total - bk_lastmon_total) as bk_total_consume,
-	   ((bk_thismon_total - bk_lastmon_total)/bk_lastmon_total)*100 as bk_consume_compare 
+	<select id="getConsumeAllList" resultType="com.bora.domain.report.ConsumeAllListVO">
+	   select bk_consume_num, bk_category, bk_total_consume, bk_consume_compare 
 	   from bora_consume_list
 	   where id=#{loginID}
-	   order by bk_consume_num limit #{consumeStartRow}-1,#{consumePageSize}
+	   order by bk_consume_num desc
 	</select>
 	
 	

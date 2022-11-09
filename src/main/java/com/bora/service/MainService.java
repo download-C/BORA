@@ -1,6 +1,6 @@
 package com.bora.service;
 
-import com.bora.domain.MemberVO;
+import com.bora.domain.member.MemberVO;
 
 public interface MainService {
 	public void joinMember(MemberVO vo) throws Exception;

@@ -1,4 +1,4 @@
-package com.bora.domain;
+package com.bora.domain.member;
 
 import java.sql.Timestamp;
 

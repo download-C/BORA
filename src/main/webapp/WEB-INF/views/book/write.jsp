@@ -87,79 +87,145 @@ $(document).ready(function(){
 }); // document
 </script>
 
+
+<div class="section-title">
+  <h2><b>가계부 작성</b></h2>
+</div>
+<!-- End title -->
+<style>
+      .hr-how {
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+      border: 0;
+      height: 1px;
+      margin-bottom: 40px;
+      margin-top: 40px;
+      overflow: visible;
+      text-align: center;
+      opacity:100;
+      }
+      .hr-how:after {
+      background: white;
+      content: "🤑🤑🤑🤑🤑";
+      display: inline-block;
+      font-size: 0.9em;
+      padding: 0 0.6em;
+      position: relative;
+      top: -0.7em;
+      }
+</style>
+      <hr class="hr-how" />
+      
+      
 <div class="container">
-	<h1>🤑가계부 작성🤑</h1>
+
+	<h1 style="text-align: center">🤑가계부 작성🤑</h1> <br>
 	<form action="/book/write" method="post"> 
 	<input type="hidden" id="bk_budget" value="${bk_budget }">
-	항목 :		수입<input type="radio" name="bk_iow" value="수입" required="required" > 
-				지출<input type="radio" name="bk_iow" value="지출" required="required"> 
-				이체<input type="radio" name="bk_iow" value="이체" required="required"> <br>
-	자산 :      <select name="bk_group" id="bk_group" required="required">
-					<option value="자산선택">자산 선택</option>
-				</select> <br>
-	일자 : 		<select name="bk_year" required="required">				
-					<option value="">연도</option>
-					<option value="2021">2021</option>
-					<option value="2022">2022</option>
-				</select> 년
-				<select name="bk_month" required="required">	
-					<option value="">월</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
-					<option value="11">11</option>
-					<option value="12">12</option>
-				</select> 월
-				<select name="bk_day" required="required">
-					<option value="">일</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
-					<option value="11">11</option>
-					<option value="12">12</option>
-					<option value="13">13</option>
-					<option value="14">14</option>
-					<option value="15">15</option>
-					<option value="16">16</option>
-					<option value="17">17</option>
-					<option value="18">18</option>
-					<option value="19">19</option>
-					<option value="20">20</option>
-					<option value="21">21</option>
-					<option value="22">22</option>
-					<option value="23">23</option>
-					<option value="24">24</option>
-					<option value="25">25</option>
-					<option value="26">26</option>
-					<option value="27">27</option>
-					<option value="28">28</option>
-					<option value="29">29</option>
-					<option value="30">30</option>
-					<option value="31">31</option>
-				</select> 일 <br>
-	카테고리 : 	<select name="bk_category" id="bk_category" required="required">
-					<option value="">카테고리</option>
-				</select> <br>
-	금액 : <input type="number" name="bk_money" required="required"><br>
-	메모 : <textarea rows="5" cols="20" name="bk_memo" required="required"></textarea> <br>
-	<input type="submit" value="작성">
-	
-	</form>
+	<div class="form-floating mb-3" style="text-align: center">
+		수입<input type="radio" name="bk_iow" value="수입" required="required" > 
+		지출<input type="radio" name="bk_iow" value="지출" required="required"> 
+		이체<input type="radio" name="bk_iow" value="이체" required="required"> 
+	</div>
+	<div class="form-floating mb-3" style="text-align: center">
+		<select class="form-select" name="bk_group" id="bk_group" required="required">
+			<option value="자산선택">자산 선택</option>
+		</select>
+	</div>
+	<div class="form-floating mb-3"  id='datetimepicker1'  
+		  style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
+		<select class="form-select" style="width: 33%; float: left;" name="bk_year" required="required">				
+			<option value="">연도</option>
+			<option value="2021">2021</option>
+			<option value="2022">2022</option>
+		</select>
+		<select class="form-select" style="width: 33%; float: left;" name="bk_month" required="required">	
+			<option value="">월</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+		</select> 
+		<select class="form-select" style="width: 33%; float: left;" name="bk_day" required="required">
+			<option value="">일</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+			<option value="13">13</option>
+			<option value="14">14</option>
+			<option value="15">15</option>
+			<option value="16">16</option>
+			<option value="17">17</option>
+			<option value="18">18</option>
+			<option value="19">19</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">22</option>
+			<option value="23">23</option>
+			<option value="24">24</option>
+			<option value="25">25</option>
+			<option value="26">26</option>
+			<option value="27">27</option>
+			<option value="28">28</option>
+			<option value="29">29</option>
+			<option value="30">30</option>
+			<option value="31">31</option>
+		</select>
+	</div>
+	<div class="form-floating mb-3">
+		<select name="bk_category" id="bk_category" class="form-select" required="required">
+			<option value="">카테고리</option>
+		</select>
+	</div >
+	<div class="form-floating mb-3">
+		<input type="number" name="bk_money" class="form-control" id="floatingInput" placeholder="금액을 입력하세요." required >
+   		<label for="floatingInput">금액을 입력하세요.</label>
+	</div>
+	<div class="form-floating mb-3">
+	    <input type="text" name="bk_memo" class="form-control" id="floatingPassword" placeholder="내역을 입력하세요." required>
+	    <label for="floatingPassword">내역을 입력하세요.</label>
+	</div>
+    <div style="text-align: center">
+		<input type="submit" value="작성" class="btn btn-primary m-1">
+    </div>
+</form>
 </div>
-
+<script>
+    new tempusDominus.TempusDominus(document.getElementById('datetimepicker1'), {
+      display: {
+        components: {
+          seconds: false,
+          useTwentyfourHour: false,
+        },
+        icons: {
+          type: 'icons',
+          date: 'fa fa-solid fa-calendar',
+          up: 'fa fa-solid fa-arrow-up',
+          down: 'fa fa-solid fa-arrow-down',
+          previous: 'fa fa-solid fa-chevron-left',
+          next: 'fa fa-solid fa-chevron-right',
+          today: 'fa fa-solid fa-calendar-check',
+          clear: 'fa fa-solid fa-trash',
+          close: 'fas fa-solid fa-xmark'
+        },
+      },
+    });
+  </script>
 
 <%@ include file="../include/footer.jsp"%>

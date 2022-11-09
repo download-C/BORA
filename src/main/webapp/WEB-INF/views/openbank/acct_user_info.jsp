@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ include file="../include/header.jsp"%>
+<!-- ${pageContext.request.contextPath} -->
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+
 	<h1>사용자 정보조회 결과</h1>
 	<h3>고객번호 : ${userInfo.user_seq_no }</h3>
 <%-- 	<h3>고객CI값 : ${userInfo.user_ci }</h3> --%>
@@ -20,60 +18,84 @@
 
 	<hr>
 	
-<%-- 	<h3>고객등록계좌목록 : ${userInfo.res_list }</h3> --%>
-
-<!-- 	등록계좌목록 값 -->
-<!-- 	private String fintech_use_num; //핀테크이용번호 -->
-<!--     private String account_alias; //계좌별명 -->
-<!--     private String bank_code_std; //출금(개설)기관.표준코드 -->
-<!--     private String bank_code_sub; //출금(개설)기관.점별코드 -->
-<!--     private String bank_name; //출금(개설)기관명 -->
-<!--     private String savings_bank_name; //개별저축은행명주1) -->
-<!--     private String account_num; //계좌번호주4) -->
-<!--     private String account_num_masked; //마스킹된 출력용 계좌번호 -->
-<!--     private String account_seq; //회차번호주2) 주4) -->
-<!--     private String account_holder_name; //계좌예금주명 -->
-<!--     private String account_holder_type; //계좌구분(P:개인) -->
-<!--     private String account_type; //계좌종류주3) 1:수시입출금, 2:예적금 6:수익증권, T:종합계좌 -->
-<!--     private String inquiry_agree_yn; //조회서비스 동의여부 -->
-<!--     private String inquiry_agree_dtime; //조회서비스 동의일시 -->
-<!--     private String transfer_agree_yn; //출금서비스 동의여부 -->
-<!--     private String transfer_agree_dtime; //출금서비스 동의일시 -->
-<!--     private String account_state; //납부번호 -->
-	
-<!-- 	<table> -->
-<!-- 		<tr> -->
-<!-- 			<th>마스킹된 출력용 계좌번호</th> -->
-<!-- 			<th>은행명</th> -->
-<!-- 			<th>계좌구분</th> -->
-<!-- 			<th>계좌종류</th> -->
-<!-- 			<th>예금주명</th> -->
-<!-- 		</tr> -->
-<%-- 		<%-- accountList 객체에 저장되어 있는 계좌 목록(res_list) 가져와서 반복하여 복수개 계좌 접근 --%> 
-<%-- 		<c:forEach var="acct_list" items="${userInfo.res_list }"> --%>
-<!-- 			<tr> -->
-<%-- 				<td>${acct_list.account_num_masked }</td> --%>
-<%-- 				<td>${acct_list.bank_name }</td> --%>
-<%-- 				<td>${acct_list.account_holder_type }</td> --%>
-<%-- 				<td>${acct_list.account_type }</td> --%>
-<%-- 				<td>${acct_list.account_holder_name }</td> --%>
-<!-- 			</tr> -->
-<%-- 		</c:forEach> --%>
-<!-- 	</table> -->
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-</body>
-</html>
+	<h1>💸계좌💸</h1>
+	<!-- 2.2.3 등록계좌조회 API -->
+	마스킹된 출력용 계좌번호, 은행명, 계좌구분(분류코드), 계좌종류(분류코드),	예금주명
+	<form method="get" action="/openbank/accountList">
+		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+		<input type="hidden" name="access_token" value="${sessionScope.token }">
+<%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
+		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }">
+		<input type="hidden" name="include_cancel_yn" value="Y">
+		<input type="hidden" name="sort_order" value="D">
+		<input type="submit" value="등록계좌조회">
+	</form><hr>    
 
 
+	<!-- 잔액조회1 BORA입출금 -->
+	거래일시, 거래일자(참가은행), 은행이름, 계좌잔액(-금액가능), 
+	출금가능금액, 상품명, 계좌개설일, 만기일, 최종거래일
+	<form method="get" action="/openbank/accountBalance">
+		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+		<input type="hidden" name="access_token" value="${sessionScope.token }">
+<%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
+		<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
+		<input type="hidden" name="fintech_use_num" value="120220217888941294172171">
+		<input type="hidden" name="tran_dtime" value="20221104134521">
+		<input type="submit" value="BORA입출금 계좌잔액조회">
+	</form><hr>    
+
+	<!-- 잔액조회2 123통장 -->
+	거래일시, 거래일자(참가은행), 은행이름, 계좌잔액(-금액가능), 
+	출금가능금액, 상품명, 계좌개설일, 만기일, 최종거래일
+	<form method="get" action="/openbank/accountBalance">
+		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+		<input type="hidden" name="access_token" value="${sessionScope.token }">
+<%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
+		<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
+		<input type="hidden" name="fintech_use_num" value="120220217888941294186856">
+		<input type="hidden" name="tran_dtime" value="20221104134521">
+		<input type="submit" value="123통장 계좌잔액조회">
+	</form><hr>    
+     
+     
+	<!-- 거래내역조회1 BORA입출금 -->
+	거래일자, 입출금구분, 거래유형, 거래금액. 거래후잔액
+	<form method="get" action="/openbank/accountTran">
+		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+		<input type="hidden" name="access_token" value="${sessionScope.token }">
+<%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
+		<input type="hidden" name="bank_tran_id" value="${accountTran.bank_tran_id}">
+		<input type="hidden" name="fintech_use_num" value="120220217888941294172171">
+		<input type="hidden" name="inquiry_type" value='A'>
+		<input type="hidden" name="inquiry_base" value='D'>
+		<input type="hidden" name="from_date" value="20100101">
+		<input type="hidden" name="to_date" value="20221104">
+		<input type="hidden" name="sort_order" value="D">
+		<input type="hidden" name="tran_dtime" value="20221104134521">
+		<input type="submit" value="BORA입출금 거래내역조회">
+	</form><hr>    
+     
+		<!-- 거래내역조회2 123통장 -->
+	거래일자, 입출금구분, 거래유형, 거래금액. 거래후잔액
+	<form method="get" action="/openbank/accountTran">
+		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+		<input type="hidden" name="access_token" value="${sessionScope.token }">
+<%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%>
+		<input type="hidden" name="bank_tran_id" value="${accountTran.bank_tran_id}">
+		<input type="hidden" name="fintech_use_num" value="120220217888941294186856">
+		<input type="hidden" name="inquiry_type" value='A'>
+		<input type="hidden" name="inquiry_base" value='D'>
+		<input type="hidden" name="from_date" value="20100101">
+		<input type="hidden" name="to_date" value="20221104">
+		<input type="hidden" name="sort_order" value="D">
+		<input type="hidden" name="tran_dtime" value="20221104134521">
+		<input type="submit" value="123통장 거래내역조회">
+	</form><hr>    
+	
+</div>
 
 
-
+<%@ include file="../include/footer.jsp"%>
