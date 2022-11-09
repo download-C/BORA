@@ -69,37 +69,25 @@ $(document).ready(function(){
 				return;
 			}
 			
-// 			// 반복문 돌면서 댓글 list 채우기
-// 			for (var i = 0, len = list.length||0; i < len; i++) {
-// 				str += "<li id='cmtLI' data-cno='"+list[i].cno+"'>";
-// 				str += "<div id='cmt-body'><div id='cmt-header'><strong>"+list[i].id +"/ 닉넴:" + list[i].nick + "</strong>&nbsp;&nbsp;";
-// 				str += "<small>"+cmtService.displayTime(list[i].c_regdate)+"</small>";
-// 					if (list[i].id == loginID || loginID == 'admin') {
-// 						// id가 admin이거나 본인일 때만 -> 답글, 수정, 삭제 버턴 나오게 제어
-// 						str += "<input type='button' value='답글' class='btn btn-primary' id='cmt_btn_re'>";
-// 						str += "<input type='button' value='수정' class='btn btn-primary' id='cmt_btn_mod'>";
-// 						str += "<input type='button' value='삭제' class='btn btn-primary' id='cmt_btn_del'>";
-// 						str += "<input type='text' value='"+list[i].cno+"' id='cnoValue'></div>";
-// 					}
-// 				str += "<p id='c_contentP'>"+list[i].c_content+"</p>";
-// 				str += "</div></li>";
-				
-// 			} // for
-			
-			
 			// 반복문 돌면서 댓글 list 채우기
 			for (var i = 0, len = list.length||0; i < len; i++) {
 				str += "<li id='cmtLI' data-cno='"+list[i].cno+"' class='mb-5'>";
 				str += "<div id='cmt-body'><div id='cmt-header'><strong>" + list[i].nick +" /cno: " + list[i].cno + "</strong>&nbsp;&nbsp;&nbsp;";
-				str += "<span><small> "+cmtService.displayTime(list[i].c_regdate)+"</small></span><span>";
+					// 수정 날짜 null이면 regdate로 표시, 수정 날짜 null 아니면 updatedate로 표시
+					if (list[i].c_updatedate == null){
+						str += "<span><small> "+cmtService.displayTime(list[i].c_regdate)+"</small></span><span>";
+					} else { 
+						str += "<span><small> "+cmtService.displayTime(list[i].c_updatedate)+"</small></span><span>";
+					}
+					
+					// id가 admin이거나 본인일 때만 -> 답글, 수정, 삭제 버턴 나오게 제어
 					if (list[i].id == loginID || loginID == 'admin') {
-						// id가 admin이거나 본인일 때만 -> 답글, 수정, 삭제 버턴 나오게 제어
-						str += "<button id='cmt_btn_re' style='border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px;'> 답글</button>";
-						str += "<button id='cmt_btn_mod' style='border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px;'>수정</button>";
-						str += "<button id='cmt_btn_del' style='border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px;'>삭제</button>";
+						str += "<button id='cmt_btn_del' style='border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px; float: right;'>삭제</button>";
+						str += "<button id='cmt_btn_mod' style='border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px; float: right;'>수정</button>";
+						str += "<button id='cmt_btn_re' style='border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px; float: right;'> 답글</button>";
 						str += "<input type='hidden' value='"+list[i].cno+"' id='cnoValue'></span></div>";
 					}
-				str += "<div id='c_contentP'>" + list[i].c_content+"</div>";
+				str += "<div id='c_contentDIV'>" + list[i].c_content+"</div>";
 				str += "</div></li>";
 				
 			} // for
@@ -157,9 +145,10 @@ $(document).ready(function(){
 // 	cmtDelBtn.on("click", function(e){ // 버턴이 먹지를 않노 ㄱ-
 	$(document).on("click", "#cmt_btn_del", function(){
 // 		alert("삭제 버턴 클릭됨");
-		// cno는?  삭제 버턴(this) -> 다음 요소의 value값.. 이게 최선?ㅠ
-		var cnoValue = $(this).next().val();
+		// cno는?  삭제 버턴(this) -> 다음 다음 다음 요소의 value값.. 이게 최선?ㅠ
+		var cnoValue = $(this).next().next().next().val();
 		console.log("삭제할 cnoValue: " + cnoValue);
+		alert("삭제할 cnoValue: " + cnoValue);
 		
 		// 삭제 버튼 클릭했을 때~ 
 		// 댓글 삭제 함수 3. deleteCmt(cno, callback, error) 호출
@@ -187,34 +176,27 @@ $(document).ready(function(){
 	
 	// 댓글 수정 -------------------------------
 	function updateCmtForm(cnoValue, c_content){
-		alert("updateCmtForm 함수 실행됨 클릭한 cno: " + cnoValue + " / 기존 c_content: " + c_content);
-		
-// 		var cmtPcno = $('"#c_contentP"+cnoValue+');
+// 		alert("updateCmtForm 함수 실행됨 /// 클릭한 cno: " + cnoValue + " / 기존 c_content: " + c_content);
 		
 		var commentsView = "";
 		
-// 		commentsView += "<textarea class='form-control' name='content' id='c_content'"+cnoValue+">"+c_content+"</textarea>";
 		commentsView += "<textarea class='form-control' id='c_content_MOD'>"+c_content+"</textarea>";
-		commentsView += "<div><button class='btn' id='real_mod_btn' style='background-color: #5107B0; color: white; float: right; width: 80px; margin: 10px; font-size: 16px;'><span class='btn-inner-text' style='color: white;'> 수정 </span> ";
+		commentsView += "<div><button class='btn' id='real_mod_btn' style='background-color: #5107B0; color: white; float: right; width: 60px; margin: 5px; font-size: 16px;'><span class='btn-inner-text' style='color: white;'> 수정 </span> ";
 		commentsView += "</button></div>";
-// 		commentsView += "<button><input type='button' value='수정하기' class='btn' id='real_mod_btn' style='background-color: #5107B0; color: white; float: right; width: 80px; margin: 10px; font-size: 16px;'";
-// 		commentsView += "</button>";
-        
-		console.log("@@@@@@@@@@@ commentsView: " + commentsView);
 		
-		$('#c_contentP').replaceWith(commentsView);
-// 		cmtPcno.replaceWith(commentsView);
+// 		$('#c_contentDIV').replaceWith(commentsView); // 에바
+		$("[data-cno="+cnoValue+"]").find('#c_contentDIV').replaceWith(commentsView); // 오케이~!~!~!~! 나이서!~!~! 
 		
 	}// updateCmtForm()
+	
 	
 	// 버튼 클릭 이벤트
 	$(document).on("click", "#cmt_btn_mod", function(){
 // 		alert("수정 버턴 클릭");
 		var cnoValue = $(this).next().next().val();
-		var c_content = $('#c_contentP').text();
-// 		var c_content = $('#c_contentId').val();
-// 		var c_content = $(this).next().next().next().val();
-		alert("cnoValue: " + cnoValue + " / c_content: " + c_content);
+		var c_content = $("[data-cno="+cnoValue+"]").find('#c_contentDIV').text();
+
+// 		alert("cnoValue: " + cnoValue + " / c_content: " + c_content);
 		
 		// 함수 호출
 		updateCmtForm(cnoValue, c_content);
@@ -227,8 +209,8 @@ $(document).ready(function(){
 		//  --> 근데,, 수정 반영은 클릭한 cno한테 잘 들어감 ㄱ-
 		
 		$('#real_mod_btn').click(function(){
-			alert("찐 수정버턴 클릭됨");
-			alert("cnoValue: " + cnoValue + " / bnoValue: " + bnoValue + " / c_content_MOD: " +  $('#c_content_MOD').val());
+// 			alert("찐 수정버턴 클릭됨");
+// 			alert("cnoValue: " + cnoValue + " / bnoValue: " + bnoValue + " / c_content_MOD: " +  $('#c_content_MOD').val());
 			//4. updateCmt(cmtVO, callback, error)
 			cmtService.updateCmt(
 					// cmtVO
@@ -275,15 +257,14 @@ $(document).ready(function(){
 				<!-- Post header-->
 				<header class="mb-4">
 					<!-- Post title-->
-					<h1 class="fw-bolder mb-1"><small>[ ${vo.b_ctgr} ]</small> <br> ${vo.b_title }</h1>
+					<h2 class="fw-bolder mb-1"> <span style="font-size: medium;">[ ${vo.b_ctgr} ]</span> ${vo.b_title }</h2>
 					<!-- Post meta content-->
 					<div class="text-muted fst-italic mb-2">
 						<b>작성일시: </b>  ${vo.b_regdate } &nbsp;&nbsp;&nbsp; <b>작성자: </b> ${vo.nick }</div>
 				</header>
 				<!-- Preview image figure-->
 				<figure class="mb-4">
-					<img class="img-fluid rounded"
-						src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
+<!-- 					<img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /> -->
 				</figure>
 				<!-- Post content-->
 				<section class="mb-5">
@@ -326,26 +307,25 @@ $(document).ready(function(){
 						<!-- 댓글입력창 !-->
 
 						<!-- Single comment-->
-						<div class="d-flex">
-							<div class="flex-shrink-0"></div>
+						<div class="">
+							<div class=""></div>
 							<ul id="cmtUL" >
 								<li data-cno="" class="mb-4">
 									<div id="cmt-body" class="ms-3">
 										<div id="cmt-header" class="fw-bold">
 											<strong> 닉네임 </strong> 
 											<span> <small> c_regdate </small> </span>
-											<span>
-												<button id="cmt_btn_re"
-													style="border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px;">답글</button>
+											<span align="right";>
+												<button id="cmt_btn_re" 
+													style="border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px; float: right;">답글</button>
 												<button id="cmt_btn_mod"
-													style="border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px;">수정</button>
+													style="border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px; float: right;">수정</button>
 												<button id="cmt_btn_del"
-													style="border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px;">삭제</button>
+													style="border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px; float: right;">삭제</button>
 												<input type="hidden" value="" id="cnoValue">
 											</span>
 										</div>
-										<p id='c_contentP'>c_content</p>
-<!-- 										<p id="'c_content'+cnoValue">c_content</p> -->
+										<div id='c_contentDIV'>c_content</div>
 									</div>
 								</li>
 							</ul>
