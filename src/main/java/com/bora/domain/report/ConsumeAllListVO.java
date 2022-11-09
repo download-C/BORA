@@ -9,4 +9,5 @@ public class ConsumeAllListVO {
 	private String id; // 회원아이디
 	private Integer bk_total_consume; // 총소비
 	private Integer bk_consume_compare; // 전월대비
+	
 }

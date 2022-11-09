@@ -34,21 +34,29 @@ public class ConsumeDAOTest {
 		log.info(dao+"");
 	}
 	
-	// 저번, 이번 달 소비 비교 리스트
+	// 저번달 소비 비교 리스트
 		public void getConsumeLastMonList() throws Exception{
 			String loginID = "admin";
-			List<ConsumeLastThisListVO> consumeLastMon = 
-					session.selectList(NAMESPACE+".consumeLastMonList", loginID);
+			List<ConsumeLastThisListVO> consumeLastMonList = 
+					session.selectList(NAMESPACE+".getConsumeLastMonList", loginID);
 			log.info("♡♡♡♡♡♡♡♡♡♡ 불러온 정보: ");
-			log.info("♡♡♡♡♡♡♡♡♡♡ "+consumeLastMon);
+			log.info("♡♡♡♡♡♡♡♡♡♡ "+consumeLastMonList);
 		}
 		
+		// 이번달 소비 비교 리스트
+		public void getConsumeThisMonList() throws Exception{
+			String loginID = "admin";
+			List<ConsumeLastThisListVO> consumeThisMonList = 
+					session.selectList(NAMESPACE+".getConsumeThisMonList", loginID);
+			log.info("♡♡♡♡♡♡♡♡♡♡ 불러온 정보: ");
+			log.info("♡♡♡♡♡♡♡♡♡♡ "+consumeThisMonList);
+		}
 		
 		// 저번달 소비 비교 리스트
 		public void getConsumeAllList() throws Exception{
 			String loginID = "admin";
 			List<ConsumeAllListVO> consumeList = 
-					session.selectList(NAMESPACE+".consumeAllList", loginID);
+					session.selectList(NAMESPACE+".getConsumeAllList", loginID);
 			log.info("♡♡♡♡♡♡♡♡♡♡ 불러온 정보: ");
 			log.info("♡♡♡♡♡♡♡♡♡♡ "+consumeList);
 		}

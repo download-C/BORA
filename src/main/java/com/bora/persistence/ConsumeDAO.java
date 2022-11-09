@@ -4,14 +4,12 @@ import java.util.List;
 
 import com.bora.domain.report.ConsumeAllListVO;
 import com.bora.domain.report.ConsumeLastThisListVO;
-import com.bora.domain.report.ConsumePageVO;
-
 public interface ConsumeDAO {
 	
-    public List<ConsumeLastThisListVO> getConsumeLastThisList(ConsumePageVO vo) throws Exception;
+    public List<ConsumeLastThisListVO> getConsumeLastMonList(String loginID) throws Exception;
 	
-	public List<ConsumeAllListVO> getConsumeAllList(ConsumePageVO vo) throws Exception;
+	public List<ConsumeLastThisListVO> getConsumeThisMonList(String loginID) throws Exception;
 	
-	public int getConsumeCount();
+	public List<ConsumeAllListVO> getConsumeAllList(String loginID) throws Exception;
 
 }

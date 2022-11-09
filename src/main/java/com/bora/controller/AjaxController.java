@@ -30,6 +30,7 @@ import com.bora.domain.member.MemberVO;
 import com.bora.domain.report.BookVO;
 import com.bora.domain.report.ConsumeAllListVO;
 import com.bora.domain.report.ConsumeLastThisListVO;
+import com.bora.domain.MemberVO;
 import com.bora.domain.report.ConsumePageVO;
 import com.bora.service.MemberService;
 import com.bora.service.board.BoardService;
@@ -222,26 +223,46 @@ public class AjaxController {
     // 카테고리 ajax 끝 ==================================
     
 
-	@RequestMapping(value="/ajax/writeBudget", method=RequestMethod.POST)
-	public Integer writeBudget(Integer bk_budget, Integer year,
-			Integer month, RedirectAttributes rttr)throws Exception {
+	@RequestMapping(value="/writeBudget", method=RequestMethod.GET)
+	public String writeBudget(Integer bk_num, Integer bk_budget, Integer bk_year,
+			Integer bk_month, 
+			RedirectAttributes rttr)throws Exception {
 		log.info("writeBudget()	호출");
-		log.info(year+"년 "+month+"월 예산 입력하기");
-		String loginID = (String)session.getAttribute("loginID");
-		int result = 0;
-		int db_budget = bookService.getMonthBudget(loginID, year, month);
 		
-		if(db_budget>=0 ) {
-			result = bookService.updateMonthBudget(loginID, year, month, bk_budget);
-			if(result ==1 ) {
-				log.info("예산 입력 성공");
-				rttr.addFlashAttribute("msg", "ok");
+		
+		String loginID = (String)session.getAttribute("loginID");
+		List<BookVO> boardList = bookService.getBookListAll(loginID);
+		
+		for(int i=0; i<boardList.size(); i++) {
+			if(boardList.get(i).getBk_num()==bk_num) {
+				BookVO book = bookService.getBook(bk_num, loginID);
+				book.setBk_budget(bk_budget);
+				log.info("입력한 예산: "+bk_budget);
+				int result = bookService.updateBook(book);
+				if(result ==1 ) {
+					log.info("예산 입력 성공");
+					log.info("바뀐 정보: "+bookService.getBook(bk_num, loginID));
+					rttr.addFlashAttribute("msg", "ok");
+					return "redirect:/report/dashboard";
+				} else {
+					log.info("예산 입력 실패");
+					rttr.addFlashAttribute("msg", "no");
+					return "redirect:/report/dashboard";
+				}
 			} else {
-				log.info("예산 입력 실패");
-				rttr.addFlashAttribute("msg", "no");
+				log.info("해당 연월의 가계부가 아직 입력되지 않아 새로 생성");
+				BookVO book = new BookVO();
+				book.setBk_year(bk_year);
+				book.setBk_month(bk_month);
+				book.setBk_budget(bk_budget);
+				book.setId(loginID);
+				bookService.writeBook(book);
+				log.info("예산 입력 성공");
+				return "redirect:/report/dashboard";
 			}
-		} 	
-		return bk_budget;
+
+		}
+		return "redirect:/report/dashboard";
 	}
 
     // 썸머노트 파일 업로드 
@@ -262,12 +283,8 @@ public class AjaxController {
     
 	@RequestMapping(value = "/consume/listJson1", method = RequestMethod.GET)
 	public ResponseEntity<List<ConsumeLastThisListVO>> list1(HttpServletRequest request) throws Exception {
-		ConsumePageVO vo=new ConsumePageVO();
-		vo.setConsumePageNum("1");
-		vo.setConsumePageSize(3);
-		vo.setConsumeCurrentPage(1);
 		
-		List<ConsumeLastThisListVO> list1 = consumeService.getConsumeLastThisList(vo);
+		List<ConsumeLastThisListVO> list1 = consumeService.getConsumeLastMonList("admin");
 
 		ResponseEntity<List<ConsumeLastThisListVO>> entity=
 				new ResponseEntity<List<ConsumeLastThisListVO>>(list1,HttpStatus.OK);
@@ -275,19 +292,26 @@ public class AjaxController {
 		// jackson-databind
 		return entity;
 	}
-  
-	
+    
 	@RequestMapping(value = "/consume/listJson2", method = RequestMethod.GET)
-	public ResponseEntity<List<ConsumeAllListVO>> list2(HttpServletRequest request) throws Exception {
-		ConsumePageVO vo=new ConsumePageVO();
-		vo.setConsumePageNum("1");
-		vo.setConsumePageSize(5);
-		vo.setConsumeCurrentPage(1);
+	public ResponseEntity<List<ConsumeLastThisListVO>> list2(HttpServletRequest request) throws Exception {
 		
-		List<ConsumeAllListVO> list2 = consumeService.getConsumeAllList(vo);
+		List<ConsumeLastThisListVO> list2 = consumeService.getConsumeThisMonList("admin");
+
+		ResponseEntity<List<ConsumeLastThisListVO>> entity=
+				new ResponseEntity<List<ConsumeLastThisListVO>>(list2,HttpStatus.OK);
+		// List<ConsumeThisMonListVO> => 자동으로 json 변경하는 프로그램 설치
+		// jackson-databind
+		return entity;
+	}
+	
+	@RequestMapping(value = "/consume/listJson3", method = RequestMethod.GET)
+	public ResponseEntity<List<ConsumeAllListVO>> list3(HttpServletRequest request) throws Exception {
+		
+		List<ConsumeAllListVO> list3 = consumeService.getConsumeAllList("admin");
 
 		ResponseEntity<List<ConsumeAllListVO>> entity=
-				new ResponseEntity<List<ConsumeAllListVO>>(list2,HttpStatus.OK);
+				new ResponseEntity<List<ConsumeAllListVO>>(list3,HttpStatus.OK);
 		// List<ConsumeAllListVO> => 자동으로 json 변경하는 프로그램 설치
 		// jackson-databind
 		return entity;
