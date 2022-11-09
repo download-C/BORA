@@ -35,7 +35,6 @@ import com.bora.service.board.BoardService;
 import com.bora.service.report.BookDetailService;
 import com.bora.service.report.BookService;
 import com.bora.service.report.ConsumeAllListService;
-import com.google.gson.JsonObject;
 
 @Controller
 @RestController

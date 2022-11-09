@@ -133,7 +133,8 @@ public class MainController {
 	// 네이버 아이디 로그인 성공 시
 	@RequestMapping(value = "/naverCallback", method = { RequestMethod.GET, RequestMethod.POST })
 	public String callback(Model model, @RequestParam String code, RedirectAttributes rttr,
-			@RequestParam String state, HttpSession session) throws Exception {
+			@RequestParam String state, HttpSession session,
+			HttpServletRequest request) throws Exception {
 		log.info("여기는 callback");
 		
 		OAuth2AccessToken oauthToken;
@@ -163,27 +164,38 @@ public class MainController {
 		log.info("기존의 암호화된 네이버 아이디를 비밀번호로 사용:" +pw);
 		String name = (String)response_obj.get("name");
 		String nick = (String)response_obj.get("nickname");
-
-		// 네이버에서 사용하는 닉네임이 이미 DB에 존재할 경우
-		if(memberService.getMemberNick(nick)!=null) { 
-			model.addAttribute("nick", nick);
-			return "redirect:/main/nickCheck";
-		}
-		
+		log.info("네이버 닉네임: "+nick);
 		String email = (String)response_obj.get("eamil");
 		String phone = "0"+((String)response_obj.get("mobile_e164")).substring(3);
-		
-		// 네이버 정보로 회원가입한 적 없는 회원이 경우 자동 회원가입
-		if(memberService.getMember(id)==null) {
-			log.info("회원가입한 적 없는 사용자입니다.");
-			MemberVO member = new MemberVO();
+
+		MemberVO member = new MemberVO();
 			member.setId(id);
 			member.setPw(pw);
 			member.setName(name);
 			member.setNick(nick);
 			member.setEmail(email);
 			member.setPhone(phone);
-			
+		if(memberService.getMember(id)!=null) {
+			log.info("네이버 아이디로 이미 가입한 회원");
+			// 네이버 아이디로 이미 회원가입 한 경우
+			// 바로 로그인 하러 가기~
+			session.setAttribute("loginID", id);
+			rttr.addFlashAttribute("msg", nick+"님, 환영합니다♡");
+			return "redirect:/main/main";
+		} 
+		// 네이버에서 사용하는 닉네임이 이미 DB에 존재할 경우
+		if(memberService.getMemberNick(nick)!=null) {
+			log.info("닉네임 :"+nick);
+			model.addAttribute("msg", "'"+nick+"'"+"은 이미 존재하는 닉네임입니다.");
+			model.addAttribute("msg2", "새로운 닉네임 입력 페이지로 이동합니다.");
+			session.setAttribute("member", member);
+			return "/main/nickCheck";
+		} else {
+		
+		
+		// 네이버 정보로 회원가입한 적 없는 회원이 경우 자동 회원가입
+		log.info("회원가입한 적 없는 사용자입니다.");
+		
 			mainService.joinMember(member);
 			
 			// 해당 회원의 해당 연 월 가계부 자동 생성
@@ -197,27 +209,42 @@ public class MainController {
 			book.setId(id);
 			book.setBk_budget(0);
 			bookService.writeBook(book);
+			
+			//4.파싱 아이디 세션으로 저장
+			session.setAttribute("loginID",id); //세션 생성
+			rttr.addFlashAttribute("msg", nick+"님, 환영합니다♡");
 		
 		}
-		
-		
-		//4.파싱 아이디 세션으로 저장
-		session.setAttribute("loginID",id); //세션 생성
-		rttr.addFlashAttribute("msg", nick+"님, 환영합니다♡");
-		
 		return "/main/main";
+		
 	}
 	
-	public String nickJoinPOST(String nick) throws Exception {
-		return"";
-	}
-
-	
-	@RequestMapping(value="/nickCheck", method = RequestMethod.GET)
-	public void nickCheck(RedirectAttributes rttr, Model model, String nick) throws Exception {
-//		rttr.addAttribute("msg1234", "flash");
-//		model.addAttribute("msg2", "model");
-		model.addAttribute("msg", nick+"은 이미 존재하는 닉네임이어서 사용할 수 없으므로 닉네임 입력 페이지로 이동합니다.");
+	@RequestMapping(value="/nickJoin", method=RequestMethod.POST)
+	public String nickJoinPOST(String nick, HttpSession session, RedirectAttributes rttr) throws Exception {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		log.info("닉네임 확인 후 정보 불러오기: "+member);
+		member.setNick(nick);
+		mainService.joinMember(member);
+		
+		// 멤버의 정보를 담고 있던 세션 초기화 
+		
+		session.invalidate();
+		// 해당 회원의 해당 연 월 가계부 자동 생성
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH)+1;
+		
+		BookVO book = new BookVO();
+		book.setBk_year(year);
+		book.setBk_month(month);
+		book.setId(member.getId());
+		book.setBk_budget(0);
+		bookService.writeBook(book);
+		
+		session.setAttribute("loginID",member.getId()); //세션 생성
+		rttr.addFlashAttribute("msg", nick+"님, 환영합니다♡");
+					
+		return"redirect:/main/main";
 	}
 	
 	
