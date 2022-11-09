@@ -112,7 +112,9 @@ public class MainController {
 	      return "redirect:/main/login";
 	   }
 
-
+	
+	
+	// 홈페이지 자체 로그인
 	@RequestMapping(value = "/login", method = {RequestMethod.GET,})
 	public String loginGET(HttpServletRequest request, Model model, HttpSession session) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡loginGET() 호출");
@@ -129,19 +131,47 @@ public class MainController {
 		return "/main/login";
 	}
 	
+	// 카카오 로그인
+		@RequestMapping(value="/kakaoCallback", method=RequestMethod.GET)
+		public String kakaoLogin(@RequestParam(value = "code", required = false) String code, 
+				HttpSession session) throws Exception {
+			log.info("kakaoLogin() 호출");
+			
+			log.info("#########" + code);
+			
+			String access_Token = mainService.getAccessToken(code);
+			log.info("###access_Token#### : " + access_Token);
+			
+			MemberVO userInfo = mainService.getUserInfo(access_Token);
+			
+			log.info("###access_Token#### : " + access_Token);
+			log.info("###nickname#### : " + userInfo.getId());
+			log.info("###email#### : " + userInfo.getId());
+			
+			if(userInfo.getId() != null) {
+				session.setAttribute("loginID", userInfo.getId());
+				session.setAttribute("access_Token", access_Token);
+				log.info("세션등록완료@@@@@ email : "+ session.getAttribute("user_id"));
+				
+				return "redirect:/main/main";
+			}else {
+				return "redirect:index";
+			}
+		}
 	
-	// 네이버 아이디 로그인 성공 시
+	
+	// 네이버 로그인 성공 시 해당 정보로 DB 저장
 	@RequestMapping(value = "/naverCallback", method = { RequestMethod.GET, RequestMethod.POST })
 	public String callback(Model model, @RequestParam String code, RedirectAttributes rttr,
 			@RequestParam String state, HttpSession session,
 			HttpServletRequest request) throws Exception {
 		log.info("여기는 callback");
-		
-		OAuth2AccessToken oauthToken;
-		oauthToken = naverLoginBO.getAccessToken(session, code, state);
 		log.info("세션: "+session);
 		log.info("코드: "+code);
 		log.info("스테이트: "+state);
+		
+		OAuth2AccessToken oauthToken;
+		oauthToken = naverLoginBO.getAccessToken(session, code, state);
 		log.info("토큰: "+oauthToken);
 		//1. 로그인 사용자 정보를 읽어온다.
 		apiResult = naverLoginBO.getUserProfile(oauthToken); //String형식의 json데이터
@@ -194,7 +224,7 @@ public class MainController {
 		
 		
 		// 네이버 정보로 회원가입한 적 없는 회원이 경우 자동 회원가입
-		log.info("회원가입한 적 없는 사용자입니다.");
+		log.info("회원가입 한 적 없는 사용자입니다.");
 		
 			mainService.joinMember(member);
 			
@@ -212,10 +242,10 @@ public class MainController {
 			
 			//4.파싱 아이디 세션으로 저장
 			session.setAttribute("loginID",id); //세션 생성
-			rttr.addFlashAttribute("msg", nick+"님, 환영합니다♡");
-		
+			rttr.addFlashAttribute("message", nick+"님의 회원가입 완료!");
+			rttr.addFlashAttribute("message2", "현재 임시 비밀번호 상태이니 마이페이지에서 	반드시 비밀번호를 변경해주세요.");
+			return "redirect:/member/update";
 		}
-		return "/main/main";
 		
 	}
 	

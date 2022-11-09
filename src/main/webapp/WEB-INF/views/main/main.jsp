@@ -33,6 +33,8 @@ function login(message) {
 	  imageAlt: 'Custom image',
    	})
 }
+
+
 </script>
 
 

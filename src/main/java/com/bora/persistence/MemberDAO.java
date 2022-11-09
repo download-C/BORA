@@ -1,5 +1,7 @@
 package com.bora.persistence;
 
+import java.util.HashMap;
+
 import com.bora.domain.member.MemberVO;
 
 public interface MemberDAO {
@@ -12,5 +14,5 @@ public interface MemberDAO {
 
 	public int deleteMember(String id) throws Exception;
 
-
+	
 }

@@ -1,5 +1,7 @@
 package com.bora.persistence;
 
+import java.util.HashMap;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -43,6 +45,5 @@ public class MemberDAOImpl implements MemberDAO{
 		
 		return session.delete(NAMESPACE+".deleteMember", id);
 	}
-
 	
 }

@@ -55,15 +55,10 @@ function warning(message) {
 			<%-- 	<div><input type="hidden" value="${_csrf.token }" name=${_csrf.parameterName }></div> --%>
 				 <hr class="my-4">
                  <div class="d-grid mb-2">
-	                 <button class="btn btn-kakao btn-login text-uppercase fw-bold">
+	                 <button class="btn btn-kakao btn-login text-uppercase fw-bold" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=78fc0bf059ea5f8b8a3d25e1e57195e4&redirect_uri=http://localhost:8088/main/kakaoCallback&response_type=code';">
 	                  카카오 아이디로 로그인하기	                  
 	                 </button>
               	 </div>
-              	 <div class="d-grid mb-2">
-	                 <button class="btn btn-google btn-login text-uppercase fw-bold" >
-	                 	구글 아이디로 로그인하기
-	                 </button>
-                 </div>
 				<%
 					// 네이버 아이디로 로그인
 				   String clientId = "lHzDm6WPNUoeiSbI4Vaq";//애플리케이션 클라이언트 아이디값";

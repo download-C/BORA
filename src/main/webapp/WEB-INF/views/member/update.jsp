@@ -9,15 +9,13 @@ if(loginID==null) {%>
 <!-- 세션값(로그인) 확인 -->
 <script>
 // 세션값 여부
-	alert("세션값이 만료되어 로그인 페이지로 이동합니다.");
+$(document).ready(function() {
+	Swal.fire(
+		"세션값 만료!",
+		"로그인 페이지로 이동합니다."
+	);
 	location.href="/member/login";
-	
-	$(document).ready(function() {
-	    let message = "${msg}";
-	    if (message != "") {
-	        alert(message);
-	    }
-	})
+})
 </script>
 <%} %>
 <!-- 비밀번호 회원정보 수정 시 alert -->
@@ -27,7 +25,21 @@ $(document).ready(function() {
     if (message != "") {
         alert(message);
     }
+    
+    let msg1 = "${message}";
+	let msg2 = "${message2}";
+	if(msg1!="" && msg2!=""){
+		warning(msg1, msg2);
+	}
 });
+
+function warning(msg1, msg2) {
+    Swal.fire(
+        msg1,
+        msg2,
+        'warning' /*디자인 타입*/
+    )
+}//warning 버튼
 </script>
 <!-- 비밀번호 유효성 검사 -->
 <script type="text/javascript">
@@ -95,6 +107,8 @@ const autoHyphen = (target) => {
  .replace(/(\-{1,2})$/g, "");
 }
 </script>
+
+
 <script>
 $(document).ready(function(){	     
 // 아이디 중복 체크 했는지 확인하는 플래그
@@ -128,58 +142,57 @@ $(document).ready(function(){
 	});//nickcheck
 }); //document
 </script>
-<h1>member/insert.jsp</h1>
-<hr>
-<div id="container" role="main">
-	<div id="content">
-		<form action="/member/update" method="post" id="update">
-			<!-- tg-text=title -->
-			<h2 class="">회원정보 수정</h2>
-			<div class="join_content">
-				<!-- 비밀번호 -->
-				<div class="join_pw">
-					<h6>비밀번호</h6>
-					<input type="password" id="pw" name="pw" class="" maxlength="16" 
-					placeholder="" required="required" onchange="pwUpdateCheck(), checkpw()"> <br>
-					<span class="pwdiv">&nbsp;</span>
+
+	<div class="container">
+		<div id="content">
+			<form action="/member/update" method="post" id="update">
+				<!-- tg-text=title -->
+				<h2 class="">회원정보 수정</h2>
+				<div class="join_content">
+					<!-- 비밀번호 -->
+					<div class="join_pw">
+						<h6>비밀번호</h6>
+						<input type="password" id="pw" name="pw" class="" maxlength="16" 
+						placeholder="" required="required" onchange="pwUpdateCheck(), checkpw()"> <br>
+						<span class="pwdiv">&nbsp;</span>
+					</div>
+					<!-- 비밀번호 확인 -->
+					<div class="join_pw2">
+						<h6>비밀번호 확인</h6>
+						<input type="password" id="pw2" name="pw2" class="" maxlength="16" 
+						placeholder="" required="required" onchange="checkpw2()"> <br>
+						<span class="pw2div">&nbsp;</span>
+					</div>
+					<!-- 이름 -->
+					<div class="join_name">
+						<h6>이름</h6>
+						<input type="text" id="name" name="name" class="" value="${vo.name }"
+						placeholder="" readonly="readonly"> <br>
+					</div>
+					<!-- 닉네임 -->
+					<div class="join_nick">
+						<h6>닉네임</h6>
+						<input type="text" id="nick" name="nick" class="" value="${vo.nick }"
+						placeholder="" required="required"> <br>
+						<span class="nickdiv">&nbsp;</span>
+					</div>
+					<!-- 연락처 -->
+					<div class="join_phone">
+						<h6>연락처</h6>
+						<input type="text" id="phone" name="phone" class="" value="${vo.phone }" 
+						placeholder="- 없이 숫자만" required="required" maxlength="13"
+						oninput="autoHyphen(this)" autofocus> 
+					</div>
+					<!-- 이메일 -->
+					<div class="join_email">
+						<h6>이메일</h6>
+						<input type="text" id="email" name="email" class="" value="${vo.email }"
+						placeholder="" required="required"> <br>
+					</div>
 				</div>
-				<!-- 비밀번호 확인 -->
-				<div class="join_pw2">
-					<h6>비밀번호 확인</h6>
-					<input type="password" id="pw2" name="pw2" class="" maxlength="16" 
-					placeholder="" required="required" onchange="checkpw2()"> <br>
-					<span class="pw2div">&nbsp;</span>
-				</div>
-				<!-- 이름 -->
-				<div class="join_name">
-					<h6>이름</h6>
-					<input type="text" id="name" name="name" class="" value="${vo.name }"
-					placeholder="" readonly="readonly"> <br>
-				</div>
-				<!-- 닉네임 -->
-				<div class="join_nick">
-					<h6>닉네임</h6>
-					<input type="text" id="nick" name="nick" class="" value="${vo.nick }"
-					placeholder="" required="required"> <br>
-					<span class="nickdiv">&nbsp;</span>
-				</div>
-				<!-- 연락처 -->
-				<div class="join_phone">
-					<h6>연락처</h6>
-					<input type="text" id="phone" name="phone" class="" value="${vo.phone }" 
-					placeholder="- 없이 숫자만" required="required" maxlength="13"
-					oninput="autoHyphen(this)" autofocus> 
-				</div>
-				<!-- 이메일 -->
-				<div class="join_email">
-					<h6>이메일</h6>
-					<input type="text" id="email" name="email" class="" value="${vo.email }"
-					placeholder="" required="required"> <br>
-				</div>
-			</div>
-			<input type="submit" value="수정하기">
-		</form>
+				<input type="submit" value="수정하기">
+			</form>
+		</div>
 	</div>
-</div>
 
 <%@ include file="../include/footer.jsp"%>
