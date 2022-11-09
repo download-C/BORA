@@ -12,7 +12,8 @@ public class AccountTranRequestVO {
     private String access_token;
 //	private String bank_tran_id = "M202202092U121444111"; //은행거래고유번호
 	private String bank_tran_id; //은행거래고유번호
-    private String fintech_use_num = "120220209288941286327192"; //핀테크이용번호
+//    private String fintech_use_num = "120220217888941294172171"; //핀테크이용번호
+    private String fintech_use_num; //핀테크이용번호
 	private String inquiry_type; //조회구분코드 A:All, I:입금, O:출금
 	private String inquiry_base; //조회기준코드주 D:일자, T:시간
 	private String from_date; //조회시작일자
@@ -25,7 +26,7 @@ public class AccountTranRequestVO {
     	Random random = new Random();
     	random.setSeed(System.currentTimeMillis());
     	long val = random.nextInt(1000000000)+1;
-    	return "M202202092U"+String.valueOf(val);
+    	return "M202202178U"+String.valueOf(val);
 	}
 
 	public AccountTranRequestVO() {}

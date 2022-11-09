@@ -48,8 +48,8 @@ public class OpenbankController {
 	@RequestMapping(value = "/oauth", method = RequestMethod.GET)
 	public String openbank() {
 		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  오픈뱅킹 - 계좌");
-		log.info("/oauth -> oauth 로 이동");
-		return "/openbank/oauth";
+		log.info("/oauth -> oauthOK 로 이동");
+		return "/openbank/oauthOK";
 	}
 	
 	// http://localhost:8088/openbank/oauth

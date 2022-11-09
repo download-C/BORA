@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.bora.domain.MemberVO;
+import com.bora.domain.member.MemberVO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO{

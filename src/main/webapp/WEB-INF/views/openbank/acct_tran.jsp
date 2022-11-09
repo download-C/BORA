@@ -5,16 +5,7 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<%
-	if (loginID == null) {
-%>
-<script>
-	alert("세션값이 만료되어 로그인 페이지로 이동합니다.");
-	location.href = "/member/login";
-</script>
-<%
-	}
-%>
+
 
 <!-- title -->
 <div class="section-title">

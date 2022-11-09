@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.domain.SHA256;
-import com.bora.domain.MemberVO;
+import com.bora.domain.member.MemberVO;
 import com.bora.service.MemberService;
 
 @Controller
