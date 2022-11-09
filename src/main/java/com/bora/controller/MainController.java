@@ -25,12 +25,14 @@ import com.bora.domain.board.PageVO;
 import com.bora.domain.member.MemberVO;
 import com.bora.domain.member.NaverLoginBO;
 
+
 import com.bora.domain.report.BookVO;
 import com.bora.service.MainService;
 import com.bora.service.MemberService;
 import com.bora.service.board.NoticeService;
 import com.bora.service.report.BookService;
 import com.github.scribejava.core.model.OAuth2AccessToken;
+
 
 @RequestMapping("/main/*")
 @Controller
@@ -48,6 +50,7 @@ public class MainController {
 	NoticeService noticeService;
 	@Inject
 	BookService bookService;
+
 	
 	@Inject
 	private NaverLoginBO naverLoginBO;
@@ -58,7 +61,7 @@ public class MainController {
 	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
 		this.naverLoginBO = naverLoginBO;
 	}
-	
+
 	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public void main() throws Exception{
@@ -72,8 +75,7 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-
-	   public String joinPOST(MemberVO vo, HttpServletRequest request) throws Exception {
+   public String joinPOST(MemberVO vo, HttpServletRequest request) throws Exception {
 	      log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡joinPOST(vo) -> login.jsp");
 	      String id = request.getParameter("id");
 	      String pw = request.getParameter("pw");
@@ -83,9 +85,7 @@ public class MainController {
 	      log.info("암호화된 비밀번호: " + encryptPw);
 	      String name = request.getParameter("name");
 	      String nick = request.getParameter("nick");
-
 	      String phone = request.getParameter("phone");
-
 	      String email = request.getParameter("email");
 
 	      vo.setId(id);
@@ -108,7 +108,7 @@ public class MainController {
 	      bookService.writeBook(book);
 
 	      log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡회원가입 정보: " + vo);
-
+        
 	      mainService.joinMember(vo);
 	      log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡회원가입 성공");
 

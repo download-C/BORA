@@ -2,12 +2,13 @@ package com.bora.persistence;
 
 import java.util.List;
 
-import com.bora.domain.openbank.card.prePaid.PrePaidTranVO;
+import com.bora.domain.report.BookDetailVO;
 
 public interface ReportDAO {
 
-	//카테고리 전체 내역
-	public List<PrePaidTranVO> categoryListAll() throws Exception;
+	//년월별 카테고리 내역
+
+	public List<BookDetailVO> cateSum(String loginID) throws Exception;
 
 
 }

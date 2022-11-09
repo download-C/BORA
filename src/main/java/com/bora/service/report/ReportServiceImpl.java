@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bora.domain.openbank.card.prePaid.PrePaidTranVO;
+
+import com.bora.domain.report.BookDetailVO;
+
 import com.bora.persistence.ReportDAO;
 
 @Service
@@ -20,13 +22,15 @@ public class ReportServiceImpl implements ReportService{
 	private ReportDAO dao;
 	
 	
-	//카테고리 내역 불러오기
+
+
+	// 년월별 카테고리 내역
+	
+
+
 	@Override
-	public List<PrePaidTranVO> getCategoryList() throws Exception {
-		 log.info("@@@ Service - getCategoryList()호출");
-		
-		
-		List<PrePaidTranVO> getCategoryListALL = dao.categoryListAll();
-		return getCategoryListALL;
+	public List<BookDetailVO> cateSum(String loginID) throws Exception {
+		 log.info(" φ(._.)  cateSum(String loginID)호출");
+			return dao.cateSum(loginID);
 	}
 }
