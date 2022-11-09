@@ -22,6 +22,7 @@ import com.bora.domain.SHA256;
 import com.bora.domain.board.NoticeVO;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
+import com.bora.domain.member.KakaoLoginBO;
 import com.bora.domain.member.MemberVO;
 import com.bora.domain.member.NaverLoginBO;
 
@@ -40,17 +41,19 @@ public class MainController {
 	private static final Logger log = LoggerFactory.getLogger(MainController.class);
 
 	@Inject
-	MainService mainService;
+	private MainService mainService;
 	@Inject
-	MemberService memberService;
+	private MemberService memberService;
 	@Inject
-	NoticeService noticeService;
+	private NoticeService noticeService;
 	@Inject
-	BookService bookService;
+	private BookService bookService;
 
 	
 	@Inject
 	private NaverLoginBO naverLoginBO;
+	@Inject
+	private KakaoLoginBO kakaoLoginBO;
 	
 	private String apiResult = null;
 	
@@ -72,7 +75,7 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-   public String joinPOST(MemberVO vo, HttpServletRequest request) throws Exception {
+    public String joinPOST(MemberVO vo, HttpServletRequest request) throws Exception {
 	      log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡joinPOST(vo) -> login.jsp");
 	      String id = request.getParameter("id");
 	      String pw = request.getParameter("pw");
@@ -122,42 +125,102 @@ public class MainController {
 		if(request.getServerPort() != 80) {
 			serverUrl = serverUrl + ":" + request.getServerPort();
 		}
-		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-		//http://localhost:8088/main/naver?code=Xaq08ynLPqVervmn2p&state=451623011891285564847791402461046066880
-		log.info("네이버: "+naverAuthUrl);
 		
-		model.addAttribute("url", naverAuthUrl);
+		// 네이버 URL
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		log.info("네이버: "+naverAuthUrl);
+		model.addAttribute("naverURL", naverAuthUrl);
+		
+		// 카카오 URL
+		String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session);
+		System.out.println("카카오:" + kakaoAuthUrl);		
+		model.addAttribute("kakaoURL", kakaoAuthUrl);	
 		
 		return "/main/login";
 	}
 	
 	// 카카오 로그인
-		@RequestMapping(value="/kakaoCallback", method=RequestMethod.GET)
-		public String kakaoLogin(@RequestParam(value = "code", required = false) String code, 
-				HttpSession session) throws Exception {
-			log.info("kakaoLogin() 호출");
+	@RequestMapping(value = "/kakaoCallback", method = { RequestMethod.GET, RequestMethod.POST })
+	public String callbackKakao(Model model, @RequestParam String code, @RequestParam String state, 
+			HttpSession session, RedirectAttributes rttr) 
+			throws Exception {
+		System.out.println("로그인 성공 callbackKako");
+		OAuth2AccessToken oauthToken;
+		oauthToken = kakaoLoginBO.getAccessToken(session, code, state);	
+		// 로그인 사용자 정보를 읽어온다
+		apiResult = kakaoLoginBO.getUserProfile(oauthToken);
+		
+		JSONParser jsonParser = new JSONParser();
+		JSONObject jsonObj;
+		
+		jsonObj = (JSONObject) jsonParser.parse(apiResult);
+		log.info("제이슨으로 가져온 카카오톡 정보: ");
+		log.info(jsonObj+"");
+		JSONObject response_obj1 = (JSONObject) jsonObj.get("kakao_account");	
+		JSONObject response_obj2 = (JSONObject) response_obj1.get("profile");
+		log.info("오브젝트1: "+response_obj1);
+		log.info("오브젝트2: "+response_obj2);
+		
+		// 프로필 조회
+		String id = jsonObj.get("id").toString();
+		log.info("카카오 아이디: "+id);
+		String pw = id;
+		String email = (String) response_obj1.get("email");
+		log.info("카카오 이메일: "+email);
+		String nick = (String) response_obj2.get("nickname");
+		log.info("카카오 닉네임: "+nick);
+		String name = "미등록";
+		String phone = "미등록";
+		
+		MemberVO member = new MemberVO();
+		member.setId(id);
+		member.setPw(pw);
+		member.setName(name);
+		member.setNick(nick);
+		member.setEmail(email);
+		member.setPhone(phone);
+		
+		if(memberService.getMember(id)!=null) {
+			log.info("카카오 아이디로 이미 가입한 회원");
+			// 네이버 아이디로 이미 회원가입 한 경우
+			// 바로 로그인 하러 가기~
+			session.setAttribute("loginID", id);
+			rttr.addFlashAttribute("msg", nick+"님, 환영합니다♡");
+			return "redirect:/main/main";
+		} 
+		// 네이버에서 사용하는 닉네임이 이미 DB에 존재할 경우
+		if(memberService.getMemberNick(nick)!=null) {
+			log.info("닉네임 :"+nick);
+			model.addAttribute("msg", "'"+nick+"'"+"은 이미 존재하는 닉네임입니다.");
+			model.addAttribute("msg2", "새로운 닉네임 입력 페이지로 이동합니다.");
+			session.setAttribute("member", member);
+			return "redirect:/main/nickCheck";
+		} else {
+		
+		// 카카오 정보로 회원가입한 적 없는 회원인 경우 자동 회원가입
+		log.info("회원가입 한 적 없는 사용자입니다.");
+		
+			mainService.joinMember(member);
 			
-			log.info("#########" + code);
+			// 해당 회원의 해당 연 월 가계부 자동 생성
+			Calendar cal = Calendar.getInstance();
+			int year = cal.get(Calendar.YEAR);
+			int month = cal.get(Calendar.MONTH)+1;
 			
-			String access_Token = mainService.getAccessToken(code);
-			log.info("###access_Token#### : " + access_Token);
+			BookVO book = new BookVO();
+			book.setBk_year(year);
+			book.setBk_month(month);
+			book.setId(id);
+			book.setBk_budget(0);
+			bookService.writeBook(book);
 			
-			MemberVO userInfo = mainService.getUserInfo(access_Token);
-			
-			log.info("###access_Token#### : " + access_Token);
-			log.info("###nickname#### : " + userInfo.getId());
-			log.info("###email#### : " + userInfo.getId());
-			
-			if(userInfo.getId() != null) {
-				session.setAttribute("loginID", userInfo.getId());
-				session.setAttribute("access_Token", access_Token);
-				log.info("세션등록완료@@@@@ email : "+ session.getAttribute("user_id"));
-				
-				return "redirect:/main/main";
-			}else {
-				return "redirect:index";
-			}
+			//4.파싱 아이디 세션으로 저장
+			session.setAttribute("loginID",id); //세션 생성
+			rttr.addFlashAttribute("message", nick+"님의 회원가입 완료!");
+			rttr.addFlashAttribute("message2", "현재 임시 비밀번호 상태이니 마이페이지에서 	반드시 비밀번호를 변경해주세요.");
+			return "redirect:/member/update";
 		}
+	}
 	
 	
 	// 네이버 로그인 성공 시 해당 정보로 DB 저장
@@ -216,7 +279,7 @@ public class MainController {
 		// 네이버에서 사용하는 닉네임이 이미 DB에 존재할 경우
 		if(memberService.getMemberNick(nick)!=null) {
 			log.info("닉네임 :"+nick);
-			model.addAttribute("msg", "'"+nick+"'"+"은 이미 존재하는 닉네임입니다.");
+			model.addAttribute("msg1", "'"+nick+"'"+"은 이미 존재하는 닉네임입니다.");
 			model.addAttribute("msg2", "새로운 닉네임 입력 페이지로 이동합니다.");
 			session.setAttribute("member", member);
 			return "/main/nickCheck";
@@ -247,6 +310,11 @@ public class MainController {
 			return "redirect:/member/update";
 		}
 		
+	}
+	
+	@RequestMapping(value="/nickCheck", method=RequestMethod.POST)
+	public void nickCheckGET() throws Exception {
+		log.info("닉네임 체크하러 이동");
 	}
 	
 	@RequestMapping(value="/nickJoin", method=RequestMethod.POST)

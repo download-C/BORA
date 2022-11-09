@@ -26,8 +26,8 @@ $(document).ready(function() {
         alert(message);
     }
     
-    let msg1 = "${message}";
-	let msg2 = "${message2}";
+    let msg1 = "${msg1}";
+	let msg2 = "${msg2}";
 	if(msg1!="" && msg2!=""){
 		warning(msg1, msg2);
 	}

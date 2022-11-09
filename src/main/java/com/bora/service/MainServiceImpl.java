@@ -73,10 +73,10 @@ public class MainServiceImpl implements MainService {
 			JsonElement element = parser.parse(result);
 
 			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-			log.info("프로퍼티즈: "+properties);
+			log.info("카카오 닉네임: "+properties); // 닉네임
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-			log.info("카카오 어카운트: "+kakao_account);
-
+			log.info("카카오 로그인 정보: "+kakao_account);
+			
 //				log.info("@@@@@@@ kakaoAccount : "+kakao_account);
 			String user_name = properties.getAsJsonObject().get("nickname").getAsString();
 			String user_id = kakao_account.getAsJsonObject().get("email").getAsString();
