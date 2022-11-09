@@ -3,14 +3,40 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bora.mapper.ReportMapper">
+<resultMap type="com.bora.domain.report.BookDetailVO" id="detail">
 
-
-	<select id="listAll" resultType="CardPayVO">
-	select * from bora_card_pay order by cpay_date
+		<result property="bk_detail_num" column="bk_detail_num"/>
+		<result property="bk_num" column="bk_num"/>
+		<result property="id" column="id"/>
+		<result property="bk_day" column="bk_day"/>
+		<result property="bk_iow" column="bk_iow"/>
+		<result property="bk_group" column="bk_group"/>
+		<result property="bk_category" column="bk_category"/>
+		<result property="bk_money" column="bk_money"/>
+		<result property="bk_memo" column="bk_memo"/>
+		<result property="bk_sum" column="bk_sum"/>
+		
+		<collection property="book" resultMap="book" />
+	</resultMap>
 	
+	<resultMap type="com.bora.domain.report.BookVO" id="book">
+		<id property="bk_num" column="bk_num" />
+		<id property="id" column="id" />
+		<id property="bk_year" column="bk_year" />
+		<id property="bk_month" column="bk_month" />
+		<id property="bk_budget" column="bk_budget" />
+	</resultMap>
+		
+<!-- 년월별 카테고리 합-->
+	<select id="cateSum" resultMap="detail" >
+		select sum(d.bk_money) as bk_sum, d.bk_category
+		from bora_book_detail d join bora_book b
+		on b.bk_num = d.bk_num
+		where d.id = #{loginID} and d.bk_iow = '지출' 
+       and b.bk_year= extract(year from sysdate()) and b.bk_month= extract(month from sysdate()) 
+       group by d.bk_category
+       
 	</select>
-
-
 
 
 </mapper>

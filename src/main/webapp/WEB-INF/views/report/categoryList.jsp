@@ -4,8 +4,45 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<h1> </h1>
 
+<%
+	if (loginID == null) {
+%>
+<script>
+	alert("로그인 후 사용 가능한 페이지입니다.");
+	location.href = "/main/login";
+</script>
+<%
+	}
+%>
+
+
+	<c:forEach items="${cateSum }" var="list">
+			<tr>
+			
+				<td>${list.bk_category }</td>
+				<td>${list.bk_sum}원</td>
+	
+			</tr>
+			</c:forEach>
+
+
+
+<!-- 전체 내역 불러오기 -->
+
+<!-- <table> -->
+
+<%-- 	<c:forEach items="${categorylist}" var="list" > --%>
+<!-- 			<tr> -->
+<%-- 				<td>${list.book.bk_month }월 </td> --%>
+<%-- 				<td>${list.bk_iow }</td> --%>
+<%-- 				<td>${list.bk_group }</td> --%>
+<%-- 				<td>${list.bk_category }</td> --%>
+<%-- 				<td>${list.bk_money }원</td> --%>
+<!-- 			</tr> -->
+<%-- 			</c:forEach> --%>
+
+<!--     	</table> -->
     	
 
 

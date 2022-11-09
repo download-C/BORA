@@ -1,5 +1,6 @@
 package com.bora.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,9 +22,11 @@ import com.bora.domain.MemberVO;
 import com.bora.domain.board.NoticeVO;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
+import com.bora.domain.report.BookVO;
 import com.bora.service.MainService;
 import com.bora.service.MemberService;
 import com.bora.service.board.NoticeService;
+import com.bora.service.report.BookService;
 
 @RequestMapping("/main/*")
 @Controller
@@ -36,7 +39,8 @@ public class MainController {
 	MemberService memberService;
 	@Inject
 	NoticeService noticeService;
-	
+	@Inject
+	BookService bookService;
 	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public void main() throws Exception{
@@ -50,35 +54,49 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public String joinPOST(MemberVO vo, HttpServletRequest request) throws Exception {
-		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡joinPOST(vo) -> login.jsp");
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
-		log.info("비밀번호: " + pw);
-		// 비밀번호 암호화
-		String encryptPw = SHA256.encrypt(pw);
-		log.info("암호화된 비밀번호: " + encryptPw);
-		String name = request.getParameter("name");
-		String nick = request.getParameter("nick");
+	   public String joinPOST(MemberVO vo, HttpServletRequest request) throws Exception {
+	      log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡joinPOST(vo) -> login.jsp");
+	      String id = request.getParameter("id");
+	      String pw = request.getParameter("pw");
+	      log.info("비밀번호: " + pw);
+	      // 비밀번호 암호화
+	      String encryptPw = SHA256.encrypt(pw);
+	      log.info("암호화된 비밀번호: " + encryptPw);
+	      String name = request.getParameter("name");
+	      String nick = request.getParameter("nick");
 
-		String phone = request.getParameter("phone");
+	      String phone = request.getParameter("phone");
 
-		String email = request.getParameter("email");
+	      String email = request.getParameter("email");
 
-		vo.setId(id);
-		vo.setPw(encryptPw);
-		vo.setName(name);
-		vo.setNick(nick);
-		vo.setPhone(phone);
-		vo.setEmail(email);
+	      vo.setId(id);
+	      vo.setPw(encryptPw);
+	      vo.setName(name);
+	      vo.setNick(nick);
+	      vo.setPhone(phone);
+	      vo.setEmail(email);
+	      
+	      // 회원가입 하자마자 가계부 기본 데이터베이스 만들어버리기!
+	      Calendar cal = Calendar.getInstance();
+	      int year = cal.get(Calendar.YEAR);
+	      int month = cal.get(Calendar.MONTH)+1;
+	      
+	      BookVO book = new BookVO();
+	      book.setBk_year(year);
+	      book.setBk_month(month);
+	      book.setId(id);
+	      book.setBk_budget(0);
+	      bookService.writeBook(book);
 
-		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡회원가입 정보: " + vo);
+	      log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡회원가입 정보: " + vo);
 
-		mainService.joinMember(vo);
-		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡회원가입 성공");
+	      mainService.joinMember(vo);
+	      log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡회원가입 성공");
 
-		return "redirect:/main/login";
-	}
+	      return "redirect:/main/login";
+	   }
+
+	
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void loginGET() throws Exception {

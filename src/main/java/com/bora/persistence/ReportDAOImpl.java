@@ -1,8 +1,8 @@
 package com.bora.persistence;
 
+
 import java.util.List;
 
-import javax.xml.stream.events.Namespace;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.bora.domain.openbank.card.prePaid.PrePaidTranVO;
+import com.bora.domain.report.BookDetailVO;
 
 @Repository
 public class ReportDAOImpl implements ReportDAO{
@@ -18,21 +18,22 @@ public class ReportDAOImpl implements ReportDAO{
 
 	private static final Logger log = LoggerFactory.getLogger(ReportDAOImpl.class);
 	
-	
+	String loginID;
 	
 	@Autowired
-	private SqlSession sqlSession;
+	private SqlSession session;
 	
-	private static final String Namespace = "com.bora.mapper.ReportMapper";
+	private static final String NAMESPACE = "com.bora.mapper.ReportMapper";
+
+
 
 	@Override
-	public List<PrePaidTranVO> categoryListAll() throws Exception {
+	public List<BookDetailVO> cateSum(String loginID) throws Exception {
 		
-		List<PrePaidTranVO> categoryList = sqlSession.selectList(Namespace+".listAll");
+		log.info(" φ(._.) cateSum(String loginID)호출");
 		
-		log.info(categoryList.size()+"");
-		
-		return categoryList;
+log.info(session.selectList(NAMESPACE+".cateSum", loginID)+"");
+		return session.selectList(NAMESPACE+".cateSum", loginID);
 	}
 
 	
