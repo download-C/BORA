@@ -40,9 +40,6 @@ public class MainController {
 	private static final Logger log = LoggerFactory.getLogger(MainController.class);
 
 	@Inject
-	BookService bookService;
-	
-	@Inject
 	MainService mainService;
 	@Inject
 	MemberService memberService;

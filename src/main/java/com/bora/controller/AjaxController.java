@@ -30,8 +30,6 @@ import com.bora.domain.member.MemberVO;
 import com.bora.domain.report.BookVO;
 import com.bora.domain.report.ConsumeAllListVO;
 import com.bora.domain.report.ConsumeLastThisListVO;
-import com.bora.domain.MemberVO;
-import com.bora.domain.report.ConsumePageVO;
 import com.bora.service.MemberService;
 import com.bora.service.board.BoardService;
 import com.bora.service.report.BookDetailService;

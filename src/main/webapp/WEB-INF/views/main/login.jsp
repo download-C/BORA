@@ -10,7 +10,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
 
 <!-- Template Main CSS File -->
@@ -31,15 +30,7 @@ function warning(message) {
 }//warning 버튼
 </script>
 
-<!-- document.ready -->
-<script>
-$(document).ready(function(){
-	let message = "${msg }";
-	if(message!="") {
-		warning(message);
-	}
-})
-</script>
+
 
 <div class="container">
 	<div class="row">	

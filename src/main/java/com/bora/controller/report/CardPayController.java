@@ -10,13 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.bora.controller.MainController;
-import com.bora.controller.board.BoardController;
-import com.bora.domain.MemberVO;
-import com.bora.domain.board.PageMakerVO;
-import com.bora.domain.board.PageVO;
-import com.bora.domain.report.BookDetailVO;
 import com.bora.service.CardPayService;
 
 @Controller
