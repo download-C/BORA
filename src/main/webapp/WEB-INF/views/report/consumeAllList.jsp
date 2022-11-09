@@ -5,7 +5,7 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <h1>저번 달 소비 내역</h1>
-<table>
+<table border="1">
   <tr>
     <th>소비 순번</th>
     <th>카테고리</th>
@@ -21,7 +21,7 @@
 </table>
 
 <h1>이번 달 소비 내역</h1>
-<table>
+<table border="1">
   <tr>
     <th>소비 순번</th>
     <th>카테고리</th>
@@ -37,7 +37,7 @@
 </table>
 
 <h1>이번 소비 전월비교 내역</h1>
-<table>
+<table border="1">
   <tr>
     <th>소비 순번</th>
     <th>카테고리</th>
