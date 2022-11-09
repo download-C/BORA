@@ -26,10 +26,12 @@ import com.bora.domain.SHA256;
 import com.bora.domain.board.BoardVO;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
+import com.bora.domain.member.MemberVO;
 import com.bora.domain.report.BookVO;
 import com.bora.domain.report.ConsumeAllListVO;
 import com.bora.domain.report.ConsumeLastThisListVO;
 import com.bora.domain.MemberVO;
+import com.bora.domain.report.ConsumePageVO;
 import com.bora.service.MemberService;
 import com.bora.service.board.BoardService;
 import com.bora.service.report.BookDetailService;
@@ -258,6 +260,7 @@ public class AjaxController {
 				log.info("예산 입력 성공");
 				return "redirect:/report/dashboard";
 			}
+
 		}
 		return "redirect:/report/dashboard";
 	}

@@ -90,7 +90,7 @@
 	
 	
 	<!-- 6. id -> 닉네임 끌고 오기 ============================== -->
-	<select id="getNick" resultType="String" parameterType="com.bora.domain.MemberVO">
+	<select id="getNick" resultType="String" parameterType="com.bora.domain.member.MemberVO">
 		select nick
 		from bora_members
 		where id=#{id}		

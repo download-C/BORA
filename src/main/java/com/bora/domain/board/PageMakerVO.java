@@ -13,8 +13,8 @@ public class PageMakerVO {
 	private int endPage;	// 페이지 블럭 끝 페이지
 	private boolean prev;		// 이전
 	private boolean next;		// 다음
+
 	
-//	private int page;
 //	private int perPageNum;
 	private PageVO vo;		// 페이지 번호, 페이지의 크기
 	
@@ -24,6 +24,10 @@ public class PageMakerVO {
 		this.totalCnt = totalCnt;  //DB에서 계산된 값으로 초기화
 		
 		calcData();
+	}
+
+	public int getStartRow() {
+		return (vo.getPage()-1)*vo.getPerPageNum();
 	}
 	
 	public void calcData() {

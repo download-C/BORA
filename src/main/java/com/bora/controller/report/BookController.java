@@ -50,7 +50,7 @@ public class BookController {
 	
 	// 가계부 메인 페이지
    @RequestMapping(value="/dashboard", method = RequestMethod.GET)
-	   public String bookMainGET(Model model, RedirectAttributes rttr) throws Exception {
+	   public String bookMainGET(Model model, RedirectAttributes rttr, int year, int month) throws Exception {
 	   log.info("reportMainGET() 호출");
 	   loginID = (String)session.getAttribute("loginID");
 	   
@@ -58,23 +58,28 @@ public class BookController {
 	   if(loginID == null) {
 		   rttr.addFlashAttribute("msg", "로그인 후 이용 가능한 페이지입니다.");
 		   return "redirect:/main/login";
-	   }
+	   } else {
 	   
-	   // 현재 연과 월을 기본으로 보여줌
-		Calendar cal = Calendar.getInstance();
-		int year = cal.get(Calendar.YEAR);
-		int month = cal.get(Calendar.MONTH)+1;
-		model.addAttribute("year", year);
-		model.addAttribute("month", month);
-		log.info("입력된 날짜 :"+year+"년 "+month+"월");
-		List<BookDetailVO> detailList = dService.getDashboardBookDetail(loginID, year, month);
-		model.addAttribute("detailList", detailList);
-		
-		// 해당 연월의 예산 가져오기
-		int bk_budget = service.getMonthBudget(loginID, year, month); 
-		if(bk_budget!=0) model.addAttribute("bk_budget", bk_budget);
-		else model.addAttribute("bk_budget", 0);
-		
+		   // 현재 연과 월을 기본으로 보여줌
+			Calendar cal = Calendar.getInstance();
+			year = cal.get(Calendar.YEAR);
+			month = cal.get(Calendar.MONTH)+1;
+			model.addAttribute("year", year);
+			model.addAttribute("month", month);
+			log.info("입력된 날짜 :"+year+"년 "+month+"월");
+			List<BookDetailVO> detailList = dService.getDashboardBookDetail(loginID, year, month);
+			if(detailList.size()!=0) {
+				log.info("가계부 목록 가져오기 성공");
+				model.addAttribute("detailList", detailList);
+				int bk_budget = service.getMonthBudget(loginID, year, month); 
+				if(bk_budget!=0) model.addAttribute("bk_budget", bk_budget);
+			} else {
+				log.info("가계부 없음");
+				rttr.addFlashAttribute("msg", "아직 가계부를 입력하지 않으셨네요!");
+				rttr.addFlashAttribute("message","아직 가계부를 입력하지 않으셨네요!");
+				log.info("플래시 메세지 입력 완료");
+			}
+	   }
 		return "/book/dashboard";
    }
 
@@ -114,6 +119,7 @@ public class BookController {
 			book.setId(loginID);
 			book.setBk_year(bk_year);
 			book.setBk_month(bk_month);
+			book.setBk_budget(0);
 			log.info("아이디 "+loginID+" "+bk_year+"년 "+bk_month+"월 가계부");
 			// 가계부 정보 DB 저장 후 해당 내용의 가계부 고유번호 가져오기
 			service.writeBook(book);
@@ -160,9 +166,7 @@ public class BookController {
 		model.addAttribute("pm", pm);
 		
 		// 해당 연월의 예산 가져오기
-		int bk_budget = service.getMonthBudget(loginID, year, month); 
-		if(bk_budget!=0) model.addAttribute("bk_budget", bk_budget);
-		else model.addAttribute("bk_budget", 0);
+		
 		
 		log.info(year+"년 "+month+"달 가계부 불러오기");
 		List<BookDetailVO> detailList = new ArrayList<BookDetailVO>();
@@ -172,6 +176,8 @@ public class BookController {
 			model.addAttribute("detailList", detailList);
 			model.addAttribute("year", year);
 			model.addAttribute("month", month);
+			int bk_budget = service.getMonthBudget(loginID, year, month); 
+			model.addAttribute("bk_budget", bk_budget);
 			rttr.addFlashAttribute("msg", year+"년 "+month+"월 가계부를 불러옵니다.");
 			return "/book/bookList";
 		} else {
