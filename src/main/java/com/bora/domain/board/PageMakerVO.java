@@ -20,9 +20,6 @@ public class PageMakerVO {
 	
 	private int displayPageNum = 10;   // 페이지 블럭의 크기 
 	
-	public int getStartRow() {
-        return (vo.getPage()-1)*vo.getPerPageNum();
- }
 
 	public void setTotalCnt(int totalCnt) {
 		this.totalCnt = totalCnt;  //DB에서 계산된 값으로 초기화
@@ -30,10 +27,6 @@ public class PageMakerVO {
 		calcData();
 	}
 
-	public int getStartRow() {
-		return (vo.getPage()-1)*vo.getPerPageNum();
-	}
-	
 	public int getStartRow() {
         return (vo.getPage()-1)*vo.getPerPageNum();
 	}
