@@ -11,6 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
 
 <!-- Template Main CSS File -->
 <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
@@ -75,7 +76,7 @@ $(document).ready(function(){
 				<%
 					// 네이버 아이디로 로그인
 				   String clientId = "lHzDm6WPNUoeiSbI4Vaq";//애플리케이션 클라이언트 아이디값";
-				   String redirectURI = URLEncoder.encode("http://localhost:8088/main/naver", "UTF-8");
+				   String redirectURI = URLEncoder.encode("http://localhost:8088/main/naverCallback", "UTF-8");
 				   SecureRandom random = new SecureRandom();
 				   String state = new BigInteger(130, random).toString();
 				   String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code"
@@ -84,6 +85,10 @@ $(document).ready(function(){
 				        + "&state=" + state;
 				   session.setAttribute("state", state);
 				 %>
+				 <script>
+				 	var naver_id_login = new naver_id_login("lHzDm6WPNUoeiSbI4Vaq", "http://localhost:8088/main/naverCallback");
+				 	 naver_id_login.init_naver_id_login();
+				 </script>
              	 <div id="naver_id_login" class="d-grid mb-2">
 	                 <button class="btn btn-facebook btn-login text-uppercase fw-bold" 
 	                 	onclick="location.href='<%=apiURL%>';">

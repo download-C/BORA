@@ -39,6 +39,7 @@ $(document).ready(function() {
     String clientId = "lHzDm6WPNUoeiSbI4Vaq";//애플리케이션 클라이언트 아이디값";
     String clientSecret = " yNo8W2c0aI";//애플리케이션 클라이언트 시크릿값";
     String code = request.getParameter("code");
+    System.out.println(code);
     String state = request.getParameter("state");
     String redirectURI = URLEncoder.encode("YOUR_CALLBACK_URL", "UTF-8");
     String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code"
@@ -75,6 +76,20 @@ $(document).ready(function() {
   %>
 
 <!-- 태그 적는 곳 -->
+	<script type="text/javascript">
+	// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+	function naverSignInCallback() {
+		// naver_id_login.getProfileData('프로파일항목명');
+		// 프로필 항목은 개발가이드를 참고하시기 바랍니다.
+		alert(naver_id_login.getProfileData('email'));
+		alert(naver_id_login.getProfileData('nickname'));
+		alert(naver_id_login.getProfileData('age'));
+	}
+
+
+	// 네이버 사용자 프로필 조회
+	naver_id_login.get_naver_userprofile("naverSignInCallback()");
+</script>
 
 
 <%@ include file="../include/footer.jsp"%>

@@ -7,7 +7,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
@@ -19,21 +18,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.bora.domain.SHA256;
 import com.bora.domain.board.NoticeVO;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
 import com.bora.domain.member.MemberVO;
-import com.bora.domain.member.NaverLoginVO;
+import com.bora.domain.member.NaverLoginBO;
 import com.bora.domain.report.BookVO;
 import com.bora.service.MainService;
 import com.bora.service.MemberService;
 import com.bora.service.board.NoticeService;
 import com.bora.service.report.BookService;
 import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.google.gson.JsonObject;
-import com.google.protobuf.TextFormat.ParseException;
+
 
 @RequestMapping("/main/*")
 @Controller
@@ -50,13 +47,14 @@ public class MainController {
 	BookService bookService;
 	
 	@Inject
-	private void setNaverLoginVO(NaverLoginVO naverVO) {
-		this.naverVO = naverVO;
-	}
+	private NaverLoginBO naverLoginBO;
 	
-	private NaverLoginVO naverVO;
 	private String apiResult = null;
 	
+	@Inject
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+		this.naverLoginBO = naverLoginBO;
+	}
 	
 	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
@@ -113,13 +111,114 @@ public class MainController {
 		return "redirect:/main/login";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public void loginGET(Model model, HttpSession session) throws Exception {
+	@RequestMapping(value = "/login", method = {RequestMethod.GET,})
+	public String loginGET(HttpServletRequest request, Model model, HttpSession session) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡loginGET() 호출");
+		String serverUrl = request.getScheme()+"://"+request.getServerName();
+		if(request.getServerPort() != 80) {
+			serverUrl = serverUrl + ":" + request.getServerPort();
+		}
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		//http://localhost:8088/main/naver?code=Xaq08ynLPqVervmn2p&state=451623011891285564847791402461046066880
+		log.info("네이버: "+naverAuthUrl);
+		
+		model.addAttribute("url", naverAuthUrl);
+		
+		return "/main/login";
+	}
+	
+	
+	// 네이버 아이디 로그인 성공 시
+	@RequestMapping(value = "/naverCallback", method = { RequestMethod.GET, RequestMethod.POST })
+	public String callback(Model model, @RequestParam String code, RedirectAttributes rttr,
+			@RequestParam String state, HttpSession session) throws Exception {
+		log.info("여기는 callback");
+		
+		OAuth2AccessToken oauthToken;
+		oauthToken = naverLoginBO.getAccessToken(session, code, state);
+		log.info("세션: "+session);
+		log.info("코드: "+code);
+		log.info("스테이트: "+state);
+		log.info("토큰: "+oauthToken);
+		//1. 로그인 사용자 정보를 읽어온다.
+		apiResult = naverLoginBO.getUserProfile(oauthToken); //String형식의 json데이터
+		/** apiResult json 구조
+		{"resultcode":"00",
+		"message":"success",
+		"response":{"id":"33666449","nickname":"shinn****","age":"20-29","gender":"M","email":"sh@naver.com","name":"\uc2e0\ubc94\ud638"}}
+		**/
+		//2. String형식인 apiResult를 json형태로 바꿈
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(apiResult);
+		JSONObject jsonObj = (JSONObject) obj;
+		//3. 데이터 파싱
+		//Top레벨 단계 _response 파싱
+		JSONObject response_obj = (JSONObject)jsonObj.get("response");
+		//response의 nickname값 파싱
+		String id = ((String)response_obj.get("id")).substring(0,20);
+		log.info("암호화된 네이버 아이디 앞에서 20자리: "+id);
+		String pw = (String)response_obj.get("id");
+		log.info("기존의 암호화된 네이버 아이디를 비밀번호로 사용:" +pw);
+		String name = (String)response_obj.get("name");
+		String nick = (String)response_obj.get("nickname");
+
+		// 네이버에서 사용하는 닉네임이 이미 DB에 존재할 경우
+		if(memberService.getMemberNick(nick)!=null) { 
+			model.addAttribute("nick", nick);
+			return "redirect:/main/nickCheck";
+		}
+		
+		String email = (String)response_obj.get("eamil");
+		String phone = "0"+((String)response_obj.get("mobile_e164")).substring(3);
+		
+		// 네이버 정보로 회원가입한 적 없는 회원이 경우 자동 회원가입
+		if(memberService.getMember(id)==null) {
+			log.info("회원가입한 적 없는 사용자입니다.");
+			MemberVO member = new MemberVO();
+			member.setId(id);
+			member.setPw(pw);
+			member.setName(name);
+			member.setNick(nick);
+			member.setEmail(email);
+			member.setPhone(phone);
+			
+			mainService.joinMember(member);
+			
+			// 해당 회원의 해당 연 월 가계부 자동 생성
+			Calendar cal = Calendar.getInstance();
+			int year = cal.get(Calendar.YEAR);
+			int month = cal.get(Calendar.MONTH)+1;
+			
+			BookVO book = new BookVO();
+			book.setBk_year(year);
+			book.setBk_month(month);
+			book.setId(id);
+			book.setBk_budget(0);
+			bookService.writeBook(book);
+		
+		}
 		
 		
+		//4.파싱 아이디 세션으로 저장
+		session.setAttribute("loginID",id); //세션 생성
+		rttr.addFlashAttribute("msg", nick+"님, 환영합니다♡");
+		
+		return "/main/main";
+	}
+	
+	public String nickJoinPOST(String nick) throws Exception {
+		return"";
 	}
 
+	
+	@RequestMapping(value="/nickCheck", method = RequestMethod.GET)
+	public void nickCheck(RedirectAttributes rttr, Model model, String nick) throws Exception {
+//		rttr.addAttribute("msg1234", "flash");
+//		model.addAttribute("msg2", "model");
+		model.addAttribute("msg", nick+"은 이미 존재하는 닉네임이어서 사용할 수 없으므로 닉네임 입력 페이지로 이동합니다.");
+	}
+	
+	
 	// http://localhost:8088/main/login
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPOST(MemberVO vo, HttpSession session, RedirectAttributes rttr) throws Exception {
@@ -142,56 +241,6 @@ public class MainController {
 		}
 
 	}
-	// 네이버 아이디 로그인 시
-	@RequestMapping(value = "/naver", method = {RequestMethod.GET, RequestMethod.POST})
-	public String naverCoginGET(Model model, HttpSession session) throws Exception {
-		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡loginGET() 호출");
-			String naverAuthUrl = naverVO.getAuthorizationUrl(session);
-			//http://localhost:8088/main/naver?code=Xaq08ynLPqVervmn2p&state=451623011891285564847791402461046066880
-			log.info("네이버: "+naverAuthUrl);
-			
-			model.addAttribute("url", naverAuthUrl);
-			return "redirect:/main/callback";
-	}
-	
-	//네이버 로그인 성공시 callback호출 메소드
-		@RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
-		public String callback(Model model, String code, String state, HttpSession session) throws Exception {
-			
-			System.out.println("여기는 callback");
-			OAuth2AccessToken oauthToken;
-	        oauthToken = naverVO.getAccessToken(session, code, state);
-	 
-	        //1. 로그인 사용자 정보를 읽어온다.
-			apiResult = naverVO.getUserProfile(oauthToken);  //String형식의 json데이터
-			
-			/** apiResult json 구조
-			{"resultcode":"00",
-			 "message":"success",
-			 "response":{"id":"33666449","nickname":"shinn****","age":"20-29","gender":"M","email":"sh@naver.com","name":"\uc2e0\ubc94\ud638"}}
-			**/
-			
-			//2. String형식인 apiResult를 json형태로 바꿈
-			JSONParser parser = new JSONParser();
-			Object obj = parser.parse(apiResult);
-			JSONObject jsonObj = (JSONObject) obj;
-			
-			//3. 데이터 파싱 
-			//Top레벨 단계 _response 파싱
-			JSONObject response_obj = (JSONObject)jsonObj.get("response");
-			//response의 nickname값 파싱
-			String nickname = (String)response_obj.get("nickname");
-	 
-			System.out.println(nickname);
-			
-			//4.파싱 닉네임 세션으로 저장
-			session.setAttribute("sessionId",nickname); //세션 생성
-			
-			model.addAttribute("result", apiResult);
-		     
-			return "/main/main";
-		}
-	
 	
 	
 	// 2-1. 페이징 처리하기 
