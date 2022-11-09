@@ -14,7 +14,8 @@ public class AccountBalanceRequestVO {
 //    private String bank_tran_id; //은행거래고유번호
     private String bank_tran_id; //은행거래고유번호
 //    private String fintech_use_num; //핀테크이용번호
-    private String fintech_use_num = "120220209288941286327192"; //핀테크이용번호
+//    private String fintech_use_num = "120220217888941294172171"; //핀테크이용번호
+    private String fintech_use_num; //핀테크이용번호
     private String tran_dtime; //요청일시
     private String model;
     
@@ -22,8 +23,8 @@ public class AccountBalanceRequestVO {
     public String getBank_tran_id() {
     	Random random = new Random();
     	random.setSeed(System.currentTimeMillis());
-    	long val = random.nextInt(999999998)+1;
-    	return "M202202092U"+String.valueOf(val);
+    	long val = random.nextInt(1000000000)+1;
+    	return "M202202178U"+String.valueOf(val);
 	}
 
 	public AccountBalanceRequestVO() {}
