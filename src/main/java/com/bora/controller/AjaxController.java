@@ -26,11 +26,11 @@ import com.bora.domain.SHA256;
 import com.bora.domain.board.BoardVO;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
+import com.bora.domain.member.MemberVO;
 import com.bora.domain.report.BookVO;
 import com.bora.domain.report.ConsumeAllListVO;
 import com.bora.domain.report.ConsumeLastThisListVO;
 import com.bora.domain.report.ConsumePageVO;
-import com.bora.domain.MemberVO;
 import com.bora.service.MemberService;
 import com.bora.service.board.BoardService;
 import com.bora.service.report.BookDetailService;
@@ -240,15 +240,7 @@ public class AjaxController {
 				log.info("예산 입력 실패");
 				rttr.addFlashAttribute("msg", "no");
 			}
-		} else {
-			// DB에 해당 연월에 대한 가계부가 없어서 새로 생성해야 할 때
-			BookVO book = new BookVO();
-			book.setBk_year(year);
-			book.setBk_month(month);
-			book.setId(loginID);
-			book.setBk_budget(bk_budget);
-			bookService.writeBook(book);
-		}
+		} 	
 		return bk_budget;
 	}
 

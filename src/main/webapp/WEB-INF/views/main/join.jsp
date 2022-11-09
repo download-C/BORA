@@ -119,67 +119,65 @@ $(document).ready(function(){
 	});//nickcheck
 }); //document
 </script>
-<h1>member/insert.jsp</h1>
-<hr>
-<div id="container" role="main">
-	<div id="content">
-		<form action="/main/join" method="post" id="join">
-			<!-- tg-text=title -->
-			<h2 class="">보라 회원가입</h2>
-			<div class="join_content">
-				<!-- 아이디  -->
-				<div class="join_id">
-					<h6>아이디</h6>
-					<input type="text" id="id" name="id" class="" 
-					placeholder="" required="required"> 
-					<input type="button" value="중복체크" id="idcheck"><br>
-					<span class="iddiv">&nbsp;</span>
-				</div>
-				<!-- 비밀번호 -->
-				<div class="join_pw">
-					<h6>비밀번호</h6>
-					<input type="password" id="pw" name="pw" class="" maxlength="16" 
-					placeholder="" required="required" onchange="checkpw()"> <br>
-					<span class="pwdiv">&nbsp;</span>
-				</div>
-				<!-- 비밀번호 확인 -->
-				<div class="join_pw2">
-					<h6>비밀번호 확인</h6>
-					<input type="password" id="pw2" name="pw2" class="" maxlength="16"
-					placeholder="" required="required" onchange="checkpw2()"> <br>
-					<span class="pw2div">&nbsp;</span>
-				</div>
-				<!-- 이름 -->
-				<div class="join_name">
-					<h6>이름</h6>
-					<input type="text" id="name" name="name" class="" 
-					placeholder="" required="required"> <br>
-				</div>
-				<!-- 닉네임 -->
-				<div class="join_nick">
-					<h6>닉네임</h6>
-					<input type="text" id="nick" name="nick" class="" 
-					placeholder="" required="required"> <br>
-					<span class="nickdiv">&nbsp;</span>
-				</div>
-				<!-- 연락처 -->
-				<div class="join_phone">
-					<h6>연락처</h6>
-					<input type="text" id="phone" name="phone" class="" 
-					placeholder="- 없이 숫자만" required="required" maxlength="13"
-					oninput="autoHyphen(this)" autofocus> 
-					<button>휴대폰 인증</button> <br>
-				</div>
-				<!-- 이메일 -->
-				<div class="join_email">
-					<h6>이메일</h6>
-					<input type="text" id="email" name="email" class="" 
-					placeholder="" required="required"> <br>
-				</div>
-			</div>
-			<input type="hidden" value="false" id="idflag" placeholder="아이디 중복체크 했나요?"> <br>
-			<input type="submit" value="가입하기">
-		</form>
-	</div>
-</div>
+
+
+ <!-- login -->
+  <!-- login -->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card border-0 shadow rounded-3 my-5">
+          <div class="card-body p-4 p-sm-5">
+            <h5 class="card-title text-center mb-5 fw-light fs-5"><b>회원가입</b></h5>
+            <form action="/main/join" method="post" id="join">
+              <div class="form-floating mb-3">
+                <input type="text" name="id" class="form-control" id="id" placeholder="아이디" required>
+                <label for="floatingInput">아이디</label>
+                <input type="button" value="중복체크" id="idcheck"><br>
+                <span class="iddiv">&nbsp;</span>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" name="pw" class="form-control" id="pw" placeholder="비밀번호" required>
+                <label for="floatingPassword">비밀번호</label>
+                <span class="pwdiv">&nbsp;</span>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" name="pw2" class="form-control" id="pw2" placeholder="비밀번호 확인" required>
+                <label for="floatingPassword">비밀번호 확인</label>
+                <span class="pw2div">&nbsp;</span>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" name="name" class="form-control" id="name" placeholder="이름" required>
+                <label for="floatingInput">이름</label>
+                <span>&nbsp;</span>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="tel" name="nick" class="form-control" id="nick" placeholder="전화번호" min="2" required>
+                <label for="floatingInput">닉네임</label>
+                <span class="nickdiv">&nbsp;</span>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="tel" name="phone" class="form-control" id="phone" placeholder="전화번호" maxlength="13" oninput="autoHyphen(this)" autofocus  required>
+                <label for="floatingInput">전화번호</label>
+                <span>&nbsp;</span>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="email" name="eamil" class="form-control" id="eamil" placeholder="전화번호" required>
+                <label for="floatingInput">이메일</label>
+                <span>&nbsp;</span>
+              </div>
+
+              <hr class="my-4">
+              <div class="d-grid">
+                <input type="hidden" value="false" id="idflag" placeholder="아이디 중복체크 했나요?"> <br>
+                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">가입하기</button>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End login -->
 <%@ include file="../include/footer.jsp"%>

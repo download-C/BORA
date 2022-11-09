@@ -30,6 +30,6 @@
    </beans:bean>
 	
 	<context:component-scan base-package="com.bora.controller" />
-
+	<beans:bean id="naverLoginBO" class="com.bora.domain.member.NaverLoginBO" />
 
 </beans:beans>

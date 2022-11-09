@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.bora.domain.MemberVO;
+import com.bora.domain.member.MemberVO;
 import com.bora.persistence.MainDAO;
 import com.bora.persistence.MemberDAO;
 

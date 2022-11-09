@@ -65,7 +65,7 @@
 		from bora_book_detail d join bora_book b
 		on b.bk_num = d.bk_num
 		where b.id=#{loginID}
-		limit #{pm.pageStart}, #{pm.vo.perPageNum}
+		limit #{pm.startRow}, #{pm.vo.perPageNum}
 	</select>
 	
 	<!-- 회원의 특정 연월 가계부 목록 불러오기 -->
@@ -76,7 +76,7 @@
 		from bora_book_detail d join bora_book b
 		on b.bk_num = d.bk_num
 		where b.id=#{loginID} and b.bk_year=#{bk_year} and b.bk_month=#{bk_month}
-		limit #{pm.pageStart}, #{pm.vo.perPageNum}
+		limit #{pm.startRow}, #{pm.vo.perPageNum}
 	</select>
 	
 	<!-- 방금 가장 최신 가계부 글의 번호 불러오기 -->

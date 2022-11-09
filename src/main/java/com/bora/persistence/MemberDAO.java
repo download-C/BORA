@@ -1,6 +1,6 @@
 package com.bora.persistence;
 
-import com.bora.domain.MemberVO;
+import com.bora.domain.member.MemberVO;
 
 public interface MemberDAO {
 
