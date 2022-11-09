@@ -6,5 +6,6 @@
 	<!-- mapper.xml에서 resultType 지정 필요 없도록 -->
 	<typeAliases>
 		<package name="com.bora.domain"/> 
+		<package name="com.bora.domain.report"/> 
 	</typeAliases>
 </configuration>
