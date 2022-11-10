@@ -31,7 +31,22 @@
 	<h3>만기일 : ${accountBalance.maturity_date }</h3>
 	<h3>최종거래일 : ${accountBalance.last_tran_date }</h3>
 	
-	
+
+<script>
+// 계좌 잔액 세션값에 저장
+let bal = "<c:out value='${accountBalance.balance_amt }' />";
+
+let balObj = {"bal":1000}
+
+// local? session??
+sessionStorage.setItem('balObj', JSON.stringify(balObj));
+console.log(balObj);
+
+//keyName 이라는 이름의 key 에 objectData 이름의 객체 데이터를 세션에 저장
+// sessionStorage.setItem(keyName, JSON.stringify(objectData));
+
+
+</script>	
 	
 	
 	

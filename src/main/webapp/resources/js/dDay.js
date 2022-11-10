@@ -2,10 +2,12 @@
  * 디데이 계산하는 곳^^
  */
 
-const remainTime = document.querySelector("#remain-time");
+const remainTime = document.getElementById("#remain-time");
 
 function diffDay() {
-	const goalTime = new Date("2022-11-23");
+// 	alert('돌아갑니다잉');
+	
+	const goalTime = new Date("2022-12-25");
 	const todayTime = new Date();
 	const diff = goalTime - todayTime;
 	
@@ -17,11 +19,14 @@ function diffDay() {
 	//    == 소수 부분 버리고 정수만 나타냄
 	const diffDay = Math.floor(diff / (1000 * 60 * 60 * 24));
 	//                                  1초   1분  1시간  1일
-	const diffHour = Math.floor( (diff / (1000 * 60 * 60)) % 24 ).padStart(2, "0"); 
+	const diffHour = Math.floor( (diff / (1000 * 60 * 60)) % 24 ); 
+// 	const diffHour = Math.floor( (diff / (1000 * 60 * 60)) % 24 ).padStart(2, "0"); 
 	//                                      ㄴ 1시간
-	const diffMin = Math.floor( (diff / (1000 * 60)) % 60 ).padStart(2, "0");
+	const diffMin = Math.floor( (diff / (1000 * 60)) % 60 );
+// 	const diffMin = Math.floor( (diff / (1000 * 60)) % 60 ).padStart(2, "0");
 	//                                      ㄴ 1분
-	const diffSec = Math.floor(diff / 1000 % 60 ).padStart(2, "0");
+	const diffSec = Math.floor(diff / 1000 % 60 );
+// 	const diffSec = Math.floor(diff / 1000 % 60 ).padStart(2, "0");
 		// padStart: 
 		//  ~~~.padStart(2, "0")
 		//  ~~얘를       ㄴ두 자릿수로 만들건데,  
@@ -29,7 +34,10 @@ function diffDay() {
 		//   ex. 7시간  --> 07시간!!
 	
 	// innerText로 추가
-	remainTime.innerText = '${diffDay}일 ${diffHour}시간 ${diffMin}분 ${diffSec}초';
+ 	//remainTime.innerText = '${diffDay}일 ${diffHour}시간 ${diffMin}분 ${diffSec}초';
+// 	remainTime.innerText = diffDay + '일 ' + diffHour + '시간 ' + diffMin + '분 ' + diffSec + '초';
+	$('#remain-time').html(diffDay + '일 ' + diffHour + '시간 ' + diffMin + '분 ' + diffSec + '초');
+	
 	
 } // diffDay()
 

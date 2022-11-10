@@ -6,6 +6,21 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <h1>목돈 모으기 </h1>
 
+<script>
+//keyName 이름의 String 을 가져와 JSON 형태로 다시 Parse 진행
+//JSON.parse(sessionStorage.getItem(keyName));
+
+console.log(JSON.parse(sessionStorage.getItem('balObj'))); // 이러면 Object 형태로 잘 나옴
+
+let balObj = JSON.parse(sessionStorage.getItem('balObj'));
+
+
+console.log(balObj[0].bal);
+
+
+</script>
+
+
 
 <div class="container">
 	<div class="box" style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
@@ -33,7 +48,7 @@
 										labels : [ '내 목표 값', '내 자산' ],
 										datasets : [ {
 											label : '자산관리',
-											data : [ 200, 100 ],
+											data : [ 5000, 100 ],
 											backgroundColor : [
 													'rgb(255, 99, 132)',
 													'rgb(54, 162, 235)' ]
