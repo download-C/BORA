@@ -12,6 +12,15 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
 
+<style>
+.swal {
+/*  background-color: purple; */
+         text-decoration:underline; 
+         font-size: 30px;
+    }
+
+</style>
+
     <script>
 		//기본 메시지 출력
         function basic() {
@@ -31,7 +40,7 @@
         //question 버튼
         function question() {
             Swal.fire(
-                '게시글 수정',
+                '<span style="color:red; font-size:small;">게시글 수정</span>',
                 '게시글을 수정하시겠습니까?',
                 'question' /*디자인 타입*/
             )

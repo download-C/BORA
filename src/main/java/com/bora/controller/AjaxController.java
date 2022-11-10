@@ -27,13 +27,13 @@ import com.bora.domain.board.BoardVO;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
 import com.bora.domain.member.MemberVO;
+import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookVO;
 import com.bora.service.MemberService;
 import com.bora.service.board.BoardService;
 import com.bora.service.report.BookDetailService;
 import com.bora.service.report.BookService;
 import com.bora.service.report.ConsumeAllListService;
-import com.google.gson.JsonObject;
 
 @Controller
 @RestController
@@ -277,6 +277,42 @@ public class AjaxController {
 
 	}
     
+	@RequestMapping(value = "/consume/listJson1", method = RequestMethod.GET)
+	public ResponseEntity<List<BookDetailVO>> list1(HttpServletRequest request) throws Exception {
+		
+		List<BookDetailVO> list1 = consumeService.getConsumeLastMonList("admin");
+
+		ResponseEntity<List<BookDetailVO>> entity=
+				new ResponseEntity<List<BookDetailVO>>(list1,HttpStatus.OK);
+		// List<ConsumeLastMonListVO> => 자동으로 json 변경하는 프로그램 설치
+		// jackson-databind
+		return entity;
+	}
+    
+	@RequestMapping(value = "/consume/listJson2", method = RequestMethod.GET)
+	public ResponseEntity<List<BookDetailVO>> list2(HttpServletRequest request) throws Exception {
+		
+		List<BookDetailVO> list2 = consumeService.getConsumeThisMonList("admin");
+
+		ResponseEntity<List<BookDetailVO>> entity=
+				new ResponseEntity<List<BookDetailVO>>(list2,HttpStatus.OK);
+		// List<ConsumeThisMonListVO> => 자동으로 json 변경하는 프로그램 설치
+		// jackson-databind
+		return entity;
+	}
+	
+	@RequestMapping(value = "/consume/listJson3", method = RequestMethod.GET)
+	public ResponseEntity<List<BookDetailVO>> list3(HttpServletRequest request) throws Exception {
+		
+		List<BookDetailVO> list3 = consumeService.getConsumeAllList("admin");
+
+		ResponseEntity<List<BookDetailVO>> entity=
+				new ResponseEntity<List<BookDetailVO>>(list3,HttpStatus.OK);
+		// List<ConsumeAllListVO> => 자동으로 json 변경하는 프로그램 설치
+		// jackson-databind
+		return entity;
+	}
+
   
     
 }// class AjaxController

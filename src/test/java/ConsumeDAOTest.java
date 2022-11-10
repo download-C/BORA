@@ -9,8 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.bora.domain.report.ConsumeAllListVO;
-import com.bora.domain.report.ConsumeLastThisListVO;
+import com.bora.domain.report.BookDetailVO;
 import com.bora.persistence.ConsumeDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -37,7 +36,7 @@ public class ConsumeDAOTest {
 	// 저번달 소비 비교 리스트
 		public void getConsumeLastMonList() throws Exception{
 			String loginID = "admin";
-			List<ConsumeLastThisListVO> consumeLastMonList = 
+			List<BookDetailVO> consumeLastMonList = 
 					session.selectList(NAMESPACE+".getConsumeLastMonList", loginID);
 			log.info("♡♡♡♡♡♡♡♡♡♡ 불러온 정보: ");
 			log.info("♡♡♡♡♡♡♡♡♡♡ "+consumeLastMonList);
@@ -46,7 +45,7 @@ public class ConsumeDAOTest {
 		// 이번달 소비 비교 리스트
 		public void getConsumeThisMonList() throws Exception{
 			String loginID = "admin";
-			List<ConsumeLastThisListVO> consumeThisMonList = 
+			List<BookDetailVO> consumeThisMonList = 
 					session.selectList(NAMESPACE+".getConsumeThisMonList", loginID);
 			log.info("♡♡♡♡♡♡♡♡♡♡ 불러온 정보: ");
 			log.info("♡♡♡♡♡♡♡♡♡♡ "+consumeThisMonList);
@@ -55,7 +54,7 @@ public class ConsumeDAOTest {
 		// 저번달 소비 비교 리스트
 		public void getConsumeAllList() throws Exception{
 			String loginID = "admin";
-			List<ConsumeAllListVO> consumeList = 
+			List<BookDetailVO> consumeList = 
 					session.selectList(NAMESPACE+".getConsumeAllList", loginID);
 			log.info("♡♡♡♡♡♡♡♡♡♡ 불러온 정보: ");
 			log.info("♡♡♡♡♡♡♡♡♡♡ "+consumeList);
