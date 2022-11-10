@@ -33,6 +33,8 @@ function login(message) {
 	  imageAlt: 'Custom image',
    	})
 }
+
+
 </script>
 
 
@@ -72,6 +74,7 @@ $(document).ready(function(){
 
 <h3><a href='/main/NoticeListPage'>공지사항 목록</a></h3> <br>
 <h3><a href='/board/list?page=1'>커뮤니티 목록</a></h3> <br>
+<a href='/calendar/sample'>달력 샘플</a> <br>
 
 <%	
   Calendar cal = Calendar.getInstance();

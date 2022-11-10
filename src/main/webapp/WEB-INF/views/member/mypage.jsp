@@ -30,16 +30,14 @@ $(document).ready(function() {
 
 
 <div class="container">
-<h1> member/mypage.jsp</h1>
+<h1> 마이페이지 </h1>
 	<div class="mypage">
-		<div><label>아이디</label> <input type="text" value="${vo.id }" readonly="readonly"></div> 
-		<div><label>비밀번호</label>  <input type="password" value="" readonly="readonly"></div> 
 		<div><label>이름</label>  <input type="text" value="${vo.name }" readonly="readonly"></div>
 		<div><label>닉네임</label>  <input type="text" value="${vo.nick }" readonly="readonly"></div>
 		<div><label>연락처</label>  <input type="text" value="${vo.phone }" readonly="readonly"></div>
 		<div><label>이메일</label>  <input type="text" value="${vo.email}" readonly="readonly"></div>
 		<div>
-		<input type="button" value="수정하기" onclick="location.href='/member/password';">
+		<input type="button" value="수정하기" onclick="location.href='/member/update';">
 		</div>
 		<div><a href="/member/delete">탈퇴하기</a></div>
 	</div>
