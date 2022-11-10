@@ -15,4 +15,5 @@ public class BookDetailVO {
 	private Integer bk_money;	// 금액
 	private String bk_memo;		// 직접 입력할 수 있는 메모
 	private Integer bk_sum;     // sum
+
 }
