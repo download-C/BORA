@@ -4,26 +4,37 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- consume_list -->
 <mapper namespace="com.bora.mapper.ConsumeMapper">
-	<select id="getConsumeLastMonList" resultType="com.bora.domain.report.ConsumeLastThisListVO">
-	   select bk_lastmon_num, bk_lastmon_category, bk_lastmon_total 
-	   from consume_last_this_list
-	   where id=#{loginID}
-	   order by bk_lastmon_num desc
+	<select id="getConsumeLastMonList" resultType="com.bora.domain.report.BookDetailVO">
+	   select d.bk_category as "bk_category", sum(d.bk_money) as "bk_sum"
+       from bora_book_detail d join bora_book b
+       on d.bk_num = b.bk_num
+       where b.bk_month = month(now())-1 and d.id=#{loginID}
+       group by d.bk_category, b.bk_year, b.bk_month;
 	</select>
 	
-	<select id="getConsumeThisMonList" resultType="com.bora.domain.report.ConsumeLastThisListVO">
-	   select bk_thismon_num, bk_thismon_category, bk_thismon_total
-	   from consume_last_this_list
-	   where id=#{loginID}
-	   order by bk_thismon_num desc
+	<select id="getConsumeThisMonList" resultType="com.bora.domain.report.BookDetailVO">
+	   select d.bk_category as "bk_category", sum(d.bk_money) as "bk_sum"
+       from bora_book_detail d join bora_book b
+       on d.bk_num = b.bk_num
+       where b.bk_month = month(now()) and d.id=#{loginID}
+       group by d.bk_category, b.bk_year, b.bk_month;
 	</select>
 	
-	<select id="getConsumeAllList" resultType="com.bora.domain.report.ConsumeAllListVO">
-	   select bk_consume_num, bk_category, bk_total_consume, bk_consume_compare 
-	   from bora_consume_list
-	   where id=#{loginID}
-	   order by bk_consume_num desc
+	<select id="getConsumeAllList" resultType="com.bora.domain.report.BookDetailVO">
+	   select x.bk_category as "bk_category", x.bk_money as "bk_sum", 
+	   (x.bk_money - y.bk_money) as "bk_minus", (x.bk_money - y.bk_money) / y.bk_money * 100 as "bk_compare"
+       from
+       (select d.bk_category, b.bk_year, b.bk_month, sum(d.bk_money) as bk_money
+       from bora_book_detail d join bora_book b
+       on d.bk_num = b.bk_num
+       where b.bk_month = month(now()) and d.id=#{loginID}
+       group by d.bk_category, b.bk_year, b.bk_month) x left outer join
+       (select d.bk_category, b.bk_year, b.bk_month, sum(d.bk_money) as bk_money
+       from bora_book_detail d join bora_book b
+       on d.bk_num = b.bk_num
+       where b.bk_month = month(now())-1 and d.id=#{loginID}
+       group by d.bk_category, b.bk_year, b.bk_month) y
+       on x.bk_category = y.bk_category;
 	</select>
-	
 	
 </mapper>

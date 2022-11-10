@@ -8,8 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.bora.domain.report.ConsumeAllListVO;
-import com.bora.domain.report.ConsumeLastThisListVO;
+import com.bora.domain.report.BookDetailVO;
 import com.bora.persistence.ConsumeDAO;
 
 @Service
@@ -20,23 +19,23 @@ public class ConsumeAllListServiceImpl implements ConsumeAllListService{
 	
 	private static final Logger log = LoggerFactory.getLogger(ConsumeAllListService.class);
 
-	public List<ConsumeLastThisListVO> getConsumeLastMonList(String loginID) throws Exception {
+	public List<BookDetailVO> getConsumeLastMonList(String loginID) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡getConsumeLastList(loginID) 호출");
 		
-		return dao.getConsumeLastMonList("admin");
+		return dao.getConsumeLastMonList(loginID);
 	}
 	
-	public List<ConsumeLastThisListVO> getConsumeThisMonList(String loginID) throws Exception {
+	public List<BookDetailVO> getConsumeThisMonList(String loginID) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡getConsumeThisList(loginID) 호출");
 		
-		return dao.getConsumeThisMonList("admin");
+		return dao.getConsumeThisMonList(loginID);
 	}
 
 	@Override
-	public List<ConsumeAllListVO> getConsumeAllList(String loginID) throws Exception {
+	public List<BookDetailVO> getConsumeAllList(String loginID) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡getConsumeAllList(loginID) 호출");
 		
-		return dao.getConsumeAllList("admin");
+		return dao.getConsumeAllList(loginID);
 	}
 	
 

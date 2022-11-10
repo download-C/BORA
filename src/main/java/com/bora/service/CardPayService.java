@@ -12,12 +12,12 @@ public interface CardPayService {
 	public List<CardPayVO> bookCardList() throws Exception;
 
 	// TOP3 매장명 리포트
-	public List<BookDetailVO> Top3Store(String loginID) throws Exception;
+	public List<BookDetailVO> Top3Store(Integer year, Integer month, String loginID) throws Exception;
 	
 	// TOP3 날짜 리포트
-	public List<BookDetailVO> Top3Date(String loginID) throws Exception;
+	public List<BookDetailVO> Top3Date(Integer year, Integer month, String loginID) throws Exception;
 
 	// 소비 카테고리 1위에 따라서 태그 표시
-	public List<BookDetailVO> ConsumeTag(String loginID) throws Exception;
+	public List<BookDetailVO> ConsumeTag(Integer year, Integer month, String loginID) throws Exception;
 
 }
