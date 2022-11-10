@@ -39,16 +39,6 @@
 
 <h1>top3.jsp</h1>
 
-<%
-	String year = request.getParameter("year");
-	String month = request.getParameter("month");
-	
-	if(year==null || year.equals("")) {
-	}
-	if(month==null || month.equals("")) {
-
-	}
-%>
 	<c:set var="year" value="<%=year%>" />
 	<c:set var="month" value="<%=month %>" />
 
@@ -58,8 +48,8 @@
 			<div style="margin-bottom: 50px">
 				<form id="form1" method="get" action="" style="display:inline-block; width: 7%; height: 10%;">
 					 <select name="year" id="year" onchange="changeSelect()" >
-				        <option name="2022" value="2022" <c:if test="${year eq '2022'}">selected</c:if>>2022</option>
-				        <option name="2021" value="2021" <c:if test="${year eq '2021'}">selected</c:if>>2021</option>
+				        <option value="2022" <c:if test="${year eq '2022'}">selected</c:if>>2022</option>
+				        <option value="2021" <c:if test="${year eq '2021'}">selected</c:if>>2021</option>
 				     </select>
 				 </form>
 			     <a style="font-size: 25px; font-weight: bold;">년 &nbsp</a>

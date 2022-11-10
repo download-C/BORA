@@ -65,11 +65,9 @@ public class CardPayController {
 		log.info(year +""+ month+"");
 		model.addAttribute("top3", service.Top3Store(year, month, loginID));
 		model.addAttribute("top3date", service.Top3Date(year, month, loginID));     //top3 날짜 버전 호출
-		model.addAttribute("bk_category", service.ConsumeTag(year, month, loginID).get(0).getBk_category());
-		
-		
+		if(service.ConsumeTag(year, month, loginID).size()!=0) {
+			model.addAttribute("bk_category", 
+					service.ConsumeTag(year, month, loginID).get(0).getBk_category());
+		}
 	}
-	
-
-
 }

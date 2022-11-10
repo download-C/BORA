@@ -5,11 +5,13 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<h1>
+
+	<div class="container">
+		<h1>
 	 <span
-		style="color: white; background-color: orange; font-size: 1.5em">
-		💐💐list😎😎 </span>.jsp
-</h1>
+		style="color: white; text-align: center; background-color: orange; font-size: 1.5em">
+		💐💐 공지사항😎😎 </span>
+		</h1>
 <div>
 	<div>
 <%-- 		<h5>${pm.pageVO.page }</h5> --%>
@@ -17,8 +19,6 @@
 		<h3><a href="/notice/write">여기를 눌러서 편하게 글쓰기 하십시오 ^^💘💘 </a></h3>
 		<%} }%>
 	</div>
-
-	<div>
 		<table class="table table-bordered">
 			<tbody>
 				<tr>
@@ -47,17 +47,17 @@
 	</div>
 
 	<!-- ===================== 페이징 처리 구간 ========================== -->
-	<div>
+	<div class="container">
 		<ul type="none">
 			
 			<!-- 이전 버턴================ -->
 			<c:if test="${pm.prev }"> 
 					<!--      ㄴboolean 타입이니까 false면 걍 패스되는거~ 음 편하군  -->
-				<li><a href="/notice/listPage?page=${pm.startPage - 1 }">&laquo;</a></li>
+				<li><a href="/notice/listPage?page=${pm.pageStart - 1 }">&laquo;</a></li>
 			</c:if>
 			
 			<!-- 1 2 3 4 .... ================ -->
-			<c:forEach var="index" begin="${pm.startPage }" end="${pm.endPage }"> 
+			<c:forEach var="index" begin="${pm.pageStart }" end="${pm.endPage }"> 
 						<!-- 페이지 블럭에서 내가 선택한 현재 페이지만! active되도록 -->
 				<%-- 
 				<li <c:out value="${pm.vo.page == index? 'class=active' : '' }" />>   2.3버전 이하는 c:out 써야 함~ --%>
