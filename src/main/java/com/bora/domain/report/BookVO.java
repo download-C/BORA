@@ -13,4 +13,6 @@ public class BookVO {
 	private Integer bk_year;		// 연도별
 	private Integer bk_month;		// 월별
 	private Integer bk_budget;
+
+
 }

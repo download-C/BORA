@@ -6,7 +6,7 @@ import lombok.Data;
 public class BookDetailVO {
 	private Integer bk_detail_num;  // 가계부 상세정보 번호
 	private Integer bk_num;		// 해당 달의 가계부 번호
-	private BookVO book;
+	private BookVO book;        // 연 월 
 	private String id;			// 회원 아이디
 	private Integer bk_day;			// 일별
 	private String bk_iow;		// 입금/출금/이체
