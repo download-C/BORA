@@ -39,35 +39,25 @@ function login(message) {
 <!-- 뉴스 시작 -->
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#news').click(function(){
-		   // ajax 사용 - jtbc 뉴스정보 불러오기
-		   alert('클릭');
-		   
-		   $.ajax({
-			   url:"https://fs.jtbc.co.kr//RSS/sports.xml",
-			   success:function(data){
-				   alert("페이지 다녀오기 성공");
-				   
-				   $(data).find("item").each(function(){
-					   var title = $(this).find("title").text();
-					   var link = $(this).find("link").text();
-					   
-					   $('div').append("<a href='"+link+"'>"+title+"</a><br>");
-				   });
-				   
-			   },
-			   error:function(){
-				   alert("페이지 다녀오기 실패");
-			   }
-		   });
-		   
-	   });//click
-  
+		$.ajax({
+			url:"https://fs.jtbc.co.kr//RSS/economy.xml",
+			success:function(rData){
+				$(rData).find("item").each(function(index){
+					if (index < 3) {
+						// 기사 3개만 나타나도록
+						var title = $(this).find("title").text();
+						var link = $(this).find("link").text();
+						var desc = $(this).find("description").text();
+						$('#newsDiv').append(title+"<br>"+desc+"<br><a href='"+link+"' target='_blank'>기사 보러 ㄱㄱ</a><hr>");
+					} else return false;
+				});
+			},
+			error:function(){
+				alert("페이지 다녀오기 실패");
+			}
+		}); // ajax
 });//jquery
 </script>
-
-
-   <hr>
 <!-- 뉴스끝 -->
 
 <h3><a href='/main/NoticeListPage'>공지사항 목록</a></h3> <br>
@@ -111,8 +101,9 @@ const myChart = new Chart(ctx, {
 });
 </script>
 
-</div>
+<hr>
 
-
+<!-- 뉴스 뜨는 공간 -->
+<div id="newsDiv"></div>
 
 <%@ include file="../include/footer.jsp"%>
