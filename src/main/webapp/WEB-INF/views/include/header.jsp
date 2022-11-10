@@ -134,8 +134,9 @@ if(session!=null) {
       <!-- <a href="index.html" class="logo"><img src="${pageContext.request.contextPath}/resources/img/logo.png" alt=""></a>-->
 <%	
   Calendar cal = Calendar.getInstance();
-	int year = cal.get(Calendar.YEAR);
-	int month = cal.get(Calendar.MONTH)+1;
+  int year = cal.get(Calendar.YEAR);
+  int month = cal.get(Calendar.MONTH)+1;
+  int day = cal.get(Calendar.DATE);
 %>
 
       <nav id="navbar" class="navbar">

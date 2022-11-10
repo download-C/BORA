@@ -14,14 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.bora.domain.report.DateData;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
 import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookVO;
-import com.bora.service.report.ConsumeAllListService;
 import com.bora.service.report.BookDetailService;
 import com.bora.service.report.BookService;
 
@@ -46,81 +44,14 @@ public class BookController {
 
 	// http://localhost:8088/book/write
 	@RequestMapping(value="/write", method = RequestMethod.GET)
-	public void writeBookGET() {
+	public void writeBookGET(Integer year, Integer month, Integer day,
+			Model model) {
 		log.info("writeBookGET() 호출");
+		model.addAttribute("year",year);
+		model.addAttribute("month",month);
+		model.addAttribute("day",day);
 	}
 	
-	// 가계부 메인 페이지
-   @RequestMapping(value="/dashboard", method = RequestMethod.GET)
-	   public String bookMainGET(Model model, RedirectAttributes rttr, int year, int month, DateData dateData) throws Exception {
-	   log.info("reportMainGET() 호출");
-	   loginID = (String)session.getAttribute("loginID");
-	   
-	   Calendar cal = Calendar.getInstance();
-		DateData calendarData;
-		//검색 날짜
-		if(dateData.getDate().equals("")&&dateData.getMonth().equals("")){
-			dateData = new DateData(String.valueOf(cal.get(Calendar.YEAR)),String.valueOf(cal.get(Calendar.MONTH)),String.valueOf(cal.get(Calendar.DATE)),null);
-		}
-		//검색 날짜 end
-
-		Map<String, Integer> today_info =  dateData.today_info(dateData);
-		List<DateData> dateList = new ArrayList<DateData>();
-		
-		//실질적인 달력 데이터 리스트에 데이터 삽입 시작.
-		//일단 시작 인덱스까지 아무것도 없는 데이터 삽입
-		for(int i=1; i<today_info.get("start"); i++){
-			calendarData= new DateData(null, null, null, null);
-			dateList.add(calendarData);
-		}
-		
-		//날짜 삽입
-		for (int i = today_info.get("startDay"); i <= today_info.get("endDay"); i++) {
-			if(i==today_info.get("today")){
-				calendarData= new DateData(String.valueOf(dateData.getYear()), String.valueOf(dateData.getMonth()), String.valueOf(i), "today");
-			}else{
-				calendarData= new DateData(String.valueOf(dateData.getYear()), String.valueOf(dateData.getMonth()), String.valueOf(i), "normal_date");
-			}
-			dateList.add(calendarData);
-		}
-
-		//달력 빈곳 빈 데이터로 삽입
-		int index = 7-dateList.size()%7;
-		
-		if(dateList.size()%7!=0){
-			
-			for (int i = 0; i < index; i++) {
-				calendarData= new DateData(null, null, null, null);
-				dateList.add(calendarData);
-			}
-		}
-		System.out.println(dateList);
-		
-		//배열에 담음
-		model.addAttribute("dateList", dateList);		//날짜 데이터 배열
-		model.addAttribute("today_info", today_info);
-	   // 로그인 안 한 경우 로그인 페이지로 이동
-	   if(loginID == null) {
-		   rttr.addFlashAttribute("msg", "로그인 후 이용 가능한 페이지입니다.");
-		   return "redirect:/main/login";
-	   } else {
-	   
-			List<BookDetailVO> detailList = dService.getDashboardBookDetail(loginID, year, month);
-			if(detailList.size()!=0) {
-				log.info("가계부 목록 가져오기 성공");
-				model.addAttribute("detailList", detailList);
-				int bk_budget = service.getMonthBudget(loginID, year, month); 
-				if(bk_budget!=0) model.addAttribute("bk_budget", bk_budget);
-			} else {
-				log.info("가계부 없음");
-				rttr.addFlashAttribute("msg", "아직 가계부를 입력하지 않으셨네요!");
-				rttr.addFlashAttribute("message","아직 가계부를 입력하지 않으셨네요!");
-				log.info("플래시 메세지 입력 완료");
-			}
-	   }
-		return "/book/dashboard";
-   }
-
 	
 	// 1. 가계부 상세 내역 작성 메서드
 	@RequestMapping(value="/write", method = RequestMethod.POST)
@@ -158,7 +89,7 @@ public class BookController {
 			book.setBk_year(bk_year);
 			book.setBk_month(bk_month);
 			book.setBk_budget(0);
-			log.info("아이디 "+loginID+" "+bk_year+"년 "+bk_month+"월 가계부");
+			log.info("아이디 "+loginID+" "+bk_year+"년 "+bk_month+"월 가계부 생성");
 			// 가계부 정보 DB 저장 후 해당 내용의 가계부 고유번호 가져오기
 			service.writeBook(book);
 			bk_num = service.getBookMaxNum();

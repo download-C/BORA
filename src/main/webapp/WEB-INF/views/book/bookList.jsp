@@ -175,7 +175,7 @@ function uncomma(str) {
 				<option value="12">12월</option>
 		</select>
 		<input type="button" value="가계부 쓰기" class="btn m3" 
-			onclick="location.href='/book/write';" style="background-color: #5107B0; width: 100px; margin:auto; padding: 0px; color:white">
+			onclick="location.href='/book/write?year=<%=year %>&month=<%=month %>&day=<%=day %>';" style="background-color: #5107B0; width: 100px; margin:auto; padding: 0px; color:white">
 	</div>
 </div>
 

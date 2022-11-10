@@ -65,13 +65,7 @@ $(document).ready(function(){
 <h3><a href='/main/NoticeListPage'>공지사항 목록</a></h3> <br>
 <h3><a href='/board/list?page=1'>커뮤니티 목록</a></h3> <br>
 <a href='/calendar/sample'>달력 샘플</a> <br>
-<%	
-  cal = Calendar.getInstance();
-  year = cal.get(Calendar.YEAR);
-  month = cal.get(Calendar.MONTH)+1;
-%>
-
-<h3><a href='/book/dashboard?year=<%=year%>&month=<%=month%>'>가계부 대시보드로 이동</a></h3> <br>
+<h3><a href='/book/list?year=<%=year%>&month=<%=month%>&page=1'>가계부 목록으로 이동</a></h3> <br>
 <h3><a href='/report/categoryList'>리포트로 이동</a></h3> <br>
 <h3><a href='/book/top3?year=<%=year%>&month=<%=month%>'>top3 이동</a></h3> <br>
 <h3><a href='/openbank/goal'>자산관리 목표 설정 이동</a></h3> <br>
