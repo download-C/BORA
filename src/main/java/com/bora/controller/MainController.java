@@ -185,7 +185,7 @@ public class MainController {
 			// 네이버 아이디로 이미 회원가입 한 경우
 			// 바로 로그인 하러 가기~
 			session.setAttribute("loginID", id);
-			rttr.addFlashAttribute("msg", nick+"님, 환영합니다♡");
+			rttr.addFlashAttribute("msg", "'"+nick+"'님, 환영합니다♡");
 			return "redirect:/main/main";
 		} 
 		// 네이버에서 사용하는 닉네임이 이미 DB에 존재할 경우
@@ -276,7 +276,7 @@ public class MainController {
 			// 네이버 아이디로 이미 회원가입 한 경우
 			// 바로 로그인 하러 가기~
 			session.setAttribute("loginID", id);
-			rttr.addFlashAttribute("msg", nick+"님, 환영합니다♡");
+			rttr.addFlashAttribute("msg", "'"+nick+"'님, 환영합니다♡");
 			return "redirect:/main/main";
 		} 
 		// 네이버에서 사용하는 닉네임이 이미 DB에 존재할 경우
@@ -308,7 +308,7 @@ public class MainController {
 			//4.파싱 아이디 세션으로 저장
 			session.setAttribute("loginID",id); //세션 생성
 			
-			rttr.addFlashAttribute("msg1", nick+"님의 회원가입 완료!");
+			rttr.addFlashAttribute("msg1", "'"+nick+"'님 회원가입 완료!");
 			rttr.addFlashAttribute("msg2", "현재 임시 비밀번호 상태이니 마이페이지에서 	반드시 비밀번호를 변경해주세요.");
 			
 			log.info("어트리뷰트 생성 완료");
@@ -345,7 +345,7 @@ public class MainController {
 		bookService.writeBook(book);
 		
 		session.setAttribute("loginID",member.getId()); //세션 생성
-		rttr.addFlashAttribute("msg", nick+"님, 환영합니다♡");
+		rttr.addFlashAttribute("msg", "'"+nick+"'님, 환영합니다♡");
 					
 		return"redirect:/main/main";
 	}
@@ -364,7 +364,7 @@ public class MainController {
 		if (vo2 != null) {
 			log.info("로그인 성공");
 			session.setAttribute("loginID", vo2.getId());
-			rttr.addFlashAttribute("msg", vo2.getNick() + "님, 환영합니다♡");
+			rttr.addFlashAttribute("msg", "'"+vo2.getNick()+"'님, 환영합니다♡");
 			return "redirect:/main/main";
 		} else {
 			log.info("로그인 실패");
@@ -406,12 +406,6 @@ public class MainController {
 			HttpSession session, Model model) throws Exception {
 		log.info("(♥♥♥♥♥ 2.NoticeListAllGET) 호출됨");
 		
-		// 리스트로 가는 경우의 수
-		// 1. 글쓰고 나서 -> 리스트로 이동하는 경우
-//			log.info("(♥♥♥♥♥ 2.listAllGET) msg: " + msg);
-			// 연결된 view 페이지로 저기서(1-2.registerPOST) 넘어온 정보 전달해보기
-			// 이거 안 해도 넘어가는딩?
-//			model.addAttribute("msg", msg);
 		
 		// 2. 걍 바로 리스트로 이동하는 경우
 		
