@@ -90,6 +90,9 @@
 		<input type="hidden" name="tran_dtime" value="20221104134521">
 		<input type="submit" value="123통장 거래내역조회">
 	</form><hr>    
+
+
+
 	
 </div>
 

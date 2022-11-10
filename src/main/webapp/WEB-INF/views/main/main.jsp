@@ -81,6 +81,9 @@ $(document).ready(function(){
 <h3><a href='/book/dashboard?year=<%=year%>&month=<%=month%>'>가계부 대시보드로 이동</a></h3> <br>
 <h3><a href='/report/report'>리포트로 이동</a></h3> <br>
 
+<h3><a href='/openbank/goal'>자산관리 목표 설정 이동</a></h3> <br>
+
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <div>
 <canvas id="myChart" width="400" height="400"></canvas>

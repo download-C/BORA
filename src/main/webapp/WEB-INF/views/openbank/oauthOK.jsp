@@ -20,14 +20,19 @@
 
 <div class="container">
 
-<hr><hr>
-<h1>자산관리 시작</h1>
+<hr>
+<h1>BORA 자산관리 시작</h1>
 <br>
 
-🟣 오픈뱅킹 서비스 이용을 위해 오픈뱅킹의 인증 페이지에서 본인 인증 및 조회/출금동의를
-블라블라~
-<hr>
+<h3>자산관리 첫 페이지 설명 </h3>
+<span>BORA 자산관리에서 나의 모든 자산을 편리하게 조회하세요<br>
+오픈뱅킹은 핀테크 기업과 은행권이 공동으로 이용할 수 있는 공동결제시스템으로,
+BORA 자산관리에서는 오픈뱅킹의 인증 페이지에서 본인 인증 및 조회/출금동의를 완료하면
+나의 모든 자산을 조회할 수 있는 오픈뱅킹 서비스를 제공하고 있습니다. 
+</span><br>
 
+<hr>
+	오픈뱅킹 사용자 인증 하러 가기
 	<!-- 인증 요청 작업 수행 -->
 	<form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get">
 		<input type="hidden" name="response_type" value="code"> 
@@ -36,11 +41,10 @@
 		<input type="hidden" name="scope" value="login inquiry transfer cardinfo fintechinfo">
 		<input type="hidden" name="state" value="12345678123456781234567812345678">
 		<input type="hidden" name="auth_type" value="0"> 
-		<input type="submit" value="오픈뱅킹 사용자 인증"> (보유계좌정보 입력)
+		<input type="submit" value="오픈뱅킹 사용자 인증" id="btn">
 	</form>
    
    
-	<hr>
 	<h1>😉사용자정보조회😉</h1>
 	<!-- 사용자정보조회 -->
 	고객번호, 고객이름, 고객등록계좌수
@@ -58,7 +62,9 @@
         <div class="card border-left-info shadow h-100 py-2">
           <div class="card-body">
               <div class="container">
-              <h3>※ 오픈뱅킹 사용자 인증 예시</h3>
+              <h3>※ 오픈뱅킹 사용자 인증 예시</h3><br>
+              <span style="font-size: 20px;">◼ 계좌 정보에는 현재 오픈뱅킹 인증이 완료된 보유 계좌 정보를 입력하여 주시기 바랍니다.<br>
+              → 오픈뱅크 0518030909 BORA입출금 </span>
               </div>
               <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
               <div class="card-body">
