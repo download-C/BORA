@@ -11,12 +11,12 @@ public interface CardPayDAO {
 	List<CardPayVO> GetBookCardList() throws Exception;
 
 	//TOP3 매장명 리포트
-	List<BookDetailVO> GetTop3Store(String loginID) throws Exception;
+	List<BookDetailVO> GetTop3Store(Integer year, Integer month, String loginID) throws Exception;
 
 	//TOP3 날짜 리포트
-	List<BookDetailVO> GetTop3Date(String loginID);
+	List<BookDetailVO> GetTop3Date(Integer year, Integer month, String loginID);
 	
 	// 소비 카테고리 1위에 따라서 태그 표시
-	List<BookDetailVO> GetConsumeTag(String loginID) throws Exception;
+	List<BookDetailVO> GetConsumeTag(Integer year, Integer month, String loginID) throws Exception;
 	
 }

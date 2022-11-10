@@ -23,22 +23,22 @@ public class CardPayServiceImpl implements CardPayService {
 	}
 
 	@Override
-	public List<BookDetailVO> Top3Store(String loginID) throws Exception {
-		List<BookDetailVO> Top3Store = dao.GetTop3Store(loginID);
+	public List<BookDetailVO> Top3Store(Integer year, Integer month, String loginID) throws Exception {
+		List<BookDetailVO> Top3Store = dao.GetTop3Store(year, month, loginID);
 
 		return Top3Store;
 	}
 
 	@Override
-	public List<BookDetailVO> Top3Date(String loginID) throws Exception {
-		List<BookDetailVO> Top3Date = dao.GetTop3Date(loginID);
+	public List<BookDetailVO> Top3Date(Integer year, Integer month, String loginID) throws Exception {
+		List<BookDetailVO> Top3Date = dao.GetTop3Date(year, month, loginID);
 		
 		return Top3Date;
 	}
 
 	@Override
-	public List<BookDetailVO> ConsumeTag(String loginID) throws Exception {
-		List<BookDetailVO> ConsumeTag = dao.GetConsumeTag(loginID);
+	public List<BookDetailVO> ConsumeTag(Integer year, Integer month, String loginID) throws Exception {
+		List<BookDetailVO> ConsumeTag = dao.GetConsumeTag(year, month,loginID);
 		
 		return ConsumeTag;
 	}
