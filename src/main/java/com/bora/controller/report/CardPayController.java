@@ -51,6 +51,8 @@ public class CardPayController {
 		// 컨트롤러 -> 서비스 호출
 		log.info("(ᐡ-ܫ•ᐡ)=͟͟͞♡=͟͟͞♡=͟͟͞♡=͟͟͞♡       Top3Store()  -----> Service 호출");
 		
+		
+		
 		 // 현재 연과 월을 기본으로 보여줌
 		Calendar cal = Calendar.getInstance();
 		year = cal.get(Calendar.YEAR);
@@ -60,9 +62,11 @@ public class CardPayController {
 		
 		loginID = (String)session.getAttribute("loginID");
 
+		log.info(year +""+ month+"");
 		model.addAttribute("top3", service.Top3Store(year, month, loginID));
 		model.addAttribute("top3date", service.Top3Date(year, month, loginID));     //top3 날짜 버전 호출
 		model.addAttribute("bk_category", service.ConsumeTag(year, month, loginID).get(0).getBk_category());
+		
 		
 	}
 	

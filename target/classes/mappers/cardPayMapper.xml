@@ -62,7 +62,7 @@
 	  from bora_book_detail d join bora_book b 
 	  on d.bk_num = b.bk_num 
 	  where d.id = #{loginID} and d.bk_iow = '지출' 
-	  and b.bk_year= #{bk_year} and b.bk_month= #{bk_month}
+	  and b.bk_year= #{year} and b.bk_month= #{month}
 	  group by d.bk_memo
 	  order by d.bk_money desc limit 3;  
 
@@ -82,7 +82,7 @@
 	    from bora_book_detail d join bora_book b 
 	    on d.bk_num = b.bk_num 
 		where d.id = #{loginID} and d.bk_iow = '지출' 
-	    and b.bk_year= #{bk_year} and b.bk_month= #{bk_month}
+	    and b.bk_year= #{year} and b.bk_month= #{month}
 	    group by d.bk_day
 	    order by bk_sum desc limit 3; 
 	    
