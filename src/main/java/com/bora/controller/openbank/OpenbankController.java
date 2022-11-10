@@ -44,11 +44,21 @@ public class OpenbankController {
 
 	private static final Logger log = LoggerFactory.getLogger(OpenbankController.class);
 	
-	// http://localhost:8088/openbank/oauth
-	@RequestMapping(value = "/oauth", method = RequestMethod.GET)
+		
+	// http://localhost:8088/openbank/goal
+	@RequestMapping(value = "/goal", method = RequestMethod.GET)
+	public String goal() {
+		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  오픈뱅킹 - 목돈 모으기");
+		log.info("/openbank/goal 로 이동");
+		return "/openbank/goal";
+	}
+	
+	
+	// http://localhost:8088/openbank/oauthOK
+	@RequestMapping(value = "/oauthOK", method = RequestMethod.GET)
 	public String openbank() {
 		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  오픈뱅킹 - 계좌");
-		log.info("/oauth -> oauthOK 로 이동");
+		log.info("/openbank/oauthOK 로 이동");
 		return "/openbank/oauthOK";
 	}
 	
