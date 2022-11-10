@@ -18,6 +18,4 @@ public class BookDetailVO {
 	private Integer bk_minus; // 차액
 	private double bk_compare; // 전월대비
 
-
-
 }

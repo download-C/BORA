@@ -1,5 +1,7 @@
 package com.bora.controller.report;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.controller.MemberController;
+import com.bora.domain.report.BookDetailVO;
 import com.bora.service.report.ReportService;
 
 @Controller
@@ -41,7 +44,7 @@ public class ReportController {
 		   if(loginID == null) {
 		   rttr.addFlashAttribute("msg", "로그인 후 이용 가능한 페이지입니다.");
 		   return "redirect:/main/login";
-	   }
+		   }
 		return "/report/report";
 	   }
 	   
@@ -54,9 +57,17 @@ public class ReportController {
 		   loginID=(String)session.getAttribute("loginID");
 		   
 		   log.info(service.cateSum(loginID)+"");
-		   model.addAttribute("cateSum", service.cateSum(loginID));
-		
+		   ArrayList sumArr = new ArrayList();
+		   ArrayList<String> caArr = new ArrayList<String>();
 		   
+		   for(BookDetailVO bkVO:service.cateSum(loginID)) {
+			   sumArr.add(bkVO.getBk_sum());
+			   caArr.add("'"+bkVO.getBk_category()+"'");
+			   
+		   }
+//		   model.addAttribute("cateSum", service.cateSum(loginID));
+		   model.addAttribute("sumArr", sumArr);
+		   model.addAttribute("caArr", caArr);
 		   
 	   }
 	     
