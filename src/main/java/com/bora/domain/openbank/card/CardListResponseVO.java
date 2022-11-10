@@ -2,8 +2,6 @@ package com.bora.domain.openbank.card;
 
 import java.util.List;
 
-import com.bora.domain.openbank.card.CardVO;
-
 import lombok.Data;
 
 @Data

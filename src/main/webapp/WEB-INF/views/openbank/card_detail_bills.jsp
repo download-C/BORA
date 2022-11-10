@@ -10,7 +10,7 @@
 <body>
    <h1>card_detail_bills.jsp</h1>
       
-     <table>
+     <table border="1">
 		<tr>
 			<th>카드식별값</th>
 			<th>사용일자</th>
@@ -23,13 +23,13 @@
 		<%-- cardDetailBills 객체에 저장되어 있는 카드 목록(bill_detail_list) 가져와서 반복하여 복수개 계좌 접근 --%>
 		<c:forEach var="cardDetailBills" items="${cardDetailBills.bill_detail_list }">
 			<tr>
-				<td>${cardDetailBillsResponse.card_value }</td>
-				<td>${cardDetailBillsResponse.paid_date }</td>
-				<td>${cardDetailBillsResponse.paid_time }</td>
-				<td>${cardDetailBillsResponse.paid_amt }</td>
-				<td>${cardDetailBillsResponse.merchant_name_masked }</td>
-				<td>${cardDetailBillsResponse.credit_free_amt }</td>
-				<td>${cardDetailBillsResponse.product_types }</td>
+				<td>${cardDetailBills.card_value }</td>
+				<td>${cardDetailBills.paid_date }</td>
+				<td>${cardDetailBills.paid_time }</td>
+				<td>${cardDetailBills.paid_amt }</td>
+				<td>${cardDetailBills.merchant_name_masked }</td>
+				<td>${cardDetailBills.credit_free_amt }</td>
+				<td>${cardDetailBills.product_type }</td>
 			</tr>
 	   </c:forEach>
 	</table>

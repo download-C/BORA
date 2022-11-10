@@ -34,15 +34,29 @@ BORA 자산관리에서는 오픈뱅킹의 인증 페이지에서 본인 인증 
 <hr>
 	오픈뱅킹 사용자 인증 하러 가기
 	<!-- 인증 요청 작업 수행 -->
+<!-- 	<form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get"> -->
+<!-- 		<input type="hidden" name="response_type" value="code">  -->
+<!-- 		<input type="hidden" name="client_id" value="2ce89526-eccf-45b0-a59f-1ca10bc64b30">  -->
+<!-- 		<input type="hidden" name="redirect_uri" value="http://localhost:8088/openbank/callback">  -->
+<!-- 		<input type="hidden" name="scope" value="login inquiry transfer cardinfo fintechinfo"> -->
+<!-- 		<input type="hidden" name="state" value="12345678123456781234567812345678"> -->
+<!-- 		<input type="hidden" name="auth_type" value="0">  -->
+<!-- 		<input type="submit" value="오픈뱅킹 사용자 인증" id="btn"> -->
+<!-- 	</form> -->
+	
 	<form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get">
-		<input type="hidden" name="response_type" value="code"> 
-		<input type="hidden" name="client_id" value="2ce89526-eccf-45b0-a59f-1ca10bc64b30"> 
-		<input type="hidden" name="redirect_uri" value="http://localhost:8088/openbank/callback"> 
-		<input type="hidden" name="scope" value="login inquiry transfer cardinfo fintechinfo">
-		<input type="hidden" name="state" value="12345678123456781234567812345678">
-		<input type="hidden" name="auth_type" value="0"> 
-		<input type="submit" value="오픈뱅킹 사용자 인증" id="btn">
-	</form>
+        <input type="hidden" name="response_type" value="code">
+        <input type="hidden" name="client_id" value="2ce89526-eccf-45b0-a59f-1ca10bc64b30">
+        <input type="hidden" name="redirect_uri" value="http://localhost:8088/openbank/callback">
+<input type="hidden" name="scope" value="login inquiry transfer cardinfo fintechinfo">
+
+<!-- <input type="hidden" name="scope" value="cardinfo"> -->
+<input type="hidden" name="state" value="12345678123456781234567812345678">
+<input type="hidden" name="auth_type" value="0">
+<!-- <input type="hidden" value="register_info" value="C"> -->
+
+<input type="submit" value="토큰발급">
+</form>
    
    
 	<h1>😉사용자정보조회😉</h1>
@@ -54,6 +68,7 @@ BORA 자산관리에서는 오픈뱅킹의 인증 페이지에서 본인 인증 
 		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }">
 		<input type="submit" value="사용자 정보 조회">
 	</form><hr>
+
 
 
 <!-- 토큰발급 화면예시 -->

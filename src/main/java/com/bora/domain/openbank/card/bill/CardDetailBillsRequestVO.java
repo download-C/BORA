@@ -1,5 +1,7 @@
 package com.bora.domain.openbank.card.bill;
 
+import java.util.Random;
+
 import lombok.Data;
 
 @Data
@@ -15,11 +17,18 @@ public class CardDetailBillsRequestVO {
     
     public CardDetailBillsRequestVO() {}
     
+    public String getBank_tran_id() {
+    	Random random = new Random();
+    	random.setSeed(System.currentTimeMillis());
+    	long val = random.nextInt(1000000000)+1;
+    	return "M202202178U"+String.valueOf(val);
+	}
+    
 	public CardDetailBillsRequestVO(String access_token, String bank_tran_id, String user_seq_no, String bank_code_std,
 			String member_bank_code, String charge_month, String settlement_seq_no, String befor_inquiry_trace_info) {
 		super();
 		this.access_token = access_token;
-		this.bank_tran_id = bank_tran_id;
+		this.bank_tran_id = getBank_tran_id();
 		this.user_seq_no = user_seq_no;
 		this.bank_code_std = bank_code_std;
 		this.member_bank_code = member_bank_code;

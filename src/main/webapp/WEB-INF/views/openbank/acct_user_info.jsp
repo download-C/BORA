@@ -93,6 +93,66 @@
 
 
 
+카드
+
+
+          <form method="get" action="/openbank/cardList">
+        <%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+		<input type="hidden" name="access_token" value="${sessionScope.token }">
+		<input type="hidden" name="bank_tran_id" value="${cardList.bank_tran_id }">
+			<input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }">
+		<input type="hidden" name="bank_code_std" value="399">
+		<input type="hidden" name="member_bank_code" value="399">
+<!-- 		<input type="hidden" name="befor_inquiry_trace_info" value="V"> -->
+		<input type="submit" value="카드목록">
+     </form>
+     
+      <hr>
+     
+     <form action="/openbank/cardInfo" method="post">
+		<input type="hidden" name="access_token" value="${sessionScope.token }">
+	    <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }">
+			<input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }">
+		<input type="hidden" name="bank_code_std" value="399">
+		<input type="hidden" name="member_bank_code" value="399">
+		<input type="hidden" name="card_id" value="9191919112121212">
+		<input type="submit" value="카드기본정보조회">
+	</form>
+	
+	 <hr>
+	
+	<form method="get" action="/openbank/cardBills">
+        <%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+		<input type="hidden" name="access_token" value="${sessionScope.token }">
+		<input type="hidden" name="bank_tran_id" value="${cardBills.bank_tran_id }">
+			<input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }">
+		<input type="hidden" name="bank_code_std" value="399">
+		<input type="hidden" name="member_bank_code" value="399">
+		<input type="hidden" name="from_month" value="Y">
+		<input type="hidden" name="to_month" value="Y">
+		<input type="submit" value="카드청구조회">
+     </form>
+     
+      <hr>
+     
+     <form method="get" action="/openbank/cardDetailBills">
+        <%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+		<input type="hidden" name="access_token" value="${sessionScope.token }">
+		<input type="hidden" name="bank_tran_id" value="${cardDetailBills.bank_tran_id }">
+			<input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }">
+		<input type="hidden" name="bank_code_std" value="399">
+		<input type="hidden" name="member_bank_code" value="399">
+		<input type="hidden" name="charge_month" value="Y">
+		<input type="hidden" name="settlement_seq_no" value="Y">
+		<input type="submit" value="카드상세청구조회">
+     </form>
+     
+      <hr>
+     
+     <hr>
+
+
+
 	
 </div>
 
