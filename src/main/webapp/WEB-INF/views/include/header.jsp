@@ -36,7 +36,6 @@ input::-webkit-inner-spin-button {
 
 
   <!-- Template Main CSS File -->
-  <link href="${pageContext.request.contextPath}/resources/css/writeForm.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>

@@ -1,6 +1,5 @@
 package com.bora.controller;
 
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -119,7 +118,8 @@ public class MainController {
 	
 	// 홈페이지 자체 로그인
 	@RequestMapping(value = "/login", method = {RequestMethod.GET,})
-	public String loginGET(HttpServletRequest request, Model model, HttpSession session) throws Exception {
+	public String loginGET(HttpServletRequest request, Model model, 
+			HttpSession session) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡loginGET() 호출");
 		String serverUrl = request.getScheme()+"://"+request.getServerName();
 		if(request.getServerPort() != 80) {
@@ -140,10 +140,11 @@ public class MainController {
 	}
 	
 	// 카카오 로그인
-	@RequestMapping(value = "/kakaoCallback", method = { RequestMethod.GET, RequestMethod.POST })
-	public String callbackKakao(Model model, @RequestParam String code, @RequestParam String state, 
-			HttpSession session, RedirectAttributes rttr) 
-			throws Exception {
+	@RequestMapping(value = "/kakaoCallback", 
+			method = { RequestMethod.GET, RequestMethod.POST })
+	public String callbackKakao(Model model, @RequestParam String code, 
+			@RequestParam String state, HttpSession session, 
+			RedirectAttributes rttr) throws Exception {
 		System.out.println("로그인 성공 callbackKako");
 		OAuth2AccessToken oauthToken;
 		oauthToken = kakaoLoginBO.getAccessToken(session, code, state);	
@@ -185,7 +186,7 @@ public class MainController {
 			// 네이버 아이디로 이미 회원가입 한 경우
 			// 바로 로그인 하러 가기~
 			session.setAttribute("loginID", id);
-			rttr.addFlashAttribute("msg", nick+"님, 환영합니다♡");
+			rttr.addFlashAttribute("msg", "'"+nick+"'님, 환영합니다♡");
 			return "redirect:/main/main";
 		} 
 		// 네이버에서 사용하는 닉네임이 이미 DB에 존재할 경우
@@ -218,7 +219,8 @@ public class MainController {
 			session.setAttribute("loginID",id); //세션 생성
 			
 			rttr.addFlashAttribute("msg1", "'"+nick+"'님의 회원가입 완료!");
-			rttr.addFlashAttribute("msg2", "현재 임시 비밀번호 상태이니 마이페이지에서 반드시 비밀번호를 변경해주세요.");
+			rttr.addFlashAttribute("msg2", "현재 임시 비밀번호 상태이니 "
+					+ "마이페이지에서 반드시 비밀번호를 변경해주세요.");
 			log.info("어트리뷰트 생성 성공");
 			
 			return "redirect:/member/update";
@@ -276,7 +278,7 @@ public class MainController {
 			// 네이버 아이디로 이미 회원가입 한 경우
 			// 바로 로그인 하러 가기~
 			session.setAttribute("loginID", id);
-			rttr.addFlashAttribute("msg", nick+"님, 환영합니다♡");
+			rttr.addFlashAttribute("msg", "'"+nick+"'님, 환영합니다♡");
 			return "redirect:/main/main";
 		} 
 		// 네이버에서 사용하는 닉네임이 이미 DB에 존재할 경우
@@ -308,7 +310,7 @@ public class MainController {
 			//4.파싱 아이디 세션으로 저장
 			session.setAttribute("loginID",id); //세션 생성
 			
-			rttr.addFlashAttribute("msg1", nick+"님의 회원가입 완료!");
+			rttr.addFlashAttribute("msg1", "'"+nick+"'님의 회원가입 완료!");
 			rttr.addFlashAttribute("msg2", "현재 임시 비밀번호 상태이니 마이페이지에서 	반드시 비밀번호를 변경해주세요.");
 			
 			log.info("어트리뷰트 생성 완료");
@@ -345,7 +347,7 @@ public class MainController {
 		bookService.writeBook(book);
 		
 		session.setAttribute("loginID",member.getId()); //세션 생성
-		rttr.addFlashAttribute("msg", nick+"님, 환영합니다♡");
+		rttr.addFlashAttribute("msg", "'"+nick+"'님, 환영합니다♡");
 					
 		return"redirect:/main/main";
 	}
@@ -364,7 +366,7 @@ public class MainController {
 		if (vo2 != null) {
 			log.info("로그인 성공");
 			session.setAttribute("loginID", vo2.getId());
-			rttr.addFlashAttribute("msg", vo2.getNick() + "님, 환영합니다♡");
+			rttr.addFlashAttribute("msg", "'"+vo2.getNick() + "'님, 환영합니다♡");
 			return "redirect:/main/main";
 		} else {
 			log.info("로그인 실패");

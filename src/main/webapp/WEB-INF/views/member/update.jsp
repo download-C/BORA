@@ -8,6 +8,9 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
 
+  <!-- Template Main CSS File -->
+  <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+
 <%
 if(loginID==null) {%>
 <!-- 세션값(로그인) 확인 -->
@@ -47,7 +50,6 @@ function warning(message, message2) {
 }
 </script>
 
-
 <!-- 비밀번호 유효성 검사 -->
 <script type="text/javascript">
 // 비밀번호 유효성 검사
@@ -71,6 +73,7 @@ function checkpw() {
 	} 
 }
 </script>
+
 <!-- 비밀번호 변경 시 이전 비밀번호와 일치 여부 -->
 <script>
 // 비밀번호 유효성 검사 후 이전 비밀번호와 일치 여부 확인
@@ -92,6 +95,7 @@ function pwUpdateCheck() {
 	});
 }
 </script>
+
 <!-- 비밀번호 일치 여부 -->
 <script>
 function checkpw2() {
@@ -101,7 +105,7 @@ function checkpw2() {
 		$('#pw2').focus();
 		document.getElementById("pw2").value="";
  	} else {
- 		$('.pw2div').html('비밀번호가 일치합니다.');
+ 		$(".pw2div").html('비밀번호가 일치합니다.');
 		$('.pw2div').css('color','blue');
 		$('#pw2').focus();
  	}
@@ -115,7 +119,7 @@ const autoHyphen = (target) => {
 }
 </script>
 
-
+<!--  아이디 중복체크 후 회원가입 -->
 <script>
 $(document).ready(function(){	     
 // 아이디 중복 체크 했는지 확인하는 플래그
@@ -150,56 +154,67 @@ $(document).ready(function(){
 }); //document
 </script>
 
-	<div class="container">
-		<div id="content">
-			<form action="/member/update" method="post" id="update">
-				<!-- tg-text=title -->
-				<h2 class="">회원정보 수정</h2>
-				<div class="join_content">
-					<!-- 비밀번호 -->
-					<div class="join_pw">
-						<h6>비밀번호</h6>
-						<input type="password" id="pw" name="pw" class="" maxlength="16" 
-						placeholder="" required="required" onchange="pwUpdateCheck(), checkpw()"> <br>
-						<span class="pwdiv">&nbsp;</span>
-					</div>
-					<!-- 비밀번호 확인 -->
-					<div class="join_pw2">
-						<h6>비밀번호 확인</h6>
-						<input type="password" id="pw2" name="pw2" class="" maxlength="16" 
-						placeholder="" required="required" onchange="checkpw2()"> <br>
-						<span class="pw2div">&nbsp;</span>
-					</div>
-					<!-- 이름 -->
-					<div class="join_name">
-						<h6>이름</h6>
-						<input type="text" id="name" name="name" class="" value="${vo.name }"
-						placeholder="" readonly="readonly"> <br>
-					</div>
-					<!-- 닉네임 -->
-					<div class="join_nick">
-						<h6>닉네임</h6>
-						<input type="text" id="nick" name="nick" class="" value="${vo.nick }"
-						placeholder="" required="required"> <br>
-						<span class="nickdiv">&nbsp;</span>
-					</div>
-					<!-- 연락처 -->
-					<div class="join_phone">
-						<h6>연락처</h6>
-						<input type="text" id="phone" name="phone" class="" value="${vo.phone }" 
-						placeholder="- 없이 숫자만" required="required" maxlength="13"
-						oninput="autoHyphen(this)" autofocus> 
-					</div>
-					<!-- 이메일 -->
-					<div class="join_email">
-						<h6>이메일</h6>
-						<input type="text" id="email" name="email" class="" value="${vo.email }"
-						placeholder="" required="required"> <br>
-					</div>
+<div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto" style="width: 50%;">
+        <div class="card border-0 shadow rounded-3 my-5">
+          <div class="card-body p-4 p-sm-5" style="background-color:#F5EFFE;">
+						<h3 class="card-title text-center mb-5 fw-light fs-5"><b>회원정보 수정</b></h3>
+					 <form action="/member/update" method="post" id="update">
+						<!-- tg-text=title -->
+							<!-- 비밀번호 -->
+							<div class="join_pw form-floating mb-3">
+								<input type="password" id="pw" name="pw" maxlength="16" class="form-control"
+								placeholder="" required="required" onchange="pwUpdateCheck(), checkpw()"> 
+								<label for="floatingPassword">비밀번호</label>
+								<span class="pwdiv" style="font-size: small;">&nbsp;</span>
+							</div>
+							<!-- 비밀번호 확인 -->
+							<div class="join_pw2 form-floating mb-3" >
+								<input type="password" id="pw2" name="pw2" maxlength="16" class="form-control"
+								placeholder="" required="required" onchange="checkpw2()"> 
+								<label for="floatingPassword">비밀번호 확인</label>
+								<span class="pw2div" style="font-size: small;">&nbsp;</span>
+							</div>
+							<!-- 이름 -->
+							<div class="join_name form-floating mb-3" >
+								<input type="text" id="name" name="name" value="${vo.name }" class="form-control"
+								placeholder="" readonly="readonly"> 
+								<label for="floatingInput">이름</label>
+								<span class="namediv" style="font-size: small;">&nbsp;</span>
+							</div>
+							<!-- 닉네임 -->
+							<div class="join_nick form-floating mb-3" >
+								<input type="text" id="nick" name="nick"  value="${vo.nick }" class="form-control"
+								placeholder="" required="required"> 
+								<label for="floatingInput">닉네임</label>
+								<span class="nickdiv" style="font-size: small;">&nbsp;</span>
+							</div>
+							<!-- 연락처 -->
+							<div class="join_phone form-floating mb-3" >
+								<input type="text" id="phone" name="phone" value="${vo.phone }"  class="form-control"
+								placeholder="- 없이 숫자만" required="required" maxlength="13"
+								oninput="autoHyphen(this)" autofocus> 
+								<label for="floatingInput">연락처</label>
+								<span class="phonedeiv" style="font-size: small;">&nbsp;</span>
+							</div>
+							<!-- 이메일 -->
+							<div class="join_email form-floating mb-3">
+									<input type="text" id="email" name="email" value="${vo.email }" class="form-control"
+									placeholder="" required="required">
+								<label for="floatingInput">이메일</label>
+								<span class="emaildiv" style="font-size: small;">&nbsp;</span>
+							</div>
+						<hr class="my-4">
+              <div class="d-grid">
+                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit"
+                  style="background-color: #5107b0; border-color: #5107b0;">회원정보수정</button>
+              </div>
+					</form>
 				</div>
-				<input type="submit" value="수정하기">
-			</form>
+			</div>
 		</div>
 	</div>
+</div>
 
 <%@ include file="../include/footer.jsp"%>
