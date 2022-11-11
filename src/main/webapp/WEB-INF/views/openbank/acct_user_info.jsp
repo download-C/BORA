@@ -128,8 +128,8 @@
 			<input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }">
 		<input type="hidden" name="bank_code_std" value="399">
 		<input type="hidden" name="member_bank_code" value="399">
-		<input type="hidden" name="from_month" value="Y">
-		<input type="hidden" name="to_month" value="Y">
+		<input type="hidden" name="from_month" value="202210">
+		<input type="hidden" name="to_month" value="202211">
 		<input type="submit" value="카드청구조회">
      </form>
      
@@ -142,8 +142,8 @@
 			<input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }">
 		<input type="hidden" name="bank_code_std" value="399">
 		<input type="hidden" name="member_bank_code" value="399">
-		<input type="hidden" name="charge_month" value="Y">
-		<input type="hidden" name="settlement_seq_no" value="Y">
+		<input type="hidden" name="charge_month" value="202211">
+		<input type="hidden" name="settlement_seq_no" value="0001">
 		<input type="submit" value="카드상세청구조회">
      </form>
      
