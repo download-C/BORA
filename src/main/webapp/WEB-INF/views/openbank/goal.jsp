@@ -11,13 +11,21 @@
 //JSON.parse(sessionStorage.getItem(keyName));
 
 console.log(JSON.parse(sessionStorage.getItem('balObj'))); // 이러면 Object 형태로 잘 나옴
+console.log("balObj: " + JSON.parse(sessionStorage.getItem('balObj'))); // 이러면 Object 형태로 잘 나옴
 
 let balObj = JSON.parse(sessionStorage.getItem('balObj'));
 
 
-console.log(balObj[0].bal);
+console.log("1 bal: "+balObj[1].bal); // 못 읽네 ㄱ-
+console.log("0 bal: "+balObj[0].bal); 
 
+</script>
 
+<script>
+$(document).ready(function(){
+// 	alert('잘~~ 실행됩니다');
+
+}); // jquery ready
 </script>
 
 
@@ -34,32 +42,11 @@ console.log(balObj[0].bal);
 							<h5>나의BORA</h5>
 							<br>
 							<!-- 목표설정 -->
-							<script
-								src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+							<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+							<script src="${pageContext.request.contextPath}/resources/js/goalChart.js"></script>
 							<div>
 								<canvas id="myChart" width="300" height="300"></canvas>
 							</div>
-							<script>
-								const ctx = document.getElementById('myChart')
-										.getContext('2d');
-								const myChart = new Chart(ctx, {
-									type : 'bar',
-									data : {
-										labels : [ '내 목표 값', '내 자산' ],
-										datasets : [ {
-											label : '자산관리',
-											data : [ 5000, 100 ],
-											backgroundColor : [
-													'rgb(255, 99, 132)',
-													'rgb(54, 162, 235)' ]
-										} ]
-									},
-									options : {
-										responsive : false
-									}
-
-								});
-							</script>
 
 						</div>
 					</div>
@@ -77,10 +64,10 @@ console.log(balObj[0].bal);
 	<h2>목표금액 설정</h2><br>
 	<div class="form-floating mb-3" style="text-align: center">
 <!-- 	<div class="form-floating mb-3"> -->
-		<input type="radio" name="bk_iow" value="3,000만원" required="required" > 3,000만원
-		<input type="radio" name="bk_iow" value="5,000만원" required="required" > 5,000만원
-		<input type="radio" name="bk_iow" value="7,000만원" required="required" > 7,000만원
-		<input type="radio" name="bk_iow" value="10,000만원" required="required" > 10,000만원
+		<input type="radio" name="bk_iow" value="3000" required="required" checked="checked"> 3,000만원
+		<input type="radio" name="bk_iow" value="5000" required="required" > 5,000만원
+		<input type="radio" name="bk_iow" value="7000" required="required" > 7,000만원
+		<input type="radio" name="bk_iow" value="10000" required="required" > 1억!!
 	</div>
 	
 	<div class="form-floating mb-3"  id='datetimepicker1'  

@@ -7,7 +7,7 @@ const remainTime = document.getElementById("#remain-time");
 function diffDay() {
 // 	alert('돌아갑니다잉');
 	
-	const goalTime = new Date("2022-12-25");
+	const goalTime = new Date("2022-11-23");
 	const todayTime = new Date();
 	const diff = goalTime - todayTime;
 	
@@ -36,7 +36,7 @@ function diffDay() {
 	// innerText로 추가
  	//remainTime.innerText = '${diffDay}일 ${diffHour}시간 ${diffMin}분 ${diffSec}초';
 // 	remainTime.innerText = diffDay + '일 ' + diffHour + '시간 ' + diffMin + '분 ' + diffSec + '초';
-	$('#remain-time').html(diffDay + '일 ' + diffHour + '시간 ' + diffMin + '분 ' + diffSec + '초');
+	$('#remain-time').html(diffDay + '일.. ' + diffHour + '시간.. ' + diffMin + '분.. ' + diffSec + '초.. 남았습니다....');
 	
 	
 } // diffDay()

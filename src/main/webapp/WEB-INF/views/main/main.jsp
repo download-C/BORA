@@ -62,6 +62,13 @@ $(document).ready(function(){
 </script>
 <!-- 뉴스끝 -->
 
+<!-- 디데이 테서터 중 -->
+<script src="${pageContext.request.contextPath}/resources/js/dDay.js"></script>
+<h2>🎉🎉수료날까지~~~ </h2>
+<h3><div id="remain-time"></div></h3>
+<hr>
+<!-- 디데이 구간 끝 -->
+
 <h3><a href='/main/NoticeListPage'>공지사항 목록</a></h3> <br>
 <h3><a href='/board/list?page=1'>커뮤니티 목록</a></h3> <br>
 <a href='/calendar/sample'>달력 샘플</a> <br>
@@ -111,9 +118,5 @@ const myChart = new Chart(ctx, {
 <!-- 뉴스 뜨는 공간 -->
 <div id="newsDiv"></div>
 
-<!-- 디데이 테서터 중 -->
-<h2>🎉🎉크리스마스~~~ </h2>
-<h3><div id="remain-time"></div></h3>
-<script src="${pageContext.request.contextPath}/resources/js/dDay.js"></script>
 
 <%@ include file="../include/footer.jsp"%>
