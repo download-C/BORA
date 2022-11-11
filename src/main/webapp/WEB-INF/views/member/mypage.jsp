@@ -58,7 +58,7 @@ $(document).ready(function() {
                   style="background-color: #5107b0; border-color: #5107b0" onclick="location.href='/member/update';">수정하기</button>
 						</div>
 				</div>
-						<div class="container" align="right" style="color: #e3d8f2; margin: 5px; font-size: x-small;"
+						<div class="container" align="right" style="color: #d4c6eb; margin: 5px; font-size: x-small;"
 						 	onclick="location.href='/member/delete';"> 
                 <span>회원탈퇴 ></span>
             </div>
