@@ -3,100 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="com.bora.mapper.CardPayMapper">
-<resultMap type="com.bora.domain.report.BookDetailVO" id="detail">
-
-		<result property="bk_detail_num" column="bk_detail_num"/>
-		<result property="bk_num" column="bk_num"/>
-		<result property="id" column="id"/>
-		<result property="bk_day" column="bk_day"/>
-		<result property="bk_iow" column="bk_iow"/>
-		<result property="bk_group" column="bk_group"/>
-		<result property="bk_category" column="bk_category"/>
-		<result property="bk_money" column="bk_money"/>
-		<result property="bk_memo" column="bk_memo"/>
-		<result property="bk_sum" column="bk_sum"/>
-		
-		<collection property="book" resultMap="book" />
-	</resultMap>
-	
-	<resultMap type="com.bora.domain.report.BookVO" id="book">
-		<id property="bk_num" column="bk_num" />
-		<id property="id" column="id" />
-		<id property="bk_year" column="bk_year" />
-		<id property="bk_month" column="bk_month" />
-		<id property="bk_budget" column="bk_budget" />
-	</resultMap>		
-
-<!--                       mapper                                  -->
-
-	<select id='bookCardListAjax'
-		resultType='com.bora.domain.CardPayVO'>
-		select * from bora_card_pay order by cpay_date
-	</select>
-
-	<select id='bookList' resultType='CardPayVO'>
-		select * from bora_card_pay
-		order by cpay_date
-	</select>
-
-
-	<!-- 소비 top3 매장명 나오는 버전 -->
-	<select id='top3Store' resultType='BookDetailVO'>
-
-<!-- 	select bk_day, bk_memo, bk_money
-		from bora_book_detail
-		where id = #{loginID} and
-		bk_iow = '지출'
-		group by bk_day
-		order by sum(bk_money) desc limit 3; -->
-
-<!-- 	  select d.bk_memo, d.bk_money 
-	  from bora_book_detail d join bora_book b 
-	  on d.bk_num = b.bk_num 
-	  where d.id = #{loginID} and d.bk_iow = '지출' 
-	  and b.bk_year= extract(year from sysdate()) and b.bk_month= extract(month from sysdate()) 
-	  group by d.bk_memo
-	  order by d.bk_money desc limit 3;  -->
-	  
-	  select d.bk_memo, d.bk_money 
-	  from bora_book_detail d join bora_book b 
-	  on d.bk_num = b.bk_num 
-	  where d.id = #{loginID} and d.bk_iow = '지출' 
-	  and b.bk_year= #{year} and b.bk_month= #{month}
-	  group by d.bk_memo
-	  order by d.bk_money desc limit 3;  
-
-	</select>
-
-	<!-- 소비 top3 날짜 나오는 버전 -->
-	<select id='top3date' resultType='BookDetailVO'>
-<!-- 		select d.bk_day, sum(d.bk_money) as bk_sum
-	    from bora_book_detail d join bora_book b 
-	    on d.bk_num = b.bk_num 
-		where d.id = #{loginID} and d.bk_iow = '지출' 
-	    and b.bk_year= extract(year from sysdate()) and b.bk_month= extract(month from sysdate()) 
-	    group by d.bk_day
-	    order by bk_sum desc limit 3;  -->
-	    
-		select d.bk_day, sum(d.bk_money) as bk_sum
-	    from bora_book_detail d join bora_book b 
-	    on d.bk_num = b.bk_num 
-		where d.id = #{loginID} and d.bk_iow = '지출' 
-	    and b.bk_year= #{year} and b.bk_month= #{month}
-	    group by d.bk_day
-	    order by bk_sum desc limit 3; 
-	    
-	</select>
-
-	<!-- 소비 카테고리 1위 태그 -->
-	<select id='consumeTag' resultType='BookDetailVO'>
-		select bk_category, sum(bk_money) as bk_sum
-		from bora_book_detail
-		where id = #{loginID} and bk_iow = '지출'
-		group by bk_category
-		order by bk_sum desc limit 1;
-	</select>
 
 
 
+   <select id='bookCardListAjax'
+      resultType='com.bora.domain.CardPayVO'>
+      select * from bora_card_pay order by cpay_date
+   </select>
+
+   <select id='bookList' resultType='CardPayVO'>
+      select * from bora_card_pay
+      order by cpay_date
+   </select>
 </mapper>
