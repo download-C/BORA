@@ -48,15 +48,13 @@ BORA 자산관리에서는 오픈뱅킹의 인증 페이지에서 본인 인증 
         <input type="hidden" name="response_type" value="code">
         <input type="hidden" name="client_id" value="2ce89526-eccf-45b0-a59f-1ca10bc64b30">
         <input type="hidden" name="redirect_uri" value="http://localhost:8088/openbank/callback">
-<input type="hidden" name="scope" value="login inquiry transfer cardinfo fintechinfo">
-
-<!-- <input type="hidden" name="scope" value="cardinfo"> -->
-<input type="hidden" name="state" value="12345678123456781234567812345678">
-<input type="hidden" name="auth_type" value="0">
-<!-- <input type="hidden" value="register_info" value="C"> -->
-
-<input type="submit" value="토큰발급">
-</form>
+        <input type="hidden" name="scope" value="login inquiry transfer cardinfo fintechinfo">
+      <!-- <input type="hidden" name="scope" value="cardinfo"> -->
+        <input type="hidden" name="state" value="12345678123456781234567812345678">
+        <input type="hidden" name="auth_type" value="0">
+        <!-- <input type="hidden" value="register_info" value="C"> -->
+        <input type="submit" value="오픈뱅킹 사용자 인증">
+    </form>
    
    
 	<h1>😉사용자정보조회😉</h1>
