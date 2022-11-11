@@ -6,6 +6,8 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+<!-- Template Main CSS File -->
+<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
 <!-- 이메일 인증 -->
 <script type="text/javascript">
 </script>
@@ -129,8 +131,8 @@ $(document).ready(function(){
   <div class="container">
     <div class="row">
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto" style="width: 50%;">
-        <div class="card border-0 shadow rounded-3 my-5">
-          <div class="card-body p-4 p-sm-5" style="background-color:#F5EFFE;">
+        <div class="card border-0 shadow rounded-3 my-5" style="background-color:#F5EFFE; border-color: #F5EFFE;">
+          <div class="card-body p-4 p-sm-5" >
             <h5 class="card-title text-center mb-5 fw-light fs-5"><b>회원가입</b></h5>
             <form action="/main/join" method="post" id="join">
               <div class="form-floating mb-3" >
