@@ -62,12 +62,6 @@ $(document).ready(function(){
 </script>
 <!-- 뉴스끝 -->
 
-<!-- 디데이 테서터 중 -->
-<script src="${pageContext.request.contextPath}/resources/js/dDay.js"></script>
-<h2>🎉🎉수료날까지~~~ </h2>
-<h3><div id="remain-time"></div></h3>
-<hr>
-<!-- 디데이 구간 끝 -->
 
 <h3><a href='/main/NoticeListPage'>공지사항 목록</a></h3> <br>
 <h3><a href='/board/list?page=1'>커뮤니티 목록</a></h3> <br>

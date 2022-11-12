@@ -21,7 +21,7 @@ let balSum = 0;
 for (let i = 0; i < balArrUnique.length; i++){
 	balSum += balArrUnique[i].bal
 }
-console.log('balSum: ' + balSum);
+console.log('(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ balSum: ' + balSum);
 
 
 
@@ -29,15 +29,22 @@ console.log('balSum: ' + balSum);
 $(document).ready(function() {
 	let goal = 3000; // 기본 목푯값은 3000으로
 	let curr = balSum; // 현재 내 자산 총액
+//	let gap;
 	getMyChart(goal, curr);
 
 	// 목표 금액 라디오 버튼 change될 때마다
 	$('input[name="bk_iow"]').change(function() {
 		goal = $(':radio[name="bk_iow"]:checked').val();
-		console.log("@@@@@@@@@@클릭된 goal " + goal);
+		console.log("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ 클릭된 goal: " + goal);
+		
+		gap = goal - curr; // 목표금액 - 현재 자산 간의 gap
+		$('#gapMoneySpan').html(gap);
+		console.log('(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ gap: ' + gap);
+		
 		getMyChart(goal, curr); // 차트 생성 함수 호출
+	
 	});// change
-
+	
 }); // jquery ready
 
 
@@ -72,9 +79,3 @@ function getMyChart(goal, curr) {
 
 } // getMyChart()
 
-
-
-// 특정 구간만 새로고침 함수
-function reloadDivArea() {
-	$('#container').load(location.href + ' #container');
-}
