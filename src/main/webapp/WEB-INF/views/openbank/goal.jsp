@@ -40,10 +40,10 @@
 	<h2>목표금액 설정</h2><br>
 	<div class="form-floating mb-3" style="text-align: center">
 <!-- 	<div class="form-floating mb-3"> -->
-		<input type="radio" name="bk_iow" value="3000" required="required" checked="checked"> 3,000만원
-		<input type="radio" name="bk_iow" value="5000" required="required" > 5,000만원
-		<input type="radio" name="bk_iow" value="7000" required="required" > 7,000만원
-		<input type="radio" name="bk_iow" value="10000" required="required" > 1억!!
+		<input type="radio" name="bk_iow" value="3000" required="required" checked="checked" id="radio1"> <label for="radio1">3,000만원</label>
+		<input type="radio" name="bk_iow" value="5000" required="required" id="radio2">  <label for="radio2">5,000만원 </label>
+		<input type="radio" name="bk_iow" value="7000" required="required" id="radio3">  <label for="radio3">7,000만원 </label>
+		<input type="radio" name="bk_iow" value="10000" required="required" id="radio4"> <label for="radio4">1억!! </label>
 	</div>
 	
 	<div class="form-floating mb-3"  id='datetimepicker1'  
