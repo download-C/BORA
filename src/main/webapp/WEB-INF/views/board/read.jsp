@@ -260,7 +260,14 @@ $(document).ready(function(){
 					<h2 class="fw-bolder mb-1"> <span style="font-size: medium;">[ ${vo.b_ctgr} ]</span> ${vo.b_title }</h2>
 					<!-- Post meta content-->
 					<div class="text-muted fst-italic mb-2">
-						<b>작성일시: </b>  ${vo.b_regdate } &nbsp;&nbsp;&nbsp; <b>작성자: </b> ${vo.nick }</div>
+						<b>작성일시: </b> 						
+						<c:choose>
+							<c:when test="${vo.b_updatedate eq null }"> ${vo.b_regdate } </c:when>
+							<c:otherwise>${vo.b_updatedate }</c:otherwise>
+						</c:choose> &nbsp;&nbsp;&nbsp; 
+						<b>작성자: </b> ${vo.nick }</div>
+						
+						
 				</header>
 				<!-- Preview image figure-->
 				<figure class="mb-4">

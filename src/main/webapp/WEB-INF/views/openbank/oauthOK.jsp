@@ -114,5 +114,13 @@ BORA 자산관리에서는 오픈뱅킹의 인증 페이지에서 본인 인증 
 	
 </div>	
 
+<script>
+// 목돈 모으기 페이지를 위한 빌드업,,, 
+// 계좌 잔액 담을 배열 여기서 생성해놓기 + localStorage에 저장
+let balArr = new Array();
+balArr = [{name:'default', bal:0}];
+localStorage.setItem('balArr', JSON.stringify(balArr));
+console.log(balArr);
+</script>
      
 <%@ include file="../include/footer.jsp"%>

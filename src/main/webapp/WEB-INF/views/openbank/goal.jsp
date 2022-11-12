@@ -6,30 +6,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <h1>목돈 모으기 </h1>
 
-<script>
-//keyName 이름의 String 을 가져와 JSON 형태로 다시 Parse 진행
-//JSON.parse(sessionStorage.getItem(keyName));
-
-console.log(JSON.parse(sessionStorage.getItem('balObj'))); // 이러면 Object 형태로 잘 나옴
-console.log("balObj: " + JSON.parse(sessionStorage.getItem('balObj'))); // 이러면 Object 형태로 잘 나옴
-
-let balObj = JSON.parse(sessionStorage.getItem('balObj'));
-
-
-console.log("1 bal: "+balObj[1].bal); // 못 읽네 ㄱ-
-console.log("0 bal: "+balObj[0].bal); 
-
-</script>
-
-<script>
-$(document).ready(function(){
-// 	alert('잘~~ 실행됩니다');
-
-}); // jquery ready
-</script>
-
-
-
 <div class="container">
 	<div class="box" style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
 	<!-- bar 차트 구역 -->

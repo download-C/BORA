@@ -75,7 +75,7 @@
 	<!-- 4-1. 글 수정 ====================================== -->
 	<update id="updateBoard">
 		update bora_cmnt_board
-		set b_title = #{b_title}, b_content = #{b_content}, b_file = #{b_file}
+		set b_title = #{b_title}, b_content = #{b_content}, b_file = #{b_file}, b_updatedate = now()
 		where bno = #{bno}
 <!-- 		and id = #{id} -->
 	</update>
@@ -95,6 +95,10 @@
 		from bora_members
 		where id=#{id}		
 	</select>
+	
+	
+	<!-- 글 옆에 댓글 개수 나타내기 =============================== -->
+	
 	
 	
 </mapper>

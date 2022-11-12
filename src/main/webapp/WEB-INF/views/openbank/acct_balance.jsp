@@ -33,25 +33,24 @@
 	
 
 <script>
-// 계좌 잔액 세션값에 저장
-let bal = "<c:out value='${accountBalance.balance_amt }' />";
+// localStorage에 저장해놨던 balArr 끄집어내서
+//  --> 은행 별로 name, bal로 balArr 배열에 저장
+// let bal = "<c:out value='${accountBalance.balance_amt }' />";
 
-let balObj = {"bal":1000}
+balArr = JSON.parse(localStorage.getItem('balArr') || '[]'); // [] 이건 왜 하는거? ㄱ- 
+console.log(balArr);
 
-// local? session??
-sessionStorage.setItem('balObj', JSON.stringify(balObj));
-console.log(balObj);
+//임의로 값 넣어서 테스트 완,, 
+// name에는 상품명, bal에는 계좌잔액 EL 표현식 저거 넣기
+balArr.push({name:'bora', bal:4000});        
+console.log('(test) bora통장 --> 4000 넣었음');
+localStorage.setItem('balArr', JSON.stringify(balArr)); // 새 요소 추가했으니,, balArr 업뎃시키기 
 
-//keyName 이라는 이름의 key 에 objectData 이름의 객체 데이터를 세션에 저장
-// sessionStorage.setItem(keyName, JSON.stringify(objectData));
+balArr.push({name:'123', bal:2000});
+console.log('123통장 --> 2000 넣었음');
+localStorage.setItem('balArr', JSON.stringify(balArr)); 
 
-
-</script>	
-	
-	
-	
-	
-	
-
+console.log(balArr);
+</script>
 
 <%@ include file="../include/footer.jsp"%>
