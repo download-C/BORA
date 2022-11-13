@@ -152,10 +152,22 @@ public class BoardServiceImpl implements BoardService {
 	// 6. id -> nick
 	@Override
 	public String getNick(String id) throws Exception {
-		log.info("(♥♥♥♥♥ 5.getNick) 호출됨");
-		log.info("(♥♥♥♥♥ 5.getNick) 넘길 id: " + id + " / dao 호출할거^^");
+		log.info("(♥♥♥♥♥ 6.getNick) 호출됨");
+		log.info("(♥♥♥♥♥ 6.getNick) 넘길 id: " + id + " / dao 호출할거^^");
 		return dao.getNick(id);
 	}
 	// 6. id -> nick 끝
 	
-}
+	
+	
+	// 7. main에 띄울 최신글 5개 목록 불러오기
+	@Override
+	public List<BoardVO> getList5() throws Exception {
+		log.info("(♥♥♥♥♥ 7.getList5) 호출됨");
+		return dao.getList5();
+	}
+	// 7. main에 띄울 최신글 5개 목록 불러오기 끝
+	
+	
+	
+} // class BoardServiceImpl

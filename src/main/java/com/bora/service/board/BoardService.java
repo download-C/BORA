@@ -38,5 +38,8 @@ public interface BoardService {
 	
 	// 6. id -> nick
 	public String getNick(String id) throws Exception;
+	
+	// 7. main에 띄울 최신글 5개 목록 불러오기
+	public List<BoardVO> getList5() throws Exception;
 
 } // class BoardService

@@ -207,14 +207,23 @@ public class BoardDAOImpl implements BoardDAO {
 	// 6. id -> 닉네임 끌고 오기
 	@Override
 	public String getNick(String id) throws Exception {
-		log.info("(♥♥♥♥♥ 5.getNick) 호출됨 / 전달받은 id: " + id);
+		log.info("(♥♥♥♥♥ 6.getNick) 호출됨 / 전달받은 id: " + id);
 		
-		log.info("(♥♥♥♥♥ 5.getNick) mapper 갔다가 -> service로 바로 리턴");
+		log.info("(♥♥♥♥♥ 6.getNick) mapper 갔다가 -> service로 바로 리턴");
 		
 		return sqlSession.selectOne(NAMESPACE+".getNick", id);
 	}
 	// 6. id -> 닉네임 끌고 오기 끝
-
+	
+	
+	
+	// 7. main에 띄울 최신글 5개 목록 불러오기
+	@Override
+	public List<BoardVO> getList5() throws Exception {
+		log.info("(♥♥♥♥♥ 7.getList5) 호출됨");
+		return sqlSession.selectList(NAMESPACE+".getList5");
+	}
+	// 7. main에 띄울 최신글 5개 목록 불러오기 끝
 	
 	
 	
