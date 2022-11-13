@@ -136,7 +136,6 @@ public class BookController {
 		
 		// 해당 연월의 예산 가져오기
 		
-		
 		log.info(year+"년 "+month+"달 가계부 불러오기");
 		List<BookDetailVO> detailList = new ArrayList<BookDetailVO>();
 		detailList = dService.getMonthBookDetailList(year, month, loginID, pm);
@@ -145,8 +144,36 @@ public class BookController {
 			model.addAttribute("detailList", detailList);
 			model.addAttribute("year", year);
 			model.addAttribute("month", month);
+			
+			// 해당 달의 예산
 			int bk_budget = service.getMonthBudget(loginID, year, month); 
+			log.info("한달 예산: "+bk_budget+"만원");
 			model.addAttribute("bk_budget", bk_budget);
+			
+			// 해당 달의 지출 합계
+			int sum = service.getMonthBookMoney(loginID, year, month);
+			log.info("한 달 지출: "+sum+"원");
+			model.addAttribute("sum", sum);
+			
+			// 해당 달의 남은 예산(예산이 만원 단위이기 때문에 계산하기 전 10000을 곱해줘야 함)
+			int restedBudget = (bk_budget*10000)-sum;
+			log.info("한 달 예산 중 남은 금액: "+restedBudget+"원");
+			int restedBudget1 = ((bk_budget*10000)-sum)/10000;
+			int restedBudget2 = (bk_budget*10000-sum)-(restedBudget1*10000);
+			log.info("남은 예산: "+restedBudget1+"만");
+			log.info(restedBudget2+"원");
+			
+			// 해당 달의 예산 대비 지출 퍼센트
+			double moneyPercent = ((sum/(double)(bk_budget*10000))*100);
+			double percent= Math.round(moneyPercent*1000)/1000;
+			log.info("한 달 예산 대비 지출 퍼센트 :"+percent+"%");
+			model.addAttribute("percent", percent);
+			if(moneyPercent > 70) {
+				model.addAttribute("restedBudget1", restedBudget1);
+				model.addAttribute("restedBudget2", restedBudget2);
+			}
+			
+			
 			rttr.addFlashAttribute("msg", year+"년 "+month+"월 가계부를 불러옵니다.");
 			return "/book/bookList";
 		} else {

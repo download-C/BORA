@@ -53,40 +53,36 @@ $(document).ready(function() {
 <!-- 태그 적는 곳 -->
 
 
-<h1>${vo.nno }번 글 🐱🐶 상세 보기 🐱🐶 </h1>
-
-		<!-- 수정, 삭제 시 필요한 글 번호(nno) 저장하는 폼태그 =====================-->
-		<form role="nno_form" method="post">
-			<input type="hidden" name="nno" value="${vo.nno }">
-		</form>
-		<!-- 수정, 삭제 시 필요한 글 번호(nno) 저장하는 폼태그 껏 =====================-->
-
-	<div class="container">
-		<div>
-			<div>글번호</div><div>${vo.nno }</div>
-			<div>조회수</div>
-			<div>${vo.n_readcount }</div>	
-		</div>
-		<div>
-			<div>작성일</div>
-			<div><fmt:formatDate value="${vo.n_regdate }" pattern="yyyy.MM.dd HH:mm"/></div>
-		</div>
-		<br>
-		<div>제목<div>${vo.n_title }</div>
-		</div>
-		<br>
-		<div>내용<div>${vo.n_content }</div>
-		<br>
-		<img src="${pageContext.request.contextPath}/resources/upload/${vo.n_file}"></div>
-		<br>
-		<div>
-		<%if(loginID!=null){if(loginID.equals("admin")) {%>
-			<input type="button" value="수정" class="btn_update">
-			<input type="button" value="삭제" class="btn_delete">
-		<%} }%>
-			<input type="button" value="목록" class="btn_list">
-		</div>
-	</div>
+<div class="container mt-5 ">
+  <div class="row" style="justify-content: center; align-items: center;">
+    <div class="col-lg-8">
+			<!-- 수정, 삭제 시 필요한 글 번호(nno) 저장하는 폼태그 껏 =====================-->
+		  <form role="nno_form" method="post">
+				<input type="hidden" name="nno" value="${vo.nno }">
+			</form>
+      <!-- Post content-->
+      <article>
+        <!-- Post header-->
+        <header class="mb-4">
+          <!-- Post title-->
+          <h1 class="fw-bolder mb-1">${vo.n_title }</h1>
+           <!-- Post meta content-->
+          <div class="text-muted fst-italic mb-2"><b>작성일시:</b> <fmt:formatDate value="${vo.n_regdate }" pattern="yyyy.MM.dd HH:mm"/>
+         			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>작성자:</b> 관리자</div>
+				</header>
+				<hr>
+		  <figure class="mb-4" style="text-align: center">
+			  <img src="${pageContext.request.contextPath}/resources/upload/${vo.n_file}" alt="${vo.n_file }"/>
+		  </figure>
+		  <section class="mb-5"><p class="fs-5 mb-4">${vo.n_content }</p></section>
+	  </article>
+	  </div>
+  </div>
+	<%if(loginID!=null){if(loginID.equals("admin")) {%>
+		<button class="btn_update" style="border: none; margin: 2px; background-color: #5107B0; color: white; border-radius: 5px;">수정</button>
+    <button class="btn_delete" style="border: none;margin: 2px; background-color: #5107B0; color: white; border-radius: 5px;">삭제</button>
+  <%} }%>
+	<button style="border: none;margin: 2px; background-color: #5107B0; color: white; border-radius: 5px;" class="btn_list">목록</button></div>
 
 
 

@@ -67,7 +67,7 @@ public class NoticeController {
 			// 파일 확장자
 			String fileExtension = ofileName.substring(ofileName.lastIndexOf("."),ofileName.length());
 			// 저장 위치
-			String uploadFolder = "C:\\Users\\ITWILL\\git\\BORA\\src\\main\\webapp\\resources\\upload";
+			String uploadFolder = "C:\\Users\\USER\\git\\BORA\\src\\main\\webapp\\resources\\upload";
 			
 			log.info("원래 파일명: "+ofileName);
 			// 업로드될 파일 이름들 저장

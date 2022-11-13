@@ -37,7 +37,9 @@ public interface BookDAO {
 			int year, int month) throws Exception;
 
 	public int updateMonthBudget(String loginID, Integer year, 
-			Integer month, Integer bk_budget) throws Exception; 
-	
+			Integer month, Integer bk_budget) throws Exception;
 
+	public int getMonthBookMoney(String loginID, int year, int month) throws Exception; 
+	
+	
 }
