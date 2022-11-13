@@ -319,8 +319,8 @@ public class AjaxController {
 	// 목돈 모으기 페이지에서 넘어온 데이터들 처리
 //	@ResponseBody 
 	@RequestMapping(value = "/ajax/moa", method = RequestMethod.GET)
-	public Map<String, Object> moaCalc(@RequestParam("gapMoney") Integer gapMoney,
-										@RequestParam("gapDate") Integer gapDate) throws Exception {
+	public Map<String, Object> moaCalc(@RequestParam("gapMoney") Double gapMoney,
+										@RequestParam("gapDate") Double gapDate) throws Exception {
 		log.info("(●'◡'●) moaCalc 호출됨");
 		log.info("(●'◡'●) moaCalc  gapMoney: " + gapMoney + " / gapDate: " + gapDate);
 		
@@ -330,12 +330,12 @@ public class AjaxController {
 		double moaOneMonth = gapMoney / (gapDate/30.0);
 		log.info("(●'◡'●) moaCalc  한 달에 모아야 할 돈: " + moaOneMonth + "만원");
 		double moaOneYear = gapMoney / (gapDate/365.0);
-		log.info("(●'◡'●) moaCalc  일 년에 모아야 할 돈: " + moaOneYear + "만원??? 아닌데");
+		log.info("(●'◡'●) moaCalc  일 년에 모아야 할 돈: " + moaOneYear + "만원");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("moaOneDay", moaOneDay);
-		map.put("moaOneMonth", moaOneMonth);
-		map.put("moaOneYear", moaOneYear);
+		map.put("moaOneDay", String.format("%.2f", moaOneDay));
+		map.put("moaOneMonth", String.format("%.2f", moaOneMonth));
+		map.put("moaOneYear", String.format("%.2f", moaOneYear));
 		log.info("(●'◡'●) moaCalc  다 담고 나서 map: " + map);
 		
 		return map;
