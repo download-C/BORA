@@ -1,11 +1,9 @@
 package com.bora.domain.openbank.card;
 
-import java.util.List;
-
 import lombok.Data;
 
 @Data
-public class CardListResponseVO {
+public class CardInfoResponseVO {
 	private String api_tran_id; // 거래고유번호(API)
 	private String api_tran_dtm; // 거래일시(밀리세컨드)
 	private String rsp_code; //응답코드(API)
@@ -15,18 +13,18 @@ public class CardListResponseVO {
 	private String bank_code_tran; // 응답코드를 부여한 참가기관 표준 코드
 	private String bank_rsp_code; // 응답코드(참가기관)
 	private String bank_rsp_message; // 응답메시지(참가기관)
-	private String user_seq_no; // 사용자일련번호
-	private String next_page_yn; // 다음페이지 존재여부
-	private String befor_inquiry_trace_info; // 직전조회추척정보
-	private String card_cnt; // 현재 페이지 조회 건수
-	private List<CardVO> card_list; // 카드목록
+	private String card_type; // 카드 구분
+	private String settlement_bank_code; // 결제은행 대표코드
+	private String settlement_account_num; // 결제 계좌번호
+	private String settlement_account_num_masked; // 마스킹된 출력용 결제 계좌번호
+	private String issue_date; // 발급일자
 	
-	public CardListResponseVO() {}
+	public CardInfoResponseVO() {}
 	
-	public CardListResponseVO(String api_tran_id, String api_tran_dtm, String rsp_code, String rsp_message,
+	public CardInfoResponseVO(String api_tran_id, String api_tran_dtm, String rsp_code, String rsp_message,
 			String bank_tran_id, String bank_tran_date, String bank_code_tran, String bank_rsp_code,
-			String bank_rsp_message, String user_seq_no, String next_page_yn, String befor_inquiry_trace_info,
-			String card_cnt, List<CardVO> card_list) {
+			String bank_rsp_message, String card_type, String settlement_bank_code, String settlement_account_num,
+			String settlement_account_num_masked, String issue_date) {
 		super();
 		this.api_tran_id = api_tran_id;
 		this.api_tran_dtm = api_tran_dtm;
@@ -37,22 +35,24 @@ public class CardListResponseVO {
 		this.bank_code_tran = bank_code_tran;
 		this.bank_rsp_code = bank_rsp_code;
 		this.bank_rsp_message = bank_rsp_message;
-		this.user_seq_no = user_seq_no;
-		this.next_page_yn = next_page_yn;
-		this.befor_inquiry_trace_info = befor_inquiry_trace_info;
-		this.card_cnt = card_cnt;
-		this.card_list = card_list;
+		this.card_type = card_type;
+		this.settlement_bank_code = settlement_bank_code;
+		this.settlement_account_num = settlement_account_num;
+		this.settlement_account_num_masked = settlement_account_num_masked;
+		this.issue_date = issue_date;
 	}
-
 	@Override
 	public String toString() {
-		return "CardListResponseVO [api_tran_id=" + api_tran_id + ", api_tran_dtm=" + api_tran_dtm + ", rsp_code="
+		return "CardInfoResponseVO [api_tran_id=" + api_tran_id + ", api_tran_dtm=" + api_tran_dtm + ", rsp_code="
 				+ rsp_code + ", rsp_message=" + rsp_message + ", bank_tran_id=" + bank_tran_id + ", bank_tran_date="
 				+ bank_tran_date + ", bank_code_tran=" + bank_code_tran + ", bank_rsp_code=" + bank_rsp_code
-				+ ", bank_rsp_message=" + bank_rsp_message + ", user_seq_no=" + user_seq_no + ", next_page_yn="
-				+ next_page_yn + ", befor_inquiry_trace_info=" + befor_inquiry_trace_info + ", card_cnt=" + card_cnt
-				+ ", card_list=" + card_list + "]";
+				+ ", bank_rsp_message=" + bank_rsp_message + ", card_type=" + card_type + ", settlement_bank_code="
+				+ settlement_bank_code + ", settlement_account_num=" + settlement_account_num
+				+ ", settlement_account_num_masked=" + settlement_account_num_masked + ", issue_date=" + issue_date
+				+ "]";
 	}
 	
-    
+	
+	
+
 }

@@ -185,7 +185,7 @@ public class MainController {
 			// 네이버 아이디로 이미 회원가입 한 경우
 			// 바로 로그인 하러 가기~
 			session.setAttribute("loginID", id);
-			rttr.addFlashAttribute("msg", "'"+nick+"'님, 환영합니다♡");
+			rttr.addFlashAttribute("msg", "'"+nick+"'님, 환영합니다💜");
 			return "redirect:/main/main";
 		} 
 		// 네이버에서 사용하는 닉네임이 이미 DB에 존재할 경우

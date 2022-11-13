@@ -6,7 +6,6 @@
 
 
 
-<h1>자산관리 사용자 인증 페이지 openbank/oauthOK.jsp</h1>
 
 <%-- <h2>세션 토큰 : ${sessionScope.token }</h2> --%>
 <!-- <hr> -->
@@ -18,42 +17,90 @@
 <%-- <h4>scope : ${responseToken.scope }</h4> --%>
 
 
+  <!-- title -->
+  <div class="section-title">
+    <h2><b>자산관리</b></h2><br><br>
+    <img src="${pageContext.request.contextPath}/resources/img/openbank.png" class="img-fluid">
+
+  </div><br>
+
 <div class="container">
 
-<hr>
-<h1>BORA 자산관리 시작</h1>
-<br>
 
-<h3>자산관리 첫 페이지 설명 </h3>
-<span>BORA 자산관리에서 나의 모든 자산을 편리하게 조회하세요<br>
-오픈뱅킹은 핀테크 기업과 은행권이 공동으로 이용할 수 있는 공동결제시스템으로,
-BORA 자산관리에서는 오픈뱅킹의 인증 페이지에서 본인 인증 및 조회/출금동의를 완료하면
-나의 모든 자산을 조회할 수 있는 오픈뱅킹 서비스를 제공하고 있습니다. 
-</span><br>
-
-<hr>
-	오픈뱅킹 사용자 인증 하러 가기
-	<!-- 인증 요청 작업 수행 -->
-	<form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get">
-		<input type="hidden" name="response_type" value="code"> 
-		<input type="hidden" name="client_id" value="2ce89526-eccf-45b0-a59f-1ca10bc64b30"> 
-		<input type="hidden" name="redirect_uri" value="http://localhost:8088/openbank/callback"> 
-		<input type="hidden" name="scope" value="login inquiry transfer cardinfo fintechinfo">
-		<input type="hidden" name="state" value="12345678123456781234567812345678">
-		<input type="hidden" name="auth_type" value="0"> 
-		<input type="submit" value="오픈뱅킹 사용자 인증" id="btn">
-	</form>
+<!-- <hr> -->
+<!-- 	오픈뱅킹 사용자 인증 하러 가기 -->
+<!-- 	<!-- 인증 요청 작업 수행 -->
+<!-- 	<form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get"> -->
+<!-- 		<input type="hidden" name="response_type" value="code">  -->
+<!-- 		<input type="hidden" name="client_id" value="2ce89526-eccf-45b0-a59f-1ca10bc64b30">  -->
+<!-- 		<input type="hidden" name="redirect_uri" value="http://localhost:8088/openbank/callback">  -->
+<!-- 		<input type="hidden" name="scope" value="login inquiry transfer cardinfo fintechinfo"> -->
+<!-- 		<input type="hidden" name="state" value="12345678123456781234567812345678"> -->
+<!-- 		<input type="hidden" name="auth_type" value="0">  -->
+<!-- 		<input type="submit" value="오픈뱅킹 사용자 인증" id="btn"> -->
+<!-- 	</form> -->
    
    
-	<h1>😉사용자정보조회😉</h1>
-	<!-- 사용자정보조회 -->
-	고객번호, 고객이름, 고객등록계좌수
-	<form method="get" action="/openbank/userInfo">
-		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
-		<input type="hidden" name="access_token" value="${sessionScope.token }">
-		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }">
-		<input type="submit" value="사용자 정보 조회">
-	</form><hr>
+<!-- 	<h1>😉사용자정보조회😉</h1> -->
+<!-- 	<!-- 사용자정보조회 --> 
+<!-- 	고객번호, 고객이름, 고객등록계좌수 -->
+<!-- 	<form method="get" action="/openbank/userInfo"> -->
+<%-- 		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+<%-- 		<input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
+<%-- 		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }"> --%>
+<!-- 		<input type="submit" value="사용자 정보 조회"> -->
+<!-- 	</form><hr> -->
+
+
+<div class="m-4">
+    <div class="container" style="justify-content: center; align-items: center;">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+              <div class="container" style="justify-content: center; align-items:center;">
+                <h3 style="text-align: center;">오픈뱅킹 사용자 인증</h3>
+                <!-- 인증 요청 작업 수행 -->
+                <form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get"
+                  style="text-align: center;">
+                  <input type="hidden" name="response_type" value="code">
+                  <input type="hidden" name="client_id" value="2ce89526-eccf-45b0-a59f-1ca10bc64b30">
+                  <input type="hidden" name="redirect_uri" value="http://localhost:8088/openbank/callback">
+                  <input type="hidden" name="scope" value="login inquiry transfer cardinfo fintechinfo">
+                  <!-- <input type="hidden" name="scope" value="cardinfo"> -->
+                  <input type="hidden" name="state" value="12345678123456781234567812345678">
+                  <input type="hidden" name="auth_type" value="0">
+                  <!-- <input type="hidden" value="register_info" value="C"> -->
+                  <input type="submit" value="오픈뱅킹 사용자 인증" id="btn">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End News! -->
+
+        <!-- community -->
+        <div class="col-md-5">
+          <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+              <div class="container" style="justify-content: center; align-items:center;">
+                <h3 style="text-align: center;">내 자산 조회</h3>
+                <!-- 인증 요청 작업 수행 -->
+                <form method="get" action="/openbank/userInfo" style="text-align: center;">
+                  <input type="hidden" name="access_token" value="${sessionScope.token }">
+                  <input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }">
+                  <input type="submit" value="내 자산 조회">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
 
 
 <!-- 토큰발급 화면예시 -->
@@ -113,6 +160,17 @@ BORA 자산관리에서는 오픈뱅킹의 인증 페이지에서 본인 인증 
 	
 	
 </div>	
+
+
+<script>
+// 목돈 모으기 페이지를 위한 빌드업,,, 
+// 계좌 잔액 담을 배열 여기서 생성해놓기 + localStorage에 저장
+let balArr = new Array();
+balArr = [{name:'default', bal:0}];
+localStorage.setItem('balArr', JSON.stringify(balArr));
+console.log(balArr);
+</script>
+
 
      
 <%@ include file="../include/footer.jsp"%>

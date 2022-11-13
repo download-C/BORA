@@ -2,7 +2,9 @@ package com.bora.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.inject.Inject;
@@ -311,6 +313,32 @@ public class AjaxController {
 		// List<ConsumeAllListVO> => 자동으로 json 변경하는 프로그램 설치
 		// jackson-databind
 		return entity;
+	}
+	
+	
+	// 목돈 모으기 페이지에서 넘어온 데이터들 처리
+//	@ResponseBody 
+	@RequestMapping(value = "/ajax/moa", method = RequestMethod.GET)
+	public Map<String, Object> moaCalc(@RequestParam("gapMoney") Integer gapMoney,
+										@RequestParam("gapDate") Integer gapDate) throws Exception {
+		log.info("(●'◡'●) moaCalc 호출됨");
+		log.info("(●'◡'●) moaCalc  gapMoney: " + gapMoney + " / gapDate: " + gapDate);
+		
+		// gapMoney를 하루, 한 달, 일 년으로 나누기~~
+		double moaOneDay = gapMoney / gapDate;
+		log.info("(●'◡'●) moaCalc  하루에 모아야 할 돈: " + moaOneDay + "만원");
+		double moaOneMonth = gapMoney / (gapDate/30.0);
+		log.info("(●'◡'●) moaCalc  한 달에 모아야 할 돈: " + moaOneMonth + "만원");
+		double moaOneYear = gapMoney / (gapDate/365.0);
+		log.info("(●'◡'●) moaCalc  일 년에 모아야 할 돈: " + moaOneYear + "만원??? 아닌데");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("moaOneDay", moaOneDay);
+		map.put("moaOneMonth", moaOneMonth);
+		map.put("moaOneYear", moaOneYear);
+		log.info("(●'◡'●) moaCalc  다 담고 나서 map: " + map);
+		
+		return map;
 	}
 
   
