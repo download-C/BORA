@@ -73,6 +73,11 @@ public class MainController {
 		if(noticeList.size()>0) 
 			model.addAttribute("noticeList", noticeList);
 	}
+	
+	@RequestMapping(value="/about", method=RequestMethod.GET)
+	public void aboutGET() throws Exception {
+		log.info("about 페이지로 이동");
+	}
 
 	// http://localhost:8088/main/join
 	@RequestMapping(value = "/join", method = RequestMethod.GET)

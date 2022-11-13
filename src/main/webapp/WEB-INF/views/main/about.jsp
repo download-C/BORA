@@ -1,6 +1,15 @@
+<%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ include file="../include/header.jsp"%>
+<!-- ${pageContext.request.contextPath} -->
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
+
+<!-- alert 모달 필수  --> 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
 <!--  카카오지도 API   -->
 <style>
 .label {
@@ -51,7 +60,7 @@
 	border-top-right-radius: 20px;
 }
 </style>
-
+<div class="container">
 
 <!-- 지도 크기 조절 -->
 <div id="map" style="width:500px;height:450px;"></div>
@@ -59,6 +68,7 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35509f6b1a38859c7c7486bf14f0ae5c"></script>
 <p id="result"></p>
 
+</div>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
@@ -135,3 +145,15 @@ for (var i = 0; i < positions.length; i ++) {
 customOverlay.setMap(map, marker);
 }
 </script>
+
+<!-- 본문 작성하는 곳 -->
+
+
+
+
+
+
+
+
+<!-- 본문 작성하는 곳 -->
+<%@ include file="../include/footer.jsp"%>

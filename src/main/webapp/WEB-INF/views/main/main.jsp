@@ -63,7 +63,6 @@ $(document).ready(function(){
 </script>
 
 <div class="container">
-   <hr>
 
 <!-- 뉴스끝 -->
 <!-- mainslide -->
@@ -194,51 +193,6 @@ $(document).ready(function(){
     </div>
   </div>
   <!-- End community -->
-  <br><br><br><br><br><br>
-
-
-
-<h3><a href='/main/NoticeListPage'>공지사항 목록</a></h3> <br>
-<h3><a href='/board/list?page=1'>커뮤니티 목록</a></h3> <br>
-<a href='/calendar/sample'>달력 샘플</a> <br>
-<h3><a href='/book/list?year=<%=year%>&month=<%=month%>&page=1'>가계부 목록으로 이동</a></h3> <br>
-<h3><a href='/report/categoryList'>리포트로 이동</a></h3> <br>
-<h3><a href='/openbank/goal'>자산관리 목표 설정 이동</a></h3> <br>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-<div>
-<canvas id="myChart" width="400" height="400"></canvas>
 </div>
-<script>
-const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: ['9월', '10월', '11월', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '합계',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 206, 86)',
-                'rgb(75, 192, 192)',
-                'rgb(153, 102, 255)',
-                'rgb(255, 159, 64)'
-            ]
-        }]
-    },
-    options: {
-  	  responsive: false
-    }
-
-});
-</script>
-
-<hr>
-
-<!-- 뉴스 뜨는 공간 -->
-<div id="newsDiv"></div>
-
 
 <%@ include file="../include/footer.jsp"%>
