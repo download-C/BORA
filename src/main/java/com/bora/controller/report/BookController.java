@@ -3,6 +3,8 @@ package com.bora.controller.report;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,14 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.bora.domain.report.ConsumeAllListVO;
+import com.bora.domain.report.DateData;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
 import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookVO;
-import com.bora.service.report.ConsumeAllListService;
 import com.bora.service.report.BookDetailService;
 import com.bora.service.report.BookService;
 
@@ -44,45 +44,14 @@ public class BookController {
 
 	// http://localhost:8088/book/write
 	@RequestMapping(value="/write", method = RequestMethod.GET)
-	public void writeBookGET() {
+	public void writeBookGET(Integer year, Integer month, Integer day,
+			Model model) {
 		log.info("writeBookGET() 호출");
+		model.addAttribute("year",year);
+		model.addAttribute("month",month);
+		model.addAttribute("day",day);
 	}
 	
-	// 가계부 메인 페이지
-   @RequestMapping(value="/dashboard", method = RequestMethod.GET)
-	   public String bookMainGET(Model model, RedirectAttributes rttr, int year, int month) throws Exception {
-	   log.info("reportMainGET() 호출");
-	   loginID = (String)session.getAttribute("loginID");
-	   
-	   // 로그인 안 한 경우 로그인 페이지로 이동
-	   if(loginID == null) {
-		   rttr.addFlashAttribute("msg", "로그인 후 이용 가능한 페이지입니다.");
-		   return "redirect:/main/login";
-	   } else {
-	   
-		   // 현재 연과 월을 기본으로 보여줌
-			Calendar cal = Calendar.getInstance();
-			year = cal.get(Calendar.YEAR);
-			month = cal.get(Calendar.MONTH)+1;
-			model.addAttribute("year", year);
-			model.addAttribute("month", month);
-			log.info("입력된 날짜 :"+year+"년 "+month+"월");
-			List<BookDetailVO> detailList = dService.getDashboardBookDetail(loginID, year, month);
-			if(detailList.size()!=0) {
-				log.info("가계부 목록 가져오기 성공");
-				model.addAttribute("detailList", detailList);
-				int bk_budget = service.getMonthBudget(loginID, year, month); 
-				if(bk_budget!=0) model.addAttribute("bk_budget", bk_budget);
-			} else {
-				log.info("가계부 없음");
-				rttr.addFlashAttribute("msg", "아직 가계부를 입력하지 않으셨네요!");
-				rttr.addFlashAttribute("message","아직 가계부를 입력하지 않으셨네요!");
-				log.info("플래시 메세지 입력 완료");
-			}
-	   }
-		return "/book/dashboard";
-   }
-
 	
 	// 1. 가계부 상세 내역 작성 메서드
 	@RequestMapping(value="/write", method = RequestMethod.POST)
@@ -120,7 +89,7 @@ public class BookController {
 			book.setBk_year(bk_year);
 			book.setBk_month(bk_month);
 			book.setBk_budget(0);
-			log.info("아이디 "+loginID+" "+bk_year+"년 "+bk_month+"월 가계부");
+			log.info("아이디 "+loginID+" "+bk_year+"년 "+bk_month+"월 가계부 생성");
 			// 가계부 정보 DB 저장 후 해당 내용의 가계부 고유번호 가져오기
 			service.writeBook(book);
 			bk_num = service.getBookMaxNum();

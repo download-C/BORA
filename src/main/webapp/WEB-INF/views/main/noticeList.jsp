@@ -72,6 +72,7 @@
 						 href="/main/noticeList?page=${index}"> 
 						 <span aria-hidden="true">&nbsp;&nbsp; ${index} &nbsp;&nbsp;</span>
 				  </a>
+
 				</li>
 			</c:forEach>
 			<c:if test="${pm.next }">

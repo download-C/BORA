@@ -153,7 +153,6 @@ function uncomma(str) {
 
 <div class="container">
 <br>
-
 <div class="left-box" style="float: left; border-color: red;">
 	왼쪽 박스  <br>
 	혹시나 그래프가 들어갈 수 있음

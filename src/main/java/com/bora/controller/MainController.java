@@ -404,7 +404,7 @@ public class MainController {
 		List<NoticeVO> noticeList = noticeService.getNoticeListPage(pm);
 		model.addAttribute("noticeList", noticeList);
 		log.info("(♥♥♥♥♥ 2-1.listPageGET) Service 호출 + 모델 객체에 저장까지 완");
-		
+
 		// 댓글 개수 출력을 위해 글 리스트에서 -> bno 뽑아와서 -> cmtList에 add하고 모델에 저장
 		List<Integer> cmtList = new ArrayList<Integer>();
 		

@@ -5,9 +5,8 @@
 <!-- ${pageContext.request.contextPath} -->
 
 
-<div class="container">
 
-<h1>openbank/oauthOK.jsp</h1>
+<h1>자산관리 사용자 인증 페이지 openbank/oauthOK.jsp</h1>
 
 <%-- <h2>세션 토큰 : ${sessionScope.token }</h2> --%>
 <!-- <hr> -->
@@ -18,18 +17,34 @@
 <%-- <h4>refresh_token : ${responseToken.refresh_token }</h4> --%>
 <%-- <h4>scope : ${responseToken.scope }</h4> --%>
 
+
+<div class="container">
+
+<hr>
+<h1>BORA 자산관리 시작</h1>
+<br>
+
+<h3>자산관리 첫 페이지 설명 </h3>
+<span>BORA 자산관리에서 나의 모든 자산을 편리하게 조회하세요<br>
+오픈뱅킹은 핀테크 기업과 은행권이 공동으로 이용할 수 있는 공동결제시스템으로,
+BORA 자산관리에서는 오픈뱅킹의 인증 페이지에서 본인 인증 및 조회/출금동의를 완료하면
+나의 모든 자산을 조회할 수 있는 오픈뱅킹 서비스를 제공하고 있습니다. 
+</span><br>
+
+<hr>
+	오픈뱅킹 사용자 인증 하러 가기
 	<!-- 인증 요청 작업 수행 -->
 	<form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get">
 		<input type="hidden" name="response_type" value="code"> 
 		<input type="hidden" name="client_id" value="2ce89526-eccf-45b0-a59f-1ca10bc64b30"> 
 		<input type="hidden" name="redirect_uri" value="http://localhost:8088/openbank/callback"> 
-		<input type="hidden" name="scope" value="login inquiry transfer"> 
+		<input type="hidden" name="scope" value="login inquiry transfer cardinfo fintechinfo">
 		<input type="hidden" name="state" value="12345678123456781234567812345678">
 		<input type="hidden" name="auth_type" value="0"> 
-		<input type="submit" value="오픈뱅킹 사용자 인증">
+		<input type="submit" value="오픈뱅킹 사용자 인증" id="btn">
 	</form>
    
-	<hr>
+   
 	<h1>😉사용자정보조회😉</h1>
 	<!-- 사용자정보조회 -->
 	고객번호, 고객이름, 고객등록계좌수
@@ -37,86 +52,67 @@
 		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 		<input type="hidden" name="access_token" value="${sessionScope.token }">
 		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }">
-		<input type="submit" value="사용자정보조회">
+		<input type="submit" value="사용자 정보 조회">
 	</form><hr>
-	
-	
-<!-- 	<h1>💸계좌💸</h1> -->
-<!-- 	<!-- 2.2.3 등록계좌조회 API --> -->
-<!-- 	마스킹된 출력용 계좌번호, 은행명, 계좌구분(분류코드), 계좌종류(분류코드),	예금주명 -->
-<!-- 	<form method="get" action="/openbank/accountList"> -->
-<%-- 		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%> --%>
-<%-- 		<input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- <%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%> --%>
-<%-- 		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }"> --%>
-<!-- 		<input type="hidden" name="include_cancel_yn" value="Y"> -->
-<!-- 		<input type="hidden" name="sort_order" value="D"> -->
-<!-- 		<input type="submit" value="등록계좌조회"> -->
-<!-- 	</form><hr>     -->
 
 
-<!-- 	<!-- 잔액조회1 BORA입출금 --> -->
-<!-- 	거래일시, 거래일자(참가은행), 은행이름, 계좌잔액(-금액가능),  -->
-<!-- 	출금가능금액, 상품명, 계좌개설일, 만기일, 최종거래일 -->
-<!-- 	<form method="get" action="/openbank/accountBalance"> -->
-<%-- 		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%> --%>
-<%-- 		<input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- <%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%> --%>
-<%-- 		<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }"> --%>
-<!-- 		<input type="hidden" name="fintech_use_num" value="120220217888941294172171"> -->
-<!-- 		<input type="hidden" name="tran_dtime" value="20221104134521"> -->
-<!-- 		<input type="submit" value="BORA입출금 계좌잔액조회"> -->
-<!-- 	</form><hr>     -->
+<!-- 토큰발급 화면예시 -->
+<div class="row row-cols-md-13 g-13 justify-content-center">
+ <div class="col-md-13 col-12">
+        <div class="card border-left-info shadow h-100 py-2">
+          <div class="card-body">
+              <div class="container">
+              <h3>※ 오픈뱅킹 사용자 인증 예시</h3><br>
+              <span style="font-size: 20px;">◼ 계좌 정보에는 현재 오픈뱅킹 인증이 완료된 보유 계좌 정보를 입력하여 주시기 바랍니다.<br>
+              → 오픈뱅크 0518030909 BORA입출금 </span>
+              </div>
+              <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <table class="table col-md-10"
+                    style="width:100%; overflow:auto; border-radius: 12px; text-align: center;">
+					<!-- 첫번째행 -->
+                    <thead style="background-color: gray; font-size: 20px;">
+                      <tr>
+                        <th>① 본인 인증</th>
+                        <th>② 이용 동의</th>
+                        <th>③ 인증 절차</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                      	<td><img src="${pageContext.request.contextPath}/resources/img/token/token1.png" width="100%"></td>
+						<td><img src="${pageContext.request.contextPath}/resources/img/token/token2.png" width="100%"></td>
+						<td><img src="${pageContext.request.contextPath}/resources/img/token/token3.png" width="100%"></td>
+                      </tr>
+                    </tbody>
+					<!-- 두번째행 -->
+                    <thead style="background-color: gray; font-size: 20px;">
+                      <tr>
+                        <th>④ 계좌 정보 입력 </th>
+                        <th>⑤ ARS 동의</th>
+                        <th>⑥ 이메일 등록</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+						<td><img src="${pageContext.request.contextPath}/resources/img/token/token4.png" width="300px;"></td>
+						<td><img src="${pageContext.request.contextPath}/resources/img/token/token5.png" width="300px;"></td>
+						<td><img src="${pageContext.request.contextPath}/resources/img/token/token6.png" width="300px;"></td>
+                      </tr>
+                    </tbody>
+                    
+                  </table>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
 
-<!-- 	<!-- 잔액조회2 123통장 --> -->
-<!-- 	거래일시, 거래일자(참가은행), 은행이름, 계좌잔액(-금액가능),  -->
-<!-- 	출금가능금액, 상품명, 계좌개설일, 만기일, 최종거래일 -->
-<!-- 	<form method="get" action="/openbank/accountBalance"> -->
-<%-- 		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%> --%>
-<%-- 		<input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- <%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%> --%>
-<%-- 		<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }"> --%>
-<!-- 		<input type="hidden" name="fintech_use_num" value="120220217888941294186856"> -->
-<!-- 		<input type="hidden" name="tran_dtime" value="20221104134521"> -->
-<!-- 		<input type="submit" value="123통장 계좌잔액조회"> -->
-<!-- 	</form><hr>     -->
-     
-     
-<!-- 	<!-- 거래내역조회1 BORA입출금 --> -->
-<!-- 	거래일자, 입출금구분, 거래유형, 거래금액. 거래후잔액 -->
-<!-- 	<form method="get" action="/openbank/accountTran"> -->
-<%-- 		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%> --%>
-<%-- 		<input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- <%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%> --%>
-<%-- 		<input type="hidden" name="bank_tran_id" value="${accountTran.bank_tran_id}"> --%>
-<!-- 		<input type="hidden" name="fintech_use_num" value="120220217888941294172171"> -->
-<!-- 		<input type="hidden" name="inquiry_type" value='A'> -->
-<!-- 		<input type="hidden" name="inquiry_base" value='D'> -->
-<!-- 		<input type="hidden" name="from_date" value="20100101"> -->
-<!-- 		<input type="hidden" name="to_date" value="20221104"> -->
-<!-- 		<input type="hidden" name="sort_order" value="D"> -->
-<!-- 		<input type="hidden" name="tran_dtime" value="20221104134521"> -->
-<!-- 		<input type="submit" value="BORA입출금 거래내역조회"> -->
-<!-- 	</form><hr>     -->
-     
-<!-- 		<!-- 거래내역조회2 123통장 --> -->
-<!-- 	거래일자, 입출금구분, 거래유형, 거래금액. 거래후잔액 -->
-<!-- 	<form method="get" action="/openbank/accountTran"> -->
-<%-- 		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%> --%>
-<%-- 		<input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- <%-- 		<input type="hidden" name="access_token" value="${responseToken.access_token }"> --%> --%>
-<%-- 		<input type="hidden" name="bank_tran_id" value="${accountTran.bank_tran_id}"> --%>
-<!-- 		<input type="hidden" name="fintech_use_num" value="120220217888941294186856"> -->
-<!-- 		<input type="hidden" name="inquiry_type" value='A'> -->
-<!-- 		<input type="hidden" name="inquiry_base" value='D'> -->
-<!-- 		<input type="hidden" name="from_date" value="20100101"> -->
-<!-- 		<input type="hidden" name="to_date" value="20221104"> -->
-<!-- 		<input type="hidden" name="sort_order" value="D"> -->
-<!-- 		<input type="hidden" name="tran_dtime" value="20221104134521"> -->
-<!-- 		<input type="submit" value="123통장 거래내역조회"> -->
-<!-- 	</form><hr>     -->
+</div><br><br><br>
 	
-</div>
+	
+</div>	
 
      
 <%@ include file="../include/footer.jsp"%>

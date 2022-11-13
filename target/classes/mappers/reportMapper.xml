@@ -27,7 +27,7 @@
 		<id property="bk_budget" column="bk_budget" />
 	</resultMap>
 		
-<!-- 년월별 카테고리 합-->
+<!-- 현재 달 카테고리 지출 합-->
 	<select id="cateSum" resultMap="detail" >
 		select sum(d.bk_money) as bk_sum, d.bk_category
 		from bora_book_detail d join bora_book b
@@ -37,6 +37,17 @@
        group by d.bk_category
        
 	</select>
+
+	<!-- 회원의 특정 연월 카테고리 지출 합계 목록 불러오기 -->
+	<select id="categoryDetailList" resultMap="detail">
+		select b.bk_year, b.bk_month, b.id, d.bk_category, d.bk_money
+		from bora_book_detail d join bora_book b
+		on b.bk_num = d.bk_num
+		where b.id=#{loginID} and b.bk_year=#{bk_year} and b.bk_month=#{bk_month}
+		limit #{pm.startRow}, #{pm.vo.perPageNum}
+	</select>
+
+
 
 
 </mapper>

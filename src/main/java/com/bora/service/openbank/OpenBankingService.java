@@ -73,6 +73,6 @@ public class OpenBankingService {
 	public TranResultResponseVO findTranResult(TranResultRequestVO tranResultRequestVO) {
 		return openBankingApiClient.findTranResult(tranResultRequestVO);
 	}
-
+	
 	
 }

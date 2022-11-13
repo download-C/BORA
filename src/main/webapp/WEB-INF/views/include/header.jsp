@@ -43,9 +43,64 @@ input::-webkit-inner-spin-button {
 <%
 if(session!=null) {
 	String loginID = (String)session.getAttribute("loginID");
-%>
+	System.out.println(loginID);
+	if(loginID!=null){ %>
+	<script>
+	// 채널톡 챗봇
+	  (function() {
+	    var w = window;
+	    if (w.ChannelIO) {
+	      return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
+	    }
+	    var ch = function() {
+	      ch.c(arguments);
+	    };
+	    ch.q = [];
+	    ch.c = function(args) {
+	      ch.q.push(args);
+	    };
+	    w.ChannelIO = ch;
+	    function l() {
+	      if (w.ChannelIOInitialized) {
+	        return;
+	      }
+	      w.ChannelIOInitialized = true;
+	      var s = document.createElement('script');
+	      s.type = 'text/javascript';
+	      s.async = true;
+	      s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+	      s.charset = 'UTF-8';
+	      var x = document.getElementsByTagName('script')[0];
+	      x.parentNode.insertBefore(s, x);
+	    }
+	    
+	    if (document.readyState === 'complete') {
+	      l();
+	    } else if (window.attachEvent) {
+	      window.attachEvent('onload', l);
+	    } else {
+	      window.addEventListener('DOMContentLoaded', l, false);
+	      window.addEventListener('load', l, false);
+	    }
+	    
+	  })();
+	  
+	  ChannelIO('boot', {
+	    "pluginKey": "036d1555-e40f-407f-aa20-80436bd75264", //please fill with your plugin key
+	    "memberId": "4717f1cc2d57b03f0b5a93e42ba4d43e", //fill with user id
+	    "profile": {
+	      "name": "", //fill with user name
+	      "mobileNumber": "", //fill with user phone number
+	      "email": "", //any other custom meta data
+	      "CUSTOM_VALUE_2": "VALUE_2"
+	    }
+	  });
+	</script>
+<%  } %>
 </head>
 <body>
+
+
 
 <!-- ======= Top Bar ======= -->
   <section id="topbar" class="d-flex align-items-center">
@@ -77,7 +132,7 @@ if(session!=null) {
       <h1 class="logo"><a href="/main/main">BORA<span></span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="${pageContext.request.contextPath}/resources/img/logo.png" alt=""></a>-->
-		
+	
 			<%	
 			  Calendar cal = Calendar.getInstance();
 				int year = cal.get(Calendar.YEAR);
@@ -93,6 +148,7 @@ if(session!=null) {
           <li><a class="nav-link scrollto" href="/board/list?page=1">커뮤니티</a></li>
           <li><a class="nav-link scrollto" href="/report/report?year=<%=year%>&month=<%=month%>">리포트</a></li>
           <li><a class="nav-link scrollto " href="/openbank/oauth">오픈뱅킹</a></li>
+
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
