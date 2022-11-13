@@ -24,13 +24,44 @@ public class ReportServiceImpl implements ReportService{
 	
 
 
-	// 년월별 카테고리 내역
-	
-
-
+	// 카테고리 내역
 	@Override
-	public List<BookDetailVO> cateSum(String loginID) throws Exception {
+	public List<BookDetailVO> cateSum(Integer year, Integer month, String loginID) throws Exception {
 		 log.info(" φ(._.)  cateSum(String loginID)호출");
-			return dao.cateSum(loginID);
+			return dao.cateSum(year, month, loginID);
 	}
+	
+	
+	//전월대비
+	   @Override
+	   public List<BookDetailVO> getConsumeMinus(Integer year, Integer month, String loginID) throws Exception {
+	      List<BookDetailVO> getConsumeMinus = dao.getConsumeMinus(year, month, loginID);
+
+	      return getConsumeMinus;
+	   }
+
+	   
+	   //top3
+	   @Override
+		public List<BookDetailVO> Top3Store(Integer year, Integer month, String loginID) throws Exception {
+			List<BookDetailVO> Top3Store = dao.getTop3Store(year, month, loginID);
+
+			return Top3Store;
+		}
+
+		@Override
+		public List<BookDetailVO> Top3Date(Integer year, Integer month, String loginID) throws Exception {
+			List<BookDetailVO> Top3Date = dao.getTop3Date(year, month, loginID);
+			
+			return Top3Date;
+		}
+
+		
+		//돼지
+		@Override
+		public List<BookDetailVO> ConsumeTag(Integer year, Integer month, String loginID) throws Exception {
+			List<BookDetailVO> ConsumeTag = dao.getConsumeTag(year, month,loginID);
+			
+			return ConsumeTag;
+		}
 }

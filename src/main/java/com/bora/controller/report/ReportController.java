@@ -1,8 +1,11 @@
 package com.bora.controller.report;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,6 +18,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.controller.MemberController;
 import com.bora.domain.report.BookDetailVO;
+import com.bora.domain.report.BookVO;
+import com.bora.service.CardPayService;
+import com.bora.service.report.ConsumeAllListService;
 import com.bora.service.report.ReportService;
 
 @Controller
@@ -24,12 +30,12 @@ public class ReportController {
 	   @Inject
 	   private ReportService service;
 	  
-
-	   
 	   @Inject
 	   HttpSession session;
+	  
 	
 	   String loginID;
+	
 
 
 	   private static final Logger log = LoggerFactory.getLogger(MemberController.class);
@@ -48,7 +54,8 @@ public class ReportController {
 		return "/report/report";
 	   }
 	   
-		// http://localhost:8088/book/categoryList
+	   
+		// http://localhost:8088/report/categoryList
 	   //카테고리 별 합계
 	   @RequestMapping(value="/categoryList", method = RequestMethod.GET)
 	   public void categorylist(Model model) throws Exception{
@@ -56,20 +63,54 @@ public class ReportController {
 		   
 		   loginID=(String)session.getAttribute("loginID");
 		   
-		   log.info(service.cateSum(loginID)+"");
+		   // 현재 연과 월을 기본으로 보여줌
+			Calendar cal = Calendar.getInstance();
+			int year = cal.get(Calendar.YEAR);
+			int month = cal.get(Calendar.MONTH)+1;
+			model.addAttribute("year", year);
+			model.addAttribute("month", month);
+		   
+		   log.info(service.cateSum(year, month, loginID)+"");
 		   ArrayList sumArr = new ArrayList();
 		   ArrayList<String> caArr = new ArrayList<String>();
 		   
-		   for(BookDetailVO bkVO:service.cateSum(loginID)) {
+		   for(BookDetailVO bkVO:service.cateSum(year, month, loginID)) {
 			   sumArr.add(bkVO.getBk_sum());
 			   caArr.add("'"+bkVO.getBk_category()+"'");
 			   
-		   }
-//		   model.addAttribute("cateSum", service.cateSum(loginID));
-		   model.addAttribute("sumArr", sumArr);
-		   model.addAttribute("caArr", caArr);
-		   
+		   } //배열로 합계, 카테고리 불러오기
+//			model.addAttribute("cateSum", service.cateSum(year, month, loginID));
+		   log.info(sumArr.size()+"");
+		   log.info(caArr.size()+"");
+			model.addAttribute("sumArr", sumArr);
+			model.addAttribute("caArr", caArr); 
+	   
+			
+
+			//top3
+			
+			log.info(year +""+ month+"");
+			model.addAttribute("top3", service.Top3Store(year, month, loginID));
+			model.addAttribute("top3date", service.Top3Date(year, month, loginID));     //top3 날짜 버전 호출
+			if(service.ConsumeTag(year, month, loginID).size()!=0) {
+				model.addAttribute("bk_category", 
+						service.ConsumeTag(year, month, loginID).get(0).getBk_category());
+			}
+			
+			
+			
+			//전월대비
+			
+			model.addAttribute("consumeMinus", service.getConsumeMinus(year, month, loginID));
+
+
+		
+			}
 	   }
+	   
+	 
+	   
+	   
 	     
 
-}
+
