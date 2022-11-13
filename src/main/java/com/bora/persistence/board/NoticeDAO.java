@@ -11,9 +11,9 @@ public interface NoticeDAO {
 	
 	public Integer updateNotice(NoticeVO vo) throws Exception;
 	
-	public List<NoticeVO> getNoticeListAll(PageMakerVO pm) throws Exception;
+	public List<NoticeVO> getNoticeList(PageMakerVO pm) throws Exception;
 	
-	public List<NoticeVO> getNoticeListPage(PageVO vo) throws Exception;
+	public List<NoticeVO> getNoticeListPage(PageMakerVO pm) throws Exception;
 	
 	public NoticeVO getNotice(Integer nno) throws Exception;
 	
@@ -22,5 +22,7 @@ public interface NoticeDAO {
 	public Integer deleteNotice(Integer nno) throws Exception;
 
 	public Integer getTotalCnt() throws Exception;
+
+	public List<NoticeVO> getNoticeListMain() throws Exception;
 	
 }

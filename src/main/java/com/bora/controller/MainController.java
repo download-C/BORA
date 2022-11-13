@@ -1,5 +1,6 @@
 package com.bora.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.bora.domain.SHA256;
+import com.bora.domain.board.BoardVO;
 import com.bora.domain.board.NoticeVO;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
@@ -63,8 +65,13 @@ public class MainController {
 
 	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public void main() throws Exception{
+	public void main(Model model) throws Exception{
 		log.info("/main -> main.jsp");
+		
+		List<NoticeVO> noticeList = noticeService.getNoticeListMain();
+		log.info("공지사항 글 개수: "+noticeList.size());
+		if(noticeList.size()>0) 
+			model.addAttribute("noticeList", noticeList);
 	}
 
 	// http://localhost:8088/main/join
@@ -379,53 +386,37 @@ public class MainController {
 	
 	// 2-1. 페이징 처리하기 
 	// http://localhost:8088/main/NoticeListPage
-	@RequestMapping (value = "/NoticeListPage", method = RequestMethod.GET)
-	public String getNoticeListPage(PageVO vo, Model model) throws Exception {
-		log.info("(♥♥♥♥♥ 2-1.getNoticeListPage) 호출됨");
+	@RequestMapping (value = "/noticeList", method = RequestMethod.GET)
+	public String getNoticeListPage(PageVO vo , Model model, HttpSession session) throws Exception {
+		log.info("(♥♥♥♥♥ 2-1.listPageGET) 호출됨");
 		
-		model.addAttribute("noticeList", noticeService.getNoticeListPage(vo));
-		
-		// 페이징 처리 하단부 정보 저장 + 모델 객체(pm)에 저장
+		// 페이징 처리 하단부 정보 저장
 		PageMakerVO pm = new PageMakerVO();
 		pm.setVo(vo);
-		int totalCnt = noticeService.getTotalCnt();
-		pm.setTotalCnt(totalCnt); 
+		int cnt = noticeService.getTotalCnt();
+		log.info("(♥♥♥♥♥ 2-1.listPageGET) 글 개수 :"+cnt);
+		pm.setTotalCnt(cnt); // <<찐 글 개수 일단 넣은거고,, 서비스에 이 동작 추가해놓으면 되겠네~ 총 글 개수 불ㄹ러오는
+		
+		// 얘도 model에 담아서 보냅시다..
 		model.addAttribute("pm", pm);
-		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET) PageMakerVO도 모델 객체에 저장 완 + pm: " + pm);
+		log.info("(♥♥♥♥♥ 2-1.listPageGET) PageMakerVO도 모델 객체에 저장 완 + pm: " + pm);
+		
+		List<NoticeVO> noticeList = noticeService.getNoticeListPage(pm);
+		model.addAttribute("noticeList", noticeList);
+		log.info("(♥♥♥♥♥ 2-1.listPageGET) Service 호출 + 모델 객체에 저장까지 완");
+		
+		// 댓글 개수 출력을 위해 글 리스트에서 -> bno 뽑아와서 -> cmtList에 add하고 모델에 저장
+		List<Integer> cmtList = new ArrayList<Integer>();
+		
+		log.info("(♥♥♥♥♥ 2-1.listPageGET) model에 저장한 cmtList: " + cmtList);
 		
 		// 세션에 객체 isUpdate 하나  만들어놓기~~~ 
-		//    3()으로 정보 전달을 위해..
-		log.info("(♥♥♥♥♥ 2-1.getNoticeListGET) 리턴타입 void라서 들어온 주소 /notice/list.jsp로 이동할 거");
-		
-		return "redirect:/main/noticeList?page="+vo.getPage();
-	}
-	
-	// 2-2. 게시판 리스트 조회 GET                  
-//	 http://localhost:8088/main/noticeList
-	@RequestMapping (value = "/noticeList", method = RequestMethod.GET)
-	public String getNoticeListAll(@ModelAttribute("pm") PageMakerVO pm, 
-			@ModelAttribute("page") String page, 
-			HttpSession session, Model model) throws Exception {
-		log.info("(♥♥♥♥♥ 2.NoticeListAllGET) 호출됨");
-		
-		// 리스트로 가는 경우의 수
-		// 1. 글쓰고 나서 -> 리스트로 이동하는 경우
-//			log.info("(♥♥♥♥♥ 2.listAllGET) msg: " + msg);
-			// 연결된 view 페이지로 저기서(1-2.registerPOST) 넘어온 정보 전달해보기
-			// 이거 안 해도 넘어가는딩?
-//			model.addAttribute("msg", msg);
-		
-		// 2. 걍 바로 리스트로 이동하는 경우
-		
-		List<NoticeVO> noticeList = noticeService.getNoticeListAll(pm);
-		
-		model.addAttribute("noticeList", noticeList);
 		session.setAttribute("isUpdate", false);
 		
 		return "/main/noticeList";
 	}
-	// 2. 게시판 리스트 조회 GET 끝
 	
+
 	
 	// 3. 글 본문 보기 GET                  
 	// http://localhost:8088/main/noticeRead

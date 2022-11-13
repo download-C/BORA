@@ -33,15 +33,15 @@ public class NoticeDAOImpl implements NoticeDAO{
 		return session.update(NAMESPACE+".updateNotice", vo);
 	}
 	@Override
-	public List<NoticeVO> getNoticeListAll(PageMakerVO pm) throws Exception {
+	public List<NoticeVO> getNoticeList(PageMakerVO pm) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡♡♡getNoticeList(vo) 호출");
-		return session.selectList(NAMESPACE+".getNoticeListAll");
+		return session.selectList(NAMESPACE+".getNoticeList");
 	}
 	@Override
-	public List<NoticeVO> getNoticeListPage(PageVO vo) throws Exception {
+	public List<NoticeVO> getNoticeListPage(PageMakerVO pm) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡♡♡getNoticeList(vo) 호출");
-		log.info("Vo: "+vo);
-		return session.selectList(NAMESPACE+".getNoticeListPage", vo);
+		log.info("pm: "+pm);
+		return session.selectList(NAMESPACE+".getNoticeListPage", pm);
 	}
 	@Override
 	public NoticeVO getNotice(Integer nno) throws Exception {
@@ -63,5 +63,11 @@ public class NoticeDAOImpl implements NoticeDAO{
 		log.info("♡♡♡♡♡♡♡♡♡♡♡♡deleteNotice(nno) 호출");
 		return session.selectOne(NAMESPACE+".getTotalCnt");
 	}
+	@Override
+	public List<NoticeVO> getNoticeListMain() throws Exception {
+		log.info("getNoticeListMain() 호출");
+		return session.selectList(NAMESPACE+".getNoticeListMain");
+	}
+	
 	
 }
