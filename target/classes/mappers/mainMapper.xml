@@ -33,4 +33,10 @@
 		bora_members(id, name)
 		values(#{id}, #{name})
 	</insert>
+	
+	<select id="getNoticeListMain" resultType="NoticeVO">
+		select * from bora_notice
+		order by nno desc
+		limit 0, 5
+	</select>
 </mapper>

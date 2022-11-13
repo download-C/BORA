@@ -230,48 +230,42 @@ public class AjaxController {
     }
     // 카테고리 ajax 끝 ==================================
     
+	@RequestMapping(value="/ajax/writeBudget", method=RequestMethod.POST)
+	public String writeBudget(Integer bk_num, Integer bk_budget, Integer year,
+			Integer month,RedirectAttributes rttr)throws Exception {
+		log.info("writeBudget()	호출");
+		
+		String loginID = (String)session.getAttribute("loginID");
+		
+		// 해당 연 월의 가계부 뽑아오기
+		BookVO book = bookService.getMonthBook(year, month, loginID);
+				
+		if(book!=null) {
+			book.setBk_budget(bk_budget);
+			log.info("입력한 예산: "+bk_budget);
+			int result = bookService.updateBook(book);
+			if(result ==1 ) {
+				log.info("예산 입력 성공");
+				rttr.addFlashAttribute("msg", "ok");
+				return Integer.toString(bk_budget);
+			} else {
+				log.info("예산 입력 실패");
+				rttr.addFlashAttribute("msg", "no");
+				return "redirect:/report/list";
+			}
+		} else {
+			log.info("해당 연월의 가계부가 아직 입력되지 않아 새로 생성");
+			book = new BookVO();
+			book.setBk_year(year);
+			book.setBk_month(month);
+			book.setBk_budget(bk_budget);
+			book.setId(loginID);
+			bookService.writeBook(book);
+			log.info("예산 입력 성공");
+			return Integer.toString(bk_budget);
+		}
 
-   @RequestMapping(value="/writeBudget", method=RequestMethod.GET)
-   public String writeBudget(Integer bk_num, Integer bk_budget, Integer bk_year,
-         Integer bk_month, 
-         RedirectAttributes rttr)throws Exception {
-      log.info("writeBudget()   호출");
-      
-      
-      String loginID = (String)session.getAttribute("loginID");
-      List<BookVO> boardList = bookService.getBookListAll(loginID);
-      
-      for(int i=0; i<boardList.size(); i++) {
-         if(boardList.get(i).getBk_num()==bk_num) {
-            BookVO book = bookService.getBook(bk_num, loginID);
-            book.setBk_budget(bk_budget);
-            log.info("입력한 예산: "+bk_budget);
-            int result = bookService.updateBook(book);
-            if(result ==1 ) {
-               log.info("예산 입력 성공");
-               log.info("바뀐 정보: "+bookService.getBook(bk_num, loginID));
-               rttr.addFlashAttribute("msg", "ok");
-               return "redirect:/report/dashboard";
-            } else {
-               log.info("예산 입력 실패");
-               rttr.addFlashAttribute("msg", "no");
-               return "redirect:/report/dashboard";
-            }
-         } else {
-            log.info("해당 연월의 가계부가 아직 입력되지 않아 새로 생성");
-            BookVO book = new BookVO();
-            book.setBk_year(bk_year);
-            book.setBk_month(bk_month);
-            book.setBk_budget(bk_budget);
-            book.setId(loginID);
-            bookService.writeBook(book);
-            log.info("예산 입력 성공");
-            return "redirect:/report/dashboard";
-         }
-
-      }
-      return "redirect:/report/dashboard";
-   }
+	}
 
     // 썸머노트 파일 업로드 
     @RequestMapping(value="/resources/summerimages", method=RequestMethod.POST)
@@ -380,8 +374,32 @@ public class AjaxController {
 
 		log.info(map + "");
 		return entity;
-   }
-
+	}
+	// 목돈 모으기 페이지에서 넘어온 데이터들 처리
+//	@ResponseBody 
+	@RequestMapping(value = "/ajax/moa", method = RequestMethod.GET)
+	public Map<String, Object> moaCalc(@RequestParam("gapMoney") Integer gapMoney,
+										@RequestParam("gapDate") Integer gapDate) throws Exception {
+		log.info("(●'◡'●) moaCalc 호출됨");
+		log.info("(●'◡'●) moaCalc  gapMoney: " + gapMoney + " / gapDate: " + gapDate);
+		
+		// gapMoney를 하루, 한 달, 일 년으로 나누기~~
+		double moaOneDay = gapMoney / gapDate;
+		log.info("(●'◡'●) moaCalc  하루에 모아야 할 돈: " + moaOneDay + "만원");
+		double moaOneMonth = gapMoney / (gapDate/30.0);
+		log.info("(●'◡'●) moaCalc  한 달에 모아야 할 돈: " + moaOneMonth + "만원");
+		double moaOneYear = gapMoney / (gapDate/365.0);
+		log.info("(●'◡'●) moaCalc  일 년에 모아야 할 돈: " + moaOneYear + "만원??? 아닌데");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("moaOneDay", moaOneDay);
+		map.put("moaOneMonth", moaOneMonth);
+		map.put("moaOneYear", moaOneYear);
+		log.info("(●'◡'●) moaCalc  다 담고 나서 map: " + map);
+		
+		return map;
+	}
+  
    @RequestMapping(value = "/consumeTag", method = RequestMethod.GET)
    public ResponseEntity<List<BookDetailVO>> consumeTag(HttpServletRequest request, @RequestParam("year") Integer year,
          @RequestParam("month") Integer month, @RequestParam("loginID") String loginID) throws Exception {
@@ -408,7 +426,4 @@ public class AjaxController {
       log.info(consumeMinus+"");
       return entity;
    }
-  
-   
-    
 }// class AjaxController

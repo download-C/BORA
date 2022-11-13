@@ -33,15 +33,15 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 	
 	@Override
-	public List<NoticeVO> getNoticeListPage(PageVO vo) throws Exception {
+	public List<NoticeVO> getNoticeListPage(PageMakerVO pm) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡♡ getNoticeList(pagevo) 호출 ♡♡♡♡♡♡♡♡♡♡");
-		return dao.getNoticeListPage(vo);
+		return dao.getNoticeListPage(pm);
 	}
 
 	@Override
-	public List<NoticeVO> getNoticeListAll(PageMakerVO pm) throws Exception {
+	public List<NoticeVO> getNoticeList(PageMakerVO pm) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡♡ getNoticeList(pagevo) 호출 ♡♡♡♡♡♡♡♡♡♡");
-		return dao.getNoticeListAll(pm);
+		return dao.getNoticeList(pm);
 	}
 
 	@Override
@@ -68,4 +68,10 @@ public class NoticeServiceImpl implements NoticeService{
 		return dao.getTotalCnt();
 	}
 
+	@Override
+	public List<NoticeVO> getNoticeListMain() throws Exception {
+		log.info("getNoticeListMain() 호출");
+		return dao.getNoticeListMain();
+	}
+	
 }

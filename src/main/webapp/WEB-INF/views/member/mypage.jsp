@@ -30,16 +30,41 @@ $(document).ready(function() {
 
 
 <div class="container">
-<h1> 마이페이지 </h1>
-	<div class="mypage">
-		<div><label>이름</label>  <input type="text" value="${vo.name }" readonly="readonly"></div>
-		<div><label>닉네임</label>  <input type="text" value="${vo.nick }" readonly="readonly"></div>
-		<div><label>연락처</label>  <input type="text" value="${vo.phone }" readonly="readonly"></div>
-		<div><label>이메일</label>  <input type="text" value="${vo.email}" readonly="readonly"></div>
-		<div>
-		<input type="button" value="수정하기" onclick="location.href='/member/update';">
+   <div class="row">
+     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+       <div class="card border-0 shadow rounded-3 my-5">
+         <div class="card-body p-4 p-sm-5" style="background-color:#F5EFFE;">
+					<h3 class="card-title text-center mb-5 fw-light fs-5"><b>마이 페이지</b></h3>
+					<div class="mypage">
+						<div class="form-floating mb-3">
+							<input type="text" class="form-control" value="${vo.name }" readonly="readonly">
+							<label>이름</label>  
+						</div>
+						<div class="form-floating mb-3">
+							<input type="text" class="form-control" value="${vo.nick }" readonly="readonly">
+							<label>닉네임</label>  
+						</div>
+						<div class="form-floating mb-3">
+							<input type="text" class="form-control" value="${vo.phone }" readonly="readonly">
+							<label>연락처</label>  
+						</div>	
+						<div class="form-floating mb-3">
+							<input type="text" class="form-control" value="${vo.email}" readonly="readonly">
+							<label>이메일</label>  
+						</div>
+						<hr class="my-4">
+						<div class="d-grid">
+							<button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit"
+                  style="background-color: #5107b0; border-color: #5107b0" onclick="location.href='/member/update';">수정하기</button>
+						</div>
+				</div>
+						<div class="container" align="right" style="color: #d4c6eb; margin: 5px; font-size: x-small;"
+						 	onclick="location.href='/member/delete';"> 
+                <span>회원탈퇴 ></span>
+            </div>
+					</div>	
+			</div>
 		</div>
-		<div><a href="/member/delete">탈퇴하기</a></div>
 	</div>
 </div>
 <%@ include file="../include/footer.jsp"%>

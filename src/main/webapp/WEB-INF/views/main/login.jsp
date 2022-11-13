@@ -36,10 +36,9 @@ function warning(message) {
 	<div class="row">	
 		<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
 	        <div class="card border-0 shadow rounded-3 my-5">
-	          <div class="card-body p-4 p-sm-5">
+	          <div class="card-body p-4 p-sm-5" style="background-color:#F5EFFE; border-color: #F5EFFE;">
 	            <h5 class="card-title text-center mb-5 fw-light fs-5"><b>로그인</b></h5>
 				<form action="/main/login" method="post">
-<%-- 					<sec:csrfInput/> --%>
 				<div class="form-floating mb-3">
                		<input type="text" name="id" class="form-control" id="floatingInput" placeholder="name@example.com">
                 	<label for="floatingInput">아이디</label>
@@ -49,11 +48,13 @@ function warning(message) {
 	                <label for="floatingPassword">비밀번호</label>
               	 </div>
 				 <div class="d-grid">
-                	<button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">로그인하기</button>
+                	<div class="d-grid">
+                <input type="hidden" value="false" id="idflag" placeholder="아이디 중복체크 했나요?"> <br>
+                <button class="btn btn-primary btn-login text-uppercase fw-bold" style="border: none; background-color: #5107b0;" type="submit">로 그 인</button>
+              </div>
                  </div>
                  </form>
-			<%-- 	<div><input type="hidden" value="${_csrf.token }" name=${_csrf.parameterName }></div> --%>
-				 <hr class="my-4">
+								 <hr class="my-4">
                  <div class="d-grid mb-2">
 	                 <button class="btn btn-kakao btn-login text-uppercase fw-bold" onclick="location.href='${kakaoURL}';">
 	                  카카오 아이디로 로그인하기	                  

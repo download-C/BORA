@@ -55,20 +55,31 @@ $(document).ready(function(){
 		}); //ajax
 		
 		if(answer == "ok") {
-			
 		}
 	});//#delete
 }); //document
 </script>
 
-<h1>/member/delete.jsp</h1>
-
-<form role="form" method="post">
-	<div>
-		<input type="password" placeholder="비밀번호를 입력하세요" name="pw" id="pw">
+ <div class="container">
+   <div class="row">
+     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+       <div class="card border-0 shadow rounded-3 my-5">
+         <div class="card-body p-4 p-sm-5" style="background-color:#F5EFFE; border-color: #F5EFFE;">
+           <h3 class="card-title text-center mb-5 fw-light fs-5"><b>탈퇴하기</b></h3>
+					<form role="form" method="post">
+						<div  class="form-floating mb-3">
+							<input type="password" class="form-control" placeholder="비밀번호를 입력하세요" name="pw" id="pw">
+							<label for="floatingInput">비밀번호 입력</label>
+						</div>
+					</form>
+					<hr class="my-4">
+            <div class="d-grid">
+					<button id="delete" class="btn btn-primary btn-login text-uppercase fw-bold" type="submit"
+                  style="background-color: #5107b0; border-color: #5107b0;">회원정보수정</button>
+          </div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div> 
-	</div>
-</form>
-<input type="button" value="탈퇴하기" id="delete">
+</div>
 <%@ include file="../include/footer.jsp"%>
