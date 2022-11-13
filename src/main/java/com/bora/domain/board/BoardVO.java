@@ -16,4 +16,5 @@ public class BoardVO {
 	private Timestamp b_updatedate;
 	private Integer b_readcount;
 	private String b_file;
+	private Integer b_cmtcount;
 }

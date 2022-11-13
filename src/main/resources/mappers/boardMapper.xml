@@ -28,10 +28,12 @@
 	
 	<!-- 글 개수 조회 -->
 	<select id="getBoardCnt" resultType="java.lang.Integer">
-		select count(*) from bora_cmnt_board
+		select count(*) 
+		from bora_cmnt_board
 	</select>
 	<select id="getBoardCntCTGR" resultType="java.lang.Integer">
-		select count(*) from bora_cmnt_board
+		select count(*) 
+		from bora_cmnt_board
 		where b_ctgr=#{b_ctgr}
 	</select>
 	

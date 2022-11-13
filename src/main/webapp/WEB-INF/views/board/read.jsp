@@ -168,7 +168,7 @@ $(document).ready(function(){
 	$(document).on("click", "#cmt_btn_del", function(){ // ㄴ이렇게 하니까 됨
 // 		alert("삭제 버턴 클릭됨");
 		// cno는?  삭제 버턴(this) -> 다음 다음 다음 요소의 value값.. 이게 최선?ㅠ
-		var cnoValue = $(this).next().next().next().val();
+		var cnoValue = $(this).next().next().val();
 		console.log("삭제할 cnoValue: " + cnoValue);
 		
 		// 삭제 버튼 클릭했을 때~ 

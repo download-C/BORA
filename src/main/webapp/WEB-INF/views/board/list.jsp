@@ -65,15 +65,23 @@ a:hover {
 						var b_title = item.b_title;
 						var b_ctgr = item.b_ctgr;
 						var nick = item.nick;
-						var b_regdate = item.b_regdate;
+						var b_regdate = '';
+						if(item.b_updatedate != null) {
+							// updatedate가 null이 아니라면~ == 수정된 적 있으면~
+							b_regdate = item.b_updatedate;
+						} else {
+							// 수정된 적 없으면~
+							b_regdate = item.b_regdate;
+						}
 						var date = new Date(b_regdate);
-						var regdate = date.getFullYear() +"년 " +(date.getMonth()+1)+"월 "+date.getDate()+"일 🌈"+date.getHours()+":"+date.getMinutes();
+						var regdate = date.getFullYear() +"년 " +(date.getMonth()+1)+"월 "+date.getDate()+"일 💜 "+date.getHours()+":"+date.getMinutes();
 						var b_readcount = item.b_readcount;
+						var b_cmtcount = item.b_cmtcount;
 						$('tbody').append(
 						'<tr>'
 							+'<td>'+bno+'</td>'
 							+'<td>'+b_ctgr+'</td>'
-							+'<td><a href=/board/read?bno='+bno+'&page='+page+'>'+b_title+'</a></td>'
+							+'<td><a href=/board/read?bno='+bno+'&page='+page+'>'+b_title+'</a>&nbsp; (' + b_cmtcount + ')</td>'
 							+'<td>'+nick+'</td>'
 							+'<td>'+regdate+'</td>'
 							+'<td>'+b_readcount+'</td>'
@@ -124,13 +132,15 @@ a:hover {
 				</tr>
 			</thead>
 			<tbody>	
-				<c:forEach var="vo" items="${boardList }" varStatus="status">
+<%-- 			<c:forEach var="vo" items="${boardList }" varStatus="status"> --%>
+				<c:forEach var="vo" items="${boardList }">
 				
 					<tr>
 						<td><span class="text-sm font-weight-normal">${vo.bno}</span></td>
 						<td><div class="my-auto"><h6 class="mb-0 text-sm">${vo.b_ctgr}</h6></div></td>
-						<td><!-- <p class="text-sm font-weight-normal mb-0"> --><a href="/board/read?bno=${vo.bno }&page=${pm.vo.page}">${vo.b_title }</a><!-- </p> -->
-							&nbsp; (${cmtList[status.index] }) </td>
+						<td><a href="/board/read?bno=${vo.bno }&page=${pm.vo.page}">${vo.b_title }</a><!-- </p> -->
+							&nbsp; (${vo.b_cmtcount }) <%-- (${cmtList[status.index] })  --%>
+						</td>
 						<td><b>${vo.nick }</b></td>
 						<td><span class="text-sm font-weight-normal">
 							<c:choose>

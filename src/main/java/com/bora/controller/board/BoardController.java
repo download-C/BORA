@@ -116,16 +116,18 @@ public class BoardController {
 			log.info("(♥♥♥♥♥ 2-1.listPageGET) Service 호출 + 모델 객체에 저장까지 완");
 			
 			// 댓글 개수 출력을 위해 글 리스트에서 -> bno 뽑아와서 -> cmtList에 add하고 모델에 저장
-			List<Integer> cmtList = new ArrayList<Integer>();
+//			List<Integer> cmtList = new ArrayList<Integer>();
+//			
+//			for(int i = 0; i < boardList.size(); i++) {
+//				int bno = boardList.get(i).getBno();
+//				log.info("(♥♥♥♥♥ 2-1.listPageGET) " + bno + "번 글의 댓글 개수: " + cmtService.getTotalCount(bno));
+//				cmtList.add(cmtService.getTotalCount(bno));
+//			}
+//			
+//			model.addAttribute("cmtList", cmtList);
+//			log.info("(♥♥♥♥♥ 2-1.listPageGET) model에 저장한 cmtList: " + cmtList);
+			// ㄴㄴㄴ 댓글 개수 출력하는 것때메 리스트 로딩 시간 너무 길어져서~ 걍 컬럼 추가함 
 			
-			for(int i = 0; i < boardList.size(); i++) {
-				int bno = boardList.get(i).getBno();
-				log.info("(♥♥♥♥♥ 2-1.listPageGET) " + bno + "번 글의 댓글 개수: " + cmtService.getTotalCount(bno));
-				cmtList.add(cmtService.getTotalCount(bno));
-			}
-			
-			model.addAttribute("cmtList", cmtList);
-			log.info("(♥♥♥♥♥ 2-1.listPageGET) model에 저장한 cmtList: " + cmtList);
 			
 			// 페이징 처리 하단부 정보 저장
 			PageMakerVO pm = new PageMakerVO();

@@ -57,6 +57,23 @@
 	</select>
 	
 	
+	<update id="updateCmtCount">
+		update bora_cmnt_board
+		set b_cmtcount = b_cmtcount + 1
+		where bno = #{bno}
+	</update>
+	
+	
+	<update id="minusCmtCount">
+		update bora_cmnt_board
+		set b_cmtcount = b_cmtcount - 1
+		where bno = (select bno
+					from bora_cmnt_cmt
+					where cno = #{cno})
+	</update>
+	
+
+	
 	
 	
 	
