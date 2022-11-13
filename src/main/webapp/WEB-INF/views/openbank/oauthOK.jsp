@@ -26,10 +26,20 @@
 
 <div class="container">
 
+<hr>
+<h1>BORA 자산관리 시작</h1>
+<br>
 
-<!-- <hr> -->
-<!-- 	오픈뱅킹 사용자 인증 하러 가기 -->
-<!-- 	<!-- 인증 요청 작업 수행 -->
+<h3>자산관리 첫 페이지 설명 </h3>
+<span>BORA 자산관리에서 나의 모든 자산을 편리하게 조회하세요<br>
+오픈뱅킹은 핀테크 기업과 은행권이 공동으로 이용할 수 있는 공동결제시스템으로,
+BORA 자산관리에서는 오픈뱅킹의 인증 페이지에서 본인 인증 및 조회/출금동의를 완료하면
+나의 모든 자산을 조회할 수 있는 오픈뱅킹 서비스를 제공하고 있습니다. 
+</span><br>
+
+<hr>
+	오픈뱅킹 사용자 인증 하러 가기
+	<!-- 인증 요청 작업 수행 -->
 <!-- 	<form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get"> -->
 <!-- 		<input type="hidden" name="response_type" value="code">  -->
 <!-- 		<input type="hidden" name="client_id" value="2ce89526-eccf-45b0-a59f-1ca10bc64b30">  -->
@@ -39,7 +49,18 @@
 <!-- 		<input type="hidden" name="auth_type" value="0">  -->
 <!-- 		<input type="submit" value="오픈뱅킹 사용자 인증" id="btn"> -->
 <!-- 	</form> -->
-   
+	
+	<form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get">
+        <input type="hidden" name="response_type" value="code">
+        <input type="hidden" name="client_id" value="2ce89526-eccf-45b0-a59f-1ca10bc64b30">
+        <input type="hidden" name="redirect_uri" value="http://localhost:8088/openbank/callback">
+        <input type="hidden" name="scope" value="login inquiry transfer cardinfo fintechinfo">
+      <!-- <input type="hidden" name="scope" value="cardinfo"> -->
+        <input type="hidden" name="state" value="12345678123456781234567812345678">
+        <input type="hidden" name="auth_type" value="0">
+        <!-- <input type="hidden" value="register_info" value="C"> -->
+        <input type="submit" value="오픈뱅킹 사용자 인증">
+    </form>
    
 <!-- 	<h1>😉사용자정보조회😉</h1> -->
 <!-- 	<!-- 사용자정보조회 --> 
@@ -100,6 +121,7 @@
   </div>
 
   <br>
+
 
 
 

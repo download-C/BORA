@@ -51,8 +51,5 @@
 </div> <!-- col-12 -->
 </div> <!-- row -->
 	  
-
-	
 <%@ include file="../include/footer.jsp"%>
-
 

@@ -23,6 +23,12 @@ import com.bora.domain.openbank.card.bill.CardBillsRequestVO;
 import com.bora.domain.openbank.card.bill.CardBillsResponseVO;
 import com.bora.domain.openbank.card.bill.CardDetailBillsRequestVO;
 import com.bora.domain.openbank.card.bill.CardDetailBillsResponseVO;
+import com.bora.domain.openbank.tran.deposit.TranDepositRequestVO;
+import com.bora.domain.openbank.tran.deposit.TranDepositResponseVO;
+import com.bora.domain.openbank.tran.result.TranResultRequestVO;
+import com.bora.domain.openbank.tran.result.TranResultResponseVO;
+import com.bora.domain.openbank.tran.withdraw.TranWithdrawRequestVO;
+import com.bora.domain.openbank.tran.withdraw.TranWithdrawResponseVO;
 
 
 @Service
