@@ -17,8 +17,6 @@ import com.bora.domain.openbank.UserInfoRequestVO;
 import com.bora.domain.openbank.UserInfoResponseVO;
 import com.bora.domain.openbank.account.AccountBalanceRequestVO;
 import com.bora.domain.openbank.account.AccountBalanceResponseVO;
-import com.bora.domain.openbank.account.AccountCancelRequestVO;
-import com.bora.domain.openbank.account.AccountCancelResponseVO;
 import com.bora.domain.openbank.account.AccountSearchRequestVO;
 import com.bora.domain.openbank.account.AccountSearchResponseVO;
 import com.bora.domain.openbank.account.AccountTranRequestVO;

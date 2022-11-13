@@ -37,7 +37,6 @@ input::-webkit-inner-spin-button {
 
 
   <!-- Template Main CSS File -->
-  <link href="${pageContext.request.contextPath}/resources/css/writeForm.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -112,6 +111,7 @@ if(session!=null) {
     <%
 	    if(loginID != null){
     %>
+    		<a href="/member/mypage"  class="twitter">마이페이지</a>
         <a href="/member/logout" class="twitter">로그아웃</a>
     <%
       	} else {
@@ -132,20 +132,23 @@ if(session!=null) {
       <h1 class="logo"><a href="/main/main">BORA<span></span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="${pageContext.request.contextPath}/resources/img/logo.png" alt=""></a>-->
-<%	
-  Calendar cal = Calendar.getInstance();
-	int year = cal.get(Calendar.YEAR);
-	int month = cal.get(Calendar.MONTH)+1;
-%>
-
+	
+			<%	
+			  Calendar cal = Calendar.getInstance();
+				int year = cal.get(Calendar.YEAR);
+				int month = cal.get(Calendar.MONTH)+1;
+				int day = cal.get(Calendar.DATE);
+			%>
+		
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="/main/main">Home</a></li>
-          <li><a class="nav-link scrollto" href="/about">About</a></li>
-          <li><a class="nav-link scrollto" href="/book/top3?year=<%=year%>&month=<%=month%>">리포트</a></li>
-          <li><a class="nav-link scrollto " href="/openbank/oauthOK">자산관리</a></li>
-          <li><a class="nav-link scrollto" href="/member/mypage">마이페이지</a></li>
-          <li><a class="nav-link scrollto" href="#contact">고객센터</a></li>
+          <li><a class="nav-link scrollto" href="/book/list?year=<%=year%>&month=<%=month%>">가계부(나중에 리포트로 합칠 예정)</a></li>
+          <li><a class="nav-link scrollto" href="/main/about">About</a></li>
+          <li><a class="nav-link scrollto" href="/main/noticeList?page=1">공지사항</a></li>
+          <li><a class="nav-link scrollto" href="/board/list?page=1">커뮤니티</a></li>
+          <li><a class="nav-link scrollto" href="/report/report?year=<%=year%>&month=<%=month%>">리포트</a></li>
+          <li><a class="nav-link scrollto " href="/openbank/oauth">오픈뱅킹</a></li>
+
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
