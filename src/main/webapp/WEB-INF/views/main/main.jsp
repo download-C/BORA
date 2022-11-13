@@ -202,7 +202,6 @@ $(document).ready(function(){
 <a href='/calendar/sample'>달력 샘플</a> <br>
 <h3><a href='/book/list?year=<%=year%>&month=<%=month%>&page=1'>가계부 목록으로 이동</a></h3> <br>
 <h3><a href='/report/categoryList'>리포트로 이동</a></h3> <br>
-<h3><a href='/book/top3?year=<%=year%>&month=<%=month%>'>top3 이동</a></h3> <br>
 <h3><a href='/openbank/goal'>자산관리 목표 설정 이동</a></h3> <br>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>

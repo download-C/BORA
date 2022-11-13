@@ -22,24 +22,5 @@ public class CardPayServiceImpl implements CardPayService {
 		return bookCardList;
 	}
 
-	@Override
-	public List<BookDetailVO> Top3Store(Integer year, Integer month, String loginID) throws Exception {
-		List<BookDetailVO> Top3Store = dao.getTop3Store(year, month, loginID);
-
-		return Top3Store;
-	}
-
-	@Override
-	public List<BookDetailVO> Top3Date(Integer year, Integer month, String loginID) throws Exception {
-		List<BookDetailVO> Top3Date = dao.getTop3Date(year, month, loginID);
-		
-		return Top3Date;
-	}
-
-	@Override
-	public List<BookDetailVO> ConsumeTag(Integer year, Integer month, String loginID) throws Exception {
-		List<BookDetailVO> ConsumeTag = dao.getConsumeTag(year, month,loginID);
-		
-		return ConsumeTag;
-	}
+	
 }
