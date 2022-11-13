@@ -95,13 +95,13 @@
     <div class="container">
 		<table  class="table table-hover" style="box-shadow: 7px 14px 90px 3px rgba(163, 174, 184, 0.7);">
 			<thead class="bg-gray-100">
-				<tr>
-					<th class="text-secondary text-xs font-weight-semibold opacity-7">번호</th>
-					<th class="text-secondary text-xs font-weight-semibold opacity-7">카테고리</th>
-					<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">제목</th>
-					<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">닉네임</th>
-					<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">작성일</th>
-					<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">조회수</th>
+				<tr style="text-align: center; color:white; background-color: #5107B0;" >
+					<th class="text-xs font-weight-semibold opacity-7">번호</th>
+					<th class="text-xs font-weight-semibold opacity-7">카테고리</th>
+					<th class="text-xs font-weight-semibold opacity-7 ps-2">제목</th>
+					<th class="text-xs font-weight-semibold opacity-7 ps-2">닉네임</th>
+					<th class="text-xs font-weight-semibold opacity-7 ps-2">작성일</th>
+					<th class="text-xs font-weight-semibold opacity-7 ps-2">조회수</th>
 				</tr>
 			</thead>
 			<tbody>	

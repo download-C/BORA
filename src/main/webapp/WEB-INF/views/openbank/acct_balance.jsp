@@ -22,7 +22,6 @@ th {
   color: #fff; 
   font-weight: bold; 
   text-align: center;
-  
 }
 td, th { 
   padding: 6px; 
