@@ -422,7 +422,7 @@ $(document).ready(function(){
       <h4><b style="background: linear-gradient(to top, #c8a7fa 50%, transparent 50%);">나의 소비 ROLE</b></h4>
       <div class="col-lg-44" align="center">
      
-          <img id="pigImg" src="./resources/img/travel.png"
+          <img id="pigImg" src="${pageContext.request.contextPath}/resources/img/travel.png"
                   style="width: 500px; height: 300px; margin-top: 30px;">
       </div>
 </div>
