@@ -20,6 +20,8 @@
 		<input type="hidden" name="auth_type" value="0"> 
 		<input type="submit" value="오픈뱅킹 사용자 인증">
 	</form>
+	
+	
 
 
 <%@ include file="../include/footer.jsp"%>

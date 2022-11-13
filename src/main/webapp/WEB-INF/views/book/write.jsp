@@ -75,11 +75,10 @@ $(document).ready(function(){
 			$("#bk_group").html(
 				'<option value="">자산 선택</option>'+
 				'<option value="">은행</option>'+
-				'<option value="기타">기타</option>'+
-				'<option value="추가">추가</option>'
+				'<option value="기타">기타</option>'
 			);
 			$("#bk_category").html(
-				'<option value="">카테고리</option>'
+				'<option value="">카테고리 없음</option>'
 			);
 
 		} // radio 이체
@@ -87,6 +86,18 @@ $(document).ready(function(){
 }); // document
 </script>
 
+<!-- 날짜 셀렉트 옵션 오늘로 미리 선택 -->
+<script>
+$(document).ready(function(){
+	$("#bk_year").val("${year}").attr("selected","selected");
+	$("#bk_month").val("${month}").attr("selected","selected");
+	$("#bk_day").val("${day}").attr("selected","selected");
+});//document
+</script>
+<script>
+
+
+</script>
 
 <div class="section-title">
   <h2><b>가계부 작성</b></h2>
@@ -133,12 +144,12 @@ $(document).ready(function(){
 	</div>
 	<div class="form-floating mb-3"  id='datetimepicker1'  
 		  style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
-		<select class="form-select" style="width: 33%; float: left;" name="bk_year" required="required">				
+		<select class="form-select" id="bk_year" style="width: 33%; float: left;" name="bk_year" required="required">				
 			<option value="">연도</option>
 			<option value="2021">2021</option>
 			<option value="2022">2022</option>
 		</select>
-		<select class="form-select" style="width: 33%; float: left;" name="bk_month" required="required">	
+		<select class="form-select" id="bk_month" style="width: 33%; float: left;" name="bk_month" required="required">	
 			<option value="">월</option>
 			<option value="1">1</option>
 			<option value="2">2</option>
@@ -153,7 +164,7 @@ $(document).ready(function(){
 			<option value="11">11</option>
 			<option value="12">12</option>
 		</select> 
-		<select class="form-select" style="width: 33%; float: left;" name="bk_day" required="required">
+		<select class="form-select" id="bk_day" style="width: 33%; float: left;" name="bk_day" required="required">
 			<option value="">일</option>
 			<option value="1">1</option>
 			<option value="2">2</option>

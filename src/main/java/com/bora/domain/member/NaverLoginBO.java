@@ -51,7 +51,7 @@ public class NaverLoginBO {
 		log.info("NaverLoginBO 스테이트: "+state);
 		// 일치할 경우 토큰 발급
 		log.info(StringUtils.pathEquals(sessionState, state)+"");
-//		if (StringUtils.pathEquals(sessionState, state)) {
+		if (StringUtils.pathEquals(sessionState, state)) {
 			OAuth20Service oauthService = new ServiceBuilder().apiKey(CLIENT_ID).apiSecret(CLIENT_SECRET)
 					.callback(REDIRECT_URI).state(state).build(NaverLoginApi.instance());
 			log.info("oauth서비스 :"+oauthService);
@@ -60,8 +60,8 @@ public class NaverLoginBO {
 			log.info("엑세스 토큰: "+accessToken);
 			
 			return accessToken;
-//		}
-//		return null;
+		}
+		return null;
 	}
 
 	/* 세션 유효성 검증을 위한 난수 생성기 */

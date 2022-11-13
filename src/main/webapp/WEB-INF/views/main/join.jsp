@@ -6,9 +6,13 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+<!-- Template Main CSS File -->
+<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+<!-- 이메일 인증 -->
 <script type="text/javascript">
-// 휴대폰 인증
 </script>
+
+<!-- 비밀번호 유효성 검사 -->
 <script type="text/javascript">
 // 비밀번호 유효성 검사
 function checkpw() {
@@ -29,7 +33,10 @@ function checkpw() {
 			document.getElementById("pw").value="";
 	} 
 }
-// 비밀번호 일치 검사
+</script>
+
+<!-- 비밀번호 일치 검사 -->
+<script>
 function checkpw2() {
 	if($('#pw').val()!=$('#pw2').val()){
 		$('.pw2div').html('비밀번호가 일치하지 않습니다.');
@@ -49,15 +56,14 @@ const autoHyphen = (target) => {
  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
  .replace(/(\-{1,2})$/g, "");
 }
-
 </script>
-<script>
 
+<!-- 아이디 중복 체크 후 회원가입 -->
+<script>
 $(document).ready(function(){	     
 	var idflag = document.getElementById("idflag");
 // 	alert(idflag.value);
 
-    // 아이디 중복여부를 확인한 뒤 submit 가능
     $("#join").submit(function(){
 		if(idflag.value=="false") {
 	    	alert("아이디 중복 여부를 확인하세요");
@@ -121,19 +127,22 @@ $(document).ready(function(){
 </script>
 
 
- <!-- login -->
   <!-- login -->
   <div class="container">
     <div class="row">
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-        <div class="card border-0 shadow rounded-3 my-5">
-          <div class="card-body p-4 p-sm-5">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto" style="width: 50%;">
+        <div class="card border-0 shadow rounded-3 my-5" style="background-color:#F5EFFE; border-color: #F5EFFE;">
+          <div class="card-body p-4 p-sm-5" >
             <h5 class="card-title text-center mb-5 fw-light fs-5"><b>회원가입</b></h5>
             <form action="/main/join" method="post" id="join">
-              <div class="form-floating mb-3">
-                <input type="text" name="id" class="form-control" id="id" placeholder="아이디" required>
-                <label for="floatingInput">아이디</label>
-                <input type="button" value="중복체크" id="idcheck"><br>
+              <div class="form-floating mb-3" >
+                <input type="text" name="id" class="form-control" id="id" placeholder="아이디" required   
+                style="width: 85%; float: left;">
+                <label for="id">아이디</label>
+                <div align="right">
+                	<button id="idcheck" style="width: 13%; padding: 5px 0px; border: none; border-radius: 6px; background-color: #5107b0; color: #fff;  vertical-align: middle;">
+                		중복<br>체크
+               		</button></div>
                 <span class="iddiv">&nbsp;</span>
               </div>
               <div class="form-floating mb-3">
@@ -157,7 +166,7 @@ $(document).ready(function(){
                 <span class="nickdiv">&nbsp;</span>
               </div>
               <div class="form-floating mb-3">
-                <input type="tel" name="phone" class="form-control" id="phone" placeholder="전화번호" maxlength="13" oninput="autoHyphen(this)" autofocus  required>
+                <input type="tel" name="phone" class="form-control" id="phone" placeholder="전화번호" maxlength="13" oninput="autoHyphen(this)" required>
                 <label for="floatingInput">전화번호</label>
                 <span>&nbsp;</span>
               </div>
@@ -166,13 +175,11 @@ $(document).ready(function(){
                 <label for="floatingInput">이메일</label>
                 <span>&nbsp;</span>
               </div>
-
               <hr class="my-4">
               <div class="d-grid">
                 <input type="hidden" value="false" id="idflag" placeholder="아이디 중복체크 했나요?"> <br>
-                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">가입하기</button>
+                <button class="btn btn-primary btn-login text-uppercase fw-bold" style="border: none; background-color: #5107b0;" type="submit">가 입 하 기</button>
               </div>
-              
             </form>
           </div>
         </div>

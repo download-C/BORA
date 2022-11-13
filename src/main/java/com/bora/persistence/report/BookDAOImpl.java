@@ -133,6 +133,15 @@ public class BookDAOImpl implements BookDAO{
 		map.put("bk_budget", bk_budget);
 		return session.update(NAMESPACE+".updateMonthBudget", map);
 	}
+
+	@Override
+	public int getMonthBookMoney(String loginID, int year, int month) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("year", year);
+		map.put("month", month);
+		map.put("loginID", loginID);
+		return session.selectOne(NAMESPACE+".getMonthBookMoney", map);
+	}
 	
 	
 	

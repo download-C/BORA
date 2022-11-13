@@ -9,95 +9,312 @@
 
 <!-- title -->
 <div class="section-title">
-  <h2><b>보유 계좌 목록</b></h2>
-  
+  <h2><b>내 자산 보기</b></h2>
 </div>
 <!-- End title -->
 
-<div>
 
-<h1>계좌목록</h1>
- 	
-<h3>계좌구분(P:개인)</h3>
-<h3>계좌종류주3) 1:수시입출금, 2:예적금 6:수익증권, T:종합계좌</h3>
-<hr>
+<!-- account -->
+  <div class="container">
+    <h4 style="background: linear-gradient(to top, #c8a7fa 50%, transparent 50%); width: fit-content;">계좌</h4><br>
+    <div class="row justify-content-center">
+      <div class="col-10" style="padding-right: 0;">
+        <div class="table-responsive">
+          <table class="table table-hover" style="border-right: none; border-radius: 0; box-shadow: none;">
+            <thead>
+              <tr style="font-size: 16px; ">
+                <th scope="col" style="color:black">계좌번호</th>
+                <th scope="col" style="color:black">은행명</th>
+                <th scope="col" style="color:black">계좌구분</th>
+                <th scope="col" style="color:black">계좌종류</th>
+                <th scope="col" style="color:black">예금주명</th>
+                <th scope="col" style="color:black">계좌별칭</th>
+              </tr>
+            </thead>
+            <tbody>
+       		<c:forEach var="accountList" items="${accountList.res_list }">
+              <tr>
+				<td>${accountList.account_num_masked }</td>
+				<td>${accountList.bank_name }</td>
+				<td>${accountList.account_holder_type } (P:개인)</td>
+				<td>${accountList.account_type } (1:입출금)</td>
+				<td>${accountList.account_holder_name }</td>
+				<td>${accountList.account_alias }</td>
+              </tr>
+			</c:forEach>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-2" style="padding-left: 0;">
+        <div class="table-responsive">
+          <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;">
+            <thead>
+              <tr>
+                <th scope="col" style="color:black">업무</th>
+              </tr>
+            </thead>
+            <tbody>
 
-<!-- 	<table> -->
-<!-- 		<tr> -->
-<!-- 			<th>마스킹된 출력용 계좌번호</th> -->
-<!-- 			<th>은행명</th> -->
-<!-- 			<th>계좌구분</th> -->
-<!-- 			<th>계좌종류</th> -->
-<!-- 			<th>예금주명</th> -->
-<!-- 			<th>계좌별명</th> -->
-<!-- 		</tr> -->
-<%-- 		<%-- accountList 객체에 저장되어 있는 계좌 목록(res_list) 가져와서 반복하여 복수개 계좌 접근 --%> --%>
-<%-- 		<c:forEach var="accountList" items="${accountList.res_list }"> --%>
-<!-- 			<tr> -->
-<%-- 				<td>${accountList.account_num_masked }</td> --%>
-<%-- 				<td>${accountList.bank_name }</td> --%>
-<%-- 				<td>${accountList.account_holder_type }</td> --%>
-<%-- 				<td>${accountList.account_type }</td> --%>
-<%-- 				<td>${accountList.account_holder_name }</td> --%>
-<%-- 				<td>${accountList.account_alias }</td> --%>
-<!-- 			</tr> -->
-<%-- 		</c:forEach> --%>
-<!-- 	</table> -->
-	
-<div class="row">
-  <div class="col-12">
-   <div class="d-sm-flex align-items-center mb-3">
-	<div class="container">
-		<button type="button" value="모두다BORA" class="ctgr_btn btn" id="btn_all"  style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">모두다<b style="color:#5107B0;">BORA</b></span></button>
-		<button type="button" value="글쓰기" onclick="location.href='/board/insert';" class="btn" id="" style="background-color: #5107B0; float: right; width: 120px; margin: 0px 10px 10px 0px;"><span class="btn-inner--text" style="color: white;">글쓰기</span></button>
-	</div>
-	</div>
-   <div class="card-body px-0 py-0" >
-    <div class="container">
-		<table  class="table table-hover" style="box-shadow: 7px 14px 90px 3px rgba(163, 174, 184, 0.7);">
-			<thead class="bg-gray-100">
-				<tr>
-					<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">계좌번호</th>
-					<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2S">은행명</th>
-					<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">계좌구분</th>
-					<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">계좌종류</th>
-					<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">예금주명</th>
-					<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">계좌별칭</th>
-					<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">계좌잔액</th>
-					<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">거래내역</th>
-				</tr>
-			</thead>
-			<tbody>	
-					<%-- accountList 객체에 저장되어 있는 계좌 목록(res_list) 가져와서 반복하여 복수개 계좌 접근 --%>
-		<c:forEach var="accountList" items="${accountList.res_list }">
-			<tr>
-				<td><span class="text-sm font-weight-normal">${accountList.account_num_masked }</span></td>
-				<td><span class="text-sm font-weight-normal">${accountList.bank_name }</span></td>
-				<td><span class="text-sm font-weight-normal">${accountList.account_holder_type } (P:개인)</span></td>
-				<td><span class="text-sm font-weight-normal">${accountList.account_type } (1:입출금)</span></td>
-				<td><span class="text-sm font-weight-normal">${accountList.account_holder_name }</span></td>
-				<td><span class="text-sm font-weight-normal">${accountList.account_alias }</span></td>
-				<td><span class="text-sm font-weight-normal">
-				
-				조회
-				
-				</span></td>
-				<td><span class="text-sm font-weight-normal">
-				
-				조회
-				
-				</span></td>
-			</tr>
-		</c:forEach>
-			</tbody>
-		</table>
-	</div> <!-- container -->
-	<br><br>
+              <tr>
+                <td style="padding-bottom: 6px; padding-top: 6px;">
+                
+                	<form method="get" action="/openbank/accountTran" target="frm1">
+					<input type="hidden" name="access_token" value="${sessionScope.token }">
+					<input type="hidden" name="bank_tran_id" value="${accountTran.bank_tran_id}">
+					<input type="hidden" name="fintech_use_num" value="120220217888941294186856">
+					<input type="hidden" name="inquiry_type" value='A'>
+					<input type="hidden" name="inquiry_base" value='D'>
+					<input type="hidden" name="from_date" value="20100101">
+					<input type="hidden" name="to_date" value="20221104">
+					<input type="hidden" name="sort_order" value="D">
+					<input type="hidden" name="tran_dtime" value="20221104134521">
+					<input type="submit" value="내역조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">
+					</form>
+<!--                   <button type="button" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역조회</button> -->
+                	
+                	<form method="get" action="/openbank/accountBalance" target="frm2">
+					<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+					<input type="hidden" name="access_token" value="${sessionScope.token }">
+					<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
+					<input type="hidden" name="fintech_use_num" value="120220217888941294186856">
+					<input type="hidden" name="tran_dtime" value="20221104134521">
+					<input type="submit" value="잔액조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">
+					</form>   
+<!--                   <button class="tdbtn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button> -->
 
-</div>
-</div> <!-- col-12 -->
-</div> <!-- row -->
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 6px; padding-top: 6px;">
+                
+                	<form method="get" action="/openbank/accountTran" target="frm1">
+					<input type="hidden" name="access_token" value="${sessionScope.token }">
+					<input type="hidden" name="bank_tran_id" value="${accountTran.bank_tran_id}">
+					<input type="hidden" name="fintech_use_num" value="120220217888941294172171">
+					<input type="hidden" name="inquiry_type" value='A'>
+					<input type="hidden" name="inquiry_base" value='D'>
+					<input type="hidden" name="from_date" value="20100101">
+					<input type="hidden" name="to_date" value="20221104">
+					<input type="hidden" name="sort_order" value="D">
+					<input type="hidden" name="tran_dtime" value="20221104134521">
+					<input type="submit" value="내역조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">
+					</form>
+<!--                   <button class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역조회</button> -->
+                  
+                	<form method="get" action="/openbank/accountBalance" target="frm2">
+					<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+					<input type="hidden" name="access_token" value="${sessionScope.token }">
+					<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
+					<input type="hidden" name="fintech_use_num" value="120220217888941294172171">
+					<input type="hidden" name="tran_dtime" value="20221104134521">
+					<input type="submit" value="잔액조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">
+					</form>   
+<!--                   <button class="tdbtn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button> -->                  
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- 잔액조회버튼 -->
+      <div class="col-10" style="padding-left: 0;">
+        <div class="table-responsive">
+          <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;">
+            <tbody>
+              <tr>
+                <th colspan="6" style="text-align: center;">총 잔액</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-2" style="padding-left: 0;">
+        <div class="table-responsive">
+          <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;">
+            <tbody>
+              <tr>
+                <th style="text-align: center;">00원</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- 잔액조회버튼 끝 -->
+      <!-- End account -->
+    </div>
+  </div>
 
+  <hr>
+
+  <!-- card -->
+  <div class="container">
+    <h4 style="background: linear-gradient(to top, #c8a7fa 50%, transparent 50%); width: fit-content;">카드</h4><br>
+    <div class="row justify-content-center">
+      <div class="col-10" style="padding-right: 0;">
+        <div class="table-responsive">
+          <table class="table table-hover" style="border-right: none; ">
+            <thead>
+              <tr style="font-size: 16px;">
+                <th scope="col">계좌번호</th>
+                <th scope="col">은행명</th>
+                <th scope="col">계좌구분</th>
+                <th scope="col">계좌종류</th>
+                <th scope="col">예금주명</th>
+                <th scope="col">계좌별칭</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>11</td>
+                <td>IBK기업은행</td>
+                <td>P</td>
+                <td>1</td>
+                <td>예금주</td>
+                <td>통장</td>
+              </tr>
+              <tr>
+                <td>11</td>
+                <td>IBK기업은행</td>
+                <td>P</td>
+                <td>1</td>
+                <td>예금주</td>
+                <td>통장</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- account -->
+      <div class="col-2" style="padding-left: 0;">
+        <div class="table-responsive">
+          <table class="table table-hover" style="border-right: none;">
+            <thead>
+              <tr>
+                <th scope="col">업무</th>
+              </tr>
+            </thead>
+            <tbody>
+              <style>
+                .tdbtn {
+                  background-color: #5107B0;
+                  font-size: 12 px;
+                  color: #fff;
+                  padding: 2;
+                  margin: 0;
+                  border: 1px solid #fff;
+                }
+              </style>
+              <tr>
+                <td style="padding-bottom: 6px; padding-top: 6px;">
+                  <button class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역조회</button>
+                  <button class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 6px; padding-top: 6px;">
+                  <button class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역조회</button>
+                  <button class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+      <!-- End account -->
+      <!-- 잔액조회버튼 -->
+      <div class="col-10" style="padding-left: 0;">
+        <div class="table-responsive">
+          <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;">
+            <tbody>
+              <tr>
+                <th colspan="6" style="text-align: center;">총 잔액</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-2" style="padding-left: 0;">
+        <div class="table-responsive">
+          <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;">
+            <tbody>
+              <tr>
+                <th style="text-align: center;">00원</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- 잔액조회버튼 끝 -->
+    </div>
+  </div>
+
+  <!-- End card -->
+ 
+   <!-- 모달창 -->
+   <!--   	거래내역조회 -->
+  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">거래내역조회</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container">
+<!--             <iframe src="modaltable.html" style="width: 100%;"></iframe> -->
+            <iframe src="./acct_tran.jsp" style="width: 100%;" name="frm1"></iframe>
+
+            <!-- End table -->
+
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--  BORA입출금 잔액조회 -->
+    <!-- The Modal -->
+    <div class="modal" id="myModal2">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+  
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">잔액조회</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+  
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="container">
+<!--               <iframe src="modaltable.html" style="width: 100%;"></iframe> -->
+              <iframe src="./acct_balance.jsp" style="width: 100%;" name="frm2"></iframe>
+  
+              <!-- End table -->
+  
+            </div>
+          </div>
+  
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- 모달창 끝 -->
+  <br>
 
 
 	

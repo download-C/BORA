@@ -17,12 +17,18 @@ import com.bora.domain.openbank.UserInfoRequestVO;
 import com.bora.domain.openbank.UserInfoResponseVO;
 import com.bora.domain.openbank.account.AccountBalanceRequestVO;
 import com.bora.domain.openbank.account.AccountBalanceResponseVO;
-import com.bora.domain.openbank.account.AccountCancelRequestVO;
-import com.bora.domain.openbank.account.AccountCancelResponseVO;
 import com.bora.domain.openbank.account.AccountSearchRequestVO;
 import com.bora.domain.openbank.account.AccountSearchResponseVO;
 import com.bora.domain.openbank.account.AccountTranRequestVO;
 import com.bora.domain.openbank.account.AccountTranResponseVO;
+import com.bora.domain.openbank.card.CardInfoRequestVO;
+import com.bora.domain.openbank.card.CardInfoResponseVO;
+import com.bora.domain.openbank.card.CardListRequestVO;
+import com.bora.domain.openbank.card.CardListResponseVO;
+import com.bora.domain.openbank.card.bill.CardBillsRequestVO;
+import com.bora.domain.openbank.card.bill.CardBillsResponseVO;
+import com.bora.domain.openbank.card.bill.CardDetailBillsRequestVO;
+import com.bora.domain.openbank.card.bill.CardDetailBillsResponseVO;
 import com.bora.domain.openbank.tran.deposit.TranDepositRequestVO;
 import com.bora.domain.openbank.tran.deposit.TranDepositResponseVO;
 import com.bora.domain.openbank.tran.result.TranResultRequestVO;
@@ -52,7 +58,6 @@ public class OpenbankController {
 		log.info("/openbank/goal 로 이동");
 		return "/openbank/goal";
 	}
-	
 	
 	// http://localhost:8088/openbank/oauthOK
 	@RequestMapping(value = "/oauthOK", method = RequestMethod.GET)
@@ -122,25 +127,6 @@ public class OpenbankController {
 			return "/openbank/acct_list";
 		}
 		
-		// 등록계좌 해지
-		@RequestMapping(value = "/accountCancel", method = RequestMethod.POST)
-		public String cancelAccount( AccountCancelRequestVO accountCancelRequestVO, Model model) {
-			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧   등록계좌 해지");
-			log.info("/openbank/acct_cancel 로 이동");
-			
-			AccountCancelResponseVO accountCancel = openBankingService.cancelAccount(accountCancelRequestVO);
-			
-			model.addAttribute("accountCancel", accountCancel);
-			session.setAttribute("access_token", accountCancelRequestVO.getAccess_token());
-			
-			log.info("Access_token : "+accountCancelRequestVO.getAccess_token());
-			log.info("bank_tran_id : "+accountCancelRequestVO.getBank_tran_id());
-			log.info("scope : "+accountCancelRequestVO.getScope());
-			log.info("fintech_use_num : "+accountCancelRequestVO.getFintech_use_num());
-			
-			return "/openbank/acct_cancel";
-		}
-		
 		// 잔액조회 
 		@RequestMapping(value = "/accountBalance", method = RequestMethod.GET)
 		public String getAccountBalance( AccountBalanceRequestVO accountBalanceRequestVO, Model model) {
@@ -186,47 +172,92 @@ public class OpenbankController {
 			return "/openbank/acct_tran";
 		}
 		
+		
+		// 카드기본정보 조회
+		@RequestMapping(value = "/cardInfo", method = RequestMethod.POST)
+		public String getCardInfo( CardInfoRequestVO cardInfoRequestVO, Model model) throws Exception {
+					
+			log.info("cardInfoPOST() 호출");
+				
+			CardInfoResponseVO cardInfo = openBankingService.infoCard(cardInfoRequestVO);
+				
+			// Model 객체에  CardListResponseVO 객체와 엑세스 토큰 저장
+			model.addAttribute("cardInfo", cardInfo);
+			session.setAttribute("access_token", cardInfoRequestVO.getAccess_token());
+				
+			log.info("Access_token : "+cardInfoRequestVO.getAccess_token());
+			log.info("cardInfo : "+cardInfoRequestVO.getUser_seq_no());
+				
+			return "/openbank/card_info";
+		
+		}
+			
+		// 카드목록 조회
+		@RequestMapping(value = "/cardList", method = RequestMethod.GET)
+		public String getCardList( CardListRequestVO cardListRequestVO, Model model) throws Exception {
+				
+			log.info("cardListGET() 호출");
+				
+			// Service 객체의 listCard() 메서드를 호출하여 사용자 정보 조회
+			// => 파라미터 : CardListRequestVO, 리턴타입 CardListResponseVO
+			CardListResponseVO cardList = openBankingService.listCard(cardListRequestVO);
 
-		// 출금이체
-		@RequestMapping(value = "/tranWithdraw", method = RequestMethod.POST)
-		public String getTranWithdraw( TranWithdrawRequestVO tranWithdrawRequestVO, Model model) {
-			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  출금이체");
-			log.info("/openbank/tran_withdraw 로 이동");
-			
-			TranWithdrawResponseVO tranWithdraw = openBankingService.findTranWithdraw(tranWithdrawRequestVO);
-			
-			model.addAttribute("tranWithdraw", tranWithdraw);
-			session.setAttribute("access_token", tranWithdrawRequestVO.getAccess_token());
-			
-			return "/openbank/tran_withdraw";
+			log.info("cardListRequestVO : "+cardListRequestVO.getAccess_token());
+			log.info("cardListRequestVO : "+cardListRequestVO.getBank_tran_id());
+			log.info("cardListRequestVO : "+cardListRequestVO.getUser_seq_no());
+			log.info("cardListRequestVO : "+cardListRequestVO.getBank_code_std());
+			log.info("cardListRequestVO : "+cardListRequestVO.getMember_bank_code());
+				
+				
+			// Model 객체에 CardListResponseVO 객체와 엑세스토큰 저장
+			model.addAttribute("cardList", cardList);
+			model.addAttribute("access_token", cardListRequestVO.getAccess_token());
+
+			return "/openbank/card_list";
 		}
-		
-		// 입금이체
-		@RequestMapping(value = "/tranDeposit", method = RequestMethod.POST)
-		public String getTranDeposit( TranDepositRequestVO tranDepositRequestVO, Model model) {
-			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧   입금이체");
-			log.info("/openbank/tran_deposit 로 이동");
+		    
+		// 카드청구기본정보 조회
+		@RequestMapping(value = "/cardBills", method = RequestMethod.GET)
+		public String getCardBills( CardBillsRequestVO cardBillsRequestVO, Model model) throws Exception {
+						
+			log.info("cardBillsGET() 호출");
+						
+			// Service 객체의 billsCard() 메서드를 호출하여 사용자 정보 조회
+			// => 파라미터 : CardBillsRequestVO, 리턴타입 CardBillsResponseVO
+			CardBillsResponseVO cardBills = openBankingService.billsCard(cardBillsRequestVO);
+
+			log.info("cardBillsRequestVO : "+cardBillsRequestVO.getAccess_token());
+			log.info("cardBillsRequestVO : "+cardBillsRequestVO.getUser_seq_no());
+			log.info("cardBillsRequestVO : "+cardBillsRequestVO.getMember_bank_code());
+			log.info("cardBillsRequestVO : "+cardBillsRequestVO.getBefor_inquiry_trace_info());
 					
-			TranDepositResponseVO tranDeposit = openBankingService.findTranDeposit(tranDepositRequestVO);
-					
-			model.addAttribute("tranDeposit", tranDeposit);
-			session.setAttribute("access_token", tranDepositRequestVO.getAccess_token());
-					
-			return "/openbank/tran_deposit";
+			// Model 객체에 CardBillsResponseVO 객체와 엑세스토큰 저장
+			model.addAttribute("cardBills", cardBills);
+			model.addAttribute("access_token", cardBillsRequestVO.getAccess_token());
+
+			return "/openbank/card_bills";
 		}
-		
-		// 이체결과조회
-		@RequestMapping(value = "/tranResult", method = RequestMethod.POST)
-		public String getTranResult( TranResultRequestVO tranResultRequestVO, Model model) {
-			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  이체결과조회");
-			log.info("/openbank/tran_result 로 이동");
-					
-			TranResultResponseVO tranResult = openBankingService.findTranResult(tranResultRequestVO);
-					
-			model.addAttribute("tranResult", tranResult);
-			session.setAttribute("access_token", tranResultRequestVO.getAccess_token());
-					
-			return "/openbank/tran_result";
+				
+		// 카드청구상세정보 조회
+		@RequestMapping(value = "/cardDetailBills", method = RequestMethod.GET)
+		public String getCardDetailBills( CardDetailBillsRequestVO cardDetailBillsRequestVO, Model model) throws Exception {
+								
+			log.info("cardDetailBillsGET() 호출");
+								
+			// Service 객체의 detailBillsCard() 메서드를 호출하여 사용자 정보 조회
+			// => 파라미터 : CardDetailBillsRequestVO, 리턴타입 CardDetailBillsResponseVO
+			CardDetailBillsResponseVO  cardDetailBills = openBankingService.detailBillsCard(cardDetailBillsRequestVO);
+
+			log.info("cardDetailBillsRequestVO : "+cardDetailBillsRequestVO.getAccess_token());
+			log.info("cardDetailBillsRequestVO : "+cardDetailBillsRequestVO.getUser_seq_no());
+			log.info("cardDetailBillsRequestVO : "+cardDetailBillsRequestVO.getMember_bank_code());
+			log.info("cardDetailBillsRequestVO : "+cardDetailBillsRequestVO.getBefor_inquiry_trace_info());
+							
+			// Model 객체에 CardDetailBillsResponseVO 객체와 엑세스토큰 저장
+			model.addAttribute("cardDetailBills", cardDetailBills);
+			model.addAttribute("access_token", cardDetailBillsRequestVO.getAccess_token());
+
+			return "/openbank/card_detail_bills";
 		}
 		
 		

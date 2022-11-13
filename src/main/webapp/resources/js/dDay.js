@@ -66,11 +66,6 @@ $('#datetimepicker1').change(function() {
 
 });// change
 
-
-
-
-
-
 // const remainTime = document.getElementById("#remain-time");
 
 function diffDay() {
@@ -124,8 +119,6 @@ function diffDay() {
 					+ '초.. 남았습니다....⏳');
 
 } // diffDay()
-
-
 
 // 특정 구간만 새로고침 함수
 function reloadDivArea() {

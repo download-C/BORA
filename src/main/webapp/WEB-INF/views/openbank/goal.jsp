@@ -36,7 +36,7 @@
 	<div style="border: 3px solid yellow; width: 50%;">
 	
 		<h2>🐷🐷 목돈을 모아보아요💰💰</h2>
-		
+		잔액 : ${accountBalance.balance_amt }
 		<h4>목표 금액 설정</h4>
 		<div class="form-floating mb-3" style="text-align: center">
 	<!-- 	<div class="form-floating mb-3"> -->
@@ -54,77 +54,6 @@
 		
 		<hr> 
 		
-<!-- 		=============== 구 목표 기간 ==================== -->
-<!-- 		<h4>목표 기간 설정</h4> -->
-<!-- 		<div class="form-floating mb-3"  id='datetimepicker1'   -->
-<!-- 			  style="height: 14%; flex; justify-content: space-between; flex-flow: row nowrap;"> -->
-<!-- 			<select class="form-select" style="height: 100%; width: 33%; float: left;" name="goal_year" required="required" id="goal_year">				 -->
-<!-- 				<option value="">연도</option> -->
-<!-- 				<option value="2022">2022</option> -->
-<!-- 				<option value="2023">2023</option> -->
-<!-- 				<option value="2024">2024</option> -->
-<!-- 				<option value="2025">2025</option> -->
-<!-- 				<option value="2026">2026</option> -->
-<!-- 				<option value="2027">2027</option> -->
-<!-- 				<option value="2028">2028</option> -->
-<!-- 				<option value="2029">2029</option> -->
-<!-- 				<option value="2030">2030</option> -->
-<!-- 				<option value="2031">2031</option> -->
-<!-- 				<option value="2032">2032</option> -->
-<!-- 			</select> -->
-<!-- 			<select class="form-select" style="height: 100%; width: 33%; float: left;" name="goal_month" required="required" id="goal_month">	 -->
-<!-- 				<option value="">월</option> -->
-<!-- 				<option value="1">1</option> -->
-<!-- 				<option value="2">2</option> -->
-<!-- 				<option value="3">3</option> -->
-<!-- 				<option value="4">4</option> -->
-<!-- 				<option value="5">5</option> -->
-<!-- 				<option value="6">6</option> -->
-<!-- 				<option value="7">7</option> -->
-<!-- 				<option value="8">8</option> -->
-<!-- 				<option value="9">9</option> -->
-<!-- 				<option value="10">10</option> -->
-<!-- 				<option value="11">11</option> -->
-<!-- 				<option value="12">12</option> -->
-<!-- 			</select>  -->
-<!-- 			<select class="form-select" style="height: 100%; width: 33%; float: left;" name="goal_day" required="required" id="goal_day"> -->
-<!-- 				<option value="">일</option> -->
-<!-- 				<option value="1">1</option> -->
-<!-- 				<option value="2">2</option> -->
-<!-- 				<option value="3">3</option> -->
-<!-- 				<option value="4">4</option> -->
-<!-- 				<option value="5">5</option> -->
-<!-- 				<option value="6">6</option> -->
-<!-- 				<option value="7">7</option> -->
-<!-- 				<option value="8">8</option> -->
-<!-- 				<option value="9">9</option> -->
-<!-- 				<option value="10">10</option> -->
-<!-- 				<option value="11">11</option> -->
-<!-- 				<option value="12">12</option> -->
-<!-- 				<option value="13">13</option> -->
-<!-- 				<option value="14">14</option> -->
-<!-- 				<option value="15">15</option> -->
-<!-- 				<option value="16">16</option> -->
-<!-- 				<option value="17">17</option> -->
-<!-- 				<option value="18">18</option> -->
-<!-- 				<option value="19">19</option> -->
-<!-- 				<option value="20">20</option> -->
-<!-- 				<option value="21">21</option> -->
-<!-- 				<option value="22">22</option> -->
-<!-- 				<option value="23">23</option> -->
-<!-- 				<option value="24">24</option> -->
-<!-- 				<option value="25">25</option> -->
-<!-- 				<option value="26">26</option> -->
-<!-- 				<option value="27">27</option> -->
-<!-- 				<option value="28">28</option> -->
-<!-- 				<option value="29">29</option> -->
-<!-- 				<option value="30">30</option> -->
-<!-- 				<option value="31">31</option> -->
-<!-- 			</select> -->
-<!-- 		</div> -->
-<!-- 		=============== 구 목표 기간 끝 ==================== -->
-
-
 <!-- 		=============== 신 목표 기간 ==================== -->
 		<h4>목표 기간 설정</h4>
 		<div class="form-floating mb-3"  id='datetimepicker1'  
@@ -144,7 +73,6 @@
 				<option value="10">10년</option>
 			</select>
 <!-- 		=============== 신 목표 기간 끝 ==================== -->
-
 		
 		<h4>✨ 목표 기간까지.. <b><span id="gapMoneySpan">___</span>만원</b>을 모아보아요 ✨</h4>
 		<script src="${pageContext.request.contextPath}/resources/js/dDay.js"></script>
@@ -156,7 +84,6 @@
 		<b>하루</b>에 <b><span id="moa_1day">_____</span>만원</b>을 모아야 해요 <br>
 		<b>한 달</b>에 <b><span id="moa_1month">_____</span>만원</b>을 모아야 해요 <br>
 		<b>1년</b>에 <b><span id="moa_1year">_____</span>만원</b>을 모아야 해요 <br>
-		
 		할 수 있다!!!!  영차 영차🐱‍🏍💦 
 		
 		
@@ -193,15 +120,9 @@ $('#moa_btn').click(function(){
 			$('#moa_1month').html(moaOneMonth);
 			$('#moa_1year').html(moaOneYear);
 		}
-		
 	});// ajax
-	
 });// click
 	
-	
 </script>
-
-
-
 
 <%@ include file="../include/footer.jsp"%>

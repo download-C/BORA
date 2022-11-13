@@ -23,8 +23,6 @@ for (let i = 0; i < balArrUnique.length; i++){
 }
 console.log('(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ balSum: ' + balSum);
 
-
-
 // jquery 시작
 $(document).ready(function() {
 	let goal = 3000; // 기본 목푯값은 3000으로
@@ -44,10 +42,7 @@ $(document).ready(function() {
 		getMyChart(goal, curr); // 차트 생성 함수 호출
 	
 	});// change
-	
 }); // jquery ready
-
-
 
 // 차트 생성하는 함수
 function getMyChart(goal, curr) {
@@ -76,6 +71,8 @@ function getMyChart(goal, curr) {
 			responsive : false
 		}
 	}); // new Chart
-
 } // getMyChart()
-
+// 특정 구간만 새로고침 함수
+function reloadDivArea() {
+	$('#container').load(location.href + ' #container');
+}
