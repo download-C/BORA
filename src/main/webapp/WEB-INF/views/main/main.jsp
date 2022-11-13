@@ -27,6 +27,9 @@ function login(message) {
   	Swal.fire({
 	  title: message,
 	  text: '',
+	  padding: '3em',
+	  background: '#fff',
+	  backdrop: 'rgba(122, 28, 246, 0.2)',	  
 	  imageUrl: '${pageContext.request.contextPath}/resources/img/logo.png',
 	  imageWidth: 200,
 	  imageHeight: 50,
