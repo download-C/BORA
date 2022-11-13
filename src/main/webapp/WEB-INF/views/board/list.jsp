@@ -8,6 +8,25 @@
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
+<style>
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #5107B0;
+  text-decoration: none;
+}
+
+.pagination {
+    --bs-pagination-active-bg: #e3cffc  !important; 
+    --bs-pagination-active-border-color: #e3cffc  !important;
+}
+
+</style>
+
+
 <!-- title -->
 <div class="section-title">
   <h2><b>커뮤니티</b></h2>
@@ -95,7 +114,7 @@
     <div class="container">
 		<table  class="table table-hover" style="box-shadow: 7px 14px 90px 3px rgba(163, 174, 184, 0.7);">
 			<thead class="bg-gray-100">
-				<tr style="text-align: center; color:white; background-color: #5107B0;" >
+				<tr style="text-align: center; color:white; background-color: #e3cffc;" >
 					<th class="text-xs font-weight-semibold opacity-7">번호</th>
 					<th class="text-xs font-weight-semibold opacity-7">카테고리</th>
 					<th class="text-xs font-weight-semibold opacity-7 ps-2">제목</th>
@@ -113,7 +132,17 @@
 						<td><!-- <p class="text-sm font-weight-normal mb-0"> --><a href="/board/read?bno=${vo.bno }&page=${pm.vo.page}">${vo.b_title }</a><!-- </p> -->
 							&nbsp; (${cmtList[status.index] }) </td>
 						<td><b>${vo.nick }</b></td>
-						<td><span class="text-sm font-weight-normal"> <fmt:formatDate value="${vo.b_regdate }" pattern="YYYY년 MM월 dd일 🌈  HH:mm" /> </span></td>
+						<td><span class="text-sm font-weight-normal">
+							<c:choose>
+								<c:when test="${vo.b_updatedate eq null }">
+									<fmt:formatDate value="${vo.b_regdate }" pattern="YYYY년 MM월 dd일 💜  HH:mm" />
+								</c:when>
+								<c:otherwise>
+									<fmt:formatDate value="${vo.b_updatedate }" pattern="YYYY년 MM월 dd일 💜  HH:mm" />
+								</c:otherwise>
+							</c:choose> 
+							</span>
+						</td>
 						<td><span class="text-sm font-weight-normal">${vo.b_readcount }</span></td>
 					</tr>
 				
