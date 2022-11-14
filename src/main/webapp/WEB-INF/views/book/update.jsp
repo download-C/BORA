@@ -121,12 +121,12 @@ $(document).ready(function(){
 			<input type="hidden" name="id" value=${sessionScope.loginID }>
 			
 	    <div class="radioCustom" style="display: flex; align-items: center; justify-content: center;">
-				<input type="radio" id="radio1" name="bk_iow" class="iow" required="required"> <label for="radio1">수입</label>
-				<input type="radio" id="radio2" name="bk_iow" class="iow" required="required"> <label for="radio2">지출</label>
-				<input type="radio" id="radio3" name="bk_iow" class="iow" required="required"><label for="radio3">이체</label>
+				<input type="radio" id="radio1" name="bk_iow" class="iow" value="수입" required="required"> <label for="radio1">수입</label>
+				<input type="radio" id="radio2" name="bk_iow" class="iow" value="지출" required="required"> <label for="radio2">지출</label>
+				<input type="radio" id="radio3" name="bk_iow" class="iow" value="이체" required="required"><label for="radio3">이체</label>
 			</div>
 			<div class="form-floating mb-3" style="text-align: center">
-				<select id="group" name="bk_group" class="form-select" style="text-align: center" required>
+				<select id="bk_group" name="bk_group" class="form-select" style="text-align: center" required>
 					<option value="">자산 선택</option>
 					<option value="체크카드">체크카드</option>
 					<option value="현금">현금</option>

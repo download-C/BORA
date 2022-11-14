@@ -26,25 +26,27 @@ if(loginID==null) {%>
 // 세션값 여부
 $(document).ready(function(){
 	info("로그인 필요!", "로그인 페이지로 이동합니다.");
+	setTimeout('location.href="/main/login";', 1500);
 	
 });
+<%} %>
+</script>
 
-
+<script>
 $(document).ready(function() {
     let msg = "${msg}";
     if (msg != "") {
         info(msg);
     }
 })
-//info 버튼
 
+//info 버튼
 function info(msg1, msg2) {
     Swal.fire(
      msg1,
      msg2,
      'info' /*디자인 타입*/
     )
-    setTimeout('location.href="/main/login";', 1500);
 }//info 버튼
 
 //버튼 배경색 입히는 버튼
@@ -63,9 +65,14 @@ $(document).ready(function() {
     if (message != "") {
         alert(message);
     }
+    
+    let msg1 = "${msg1}";
+    let msg2 = "${msg2}";
+    if(msg1!="" && msg2!="") {
+    	info(msg1, msg2);
+    }
 })
 </script>
-<%} %>
 
 <!-- 컨트롤러에서 보낸 메시지 모달 띄우기 -->
 <script>
