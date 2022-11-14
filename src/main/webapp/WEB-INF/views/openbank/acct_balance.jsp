@@ -4,7 +4,45 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 
-<style>
+<style type="text/css">
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>BizLand Bootstrap Template - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="${pageContext.request.contextPath}/resources/img/favicon.png" rel="icon">
+  <link href="${pageContext.request.contextPath}/resources/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="${pageContext.request.contextPath}/resources/vendor/aos/aos.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/resources/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/resources/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+<%--   <link href="${pageContext.request.contextPath}/resources/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> --%>
+
+
+  <!-- Template Main CSS File -->
+  <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/resources/css/moneyMN.css" rel="stylesheet">
+
+
+
+ <style>
+  
     /* 
 Generic Styling, for Desktops/Laptops 
 */
@@ -22,6 +60,7 @@ th {
   color: #fff; 
   font-weight: bold; 
   text-align: center;
+  
 }
 td, th { 
   padding: 6px; 
@@ -72,7 +111,6 @@ only screen and (max-width: 760px),
 		font-weight: bold; 
 
 	}
-	
 	/*
 	Label the data
 	*/
@@ -120,22 +158,24 @@ only screen and (max-width: 760px),
   </table>	
   
   
-  
 <script>
 // localStorage에 저장해놨던 balArr 끄집어내서
 //  --> 은행 별로 name, bal로 balArr 배열에 저장
 // let bal = "<c:out value='${accountBalance.balance_amt }' />";
+// let name = "<c:out value='${accountBalance.product_name }' />";
+let bal = parseInt('${accountBalance.balance_amt }');
+let name = '${accountBalance.product_name }';
 
 balArr = JSON.parse(localStorage.getItem('balArr') || '[]'); // [] 이건 왜 하는거? ㄱ- 
 console.log(balArr);
 
 //임의로 값 넣어서 테스트 완,, 
 // name에는 상품명, bal에는 계좌잔액 EL 표현식 저거 넣기
-balArr.push({name:'bora', bal:'${accountBalance.balance_amt }'});        
-console.log('(test) bora통장 --> 4000 넣었음');
+balArr.push({name: name, bal: bal });        
+// console.log('(test) bora통장 --> 4000 넣었음');
 localStorage.setItem('balArr', JSON.stringify(balArr)); // 새 요소 추가했으니,, balArr 업뎃시키기 
 
-// balArr.push({name:'123', bal:2000});
+// balArr.push({name:'${accountBalance.product_name }', bal:'${accountBalance.balance_amt }''});
 // console.log('123통장 --> 2000 넣었음');
 // localStorage.setItem('balArr', JSON.stringify(balArr)); 
 
