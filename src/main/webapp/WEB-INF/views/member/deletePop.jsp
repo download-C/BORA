@@ -13,7 +13,7 @@ if(loginID==null) {%>
 <script>
 // 세션값 여부
 	alert("세션값이 만료되어 로그인 페이지로 이동합니다.");
-	location.href="/member/login";
+	location.href="/main/login";
 	
 	$(document).ready(function() {
 	  

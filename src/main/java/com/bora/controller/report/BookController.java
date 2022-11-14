@@ -45,8 +45,17 @@ public class BookController {
 	// http://localhost:8088/book/write
 	@RequestMapping(value="/write", method = RequestMethod.GET)
 	public void writeBookGET(Integer year, Integer month, Integer day,
-			Model model) {
+			Model model) throws Exception{
 		log.info("writeBookGET() 호출");
+		String loginID = (String)session.getAttribute("loginID");
+		BookVO book = service.getMonthBook(year, month, loginID);
+		if(book==null) {
+			log.info("해당 연 월의 가계부가 없습니다.");
+		} else {
+			log.info("해당 연 월의 가계부가 있습니다.");
+			
+		}
+		
 		model.addAttribute("year",year);
 		model.addAttribute("month",month);
 		model.addAttribute("day",day);
@@ -72,7 +81,7 @@ public class BookController {
 		String bk_memo = request.getParameter("bk_memo");
 		
 		BookVO book = service.getMonthBook(bk_year, bk_month, loginID);
-		
+		log.info("가져온 가계부 정보: "+book);
 		BookDetailVO detail = new BookDetailVO();
 		detail.setId(loginID);
 		detail.setBk_day(bk_day);
@@ -83,15 +92,15 @@ public class BookController {
 		detail.setBk_memo(bk_memo);
 
 		if(book == null) {
-			log.info("해당 연월의 가계부가 없으므로 book 새로 저장하기");
-			book = new BookVO();
-			book.setId(loginID);
-			book.setBk_year(bk_year);
-			book.setBk_month(bk_month);
-			book.setBk_budget(0);
-			log.info("아이디 "+loginID+" "+bk_year+"년 "+bk_month+"월 가계부 생성");
-			// 가계부 정보 DB 저장 후 해당 내용의 가계부 고유번호 가져오기
-			service.writeBook(book);
+//			log.info("해당 연월의 가계부가 없으므로 book 새로 저장하기");
+//			book = new BookVO();
+//			book.setId(loginID);
+//			book.setBk_year(bk_year);
+//			book.setBk_month(bk_month);
+//			book.setBk_budget(0);
+//			log.info("아이디 "+loginID+" "+bk_year+"년 "+bk_month+"월 가계부 생성");
+//			// 가계부 정보 DB 저장 후 해당 내용의 가계부 고유번호 가져오기
+//			service.writeBook(book);
 			bk_num = service.getBookMaxNum();
 			
 		} else {
@@ -117,70 +126,81 @@ public class BookController {
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String bookListPageGET(PageVO vo, Integer bk_detail_num, Model model, 
-			int year, int month, RedirectAttributes rttr) throws Exception {
+			int year, int month, int day, RedirectAttributes rttr) throws Exception {
 		log.info("bookListPageGET()호출");
 		log.info("(♥♥♥♥♥ 2-1.listPageGET) 호출됨");
 		log.info(year+"년 "+month+"월 가계부 불러오기");
 		loginID = (String)session.getAttribute("loginID");
+		if(loginID != null ) {
 		
-		// 이번 달 찾기
-		Calendar cal = Calendar.getInstance();
-		if(year == 0) year = cal.get(Calendar.YEAR);
-		if(month == 0) month = cal.get(Calendar.MONTH)+1;
-		
-		PageMakerVO pm = new PageMakerVO();
-		pm.setVo(vo);
-		int cnt = dService.getMonthBookDetailCnt(loginID, year, month);
-		pm.setTotalCnt(cnt);
-		model.addAttribute("pm", pm);
-		
-		// 해당 연월의 예산 가져오기
-		
-		log.info(year+"년 "+month+"달 가계부 불러오기");
-		List<BookDetailVO> detailList = new ArrayList<BookDetailVO>();
-		detailList = dService.getMonthBookDetailList(year, month, loginID, pm);
-		log.info("가져온 가계부 개수: "+detailList.size());
-		if(detailList.size() != 0) {
-			model.addAttribute("detailList", detailList);
-			model.addAttribute("year", year);
-			model.addAttribute("month", month);
+			// 이번 달 찾기
+			Calendar cal = Calendar.getInstance();
+			if(year == 0) year = cal.get(Calendar.YEAR);
+			if(month == 0) month = cal.get(Calendar.MONTH)+1;
 			
-			// 해당 달의 예산
-			int bk_budget = service.getMonthBudget(loginID, year, month); 
-			log.info("한달 예산: "+bk_budget+"만원");
-			model.addAttribute("bk_budget", bk_budget);
+			PageMakerVO pm = new PageMakerVO();
+			pm.setVo(vo);
+			int cnt = dService.getMonthBookDetailCnt(loginID, year, month);
+			pm.setTotalCnt(cnt);
+			model.addAttribute("pm", pm);
 			
-			// 해당 달의 지출 합계
-			int sum = service.getMonthBookMoney(loginID, year, month);
-			log.info("한 달 지출: "+sum+"원");
-			model.addAttribute("sum", sum);
+			// 해당 연월의 예산 가져오기
 			
-			// 해당 달의 남은 예산(예산이 만원 단위이기 때문에 계산하기 전 10000을 곱해줘야 함)
-			int restedBudget = (bk_budget*10000)-sum;
-			log.info("한 달 예산 중 남은 금액: "+restedBudget+"원");
-			int restedBudget1 = ((bk_budget*10000)-sum)/10000;
-			int restedBudget2 = (bk_budget*10000-sum)-(restedBudget1*10000);
-			log.info("남은 예산: "+restedBudget1+"만");
-			log.info(restedBudget2+"원");
-			
-			// 해당 달의 예산 대비 지출 퍼센트
-			double moneyPercent = ((sum/(double)(bk_budget*10000))*100);
-			double percent= Math.round(moneyPercent*1000)/1000;
-			log.info("한 달 예산 대비 지출 퍼센트 :"+percent+"%");
-			model.addAttribute("percent", percent);
-			if(moneyPercent > 70) {
-				model.addAttribute("restedBudget1", restedBudget1);
-				model.addAttribute("restedBudget2", restedBudget2);
+			log.info(year+"년 "+month+"달 가계부 불러오기");
+			List<BookDetailVO> detailList = new ArrayList<BookDetailVO>();
+			detailList = dService.getMonthBookDetailList(year, month, loginID, pm);
+			log.info("가져온 가계부 개수: "+detailList.size());
+			if(detailList.size() != 0) {
+				model.addAttribute("detailList", detailList);
+				model.addAttribute("year", year);
+				model.addAttribute("month", month);
+				model.addAttribute("day", day);
+				
+				// 해당 달의 예산
+				int bk_budget = service.getMonthBudget(loginID, year, month); 
+				if(bk_budget > 0) {
+					log.info("한달 예산: "+bk_budget+"만원");
+					model.addAttribute("bk_budget", bk_budget);
+					
+					// 해당 달의 지출 합계
+					int sum = service.getMonthBookMoney(loginID, year, month);
+					log.info("한 달 지출: "+sum+"원");
+					model.addAttribute("sum", sum);
+					
+					// 해당 달의 남은 예산(예산이 만원 단위이기 때문에 계산하기 전 10000을 곱해줘야 함)
+					int restedBudget = (bk_budget*10000)-sum;
+					log.info("한 달 예산 중 남은 금액: "+restedBudget+"원");
+					int restedBudget1 = ((bk_budget*10000)-sum)/10000;
+					int restedBudget2 = (bk_budget*10000-sum)-(restedBudget1*10000);
+					log.info("남은 예산: "+restedBudget1+"만");
+					log.info(restedBudget2+"원");
+					
+					// 해당 달의 예산 대비 지출 퍼센트
+					double moneyPercent = ((sum/(double)(bk_budget*10000))*100);
+					double percent= Math.round(moneyPercent*1000)/1000;
+					log.info("한 달 예산 대비 지출 퍼센트 :"+percent+"%");
+					model.addAttribute("percent", percent);
+					if(moneyPercent > 70) {
+						model.addAttribute("restedBudget1", restedBudget1);
+						model.addAttribute("restedBudget2", restedBudget2);
+						rttr.addFlashAttribute("msg", year+"년 "+month+"월 가계부를 불러옵니다.");
+							return "/book/bookList";
+					} else {
+						model.addAttribute("year", year);
+						model.addAttribute("month", month);
+						rttr.addFlashAttribute("msg", year+"년 "+month+"월 가계부가 없습니다.");
+						return "/book/bookList";
+					
+					} 
+				
+				}
+			} else {
+				return "/book/bookList";
 			}
-			
-			
-			rttr.addFlashAttribute("msg", year+"년 "+month+"월 가계부를 불러옵니다.");
 			return "/book/bookList";
 		} else {
-			model.addAttribute("year", year);
-			model.addAttribute("month", month);
-			rttr.addFlashAttribute("msg", year+"년 "+month+"월 가계부가 없습니다.");
-			return "/book/bookList";
+			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
+			return "redirect:/main/login";
 		}
 	}
 	

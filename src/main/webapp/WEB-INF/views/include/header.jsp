@@ -33,13 +33,18 @@ input::-webkit-inner-spin-button {
   <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/resources/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/resources/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-<%--   <link href="${pageContext.request.contextPath}/resources/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> --%>
+  <%--   <link href="${pageContext.request.contextPath}/resources/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> --%>
 
 
   <!-- Template Main CSS File -->
   <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <!-- alert 대신 사용할 모달 버튼 script 소스 (필수) -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>	
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
+  
+  
 <%
 if(session!=null) {
 	String loginID = (String)session.getAttribute("loginID");
@@ -109,6 +114,7 @@ if(session!=null) {
       </div>
       <div class="social-links nav justify-content-end">
     <%if(loginID != null){%>
+    		<a>♡${nick }님♡</a> 
     		<a href="/member/mypage"  class="twitter">마이페이지</a>
         <a href="/member/logout" class="twitter">로그아웃</a>
     <%} else {%>
@@ -132,7 +138,7 @@ if(session!=null) {
 			%>
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto" href="/book/list?year=<%=year%>&month=<%=month%>">가계부(나중에 리포트로 합칠 예정)</a></li>
+          <li><a class="nav-link scrollto" href="/book/list?year=<%=year%>&month=<%=month%>&day=<%=day%>">가계부(나중에 리포트로 합칠 예정)</a></li>
           <li><a class="nav-link scrollto" href="/main/about">About</a></li>
           <li><a class="nav-link scrollto" href="/main/noticeList?page=1">공지사항</a></li>
           <li><a class="nav-link scrollto" href="/board/list?page=1">커뮤니티</a></li>

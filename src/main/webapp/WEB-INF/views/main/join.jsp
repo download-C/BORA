@@ -75,7 +75,7 @@ $(document).ready(function(){
 	$("#idcheck").click(function(){
 // 		alert('중복체크');
 		$.ajax({
-            url : "/member/idcheck",
+            url : "/ajax/idcheck",
             data: {'id':$("#id").val()},
             success : function(result) {
             	if(result == "no"){
@@ -101,26 +101,26 @@ $(document).ready(function(){
 	$("#nick").change(function(){
 // 		alert('닉네임 중복체크');
 		$.ajax({
-            url : "/member/nickcheck",
-            data: {'nick':$("#nick").val()},
-            success : function(result) {
-            	if(result == "no"){
-		            //닉네임이 존재할 경우 빨강으로 , 아니면 파랑으로 처리하는 디자인
-		            $(".nickdiv").html("이미 존재하는 닉네임입니다.");
-		            $(".nickdiv").css("color","red");
-		            document.getElementById("nick").value=="";
-		            $("#nick").focus();
-           		} else if(result == "ok"){
-           		 	$(".nickdiv").html("사용 가능한 닉네임입니다.");
-		            $(".nickdiv").css("color","blue");
-           		} else {
-           			$(".nickdiv").html("");
-           		}
-            },//success
-            error : function(error) {
-            	$('.iddiv').html("에러");
-            	return false;
-            }//error
+         url : "/ajax/nickcheck",
+         data: {'nick':$("#nick").val()},
+         success : function(result) {
+         	if(result == "no"){
+           //닉네임이 존재할 경우 빨강으로 , 아니면 파랑으로 처리하는 디자인
+           $(".nickdiv").html("이미 존재하는 닉네임입니다.");
+           $(".nickdiv").css("color","red");
+           document.getElementById("nick").value=="";
+           $("#nick").focus();
+        		} else if(result == "ok"){
+        		 	$(".nickdiv").html("사용 가능한 닉네임입니다.");
+           $(".nickdiv").css("color","blue");
+        		} else {
+        			$(".nickdiv").html("");
+        		}
+         },//success
+         error : function(error) {
+         	$('.iddiv').html("에러");
+         	return false;
+         }//error
  		});//ajax
 	});//nickcheck
 }); //document
@@ -146,12 +146,14 @@ $(document).ready(function(){
                 <span class="iddiv">&nbsp;</span>
               </div>
               <div class="form-floating mb-3">
-                <input type="password" name="pw" class="form-control" id="pw" placeholder="비밀번호" required>
+                <input type="password" name="pw" class="form-control" id="pw" placeholder="비밀번호" 
+                			 required onchange="checkpw()">
                 <label for="floatingPassword">비밀번호</label>
                 <span class="pwdiv">&nbsp;</span>
               </div>
               <div class="form-floating mb-3">
-                <input type="password" name="pw2" class="form-control" id="pw2" placeholder="비밀번호 확인" required>
+                <input type="password" name="pw2" class="form-control" id="pw2" placeholder="비밀번호 확인" 
+                			 required onchange="checkpw2()">
                 <label for="floatingPassword">비밀번호 확인</label>
                 <span class="pw2div">&nbsp;</span>
               </div>
