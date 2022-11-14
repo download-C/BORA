@@ -13,6 +13,22 @@
 </div>
 <!-- End title -->
 
+  <style>
+    .tdbtn {
+      background-color: #5107B0;
+      font-size: 12 px;
+      color: #fff;
+      padding: 2;
+      margin: 0;
+      border: 1px solid #fff;
+      border-radius: 8px;
+    }
+
+    .modal {
+      --bs-modal-width: 1000px;
+      --bs-modal-height: 750px;
+    }
+  </style>
 
 <!-- account -->
   <div class="container">
@@ -145,112 +161,7 @@
     </div>
   </div>
 
-  <hr>
 
-  <!-- card -->
-  <div class="container">
-    <h4 style="background: linear-gradient(to top, #c8a7fa 50%, transparent 50%); width: fit-content;">카드</h4><br>
-    <div class="row justify-content-center">
-      <div class="col-10" style="padding-right: 0;">
-        <div class="table-responsive">
-          <table class="table table-hover" style="border-right: none; ">
-            <thead>
-              <tr style="font-size: 16px;">
-                <th scope="col">계좌번호</th>
-                <th scope="col">은행명</th>
-                <th scope="col">계좌구분</th>
-                <th scope="col">계좌종류</th>
-                <th scope="col">예금주명</th>
-                <th scope="col">계좌별칭</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>11</td>
-                <td>IBK기업은행</td>
-                <td>P</td>
-                <td>1</td>
-                <td>예금주</td>
-                <td>통장</td>
-              </tr>
-              <tr>
-                <td>11</td>
-                <td>IBK기업은행</td>
-                <td>P</td>
-                <td>1</td>
-                <td>예금주</td>
-                <td>통장</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <!-- account -->
-      <div class="col-2" style="padding-left: 0;">
-        <div class="table-responsive">
-          <table class="table table-hover" style="border-right: none;">
-            <thead>
-              <tr>
-                <th scope="col">업무</th>
-              </tr>
-            </thead>
-            <tbody>
-              <style>
-                .tdbtn {
-                  background-color: #5107B0;
-                  font-size: 12 px;
-                  color: #fff;
-                  padding: 2;
-                  margin: 0;
-                  border: 1px solid #fff;
-                }
-              </style>
-              <tr>
-                <td style="padding-bottom: 6px; padding-top: 6px;">
-                  <button class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역조회</button>
-                  <button class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding-bottom: 6px; padding-top: 6px;">
-                  <button class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역조회</button>
-                  <button class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-        </div>
-      </div>
-      <!-- End account -->
-      <!-- 잔액조회버튼 -->
-      <div class="col-10" style="padding-left: 0;">
-        <div class="table-responsive">
-          <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;">
-            <tbody>
-              <tr>
-                <th colspan="6" style="text-align: center;">총 잔액</th>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="col-2" style="padding-left: 0;">
-        <div class="table-responsive">
-          <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;">
-            <tbody>
-              <tr>
-                <th style="text-align: center;">00원</th>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <!-- 잔액조회버튼 끝 -->
-    </div>
-  </div>
-
-  <!-- End card -->
  
    <!-- 모달창 -->
    <!--   	거래내역조회 -->
