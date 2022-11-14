@@ -41,9 +41,9 @@
 */
 
 body {
-    background: #74ebd5;
+/*     background: #74ebd5; */
     background: -webkit-linear-gradient(to right, #5107b0, #7a1cf6);
-    background: linear-gradient(to right, #a362f8, #5107b0);
+/*     background: linear-gradient(to right, #a362f8, #5107b0); */
     min-height: 100vh;
 
 }

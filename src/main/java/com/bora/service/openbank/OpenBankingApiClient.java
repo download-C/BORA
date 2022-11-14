@@ -34,13 +34,6 @@ import com.bora.domain.openbank.card.bill.CardBillsRequestVO;
 import com.bora.domain.openbank.card.bill.CardBillsResponseVO;
 import com.bora.domain.openbank.card.bill.CardDetailBillsRequestVO;
 import com.bora.domain.openbank.card.bill.CardDetailBillsResponseVO;
-import com.bora.domain.openbank.tran.deposit.TranDepositRequestVO;
-import com.bora.domain.openbank.tran.deposit.TranDepositResponseVO;
-import com.bora.domain.openbank.tran.result.TranResultReqListVO;
-import com.bora.domain.openbank.tran.result.TranResultRequestVO;
-import com.bora.domain.openbank.tran.result.TranResultResponseVO;
-import com.bora.domain.openbank.tran.withdraw.TranWithdrawRequestVO;
-import com.bora.domain.openbank.tran.withdraw.TranWithdrawResponseVO;
 
 
 @Service
@@ -235,7 +228,6 @@ public class OpenBankingApiClient {
 		return restTemplate.exchange(uriBuilder.toString(), 
 				HttpMethod.GET, openBankingInfoCardRequest, CardInfoResponseVO.class).getBody();
 	}
-	
 	public CardListResponseVO listCard(CardListRequestVO cardListRequestVO) {
 		/// REST 방식 요청에 필요한 객체 생성
 		restTemplate = new RestTemplate();
@@ -261,7 +253,6 @@ public class OpenBankingApiClient {
 		return restTemplate.exchange(uriBuilder.toString(), 
 				HttpMethod.GET, openBankingCardListRequest, CardListResponseVO.class).getBody();
 	}
-	
 	public CardBillsResponseVO billsCard(CardBillsRequestVO cardBillsRequestVO) {
 		/// REST 방식 요청에 필요한 객체 생성
 		restTemplate = new RestTemplate();
@@ -277,15 +268,18 @@ public class OpenBankingApiClient {
 		HttpEntity<String> openBankingCardBillsRequest = new HttpEntity<String>(httpHeaders);
 		
 		UriComponents uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
+				.queryParam("access_token", cardBillsRequestVO.getAccess_token())
+				.queryParam("bank_tran_id", cardBillsRequestVO.getBank_tran_id())
 				.queryParam("user_seq_no", cardBillsRequestVO.getUser_seq_no())
+				.queryParam("bank_code_std", cardBillsRequestVO.getBank_code_std())
 				.queryParam("member_bank_code", cardBillsRequestVO.getMember_bank_code())
-				.queryParam("befor_inquiry_trace_info", cardBillsRequestVO.getBefor_inquiry_trace_info())
+				.queryParam("from_month", cardBillsRequestVO.getFrom_month())
+				.queryParam("to_month", cardBillsRequestVO.getTo_month())
 				.build();
 		
 		return restTemplate.exchange(uriBuilder.toString(), 
 				HttpMethod.GET, openBankingCardBillsRequest, CardBillsResponseVO.class).getBody();
 	}
-	
 	public CardDetailBillsResponseVO detailBillsCard(CardDetailBillsRequestVO cardDetailBillsRequestVO) {
 		/// REST 방식 요청에 필요한 객체 생성
 		restTemplate = new RestTemplate();
@@ -301,9 +295,13 @@ public class OpenBankingApiClient {
 		HttpEntity<String> openBankingCardDetailBillsRequest = new HttpEntity<String>(httpHeaders);
 		
 		UriComponents uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
+				.queryParam("access_token", cardDetailBillsRequestVO.getAccess_token())
+				.queryParam("bank_tran_id", cardDetailBillsRequestVO.getBank_tran_id())
 				.queryParam("user_seq_no", cardDetailBillsRequestVO.getUser_seq_no())
+				.queryParam("bank_code_std", cardDetailBillsRequestVO.getBank_code_std())
 				.queryParam("member_bank_code", cardDetailBillsRequestVO.getMember_bank_code())
-				.queryParam("befor_inquiry_trace_info", cardDetailBillsRequestVO.getBefor_inquiry_trace_info())
+				.queryParam("charge_month", cardDetailBillsRequestVO.getCharge_month())
+				.queryParam("settlement_seq_no", cardDetailBillsRequestVO.getSettlement_seq_no())
 				.build();
 		
 		return restTemplate.exchange(uriBuilder.toString(), 
