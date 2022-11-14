@@ -6,6 +6,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
+
+  <link href="${pageContext.request.contextPath}/resources/css/writeForm.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
 <%
 	if (loginID == null) {
 %>
@@ -128,14 +131,14 @@ $(document).ready(function(){
       
       
 <div class="container">
-
-	<h1 style="text-align: center">🤑가계부 작성🤑</h1> <br>
+	<div style="width: 60%; text-align: center; margin:auto;">
+	<h1 style="text-align: center">🤑	가계부 작성🤑</h1> <br>
 	<form action="/book/write" method="post"> 
 	<input type="hidden" id="bk_budget" value="${bk_budget }">
-	<div class="form-floating mb-3" style="text-align: center">
-		수입<input type="radio" name="bk_iow" value="수입" required="required" > 
-		지출<input type="radio" name="bk_iow" value="지출" required="required"> 
-		이체<input type="radio" name="bk_iow" value="이체" required="required"> 
+	<div class="radioCustom" style="display: flex; align-items: center; justify-content: center;">
+		<input type="radio" id="radio1" name="bk_iow" required="required" > <label for="raido1">수입</label>
+		<input type="radio" id="radio2" name="bk_iow" required="required"> <label for="radio2">지출</label>
+		<input type="radio" id="radio3" name="bk_iow" required="required"> <label for="radio3">이체</label>
 	</div>
 	<div class="form-floating mb-3" style="text-align: center">
 		<select class="form-select" name="bk_group" id="bk_group" required="required">
@@ -144,12 +147,12 @@ $(document).ready(function(){
 	</div>
 	<div class="form-floating mb-3"  id='datetimepicker1'  
 		  style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
-		<select class="form-select" id="bk_year" style="width: 33%; float: left;" name="bk_year" required="required">				
+		<select class="form-select" id="bk_year" style="width: 33%; float: left;" name="bk_year" required>				
 			<option value="">연도</option>
 			<option value="2021">2021</option>
 			<option value="2022">2022</option>
 		</select>
-		<select class="form-select" id="bk_month" style="width: 33%; float: left;" name="bk_month" required="required">	
+		<select class="form-select" id="bk_month" style="width: 33%; float: left;" name="bk_month" required>	
 			<option value="">월</option>
 			<option value="1">1</option>
 			<option value="2">2</option>
@@ -213,30 +216,11 @@ $(document).ready(function(){
 	    <label for="floatingPassword">내역을 입력하세요.</label>
 	</div>
     <div style="text-align: center">
-		<input type="submit" value="작성" class="btn btn-primary m-1">
+		<input type="submit" value="작성" class="btn m-1" style="background-color: #5107B0; width: 100px; margin:auto; padding: 0px; color:white">
     </div>
 </form>
 </div>
-<script>
-    new tempusDominus.TempusDominus(document.getElementById('datetimepicker1'), {
-      display: {
-        components: {
-          seconds: false,
-          useTwentyfourHour: false,
-        },
-        icons: {
-          type: 'icons',
-          date: 'fa fa-solid fa-calendar',
-          up: 'fa fa-solid fa-arrow-up',
-          down: 'fa fa-solid fa-arrow-down',
-          previous: 'fa fa-solid fa-chevron-left',
-          next: 'fa fa-solid fa-chevron-right',
-          today: 'fa fa-solid fa-calendar-check',
-          clear: 'fa fa-solid fa-trash',
-          close: 'fas fa-solid fa-xmark'
-        },
-      },
-    });
-  </script>
+</div>
+
 
 <%@ include file="../include/footer.jsp"%>

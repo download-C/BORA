@@ -21,7 +21,7 @@ $(document).ready(function() {
 		"세션값 만료!",
 		"로그인 페이지로 이동합니다."
 	);
-	location.href="/member/login";
+	location.href="/main/login";
 })
 </script>
 <%} %>
@@ -165,35 +165,35 @@ $(document).ready(function(){
 							<!-- 비밀번호 -->
 							<div class="join_pw form-floating mb-3">
 								<input type="password" id="pw" name="pw" maxlength="16" class="form-control"
-								placeholder="" required="required" onchange="pwUpdateCheck(), checkpw()"> 
+									required onchange="pwUpdateCheck(), checkpw()"> 
 								<label for="floatingPassword">비밀번호</label>
 								<span class="pwdiv" style="font-size: small;">&nbsp;</span>
 							</div>
 							<!-- 비밀번호 확인 -->
 							<div class="join_pw2 form-floating mb-3" >
 								<input type="password" id="pw2" name="pw2" maxlength="16" class="form-control"
-								placeholder="" required="required" onchange="checkpw2()"> 
+									required onchange="checkpw2()"> 
 								<label for="floatingPassword">비밀번호 확인</label>
 								<span class="pw2div" style="font-size: small;">&nbsp;</span>
 							</div>
 							<!-- 이름 -->
 							<div class="join_name form-floating mb-3" >
 								<input type="text" id="name" name="name" value="${vo.name }" class="form-control"
-								placeholder="" readonly="readonly"> 
+									required readonly="readonly"> 
 								<label for="floatingInput">이름</label>
 								<span class="namediv" style="font-size: small;">&nbsp;</span>
 							</div>
 							<!-- 닉네임 -->
 							<div class="join_nick form-floating mb-3" >
 								<input type="text" id="nick" name="nick"  value="${vo.nick }" class="form-control"
-								placeholder="" required="required"> 
+									required> 
 								<label for="floatingInput">닉네임</label>
 								<span class="nickdiv" style="font-size: small;">&nbsp;</span>
 							</div>
 							<!-- 연락처 -->
 							<div class="join_phone form-floating mb-3" >
 								<input type="text" id="phone" name="phone" value="${vo.phone }"  class="form-control"
-								placeholder="- 없이 숫자만" required="required" maxlength="13"
+									required maxlength="13"
 								oninput="autoHyphen(this)" autofocus> 
 								<label for="floatingInput">연락처</label>
 								<span class="phonedeiv" style="font-size: small;">&nbsp;</span>
@@ -201,7 +201,7 @@ $(document).ready(function(){
 							<!-- 이메일 -->
 							<div class="join_email form-floating mb-3">
 									<input type="text" id="email" name="email" value="${vo.email }" class="form-control"
-									placeholder="" required="required">
+									 required>
 								<label for="floatingInput">이메일</label>
 								<span class="emaildiv" style="font-size: small;">&nbsp;</span>
 							</div>

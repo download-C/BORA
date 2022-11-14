@@ -14,18 +14,26 @@
 if(loginID==null) {%>
 <script>
 	alert("세션값이 만료되어 로그인 페이지로 이동합니다.");
-	location.href="/member/login";
+	location.href="/main/login";
 </script>
 <%} %>
 
 
 <script>
 $(document).ready(function() {
-    let message = "${msg}";
-    if (message != "") {
-        alert(message);
+    let msg = "${msg}";
+    if (msg != "") {
+        success(msg);
     }
 })
+
+function success(msg) {
+   Swal.fire(
+       "수정 성공!",
+       msg,
+       'success' /*디자인 타입*/
+   )
+}//success 버튼
 </script>
 
 
