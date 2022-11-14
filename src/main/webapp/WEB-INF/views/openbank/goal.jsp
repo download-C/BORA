@@ -93,6 +93,7 @@
 		
 		
 	</div>
+	</div>
 
 </div> <!-- box -->
 </div> <!-- container -->
