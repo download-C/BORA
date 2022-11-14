@@ -118,17 +118,17 @@ a:hover {
 	</div>
 	</div>
 	
-   <div class="card-body px-0 py-0" >
+<div class="card-body px-0 py-0" >
     <div class="container">
 		<table  class="table table-hover" style="box-shadow: 7px 14px 90px 3px rgba(163, 174, 184, 0.7);">
 			<thead class="bg-gray-100">
-				<tr style="text-align: center; color:white; background-color: #e3cffc;" >
-					<th class="text-xs font-weight-semibold opacity-7">번호</th>
-					<th class="text-xs font-weight-semibold opacity-7">카테고리</th>
-					<th class="text-xs font-weight-semibold opacity-7 ps-2">제목</th>
-					<th class="text-xs font-weight-semibold opacity-7 ps-2">닉네임</th>
-					<th class="text-xs font-weight-semibold opacity-7 ps-2">작성일</th>
-					<th class="text-xs font-weight-semibold opacity-7 ps-2">조회수</th>
+				<tr style="color:#5107B0; background-color: #e3cffc;" >
+					<th class="text-xs font-weight-semibold opacity-7" style="width: 5%; ">번호</th>
+					<th class="text-xs font-weight-semibold opacity-7" style="width: 10%; ">카테고리</th>
+					<th class="text-xs font-weight-semibold opacity-7 ps-2" style="width: 40%; ">제목</th>
+					<th class="text-xs font-weight-semibold opacity-7 ps-2" style="width: 10%; ">닉네임</th>
+					<th class="text-xs font-weight-semibold opacity-7 ps-2" style="width: 20%; ">작성일</th>
+					<th class="text-xs font-weight-semibold opacity-7 ps-2" style="width: 5%; ">조회수</th>
 				</tr>
 			</thead>
 			<tbody>	
@@ -139,7 +139,7 @@ a:hover {
 						<td><span class="text-sm font-weight-normal">${vo.bno}</span></td>
 						<td><div class="my-auto"><h6 class="mb-0 text-sm">${vo.b_ctgr}</h6></div></td>
 						<td><a href="/board/read?bno=${vo.bno }&page=${pm.vo.page}">${vo.b_title }</a><!-- </p> -->
-							&nbsp; (${vo.b_cmtcount }) <%-- (${cmtList[status.index] })  --%>
+							&nbsp; <span style="color: #5107B0; font-size: small;">[${vo.b_cmtcount }]</span> <%-- (${cmtList[status.index] })  --%>
 						</td>
 						<td><b>${vo.nick }</b></td>
 						<td><span class="text-sm font-weight-normal">
