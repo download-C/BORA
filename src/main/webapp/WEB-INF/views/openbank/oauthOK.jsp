@@ -140,8 +140,8 @@
                 <!-- 인증 요청 작업 수행 -->
                 <form method="get" action="/openbank/userInfo" style="text-align: center;">
                   <input type="hidden" name="access_token" value="${sessionScope.token }">
-                  <input type="hidden" name="user_seq_no" value="${sessionScope.user_seq_no }">
-<%--                   <input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }"> --%>
+<%--                   <input type="hidden" name="user_seq_no" value="${sessionScope.user_seq_no }"> --%>
+                  <input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }">
                   <input type="submit" value="내 자산 조회">
                 </form>
               </div>

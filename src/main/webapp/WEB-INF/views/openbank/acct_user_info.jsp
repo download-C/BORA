@@ -121,12 +121,10 @@
 	거래일시, 거래일자(참가은행), 은행이름, 계좌잔액(-금액가능), 출금가능금액, 상품명, 계좌개설일, 만기일, 최종거래일
 	<form method="get" action="/openbank/accountBalance">
 		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
-		<input type="hidden" name="access_token"
-			value="${sessionScope.token }"> <input type="hidden"
-			name="bank_tran_id" value="${accountBalance.bank_tran_id }">
-		<input type="hidden" name="fintech_use_num"
-			value="120220217888941294172171"> <input type="hidden"
-			name="tran_dtime" value="20221104134521"> <input
+		<input type="hidden" name="access_token" value="${sessionScope.token }"> 
+		<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
+		<input type="hidden" name="fintech_use_num" value="120220217888941294172171"> 
+		<input type="hidden" name="tran_dtime" value="20221104134521"> <input
 			type="submit" value="BORA입출금 계좌잔액조회">
 	</form>
 	<hr>
