@@ -88,7 +88,7 @@
 	<!-- 회원의 특정 가계부 내용 불러오기 -->
 	<select id="getBookDetail" resultMap="detail">
 		select b.bk_num, b.bk_year, b.bk_month, d.bk_detail_num, d.id, d.bk_day, d.bk_iow, 
-			   d.bk_group, d.bk_category, d.bk_money, d.bk_memo
+			   d.bk_group, d.bk_category, d.bk_money, d.bk_memo, b.bk_budget
 		from bora_book_detail d join bora_book b
 		on b.bk_num = d.bk_num
 		where b.id=#{loginID} and d.bk_detail_num=#{bk_detail_num}

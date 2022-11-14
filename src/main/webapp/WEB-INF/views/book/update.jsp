@@ -132,6 +132,7 @@ $(document).ready(function(){
 	    </span>
 			<input type="hidden" name="bk_num" value="${detail.bk_num }">
 			<input type="hidden" name="bk_detail_num" value="${detail.bk_detail_num }">
+			<input type="hidden" name="bk_budget" value="${detail.book.bk_budget}">
 			<input type="hidden" name="id" value=${sessionScope.loginID }>
 			
 	    <div class="radioCustom" style="display: flex; align-items: center; justify-content: center;">

@@ -109,7 +109,7 @@ public class BookController {
 			detail.setBk_num(bk_num);
 			dService.writeBookDetail(detail);
 			log.info("가계부 작성 성공! 리스트로 이동");
-			rttr.addFlashAttribute("msg", "가계부 작성이 완료되었습니다.");
+			rttr.addFlashAttribute("msg3", "가계부 작성이 완료되었습니다.");
 			Calendar cal = Calendar.getInstance();
 			int year = cal.get(Calendar.YEAR);
 			int month = cal.get(Calendar.MONTH)+1;
@@ -117,7 +117,7 @@ public class BookController {
 			return "redirect:/book/list?year="+year+"&month="+month+"&day="+day;
 		} else {
 			log.info("가계부 작성 실패");
-			rttr.addFlashAttribute("msg", "가계부 작성에 실패했습니다.");
+			rttr.addFlashAttribute("msg4", "가계부 작성에 실패했습니다.");
 			return "redirect:/book/write";
 		}
 
@@ -148,7 +148,7 @@ public class BookController {
 		model.addAttribute("day", day);
 
 		// 해당 연월의 가계부 불러오기
-		log.info(loginID + "님의 " + year + "년 " + month + "달 가계부 불러오기");
+		log.info(loginID + "님의 " + year + "년 " + month + "월 가계부 불러오기");
 
 		// 1-1. 해당 연월의 가계부가 있을 때
 		if (service.getMonthBook(year, month, loginID) != null) {
@@ -265,17 +265,19 @@ public class BookController {
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH) + 1;
 		int day = cal.get(Calendar.DATE);
-		
+		log.info("bk_budget: "+book.getBk_budget());
 		log.info("bookUpdatePOST() 호출");
 		log.info("book: " + book);
 		log.info("detail: " + detail);
 		log.info("page: " + page);
 		int result = service.updateBook(book);
+//		int result = 0;
 		if (result == 1) {
 			int result2 = dService.updateBookDetail(detail);
 			if (result2 == 1) {
 				log.info("가계부 수정 완료");
-				rttr.addFlashAttribute("msg", "가계부 수정을 완료했습니다.");
+				rttr.addFlashAttribute("msg4", "야호!😆😆😆");
+				rttr.addFlashAttribute("msg4", "가계부 수정을 완료했어요!");
 				return "redirect:/book/list?page="+page+ "&year="+year+ "&month="+month+"&day="+day;
 			} else {
 				log.info("가계부 수정 	실패");

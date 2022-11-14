@@ -99,12 +99,16 @@ function bora() {
 		  backdrop: '#fff' //#7A1CF6에 투명도
 	 });
 }//버튼 배경색 입히는 버튼	
+
+function success(msg3, msg4) {
+    Swal.fire(
+        msg3,
+        msg4,
+        'success' /*디자인 타입*/
+    )
+}//success 버튼
 	
 $(document).ready(function() {
-    let message = "${msg}";
-    if (message != "") {
-        alert(message);
-    }
     
     let msg1 = "${msg1}";
     let msg2 = "${msg2}";
@@ -117,9 +121,10 @@ $(document).ready(function() {
 <!-- 컨트롤러에서 보낸 메시지 모달 띄우기 -->
 <script>
 $(document).ready(function(){	
-	let msg = "${msg}";
+	let msg3 = "${msg3}";
+	let msg4 = "${msg4}";
 	if(msg!="") {
-		succsess(msg);
+		success(msg3, msg4);
 	}
  });
 </script>
