@@ -71,8 +71,8 @@ public class ReportController {
 			model.addAttribute("month", month);
 		   
 		   log.info(service.cateSum(year, month, loginID)+"");
-		   ArrayList sumArr = new ArrayList();
-		   ArrayList<String> caArr = new ArrayList<String>();
+		   List<Integer> sumArr = new ArrayList<>();
+		   List<String> caArr = new ArrayList<String>();
 		   
 		   for(BookDetailVO bkVO:service.cateSum(year, month, loginID)) {
 			   sumArr.add(bkVO.getBk_sum());
@@ -80,8 +80,8 @@ public class ReportController {
 			   
 		   } //배열로 합계, 카테고리 불러오기
 //			model.addAttribute("cateSum", service.cateSum(year, month, loginID));
-		   log.info(sumArr.size()+"");
-		   log.info(caArr.size()+"");
+		   log.info("합계 사이즈: "+sumArr.size()+"");
+		   log.info("카테고리 리스트 사이즈: "+caArr.size()+"");
 			model.addAttribute("sumArr", sumArr);
 			model.addAttribute("caArr", caArr); 
 	   
@@ -100,13 +100,20 @@ public class ReportController {
 			
 			
 			//전월대비
-			
-			model.addAttribute("consumeMinus", service.getConsumeMinus(year, month, loginID));
+				
+			List<BookDetailVO> dtlvo = service.getConsumeMinus(year, month, loginID);
+			for(int i=0; i<dtlvo.size(); i++) {	
+				BookDetailVO detail = dtlvo.get(i) ;
+				if(detail.getBk_minus()== null) {
+					detail.setBk_minus(0);
+				} else continue;
 
-
-		
 			}
-	   }
+				log.info("바꾼 정보: "+dtlvo);
+				model.addAttribute("consumeList",dtlvo);
+			}
+}
+	   
 	   
 	 
 	   
