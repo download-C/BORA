@@ -202,11 +202,12 @@ a:hover {
 
 	// success 버튼
 	function success(result) {
-	    Swal.fire(
-	        result,
-	        '',
-	        'success' /*디자인 타입*/
-	    )
+	    Swal.fire({
+	        title: result,
+	        text: '',
+	        icon: 'success', /*디자인 타입*/
+	        confirmButtonColor: '#7A1CF6'
+	    });
 	}//success 버튼
 	
 	

@@ -33,7 +33,8 @@
                 title: 'Error!', /*상단 타이틀*/
                 text: '다시 확인해주세요', /*내용*/
                 icon: 'error', /*아이콘 타입*/
-                confirmButtonText: '닫기' /*확인버튼 클가*/
+                confirmButtonText: '확인' /*확인버튼 클가*/
+                
             });
         }//error 버튼
 		
