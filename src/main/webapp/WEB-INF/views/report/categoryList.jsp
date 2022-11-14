@@ -185,7 +185,7 @@ $(document).ready(function(){
           
          
              $.ajax({
-                 url: "/ajax/consumeMinus",
+                 url: "/ajax/consumeList",
                  data: {"month": month, "year":year, "loginID":loginID},
                  dataType: "JSON",
                  type: "get",
@@ -202,7 +202,7 @@ $(document).ready(function(){
                              +'<td>'+bk_category+'</td>'
                               +'<td>'+bk_sum+'</td>'
                               +'<td>'+bk_minus+'</td>'
-                              +'<td>'+bk_compare+'</td>'
+                              +'<td>'+bk_compare+'%</td>'
                            +'</tr>'   
                            ); // append
                         }); //each
@@ -336,6 +336,7 @@ $(document).ready(function(){
 		</div>
 	</div>
 	<!---------------------- 차트 부분 끝 ------------------------------>
+	
   <!---------------------- 이번 달 상세 내역: 전월 대비 차액, 비교 ------------------------------>
    <div class="col-md-6 col-12" style="float:right">
         <div class="card border-left-info shadow h-100 py-2">
@@ -360,8 +361,10 @@ $(document).ready(function(){
                      <td>${vo.bk_sum }</td>
                     <td>${vo.bk_minus }</td>
                     <td>${vo.bk_compare}</td>
-                  </tr>
+                     </tr>
+                     
                </c:forEach>
+               ※ 저번달 혹은 이번달 내역이 없으면 0으로 표기 됩니다
                </tbody>
      		  </table>
        	</div>
@@ -400,7 +403,7 @@ $(document).ready(function(){
 <div class="containr" style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
 <div class="container"
 	style="width: 49%; background-color: white; padding: 20px; border-radius: 15px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
-		<h4 style="text-align: center;"><%=loginID%>님의 매장별 소비 TOP3
+		<h4 style="text-align: center;"><%=loginID%>님의 <%=month %>월 소비내역 TOP3
 		</h4>
 		<i class="fa-solid fa-ranking-star"></i>
 		<div class="table-responsive">
@@ -420,7 +423,7 @@ $(document).ready(function(){
 	</div>
 	<div class="container"
 	style="width: 49%; background-color: white; padding: 20px; border-radius: 15px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
-		<h4 style="text-align: center;"><%=loginID%>님 날짜별 소비 TOP3
+		<h4 style="text-align: center;"><%=loginID%>님의 <%=month %>월 소비날짜 TOP3
 		</h4>
 		<i class="fa-solid fa-ranking-star"></i>
 		<div class="table-responsive">

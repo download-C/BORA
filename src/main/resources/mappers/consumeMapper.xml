@@ -20,9 +20,11 @@
        group by d.bk_category, b.bk_year, b.bk_month;
 	</select>
 	
+	
+<!-- 	전월대비 -->
 	<select id="getConsumeAllList" resultType="com.bora.domain.report.BookDetailVO">
 	   select x.bk_category as "bk_category", x.bk_money as "bk_sum", 
-	   (x.bk_money - y.bk_money) as "bk_minus", (x.bk_money - y.bk_money) / y.bk_money * 100 as "bk_compare"
+	   (ifnull(x.bk_money,0) - ifnull(y.bk_money,0)) as "bk_minus", (x.bk_money - y.bk_money) / y.bk_money * 100 as "bk_compare"
        from
        (select d.bk_category, b.bk_year, b.bk_month, sum(d.bk_money) as bk_money
        from bora_book_detail d join bora_book b
@@ -37,4 +39,5 @@
        on x.bk_category = y.bk_category;
 	</select>
 	
+
 </mapper>
