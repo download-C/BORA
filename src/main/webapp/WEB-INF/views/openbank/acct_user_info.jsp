@@ -16,65 +16,38 @@
 
   <div class="container">
   	<div class="box" style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
-	<div style="border: 3px solid red; width: 50%;"><br>
+	<div style="border: 3px solid red; width: 70%;"><br>
+	
     <div class="row">
-      <div class="col-sm-9 col-md-15 col-lg-5 mx-auto">
-        <div class="card border-0 shadow rounded-3 my-5">
-          <div class="card-body p-4 p-sm-5" style="background-color:#F5EFFE;">
-            <h3 class="card-title text-center mb-5 fw-light fs-5"><b>회원정보수정</b></h3>
-            <form>
-              <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" placeholder="고객번호" readonly>
-                <label for="floatingInput">${userInfo.user_seq_no }</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" placeholder="고객이름" readonly>
-                <label for="floatingInput">${userInfo.user_name }</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" placeholder="고객등록계좌수" readonly>
-                <label for="floatingPassword">${userInfo.res_cnt }</label>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
-  </div>
-  
-  
-  <!-- End login -->
-			
-		  <div class="container">
-    <div class="row">
+<!--       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto"> -->
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div class="card border-0 shadow rounded-3 my-5">
           <div class="card-body p-4 p-sm-5" style="background-color:#F5EFFE;">
-            <h3 class="card-title text-center mb-5 fw-light fs-5"><b>회원정보수정</b></h3>
+            <h1 class="card-title text-center mb-5 fw-light fs-55"><b>사용자 인증 조회</b></h1>
             <form>
+                <label for="floatingInput">사용자 번호</label>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" placeholder="이름" readonly>
-                <label for="floatingInput">이름</label>
+                <input type="text" class="form-control" id="floatingInput" placeholder="${userInfo.user_seq_no }" readonly>
               </div>
+                <label for="floatingInput">사용자 이름</label>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" placeholder="아이디" readonly>
-                <label for="floatingInput">아이디</label>
+                <input type="text" class="form-control" id="floatingInput" placeholder="${userInfo.user_name }" readonly>
               </div>
+                <label for="floatingInput">등록 계좌수</label>
               <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="비밀번호" readonly>
-                <label for="floatingPassword">비밀번호</label>
+                <input type="text" class="form-control" id="floatingInput" placeholder="${userInfo.res_cnt }" readonly>
               </div>
-
             </form>
           </div>
         </div>
       </div>
+      
     </div>
   </div>	
- 
-			
+  </div>
+  </div>
+  
+  
 			
 <br><br><br>			
 
