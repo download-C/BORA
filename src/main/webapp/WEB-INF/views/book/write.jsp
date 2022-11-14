@@ -136,9 +136,9 @@ $(document).ready(function(){
 	<form action="/book/write" method="post"> 
 	<input type="hidden" id="bk_budget" value="${bk_budget }">
 	<div class="radioCustom" style="display: flex; align-items: center; justify-content: center;">
-		<input type="radio" id="radio1" name="bk_iow" value="수입" required="required" > <label for="radio1">수입</label>
-		<input type="radio" id="radio2" name="bk_iow" value="지출" required="required"> <label for="radio2">지출</label>
-		<input type="radio" id="radio3" name="bk_iow" value="이체" required="required"> <label for="radio3">이체</label>
+		<input type="radio" id="radio1" name="bk_iow" value="수입" required> <label for="radio1">수입</label>
+		<input type="radio" id="radio2" name="bk_iow" value="지출" required> <label for="radio2">지출</label>
+		<input type="radio" id="radio3" name="bk_iow" value="이체" required> <label for="radio3">이체</label>
 	</div>
 	<div class="form-floating mb-3" style="text-align: center">
 		<select class="form-select" name="bk_group" id="bk_group" required="required">

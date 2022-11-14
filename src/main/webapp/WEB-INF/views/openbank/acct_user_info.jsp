@@ -5,78 +5,75 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-
+  <link href="${pageContext.request.contextPath}/resources/css/login.css" rel="stylesheet">
 
 <!-- title -->
 <div class="section-title">
   <h2><b>내 자산 보기</b></h2>
 </div>
 <!-- End title -->
+<br>
 
-	<style>
-    @media (max-width: 756px) {
-      .row {
-        display: block;
-      }
-    }
-    @media (min-width: 1400px) {
-      .container {
-        max-width: 1200px;
-      }
-    }
+  <div class="container">
+  	<div class="box" style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
+	<div style="border: 3px solid red; width: 50%;"><br>
+    <div class="row">
+      <div class="col-sm-9 col-md-15 col-lg-5 mx-auto">
+        <div class="card border-0 shadow rounded-3 my-5">
+          <div class="card-body p-4 p-sm-5" style="background-color:#F5EFFE;">
+            <h3 class="card-title text-center mb-5 fw-light fs-5"><b>회원정보수정</b></h3>
+            <form>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="고객번호" readonly>
+                <label for="floatingInput">${userInfo.user_seq_no }</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="고객이름" readonly>
+                <label for="floatingInput">${userInfo.user_name }</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="고객등록계좌수" readonly>
+                <label for="floatingPassword">${userInfo.res_cnt }</label>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  
+  
+  <!-- End login -->
+			
+		  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card border-0 shadow rounded-3 my-5">
+          <div class="card-body p-4 p-sm-5" style="background-color:#F5EFFE;">
+            <h3 class="card-title text-center mb-5 fw-light fs-5"><b>회원정보수정</b></h3>
+            <form>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="이름" readonly>
+                <label for="floatingInput">이름</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="아이디" readonly>
+                <label for="floatingInput">아이디</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="비밀번호" readonly>
+                <label for="floatingPassword">비밀번호</label>
+              </div>
 
-    table td,
-    table th {
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-
-    thead th {
-      color: #fff;
-    }
-
-    .card {
-      border-radius: .5rem;
-    }
-
-    .table-scroll {
-      border-radius: .5rem;
-    }
-
-    .table-scroll table thead th {
-      font-size: 1rem;
-    }
-
-    thead {
-      top: 0;
-      position: sticky;
-    }
-  </style>
-
-
-<!-- Tasks Card Example -->
-<div class="container">
-	<div style="border: 3px solid red; width: 100%;">
-		<br>
-		<div class="row row-cols-md-4 g-4 justify-content-center">
-			<div class="col-md-12 col-12">
-				<div class="card border-left-info shadow h-100 py-2">
-					<div class="card-body">
-						<div class="text-xs font-weight-bold text-uppercase mb-1">
-							<br>
-
-							<h2>사용자 정보조회 결과</h2><hr>
-							<h4>고객번호 : ${userInfo.user_seq_no }</h4>
-							<h4>고객이름 : ${userInfo.user_name }</h4>
-							<h4>고객등록계좌수 : ${userInfo.res_cnt }</h4>
-
-							<br>
-						</div>
-					</div>
-				</div>
-			</div>
-			</div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>	
+ 
 			
 			
 <br><br><br>			
