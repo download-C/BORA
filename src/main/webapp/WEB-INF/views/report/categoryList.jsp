@@ -4,17 +4,37 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-	
-	<style type="text/css">
+<script	src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<!-- IONICONS -->
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/report_side.css" rel="stylesheet">
+<!-- 사이드바 js -->
+<script>
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+</script>
+<!-- 사이드바 js -->
+
+<style type="text/css">
+	 	@media (min-width: 1400px) {
+      .container {
+        max-width: 1200px;
+      }
+    }
 		@media (max-width: 576px) {
 			.container {
 				display: inline-block;
 				
 			}
 		}
-	</style>
+</style>
 <%
 	if (loginID == null) {
 %>
@@ -265,6 +285,24 @@ $(document).ready(function(){
 </script>
 
 <!---------------------- 특정 연/월 선택 ------------------------------>
+
+<!-- sideBar -->
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="#">
+    <ion-icon name="home-outline" class="nav__icon" style="vertical-align: middle;"></ion-icon>
+    <span class="nav_name">소비리포트</span>
+  </a>
+  <a href="/book/list?year=${year}&month=${month}&day=${day}">
+    <ion-icon name="book-outline" class="nav__icon" style="vertical-align: middle;"></ion-icon>
+    <span class="nav_name">가계부</span>
+  </a>
+</div>
+<a href="javascript:void(0)" style="cursor: pointer; " onclick="openNav()">
+  <ion-icon name="grid-outline" style="margin: 12px; font-size: 30px; color: #5107B0;"></ion-icon>
+</a>
+<!-- End sideBar -->
+<!-- title -->
 <div class="section-title">
 	<c:set var="year" value="<%=year%>" />
 	<c:set var="month" value="<%=month%>" />
