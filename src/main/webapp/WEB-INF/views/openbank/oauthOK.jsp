@@ -187,6 +187,8 @@ let balArr = new Array();
 balArr = [{name:'default', bal:0}];
 localStorage.setItem('balArr', JSON.stringify(balArr));
 console.log(balArr);
+
+// localStorage.removeItem('balArr');
 </script>
      
 <%@ include file="../include/footer.jsp"%>

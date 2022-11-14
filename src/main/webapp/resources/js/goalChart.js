@@ -19,7 +19,7 @@ console.log(balArrUnique);
 
 let balSum = 0;
 for (let i = 0; i < balArrUnique.length; i++){
-	balSum += balArrUnique[i].bal
+	balSum += balArrUnique[i].bal / 10000;
 }
 console.log('(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ balSum: ' + balSum);
 
