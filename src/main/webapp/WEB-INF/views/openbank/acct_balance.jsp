@@ -161,7 +161,7 @@ only screen and (max-width: 760px),
 <script>
 // localStorage에 저장해놨던 balArr 끄집어내서
 //  --> 은행 별로 name, bal로 balArr 배열에 저장
-// let bal = "<c:out value='${accountBalance.balance_amt }' />";
+// let bal = "<c:out value='${accountBalance.balance_amt }' />"; // 왜 얘는 c out  안 해도 그냥 뜨지??
 // let name = "<c:out value='${accountBalance.product_name }' />";
 let bal = parseInt('${accountBalance.balance_amt }');
 let name = '${accountBalance.product_name }';
@@ -170,9 +170,9 @@ balArr = JSON.parse(localStorage.getItem('balArr') || '[]'); // [] 이건 왜 �
 console.log(balArr);
 
 //임의로 값 넣어서 테스트 완,, 
-// name에는 상품명, bal에는 계좌잔액 EL 표현식 저거 넣기
+// name에는 상품명, bal에는 t계좌잔액 EL 표현식 저거 넣기
 balArr.push({name: name, bal: bal });        
-// console.log('(test) bora통장 --> 4000 넣었음');
+console.log('(test) bora통장 --> 4000 넣었음');
 localStorage.setItem('balArr', JSON.stringify(balArr)); // 새 요소 추가했으니,, balArr 업뎃시키기 
 
 // balArr.push({name:'${accountBalance.product_name }', bal:'${accountBalance.balance_amt }''});

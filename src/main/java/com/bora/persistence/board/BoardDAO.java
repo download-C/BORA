@@ -38,4 +38,7 @@ public interface BoardDAO {
 	// 6. id -> 닉네임 끌고 오기
 	public String getNick(String id) throws Exception;
 	
+	// 7. main에 띄울 최신글 5개 목록 불러오기
+	public List<BoardVO> getList5() throws Exception;
+	
 }

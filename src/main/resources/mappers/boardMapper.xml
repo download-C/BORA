@@ -28,10 +28,12 @@
 	
 	<!-- 글 개수 조회 -->
 	<select id="getBoardCnt" resultType="java.lang.Integer">
-		select count(*) from bora_cmnt_board
+		select count(*) 
+		from bora_cmnt_board
 	</select>
 	<select id="getBoardCntCTGR" resultType="java.lang.Integer">
-		select count(*) from bora_cmnt_board
+		select count(*) 
+		from bora_cmnt_board
 		where b_ctgr=#{b_ctgr}
 	</select>
 	
@@ -97,8 +99,14 @@
 	</select>
 	
 	
-	<!-- 글 옆에 댓글 개수 나타내기 =============================== -->
-	
+	<!-- 7. main에 띄울 최신글 5개 목록 ========================= -->
+	<select id="getList5" resultType="BoardVO">
+		select bno, b_title, b_regdate
+		from bora_cmnt_board
+		where bno &gt; 0
+		order by bno desc
+		limit 1, 5
+	</select>
 	
 	
 </mapper>

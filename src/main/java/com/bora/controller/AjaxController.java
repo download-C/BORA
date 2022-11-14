@@ -426,4 +426,14 @@ public class AjaxController {
       log.info(consumeMinus+"");
       return entity;
    }
+   
+   // 메인에서 커뮤니티 최신글 목록 5개 불러오기
+   @RequestMapping(value = "/getList5", method = RequestMethod.GET)
+   public ResponseEntity<List<BoardVO>> getBoardList5() throws Exception {
+	   log.info(" (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ getBoardList5() 호출됨");
+	   
+	   return new ResponseEntity<List<BoardVO>>(boardService.getList5(), HttpStatus.OK);
+   }
+   
+   
 }// class AjaxController

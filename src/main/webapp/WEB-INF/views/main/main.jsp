@@ -167,6 +167,22 @@ $(document).ready(function(){
         <!-- End News! -->
 
         <!-- community -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$.ajax({
+		url: '/ajax/getList5',
+		type: 'get',
+		success: function(rData){
+			console.log('갔다 왔삼');
+		}
+		
+		
+		
+	}); // ajax
+	
+}); // jquery ready
+</script>
+
         <div class="container" style="margin: 0px 20px; width: 45%;">
           <h2>커뮤니티</h2>
           <p align="right">더보기></p>
@@ -175,7 +191,7 @@ $(document).ready(function(){
               <thead>
                 <tr>
                   <th>No.</th>
-                  <th>내용</th>
+                  <th>제목</th>
                   <th>작성일자</th>
                 </tr>
               </thead>

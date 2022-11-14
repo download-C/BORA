@@ -31,7 +31,9 @@ public class CommentDAOImpl implements CommentDAO {
 	public Integer insertCmt(CommentVO vo) throws Exception {
 		log.info("(♥♥♥♥♥ 1.insertCmt) 호출됨");
 		
+		// 댓글 작성 + board table에 댓글 개수 컬럼 +1까지
 		int inCount = sqlSession.insert(NAMESPACE+".insertCmt", vo);
+		sqlSession.update(NAMESPACE+".updateCmtCount", vo.getBno());
 		
 		if (inCount > 0) {
 			log.info("(♥♥♥♥♥ 1.insertCmt)(●'◡'●) 댓글쓰기 DB 작업 완 -> 서비스로 ㄱㄱ");
@@ -80,6 +82,9 @@ public class CommentDAOImpl implements CommentDAO {
 	public Integer deleteCmt(Integer cno) throws Exception {
 		log.info("(♥♥♥♥♥ 3.deleteCmt) 호출됨");
 		
+		// 먼저 삭제되는 cno의 -> bno번 글의 -> cmtcount 컬럼 값 -1 시키고 나서!! 
+		sqlSession.update(NAMESPACE+".minusCmtCount", cno);
+		// cno번 댓글 삭제
 		int delCount = sqlSession.delete(NAMESPACE+".deleteCmt", cno);
 		
 		if(delCount > 0) {

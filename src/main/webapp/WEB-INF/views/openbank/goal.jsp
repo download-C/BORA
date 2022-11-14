@@ -50,7 +50,10 @@
 			<input type="radio" name="bk_iow" value="3000" required="required" checked="checked" id="radio3"> 3,000만원 
 			<input type="radio" name="bk_iow" value="5000" required="required" id="radio5"> 5,000만원 
 			<input type="radio" name="bk_iow" value="7000" required="required" id="radio7"> 7,000만원 
-			<input type="radio" name="bk_iow" value="10000" required="required" id="radio10"> 1억!! 
+			<input type="radio" name="bk_iow" value="10000" required="required" id="radio10"> 1억
+			<input type="radio" name="bk_iow" value="30000" required="required" id="radio10"> 3억!
+			<input type="radio" name="bk_iow" value="50000" required="required" id="radio10"> 5억!!
+			<input type="radio" name="bk_iow" value="100000" required="required" id="radio10"> 10억!!!
 		</div>
 		
 		<hr> 
@@ -75,7 +78,7 @@
 			</select>
 <!-- 		=============== 신 목표 기간 끝 ==================== -->
 		
-		<h4>✨ 목표 기간까지.. <b><span id="gapMoneySpan">___</span>만원</b>을 모아보아요 ✨</h4>
+		<h4>✨ 목표 기간까지.. <br> <b><span id="gapMoneySpan">___</span>만원</b>을 모아보아요 ✨</h4>
 		<script src="${pageContext.request.contextPath}/resources/js/dDay.js"></script>
 		<div id="remain-time"></div>
 		
@@ -112,9 +115,13 @@ $('#moa_btn').click(function(){
 			let moaOneMonth = parseInt(rData.moaOneMonth);
 			let moaOneYear = parseInt(rData.moaOneYear);
 			
+			console.log(moaOneDay);
+			console.log(moaOneMonth);
+			console.log(moaOneYear);
+			
 			console.log(Math.round(moaOneDay * 1000) / 1000);
-			console.log(Math.round(moaOneMonth * 100) / 100);
-			console.log(Math.round(moaOneYear * 10) / 10);
+			console.log(Math.round(moaOneMonth * 1000) / 1000);
+			console.log(Math.round(moaOneYear * 1000) / 1000);
 
 			// 소수점 한자리까지만 나오게 하고 싶은데,,,,,
 			$('#moa_1day').html(moaOneDay);
