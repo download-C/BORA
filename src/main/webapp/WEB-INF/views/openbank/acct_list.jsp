@@ -49,7 +49,7 @@
               </tr>
             </thead>
             <tbody>
-       		<c:forEach var="accountList" items="${accountList.res_list }">
+       		<c:forEach var="accountList" items="${accountList.res_list }" end="1">
               <tr>
 				<td>${accountList.account_num_masked }</td>
 				<td>${accountList.bank_name }</td>
