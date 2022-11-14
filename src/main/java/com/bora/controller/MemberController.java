@@ -101,7 +101,6 @@ public class MemberController {
       log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡logoutGET() 호출");
 //      session.setAttribute("loginID", "admin");
       session.invalidate();
-      
       log.info("로그아웃 성공");
       return "redirect:/main/main";
    }
@@ -119,7 +118,7 @@ public class MemberController {
    }
    
    @RequestMapping(value="/delete", method=RequestMethod.POST)
-   public void deletePOST(HttpServletRequest reqeust, HttpSession session,
+   public String deletePOST(HttpServletRequest reqeust, HttpSession session,
 		   RedirectAttributes rttr) throws Exception {
 	   log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡비밀번호 일치 여부 확인 후 deletePOST() 호출");
 	   // 로그인한 회원의 아이디 불러온 뒤 아이디값으로 탈퇴하기
@@ -129,11 +128,11 @@ public class MemberController {
 		   if(result == 1 ) {
 			   rttr.addFlashAttribute("msg", "탈퇴되었습니다.");
 			   session.invalidate();
-//			   return "redirect:/main/main";
+			   return "redirect:/main/main";
 		   }
 		   else {
 			   rttr.addFlashAttribute("msg", "탈퇴에 실패했습니다.");
-//			   return "redirect:/member/delete";
+			   return "redirect:/member/delete";
 		   }
    }
 }

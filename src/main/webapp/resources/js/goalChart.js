@@ -68,6 +68,7 @@ function getMyChart(goal, curr) {
 			} ]
 		},
 		options : {
+			maintainAspectRatio : false,
 			responsive : false
 		}
 	}); // new Chart

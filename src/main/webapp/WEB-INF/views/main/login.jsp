@@ -9,8 +9,6 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
-<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
 
 <!-- Template Main CSS File -->
 <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
@@ -28,8 +26,30 @@ function warning(message) {
     )
 
 }//warning 버튼
-</script>
 
+function success(msg1, msg2) {
+    Swal.fire(
+        msg1,
+        msg2,
+        'success' /*디자인 타입*/
+    )
+}//success 버튼
+
+
+$(document).ready(function(){
+	let msg = "${msg}";
+	if(msg!="") {
+		warning(msg)
+	}
+	
+	let msg1 = "${msg1}";
+	let msg2 = "${msg2}";
+	
+	if(msg1!="" && msg2!="") {
+		success(msg1, msg2)
+	}
+})
+</script>
 
 
 <div class="container">
@@ -54,7 +74,11 @@ function warning(message) {
               </div>
                  </div>
                  </form>
-								 <hr class="my-4">
+                 <div style="text-align: right;">
+                 <br>
+                 <a href="/main/join" style="color:#5107b0;">회원가입 >></a>
+                 </div>
+				 				 <hr class="my-4">
                  <div class="d-grid mb-2">
 	                 <button class="btn btn-kakao btn-login text-uppercase fw-bold" onclick="location.href='${kakaoURL}';">
 	                  카카오 아이디로 로그인하기	                  

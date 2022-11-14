@@ -86,7 +86,8 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-    public String joinPOST(MemberVO vo, HttpServletRequest request) throws Exception {
+    public String joinPOST(MemberVO vo, HttpServletRequest request,
+    		RedirectAttributes rttr) throws Exception {
 	      log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡joinPOST(vo) -> login.jsp");
 	      String id = request.getParameter("id");
 	      String pw = request.getParameter("pw");
@@ -122,13 +123,17 @@ public class MainController {
         
 	      mainService.joinMember(vo);
 	      log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡회원가입 성공");
+	      
+	      rttr.addFlashAttribute("msg1", "회원가입 성공!");
+	      rttr.addFlashAttribute("msg2", "로그인 페이지로 이동합니다.");
+	      
 
 	      return "redirect:/main/login";
 	   }
 
 	
 	
-	// 홈페이지 자체 로그인
+	// 로그인 페이지 이동
 	@RequestMapping(value = "/login", method = {RequestMethod.GET,})
 	public String loginGET(HttpServletRequest request, Model model, 
 			HttpSession session) throws Exception {
@@ -370,6 +375,7 @@ public class MainController {
 	public String loginPOST(MemberVO vo, HttpSession session, RedirectAttributes rttr) throws Exception {
 		log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡loginPOST() 호출");
 		// 사용자가 입력한 비밀번호 암호화
+		
 		String encryptPw = SHA256.encrypt(vo.getPw());
 		log.info("암호화된 비밀번호"+encryptPw);
 		// 암호화된 비밀번호로 수정
@@ -378,11 +384,12 @@ public class MainController {
 		if (vo2 != null) {
 			log.info("로그인 성공");
 			session.setAttribute("loginID", vo2.getId());
+			session.setAttribute("nick", vo2.getNick());
 			rttr.addFlashAttribute("msg", "'"+vo2.getNick() + "'님, 환영합니다♡");
 			return "redirect:/main/main";
 		} else {
 			log.info("로그인 실패");
-			rttr.addFlashAttribute("msg", "아이디가 없거나 아이디 또는 비밀번호가 일치하지 않습니다.");
+			rttr.addFlashAttribute("msg", "아이디가 없거나 <br> 아이디 또는 비밀번호가 일치하지 않습니다.");
 			return "redirect:/main/login";
 		}
 

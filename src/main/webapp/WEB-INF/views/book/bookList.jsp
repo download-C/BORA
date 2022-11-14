@@ -9,24 +9,61 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 
-<!-- alert 모달 필수  --> 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
-
+<style type="text/css">
+@media(max-width: 576px) { 
+	tbody {
+		font-size: 0.7rem;
+	}
+	.m3 {
+		font-size: 0.6rem;
+	}
+}
+</style>
 <%
 if(loginID==null) {%>
 <!-- 세션값(로그인) 확인 -->
 <script>
 // 세션값 여부
-	alert("로그인 후 이용 가능합니다. 로그인 페이지로 이동합니다.");
-	location.href="/main/login";
+$(document).ready(function(){
+	info("로그인 필요!", "로그인 페이지로 이동합니다.");
 	
-	$(document).ready(function() {
-	    let message = "${msg}";
-	    if (message != "") {
-	        alert(message);
-	    }
-	})
+});
+
+
+$(document).ready(function() {
+    let msg = "${msg}";
+    if (msg != "") {
+        info(msg);
+    }
+})
+//info 버튼
+
+function info(msg1, msg2) {
+    Swal.fire(
+     msg1,
+     msg2,
+     'info' /*디자인 타입*/
+    )
+    setTimeout('location.href="/main/login";', 1500);
+}//info 버튼
+
+//버튼 배경색 입히는 버튼
+function bora() {
+	Swal.fire({
+		  title: '로그인 후 이용 가능합니다.',
+    	  width: 600,
+    	  padding: '3em',
+		  background: '#fff',
+		  backdrop: '#fff' //#7A1CF6에 투명도
+	 });
+}//버튼 배경색 입히는 버튼	
+	
+$(document).ready(function() {
+    let message = "${msg}";
+    if (message != "") {
+        alert(message);
+    }
+})
 </script>
 <%} %>
 
@@ -74,6 +111,7 @@ function warning(msg) {
 function changeSelect(){
     var yearSelect = document.getElementById("year");
     var monthSelect = document.getElementById("month");
+    var day = "<c:out value='${day}' />";
      
     // select element에서 선택된 option의 value가 저장된다.
     var yearValue = yearSelect.options[year.selectedIndex].value;
@@ -85,7 +123,7 @@ function changeSelect(){
     
 //     alert(yearValue+'년 '+monthValue+'월 선택');
 	if(yearValue!="" && monthValue!=""){
-    	location.href='/book/list?year='+yearValue+'&month='+monthValue;
+    	location.href='/book/list?year='+yearValue+'&month='+monthValue+'&day='+day;
 	}
 }
 
@@ -100,6 +138,7 @@ $(document).ready(function() {
 		var budget = document.getElementById("bk_budget").value;		
 		var year = "<c:out value='${year}' />";
 		var month = "<c:out value='${month}' />";
+		var day = "<c:out value='${day}' />";
 		$.ajax({
 			method: "post",
 			url: "/ajax/writeBudget",
@@ -195,13 +234,14 @@ function uncomma(str) {
 					<option value="12">12월</option>
 			</select>
 			<input type="button" value="가계부 쓰기" class="btn m3" 
-				onclick="location.href='/book/write';" style="background-color: #5107B0; width: 100px; margin:auto; padding: 0px; color:white">
+				onclick="location.href='/book/write?year=${year}&month=${month}&day=${day }';" 
+				style="background-color: #5107B0; width: 100px; margin:auto; padding: 0px; color:white">
 		</div>
 	</div>
 	
-		<div class="listTable" ">
-			<table border="1" style="width: 100%; text-align: center">
-			<thead style="background-color: #5107B0; color: white;">
+		<div class="listTable">
+			<table border="1" style="width: 100%; text-align: center; ">
+			<thead style="background-color: #5107B0; color: white; ">
 				<tr>
 					<td width="10%">일</td>
 					<td width="10%">항목</td>

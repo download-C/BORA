@@ -49,12 +49,11 @@ $(document).ready(function(){
             
             var reader = new FileReader();
             reader.onload = function(e){
-                var src = e.target.result;
-//                 alert(src);
-                thumbnail.prepend('<div id="upload-display" class="wrap-input100 validate-input" style="width: 15%">'+
-																	'<div class="upload-thumb-wrap" style="max-width: 70px;  text-align: center;">'+
-																	'<img src="'+src+'"class="upload-thumb" style="max-width: 100%;">'+
-																	'</div></div>')
+            var src = e.target.result;
+            thumbnail.prepend('<div id="upload-display" class="wrap-input100 validate-input" style="width: 15%">'+
+															'<div class="upload-thumb-wrap" style="max-width: 70px;  text-align: center;">'+
+															'<img src="'+src+'"class="upload-thumb" style="max-width: 100%;">'+
+															'</div></div>')
             }
             reader.readAsDataURL($(this)[0].files[0]);
         }
@@ -71,7 +70,8 @@ $(document).ready(function(){
             var img = $("#upload-display").find('img');
             img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";        
         }
-    });
+    });	
+    
 	  var fileTarget = $('#fileBtn');
 
 	  fileTarget.on('change', function(){  // 값이 변경되면
@@ -87,10 +87,10 @@ $(document).ready(function(){
 	    $('#upload-name').val(filename);
 	  });
 	});
-
+	
 </script>
 
-<%String uploadFolder = "C:\\Users\\USER\\git\\BORA\\src\\main\\webapp\\resources\\upload"; %>
+<% String uploadFolder = "C:\\Users\\ITWILL\\git\\BORA\\src\\main\\webapp\\resources\\upload"; %>
 <!-- 태그 적는 곳 -->
 
 

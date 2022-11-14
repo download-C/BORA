@@ -72,7 +72,7 @@ public class AjaxController {
    ReportService rservice;
    
    
-   @RequestMapping(value = "/member/idcheck", method = RequestMethod.GET)
+   @RequestMapping(value = "/idcheck", method = RequestMethod.GET)
    public ResponseEntity<String> idcheck(HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 
       String id = request.getParameter("id");
@@ -90,7 +90,7 @@ public class AjaxController {
       return entity;
    }
 
-   @RequestMapping(value = "/member/nickcheck", method = RequestMethod.GET)
+   @RequestMapping(value = "/nickcheck", method = RequestMethod.GET)
    public ResponseEntity<String> nickcheck(HttpServletRequest request) throws Exception {
       String nick = request.getParameter("nick");
       log.info("nick: " + nick);
@@ -114,7 +114,7 @@ public class AjaxController {
 //      return entity;
 //   }
 
-   @RequestMapping(value = "/member/pwUpdateCheck", method = RequestMethod.POST)
+   @RequestMapping(value = "/pwUpdateCheck", method = RequestMethod.POST)
    public ResponseEntity<String> pwUpdateCheck(HttpSession session, HttpServletRequest request) throws Exception {
       String pwUpdate = request.getParameter("pwUpdate");
       log.info("♡♡♡♡♡♡♡♡♡♡pwUpdate: " + pwUpdate);
@@ -131,7 +131,7 @@ public class AjaxController {
    }
 
    // 회원이 탈퇴 시 비밀번호 입력하면 다시 한 번 탈퇴할건지 묻는 confirm 창 띄우기
-    @RequestMapping(value="/member/deleteCheck", method=RequestMethod.POST)
+    @RequestMapping(value="/deleteCheck", method=RequestMethod.POST)
     public ResponseEntity<String> deleteCheck(HttpServletRequest reqeust, HttpSession session,
           RedirectAttributes rttr) throws Exception {
        log.info("♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡deleteCheck()호출");
@@ -230,7 +230,7 @@ public class AjaxController {
     }
     // 카테고리 ajax 끝 ==================================
     
-	@RequestMapping(value="/ajax/writeBudget", method=RequestMethod.POST)
+	@RequestMapping(value="/writeBudget", method=RequestMethod.POST)
 	public String writeBudget(Integer bk_num, Integer bk_budget, Integer year,
 			Integer month,RedirectAttributes rttr)throws Exception {
 		log.info("writeBudget()	호출");

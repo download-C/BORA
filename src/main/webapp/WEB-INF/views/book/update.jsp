@@ -6,6 +6,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
+
+<!-- Template Main CSS File -->
+<link href="${pageContext.request.contextPath}/resources/css/writeForm.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+
 <%
 if(loginID==null) {%>
 <!-- 세션값(로그인) 확인 -->
@@ -31,9 +36,6 @@ $(document).ready(function() {
     }
 });
 </script>
-
-<!-- 태그 적는 곳 -->
-<div class="container">
 			
 <!-- DB값으로 미리 선택해놓기 -->
 <script>
@@ -108,96 +110,112 @@ $(document).ready(function(){
 	}); // radio click
 }); // document
 </script>
-
-<form action="/book/update?page=${page }" method="post">
-	<input type="hidden" name="bk_num" value="${detail.bk_num }">
-	<input type="hidden" name="bk_detail_num" value="${detail.bk_detail_num }">
-	<input type="hidden" name="id" value=${sessionScope.loginID }><br>
-	
+<div class="container-contact100">
+  <div class="wrap-contact100">
+		<form action="/book/update?page=${page }" method="post" class="contact100-form validate-form">
+	 		<span class="contact100-form-title">
+	    	<b>가계부 수정</b>
+	    </span>
+			<input type="hidden" name="bk_num" value="${detail.bk_num }">
+			<input type="hidden" name="bk_detail_num" value="${detail.bk_detail_num }">
+			<input type="hidden" name="id" value=${sessionScope.loginID }>
 			
-항목 :		수입<input type="radio" name="bk_iow" class="iow" value="수입" required="required"> 
-			지출<input type="radio" name="bk_iow" class="iow" value="지출" required="required"> 
-			이체<input type="radio" name="bk_iow" class="iow" value="이체" required="required">	<br>
-자산 :      <select id="group" name="bk_group"  required="required">
-				<option value="">자산 선택</option>
-				<option value="체크카드">체크카드</option>
-				<option value="현금">현금</option>
-				<option value="은행">은행</option>
-				<option value="신용카드">신용카드</option>
-				<option value="기타">기타</option>
-			</select> <br>
-
-일자 : 		<select name="bk_year" id="year" required="required">				
+	    <div class="radioCustom" style="display: flex; align-items: center; justify-content: center;">
+				<input type="radio" id="radio1" name="bk_iow" class="iow" required="required"> <label for="radio1">수입</label>
+				<input type="radio" id="radio2" name="bk_iow" class="iow" required="required"> <label for="radio2">지출</label>
+				<input type="radio" id="radio3" name="bk_iow" class="iow" required="required"><label for="radio3">이체</label>
+			</div>
+			<div class="form-floating mb-3" style="text-align: center">
+				<select id="group" name="bk_group" class="form-select" style="text-align: center" required>
+					<option value="">자산 선택</option>
+					<option value="체크카드">체크카드</option>
+					<option value="현금">현금</option>
+					<option value="은행">은행</option>
+					<option value="신용카드">신용카드</option>
+					<option value="기타">기타</option>
+				</select>
+			</div>
+		<div class="form-floating mb-3"  id='datetimepicker1'  
+		  style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
+			<select class="form-select" id="year" style="width: 33%; float: left;" name="bk_year" required>				
 				<option value="">연도</option>
-				<option value="2022">2022</option>
-				<option value="2020">2020</option>
-				<option value="2021">2021</option>
-				<option value="2023">2023</option>
-			</select> 년
-	
-			<select name="bk_month" id="month" required="required">	
+				<option value="2020">2020년</option>
+				<option value="2021">2021년</option>
+				<option value="2022">2022년</option>
+				<option value="2023">2023년</option>
+			</select> 
+			<select class="form-select" name="bk_month" id="month" style="width: 33%; float: left;" required>	
 				<option value="">월</option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-			</select> 월
-		
-			<select name="bk_day" id="day" required="required">
+				<option value="1">1월</option>
+				<option value="2">2월</option>
+				<option value="3">3월</option>
+				<option value="4">4월</option>
+				<option value="5">5월</option>
+				<option value="6">6월</option>
+				<option value="7">7월</option>
+				<option value="8">8월</option>
+				<option value="9">9월</option>
+				<option value="10">10월</option>
+				<option value="11">11월</option>
+				<option value="12">12월</option>
+			</select> 
+			<select class="form-select" name="bk_day" id="day" style="width: 33%; float: left;" required="required">
 				<option value="">일</option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-				<option value="13">13</option>
-				<option value="14">14</option>
-				<option value="15">15</option>
-				<option value="16">16</option>
-				<option value="17">17</option>
-				<option value="18">18</option>
-				<option value="19">19</option>
-				<option value="20">20</option>
-				<option value="21">21</option>
-				<option value="22">22</option>
-				<option value="23">23</option>
-				<option value="24">24</option>
-				<option value="25">25</option>
-				<option value="26">26</option>
-				<option value="27">27</option>
-				<option value="28">28</option>
-				<option value="29">29</option>
-				<option value="30">30</option>
-				<option value="31">31</option>
-			</select> 일 <br>
-
-카테고리 : 	<select name="bk_category" id="bk_category" required="required">
+				<option value="1">1일</option>
+				<option value="2">2일</option>
+				<option value="3">3일</option>
+				<option value="4">4일</option>
+				<option value="5">5일</option>
+				<option value="6">6일</option>
+				<option value="7">7일</option>
+				<option value="8">8일</option>
+				<option value="9">9일</option>
+				<option value="10">10일</option>
+				<option value="11">11일</option>
+				<option value="12">12일</option>
+				<option value="13">13일</option>
+				<option value="14">14일</option>
+				<option value="15">15일</option>
+				<option value="16">16일</option>
+				<option value="17">17일</option>
+				<option value="18">18일</option>
+				<option value="19">19일</option>
+				<option value="20">20일</option>
+				<option value="21">21일</option>
+				<option value="22">22일</option>
+				<option value="23">23일</option>
+				<option value="24">24일</option>
+				<option value="25">25일</option>
+				<option value="26">26일</option>
+				<option value="27">27일</option>
+				<option value="28">28일</option>
+				<option value="29">29일</option>
+				<option value="30">30일</option>
+				<option value="31">31일</option>
+			</select> 
+		</div>
+		<div class="form-floating mb-3">
+			<select name="bk_category" id="bk_category" class="form-select" required>
 				<option value="">카테고리</option>
-			</select> <br>
-금액 : <input type="number" name="bk_money" value="${detail.bk_money }" required="required"><br>
-메모 : <textarea rows="5" cols="20" name="bk_memo" required="required">${detail.bk_memo }</textarea> <br>
-<input type="submit" value="수정">
-
-</form>
+			</select> 
+		</div>
+		<div class="form-floating mb-3">
+			<input type="number" id="money" value="${detail.bk_money }" class="form-control" name="bk_money" required>
+			<label for="money">금액</label>
+		</div>
+		<div class="form-floating mb-3">
+      <input type="text" id="memo" name="bk_memo" value="${detail.bk_memo }" class="form-control" required>
+      <label for="memo">메모</label>
+    </div>
+    <div style="text-align: center">
+			<input type="submit" value="수정"  class="btn m-1" style="background-color: #5107B0; width: 100px; margin:auto; padding: 0px; color:white">
+		</div>
+			</form>
 	</div>
 
 
 
+</div>
 
 
 
