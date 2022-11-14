@@ -67,8 +67,10 @@ public class ReportController {
 			Calendar cal = Calendar.getInstance();
 			int year = cal.get(Calendar.YEAR);
 			int month = cal.get(Calendar.MONTH)+1;
+			int day = cal.get(Calendar.DATE);
 			model.addAttribute("year", year);
 			model.addAttribute("month", month);
+			model.addAttribute("day", day);
 		   
 		   log.info(service.cateSum(year, month, loginID)+"");
 		   List<Integer> sumArr = new ArrayList<>();
@@ -110,7 +112,7 @@ public class ReportController {
 
 			}
 				log.info("바꾼 정보: "+dtlvo);
-				model.addAttribute("consumeList",dtlvo);
+				model.addAttribute("consumeList", dtlvo);
 			}
 }
 	   
