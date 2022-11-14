@@ -92,6 +92,7 @@ public class OpenbankController {
 		UserInfoResponseVO userInfo = openBankingService.findUser(userInfoRequestVO);
 
 		model.addAttribute("userInfo", userInfo);
+		session.setAttribute("userInfo", userInfo.getUser_info());
 		session.setAttribute("access_token", userInfoRequestVO.getAccess_token());
 
 		log.info("Access_token : " + userInfoRequestVO.getAccess_token());
@@ -109,6 +110,7 @@ public class OpenbankController {
 		AccountSearchResponseVO accountList = openBankingService.findAccount(accountSearchRequestVO);
 
 		model.addAttribute("accountList", accountList);
+		session.setAttribute("accountList", accountList.getRes_list());
 		session.setAttribute("access_token", accountSearchRequestVO.getAccess_token());
 
 		// Model 객체에 AccountSearchResponseVO 객체와 엑세스토큰 저장
@@ -156,6 +158,7 @@ public class OpenbankController {
 
 		// Model 객체에 AccountcancelResponseVO 객체와 엑세스토큰 저장
 		model.addAttribute("accountTran", accountTran);
+		session.setAttribute("accountTran", accountTran);
 		session.setAttribute("bank_tran_id", accountTranRequestVO.getBank_tran_id());
 
 		log.info("bank_tran_id : " + accountTranRequestVO.getBank_tran_id());
@@ -173,6 +176,7 @@ public class OpenbankController {
 		CardInfoResponseVO cardInfo = openBankingService.infoCard(cardInfoRequestVO);
 
 		// Model 객체에 CardListResponseVO 객체와 엑세스 토큰 저장
+		model.addAttribute("cardInfo", cardInfo);
 		model.addAttribute("cardInfo", cardInfo);
 		session.setAttribute("access_token", cardInfoRequestVO.getAccess_token());
 

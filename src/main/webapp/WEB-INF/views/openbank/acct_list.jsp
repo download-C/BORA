@@ -25,9 +25,10 @@
     }
 
     .modal {
-      --bs-modal-width: 1000px;
-      --bs-modal-height: 750px;
+      --bs-modal-width: 1300px;
+      --bs-modal-height: 850px;
     }
+    
   </style>
 
 <!-- account -->
