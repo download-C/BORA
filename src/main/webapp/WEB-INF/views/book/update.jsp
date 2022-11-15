@@ -42,29 +42,18 @@ $(document).ready(function() {
 $(document).ready(function(){
 	// 항목
 	$('input:radio[name=bk_iow]:input[value="${detail.bk_iow}"]').attr("checked", true);
-	// 자산
-	$("#group").val("${detail.bk_group}").attr("selected","selected");
-	// 날짜
-	$("#year").val("${detail.book.bk_year}").attr("selected","selected");
-	$("#month").val("${detail.book.bk_month}").attr("selected","selected");
-	$("#day").val("${detail.bk_day}").attr("selected","selected");
-});//document
-</script>
-
-<!-- 항목이 수입일 경우 자산 바꾸기 -->
-<script>
-$(document).ready(function(){
-	var radio = document.getElementsByName('bk_iow');
+	var radio = $("input:radio[name='bk_iow']:checked").val();
 	var bk_group = document.getElementsByName('bk_group');
-	
-	$(radio).click(function(){
-		if(this.value=="수입"){
+// 	console.log(radio);
+// 	alert(radio);
+		if(radio == "수입"){
 			$("#bk_group").html(
 				'<option value="">자산 선택</option>'+
 				'<option value="현금">현금</option>'+
 				'<option value="은행">은행</option>'+
 				'<option value="기타">기타</option>'
-			);
+			); 
+			$("#bk_group").val("${detail.bk_group}").attr("selected","selected");
 			$("#bk_category").html(
 				'<option value="">카테고리</option>'+
 				'<option value="월급">월급</option>'+
@@ -73,8 +62,11 @@ $(document).ready(function(){
 				'<option value="금융소득">금융소득</option>'+
 				'<option value="기타">기타</option>'
 			); 
+			$("#bk_category").val("${detail.bk_category}").attr("selected","selected");
+			
+			
 		} // radio 수입 
-		else if(this.value=="지출") {
+		else if(radio == "지출") {
 			$("#bk_group").html(
 			'<option value="">자산 선택</option>'+
 			'<option value="체크카드">체크카드</option>'+
@@ -83,6 +75,8 @@ $(document).ready(function(){
 			'<option value="신용카드">신용카드</option>'+
 			'<option value="기타">기타</option>'
 			);
+			$("#bk_group").val("${detail.bk_group}").attr("selected","selected");
+			
 			$("#bk_category").html(
 				'<option value="">카테고리</option>'+
 				'<option value="식비">식비</option>'+
@@ -94,6 +88,9 @@ $(document).ready(function(){
 				'<option value="저축">저축</option>'+
 				'<option value="기타">기타</option>'
 			);
+			$("#bk_category").val("${detail.bk_category}").attr("selected","selected");
+			
+			
 		} // radio 지출
 		else { 
 			$("#bk_group").html(
@@ -102,12 +99,29 @@ $(document).ready(function(){
 				'<option value="기타">기타</option>'+
 				'<option value="추가">추가</option>'
 			);
+			$("#bk_group").val("${detail.bk_group}").attr("selected","selected");
+			
 			$("#bk_category").html(
-				'<option value="">카테고리</option>'
+				'<option value="">카테고리 없음</option>'
 			);
-
+		
+		// 자산
+		$("#bk_group").val("${detail.bk_group}").attr("selected","selected");
+		// 카테고리
+		$("#bk_category").val("${detail.bk_category}").attr("selected","selected");
+		
 		} // radio 이체
-	}); // radio click
+	// 날짜
+	$("#year").val("${detail.book.bk_year}").attr("selected","selected");
+	$("#month").val("${detail.book.bk_month}").attr("selected","selected");
+	$("#day").val("${detail.bk_day}").attr("selected","selected");
+});//document
+</script>
+
+<!-- 항목이 수입일 경우 자산 바꾸기 -->
+<script>
+$(document).ready(function(){
+	
 }); // document
 </script>
 <div class="container-contact100">
@@ -118,6 +132,7 @@ $(document).ready(function(){
 	    </span>
 			<input type="hidden" name="bk_num" value="${detail.bk_num }">
 			<input type="hidden" name="bk_detail_num" value="${detail.bk_detail_num }">
+			<input type="hidden" name="bk_budget" value="${detail.book.bk_budget}">
 			<input type="hidden" name="id" value=${sessionScope.loginID }>
 			
 	    <div class="radioCustom" style="display: flex; align-items: center; justify-content: center;">
@@ -127,12 +142,6 @@ $(document).ready(function(){
 			</div>
 			<div class="form-floating mb-3" style="text-align: center">
 				<select id="bk_group" name="bk_group" class="form-select" style="text-align: center" required>
-					<option value="">자산 선택</option>
-					<option value="체크카드">체크카드</option>
-					<option value="현금">현금</option>
-					<option value="은행">은행</option>
-					<option value="신용카드">신용카드</option>
-					<option value="기타">기타</option>
 				</select>
 			</div>
 		<div class="form-floating mb-3"  id='datetimepicker1'  

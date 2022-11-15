@@ -39,7 +39,7 @@
 	</select>
 
 	<select id="getMonthBudget" resultType="Integer">
-		select bk_budget from bora_book
+		select ifnull(bk_budget,0) from bora_book
 		where id=#{loginID} and bk_year=#{year} and bk_month=#{month}
 	</select>
 	
@@ -93,8 +93,9 @@
 	<select id="getMonthBookMoney" resultType="Integer">
 		select sum(d.bk_money)
 		from bora_book b join bora_book_detail d
+		on b.id = d.id
 		where b.bk_year=#{year} and b.bk_month=#{month} 
-		      and b.id=#{loginID} and d.bk_iow="지출"
+		      and b.id=#{loginID} and d.id=#{loginID} and d.bk_iow="지출"
 	</select>
 	
 	<!-- 특정 가계부 내역 조회 -->
