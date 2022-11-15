@@ -195,7 +195,8 @@ public class BookController {
 						model.addAttribute("percent", percent);
 						return "/book/bookList";
 					} else {
-						model.addAttribute("bk_budget", bk_budget);
+						model.addAttribute("restedBudget1", restedBudget1);
+						model.addAttribute("restedBudget2", restedBudget2);
 						model.addAttribute("year", year);
 						model.addAttribute("month", month);
 						model.addAttribute("percent", percent);

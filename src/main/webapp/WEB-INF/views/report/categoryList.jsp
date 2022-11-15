@@ -323,7 +323,7 @@ $(document).ready(function(){
 							<c:if test="${year eq '2021'}">selected</c:if>>2021</option>
 					</select>
 			</form>
-			년 &nbsp</a>
+			년 &nbsp;</a>
 			<form id="form2" method="get" action=""
 				style="display: inline-block; width: 6%">
 				<select name="month" id="month">
@@ -341,7 +341,7 @@ $(document).ready(function(){
 					<option value="12" <c:if test="${month eq '12'}">selected</c:if>>12</option>
 				</select>
 			</form>
-			월 &nbsp소비리포트
+			월 &nbsp;소비리포트
 			</h3>
 			</a>
 

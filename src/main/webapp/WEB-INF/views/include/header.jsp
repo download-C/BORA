@@ -138,7 +138,6 @@ if(session!=null) {
 			%>
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto" href="/book/list?year=<%=year%>&month=<%=month%>&day=<%=day%>">가계부(나중에 리포트로 합칠 예정)</a></li>
           <li><a class="nav-link scrollto" href="/main/about">About</a></li>
           <li><a class="nav-link scrollto" href="/main/noticeList?page=1">공지사항</a></li>
           <li><a class="nav-link scrollto" href="/board/list?page=1">커뮤니티</a></li>
