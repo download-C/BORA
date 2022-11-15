@@ -142,6 +142,7 @@ if(session!=null) {
           <li><a class="nav-link scrollto" href="/main/noticeList?page=1">공지사항</a></li>
           <li><a class="nav-link scrollto" href="/board/list?page=1">커뮤니티</a></li>
           <li><a class="nav-link scrollto" href="/report/categoryList?year=<%=year%>&month=<%=month%>&day=<%=day%>">리포트</a></li>
+          <li><a class="nav-link scrollto" href="/book/list?year=<%=year%>&month=<%=month %>&day=<%=day%>">가계부</a>
           <li><a class="nav-link scrollto " href="/openbank/oauthOK">오픈뱅킹</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>

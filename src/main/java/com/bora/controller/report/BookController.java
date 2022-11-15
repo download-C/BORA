@@ -146,6 +146,30 @@ public class BookController {
 		model.addAttribute("year", year);
 		model.addAttribute("month", month);
 		model.addAttribute("day", day);
+		
+		// 1, 2, 3 개월 전 예산 및 지출 구해서 보내기
+		for(int i=1; i<4; i++) {
+			if(month-i >0 ) {
+				model.addAttribute("bfmonth"+i, month-i);
+				model.addAttribute("bfyear"+i, year);
+				BookVO book = service.getMonthBook(year, month-i, loginID);
+				if(book==null) {
+					book.setBk_year(year);
+					book.setBk_month(month-i);
+					book.setBk_budget(0);
+					book.setId(loginID);
+					service.writeBook(book);
+				}
+				model.addAttribute("bfbudget"+i, service.getMonthBudget(loginID, year, month-i));
+				model.addAttribute("bfsum"+i, service.getMonthBookMoney(loginID, year, month-i));
+			} else {
+				model.addAttribute("bfmonth"+i, 13-i);
+				model.addAttribute("bfyear"+i, year-1);
+				model.addAttribute("bfbudget"+i, service.getMonthBudget(loginID, year, 13-i));
+				model.addAttribute("bfsum"+i, service.getMonthBookMoney(loginID, year, 13-i));
+			}
+		}
+				
 
 		// 해당 연월의 가계부 불러오기
 		log.info(loginID + "님의 " + year + "년 " + month + "월 가계부 불러오기");

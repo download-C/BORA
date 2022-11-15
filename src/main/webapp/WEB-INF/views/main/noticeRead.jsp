@@ -68,7 +68,15 @@ $(document).ready(function() {
           <h1 class="fw-bolder mb-1">${vo.n_title }</h1>
            <!-- Post meta content-->
           <div class="text-muted fst-italic mb-2"><b>작성일시:</b> <fmt:formatDate value="${vo.n_regdate }" pattern="yyyy.MM.dd HH:mm"/>
-         			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>작성자:</b> 관리자</div>
+         			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>작성자:</b> 관리자
+         			<div style="float: right;">
+         			<%if(loginID!=null){if(loginID.equals("admin")) {%>
+								<button class="btn_update" style="border: none; margin: 2px; background-color: #5107B0; color: white; border-radius: 5px;">수정</button>
+						    <button class="btn_delete" style="border: none;margin: 2px; background-color: #5107B0; color: white; border-radius: 5px;">삭제</button>
+						  <%} }%>		
+         			</div>
+     			</div>
+     			
 				</header>
 				<hr>
 		  <figure class="mb-4" style="text-align: center">
@@ -76,13 +84,11 @@ $(document).ready(function() {
 		  </figure>
 		  <section class="mb-5"><p class="fs-5 mb-4">${vo.n_content }</p></section>
 	  </article>
+	  <div style="text-align: center;">
+			<button style="border: none;margin: 2px; background-color: #5107B0; color: white; border-radius: 5px;" class="btn_list">목록</button></div>
 	  </div>
   </div>
-	<%if(loginID!=null){if(loginID.equals("admin")) {%>
-		<button class="btn_update" style="border: none; margin: 2px; background-color: #5107B0; color: white; border-radius: 5px;">수정</button>
-    <button class="btn_delete" style="border: none;margin: 2px; background-color: #5107B0; color: white; border-radius: 5px;">삭제</button>
-  <%} }%>
-	<button style="border: none;margin: 2px; background-color: #5107B0; color: white; border-radius: 5px;" class="btn_list">목록</button></div>
+</div>
 
 
 

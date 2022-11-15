@@ -65,9 +65,10 @@ public class NoticeController {
 			// 업로드된 파일의 원래 이름 가져오기
 			String ofileName = mfile.getOriginalFilename();
 			// 파일 확장자
+			
 			String fileExtension = ofileName.substring(ofileName.lastIndexOf("."),ofileName.length());
 			// 저장 위치
-			String uploadFolder = "C:\\Users\\USER\\git\\BORA\\src\\main\\webapp\\resources\\upload";
+			String uploadFolder = "C:\\Users\\ITWILL\\git\\BORA\\src\\main\\webapp\\resources\\upload";
 			
 			log.info("원래 파일명: "+ofileName);
 			// 업로드될 파일 이름들 저장
@@ -118,6 +119,7 @@ public class NoticeController {
 			HttpSession session) throws Exception {
 		log.info("fileUploadPOST() 호출");
 		log.info("multi: "+multi);
+		
 				
 		// 파일 정보를 담을 객체 생성
 		Map<String, String> map = new HashMap<>();
@@ -133,12 +135,14 @@ public class NoticeController {
 		}
 		log.info("들어온 파라미터: "+map);
 		// 들어온 값 중 파일은 파일 프로세스로 처리하기
-		String uploadedFileName = fileProcess(multi);
-		log.info("fileName: "+uploadedFileName);
 		NoticeVO vo = new NoticeVO();
 		vo.setN_title(map.get("n_title"));
 		vo.setN_content(map.get("n_content"));
-		vo.setN_file(uploadedFileName);
+		if(!multi.getFile("uploadFile").isEmpty()) {
+			String uploadedFileName = fileProcess(multi);
+			log.info("fileName: "+uploadedFileName);
+			vo.setN_file(uploadedFileName);
+		}
 		log.info("vo: "+vo);
 		
 		service.writeNotice(vo);
