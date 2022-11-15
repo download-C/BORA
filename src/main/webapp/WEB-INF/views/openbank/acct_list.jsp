@@ -9,7 +9,7 @@
 
 <!-- title -->
 <div class="section-title">
-  <h2><b>내 자산 보기</b></h2>
+  <h2><b>내 보유 계좌</b></h2>
 </div>
 <!-- End title -->
 
@@ -30,13 +30,38 @@
     }
     
   </style>
+  
+     <style>
+    .tbtn {
+      background-color: #5107B0;
+      float: center;
+      width: 330px;
+      height: 70px;
+      margin :20px;
+      padding: 10px 10px 10px 10px;
+      border: 1px solid #fff;
+      border-radius: 8px;
+      color: white; 
+/*       color: #e3cffc; */
+      border-radius: 13px;
+      font-size: 20px;
+    }
+    
+    .floatingInput {
+    	color: red;
+    }
+    	
+  </style>
 
 <!-- account -->
   <div class="container">
     <h4 style="background: linear-gradient(to top, #c8a7fa 50%, transparent 50%); width: fit-content;">계좌</h4><br>
+        <span><b>◼ BORA 오픈뱅킹에서는 금융결제원 테스트베드에 인증이 완료된 계좌에 한하여 아래의 정보를 제공합니다.</b></span><br><br><br>
     <div class="row justify-content-center">
       <div class="col-10" style="padding-right: 0;">
         <div class="table-responsive">
+        
+        
           <table class="table table-hover" style="border-right: none; border-radius: 0; box-shadow: none;">
             <thead>
               <tr style="font-size: 16px; ">
@@ -63,6 +88,7 @@
           </table>
         </div>
       </div>
+      
       <div class="col-2" style="padding-left: 0;">
         <div class="table-responsive">
           <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;">
@@ -74,60 +100,66 @@
             <tbody>
 
               <tr>
-                <td style="padding-bottom: 6px; padding-top: 6px;">
+                <td style="padding-bottom: 7px; padding-top: 7px;">
+                    	<div class="box" style="display: flex; justify-content: space-between-center; flex-flow: row nowrap;">
+                    	
+                    <form method="get" action="/openbank/accountBalance" target="frm2">
+					<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+						<input type="hidden" name="access_token" value="${sessionScope.token }">
+						<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
+						<input type="hidden" name="fintech_use_num" value="120220217888941294186856">
+						<input type="hidden" name="tran_dtime" value="20221104134521">
+						<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button>
+					</form>   
+<!--                   <button class="tdbtn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button> -->
                 
                 	<form method="get" action="/openbank/accountTran" target="frm1">
-					<input type="hidden" name="access_token" value="${sessionScope.token }">
-					<input type="hidden" name="bank_tran_id" value="${accountTran.bank_tran_id}">
-					<input type="hidden" name="fintech_use_num" value="120220217888941294186856">
-					<input type="hidden" name="inquiry_type" value='A'>
-					<input type="hidden" name="inquiry_base" value='D'>
-					<input type="hidden" name="from_date" value="20100101">
-					<input type="hidden" name="to_date" value="20221104">
-					<input type="hidden" name="sort_order" value="D">
-					<input type="hidden" name="tran_dtime" value="20221104134521">
-					<input type="submit" value="내역조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">
+						<input type="hidden" name="access_token" value="${sessionScope.token }">
+						<input type="hidden" name="bank_tran_id" value="${accountTran.bank_tran_id}">
+						<input type="hidden" name="fintech_use_num" value="120220217888941294186856">
+						<input type="hidden" name="inquiry_type" value='A'>
+						<input type="hidden" name="inquiry_base" value='D'>
+						<input type="hidden" name="from_date" value="20100101">
+						<input type="hidden" name="to_date" value="20221104">
+						<input type="hidden" name="sort_order" value="D">
+						<input type="hidden" name="tran_dtime" value="20221104134521">
+					<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역조회</button>
 					</form>
 <!--                   <button type="button" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역조회</button> -->
                 	
-                	<form method="get" action="/openbank/accountBalance" target="frm2">
-					<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
-					<input type="hidden" name="access_token" value="${sessionScope.token }">
-					<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
-					<input type="hidden" name="fintech_use_num" value="120220217888941294186856">
-					<input type="hidden" name="tran_dtime" value="20221104134521">
-					<input type="submit" value="잔액조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">
-					</form>   
-<!--                   <button class="tdbtn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button> -->
+					</div>
 
                 </td>
               </tr>
               <tr>
                 <td style="padding-bottom: 6px; padding-top: 6px;">
-                
+                	<div class="box" style="display: flex; justify-content: space-between-center; flex-flow: row nowrap;">
+                   	<form method="get" action="/openbank/accountBalance" target="frm2">
+						<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+						<input type="hidden" name="access_token" value="${sessionScope.token }">
+						<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
+						<input type="hidden" name="fintech_use_num" value="120220217888941294172171">
+						<input type="hidden" name="tran_dtime" value="20221104134521">
+						<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button>
+					</form>   
+<!--                   <button class="tdbtn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button> -->  
+
+
                 	<form method="get" action="/openbank/accountTran" target="frm1">
-					<input type="hidden" name="access_token" value="${sessionScope.token }">
-					<input type="hidden" name="bank_tran_id" value="${accountTran.bank_tran_id}">
-					<input type="hidden" name="fintech_use_num" value="120220217888941294172171">
-					<input type="hidden" name="inquiry_type" value='A'>
-					<input type="hidden" name="inquiry_base" value='D'>
-					<input type="hidden" name="from_date" value="20100101">
-					<input type="hidden" name="to_date" value="20221104">
-					<input type="hidden" name="sort_order" value="D">
-					<input type="hidden" name="tran_dtime" value="20221104134521">
-					<input type="submit" value="내역조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">
+						<input type="hidden" name="access_token" value="${sessionScope.token }">
+						<input type="hidden" name="bank_tran_id" value="${accountTran.bank_tran_id}">
+						<input type="hidden" name="fintech_use_num" value="120220217888941294172171">
+						<input type="hidden" name="inquiry_type" value='A'>
+						<input type="hidden" name="inquiry_base" value='D'>
+						<input type="hidden" name="from_date" value="20100101">
+						<input type="hidden" name="to_date" value="20221104">
+						<input type="hidden" name="sort_order" value="D">
+						<input type="hidden" name="tran_dtime" value="20221104134521">
+						<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역조회 </button>
 					</form>
 <!--                   <button class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역조회</button> -->
-                  
-                	<form method="get" action="/openbank/accountBalance" target="frm2">
-					<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
-					<input type="hidden" name="access_token" value="${sessionScope.token }">
-					<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
-					<input type="hidden" name="fintech_use_num" value="120220217888941294172171">
-					<input type="hidden" name="tran_dtime" value="20221104134521">
-					<input type="submit" value="잔액조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">
-					</form>   
-<!--                   <button class="tdbtn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button> -->                  
+                  </div>
+                
                 </td>
               </tr>
             </tbody>
@@ -160,9 +192,22 @@
       <!-- 잔액조회버튼 끝 -->
       <!-- End account -->
     </div>
-  </div>
 
 
+	<!-- 목돈 모으기 -->
+	
+		<form method="get" action="/openbank/goal">
+			<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+			<input type="hidden" name="access_token" value="${sessionScope.token }"> 
+			<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
+			<input type="hidden" name="fintech_use_num" value="120220217888941294172171"> 
+			<input type="hidden" name="tran_dtime" value="20221104134521"> 
+			<button type="submit" class="tbtn"><b style="color:#e3cffc;">목돈&nbsp;</b>모으기</button>
+		</form>
+	<!-- 목돈 모으기 -->
+
+ 
+ </div>
  
    <!-- 모달창 -->
    <!--   	거래내역조회 -->

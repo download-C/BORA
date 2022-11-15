@@ -19,7 +19,7 @@
 
   <!-- title -->
   <div class="section-title">
-    <h2><b>자산관리</b></h2><br><br>
+    <h2><b>오픈뱅킹</b></h2><br><br>
     <img src="${pageContext.request.contextPath}/resources/img/openbank.png" class="img-fluid">
 
   </div><br>
