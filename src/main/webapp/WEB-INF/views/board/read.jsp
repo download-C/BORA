@@ -48,24 +48,17 @@
 $(document).ready(function(){
 	// 알림 모달창 호출 함수 --------------
 	function success(result) {
-	    Swal.fire(
-	        result,
-	        '',
-	        'success' /*디자인 타입*/
-	    )
+	    Swal.fire({
+	        title: result,
+	        text: '',
+	        icon: 'success', /*디자인 타입*/
+	        confirmButtonColor: '#7A1CF6'
+	    });
 	}//success 버튼
 	
 	//warning 버튼
-	function warning(result) {
-        Swal.fire(
-            result,
-            '',
-            'warning' /*디자인 타입*/
-        )
-    }//warning 버튼
+ 
 	// 알림 모달창 호출 함수 끝 --------------
-	
-	
 	
 	
 	// 계속 쓸 놈들 ---------------------

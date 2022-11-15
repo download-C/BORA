@@ -28,8 +28,8 @@ function login(message) {
 	  title: message,
 	  text: '',
 	  padding: '3em',
-	  background: '#fff',
-	  backdrop: 'rgba(122, 28, 246, 0.2)',	  
+// 	  background: '#fff',
+// 	  backdrop: 'rgba(122, 28, 246, 0.2)',	  
 	  confirmButtonColor: '#7A1CF6'
    	})
 }
