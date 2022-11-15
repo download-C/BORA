@@ -40,19 +40,22 @@ a:hover {
 <%-- 		<p>EL{pm.vo.page}: ${pm.vo.page }</p> --%>
 <!-- 	</div> -->
 	
-<!-- ajax로 카테고리 호출 시 페이징 처리 대신 하는 메서드 -->
 <script type="text/javascript">
-
+// <!-- ajax로 카테고리 호출 시 페이징 처리 대신 하는 메서드 -->
 	$(document).ready(function(){
 		// 모두다
-		var page = $("#page").val();
-		var pageStart = "<c:out value='${pm.pageStart }' />";
+// 		var page = $("#page").val();
+// 		var pageStart = "<c:out value='${pm.pageStart }' />";
 		$('.ctgr_btn').click(function(){
+			
+			
 			var ctgr = $(this).val();
-				// alert(ctgr);
+			alert(ctgr);
+			moreList(); // 더보기 함수 호출
+
 			$.ajax({
 				url: "/ajax/ctgr",
-				data: {"ctgr": $(this).val(), "pageStart":pageStart, "page":page},
+				data: {"ctgr": $(this).val(), },
 				dataType: "JSON",
 				type: "get",
 				success: function(data){
@@ -99,8 +102,55 @@ a:hover {
 		}); // btn click
 		
 	});// jquery ready
+// <!-- ajax로 카테고리 호출 시 페이징 처리 대신 하는 메서드 끝 -->
+
+
+	// 더보기 구현 시작 ==========================================================
+function moreList() {
+ 
+    var startNum = $("#listBody tr").length;  //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
+    var addListHtml = "";
+    console.log("startNum", startNum); //콘솔로그로 startNum에 값이 들어오는지 확인
+ 
+//      $.ajax({
+//         url : "/ajax/getMoreList",
+//         type : "get",
+//         dataType : "json",
+//         data : {"startNum":startNum},
+        
+//         success : function(data) {
+//             if(data.length < 10){
+//                 $("#addBtn").remove();   // 더보기 버튼을 div 클래스로 줘야 할 수도 있음
+//             }else{
+//             var addListHtml ="";
+//             if(data.length > 0){
+                
+//                 for(var i=0; i<data.length;i++) {
+//                     var idx = Number(startNum)+Number(i)+1;   
+//                     // 글번호 : startNum 이  10단위로 증가되기 때문에 startNum +i (+1은 i는 0부터 시작하므로 )
+//                     addListHtml += "<tr>";
+//                     addListHtml += "<td>"+ idx + "</td>";
+//                     addListHtml += "<td>"+ data[i].title + "</td>";
+//                     addListHtml += "<td>"+ data[i].description + "</td>";
+//                     addListHtml += "</tr>";
+//                 }
+//                 $("#listBody").append(addListHtml);
+//             }
+//             }
+//         }
+//     });
+ 
+} // moreList()
+
 </script>
-<!-- ajax로 카테고리 호출 시 페이징 처리 대신 하는 메서드 끝 -->
+
+	
+	
+	
+	
+	
+
+</script>
 
 
 
@@ -115,6 +165,11 @@ a:hover {
 		<button type="button" value="친해져BORA" class="ctgr_btn btn" id="btn_meet" style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">친해져<b style="color:#5107B0;">BORA</b></span></button>
 		<button type="button" value="글쓰기" onclick="location.href='/board/insert';" class="btn" id="" style="background-color: #5107B0; float: right; width: 120px; margin: 0px 10px 10px 0px;"><span class="btn-inner--text" style="color: white;">글쓰기</span></button>
 			<input type="hidden" id="page" value="${pm.vo.page }"> 
+<!-- 		<div class="radioCustom" style="display: flex; align-items: center; justify-content: center;"> -->
+<!-- 		<input type="radio" id="radio1" value="골라줘BORA" required  class="ctgr_btn btn" id="btn_pick" style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;">  <label for="radio1">골라줘BORA</label> -->
+<!-- 		<input type="radio" id="radio2" value="알려줘BORA" required class="ctgr_btn btn" id="btn_tip" style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"> <label for="radio2">알려줘BORA</label> -->
+<!-- 		<input type="radio" id="radio3" value="친해져BORA" required class="ctgr_btn btn" id="btn_meet" style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"> <label for="radio3">친해져BORA</label> -->
+	</div>
 	</div>
 	</div>
 	
@@ -131,7 +186,7 @@ a:hover {
 					<th class="text-xs font-weight-semibold opacity-7 ps-2" style="width: 5%; ">조회수</th>
 				</tr>
 			</thead>
-			<tbody>	
+			<tbody id="listBody">	
 <%-- 			<c:forEach var="vo" items="${boardList }" varStatus="status"> --%>
 				<c:forEach var="vo" items="${boardList }">
 				
@@ -159,6 +214,7 @@ a:hover {
 				</c:forEach>
 			</tbody>
 		</table>
+		<div> <button id="addBtn" onclick="moreList();"><span>더보기</span></button> </div>
 	</div> <!-- container -->
 	<br><br>
 	<!-- ===================== 페이징 처리 구간 ========================== -->
