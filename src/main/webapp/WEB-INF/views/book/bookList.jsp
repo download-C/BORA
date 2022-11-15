@@ -3,9 +3,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 
@@ -274,10 +274,30 @@ function uncomma(str) {
 	<!-- 타이틀 부분 -->
 	 <!-- Tasks Card Example -->
   <div class="container">
-    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 justify-content-center">
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 justify-content-center" >
+  	<!-- 왼쪽 차트 박스 -->
+       <div class="container"
+          style=" background-color: white; padding: 20px; border-radius: 15px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7); margin: 40 auto;">
+          
+
+    
+          <!-- 예산 추이 차트 스크립트 -->
+					<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+					<script src="${pageContext.request.contextPath}/resources/js/bookListChart.js"></script>
+          <div>
+          <!-- 예산 추이 차트 자리 시작 --> 	
+          
+          
+          
+          <!-- 예산 추이 차트 자리 끝 --> 	
+					</div>
+          
+         
+      </div>
+  	<!-- 왼쪽 차트 박스 -->
       <div class="col">
         <div class="container"
-          style=" background-color: white; padding: 20px; border-radius: 15px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7); margin: 40 auto;">
+        style="background-color: white; padding: 20px; border-radius: 15px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
           <div style="display: flex; justify-content: space-between; flex-flow: row nowrap; margin-bottom: 10px;">
 					</div>
           <b>지출 <fmt:formatNumber pattern="#,###" value="${sum }" />원</b>
@@ -287,11 +307,7 @@ function uncomma(str) {
 						<span class="btn-inner--text" style="color: white;">예산 입력</span>
 						</button>
 						</div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="container"
-        style="background-color: white; padding: 20px; border-radius: 15px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
+						<br>
          <h6>${restedBudget1 }만 ${restedBudget2 }원 남았습니다.</h6>
         <div class="row no-gutters align-items-center">
           <div class="col-auto">
@@ -305,9 +321,9 @@ function uncomma(str) {
           </div>
           <p>이번 달 예산의 ${percent }%만큼 지출했어요 ! </p>
         </div>
+        </div>
       </div>
       </div>
-    </div>
   </div>
 	<div style="display: flex; justify-content: space-between; flex-flow: row nowrap; max-height: 50px; margin-top: 20px;">
 	<div class="left-box">

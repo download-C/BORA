@@ -7,8 +7,9 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
 
-  <link href="${pageContext.request.contextPath}/resources/css/writeForm.css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/writeForm.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/login.css" rel="stylesheet">
 <%
 	if (loginID == null) {
 %>
@@ -118,8 +119,8 @@ $(document).ready(function(){
       opacity:100;
       }
       .hr-how:after {
-      background: white;
-      content: "🤑🤑🤑🤑🤑";
+      background: f4f4f4;
+/*       content: "🤑🤑🤑🤑🤑"; */
       display: inline-block;
       font-size: 0.9em;
       padding: 0 0.6em;
@@ -132,7 +133,6 @@ $(document).ready(function(){
       
 <div class="container">
 	<div style="width: 60%; text-align: center; margin:auto;">
-	<h1 style="text-align: center">🤑	가계부 작성🤑</h1> <br>
 	<form action="/book/write" method="post"> 
 	<input type="hidden" id="bk_budget" value="${bk_budget }">
 	<div class="radioCustom" style="display: flex; align-items: center; justify-content: center;">
@@ -216,11 +216,11 @@ $(document).ready(function(){
 	    <label for="floatingPassword">내역을 입력하세요.</label>
 	</div>
     <div style="text-align: center">
-		<input type="submit" value="작성" class="btn m-1" style="background-color: #5107B0; width: 100px; margin:auto; padding: 0px; color:white">
+		<button class="btn btn-primary btn-login text-uppercase fw-bold" style="border: none; background-color: #5107b0;" type="submit">작&nbsp;&nbsp;&nbsp;&nbsp;성</button>
     </div>
 </form>
 </div>
 </div>
-
+<br><br>
 
 <%@ include file="../include/footer.jsp"%>

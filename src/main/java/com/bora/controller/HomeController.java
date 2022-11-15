@@ -39,7 +39,7 @@ public class HomeController {
 		if(noticeList.size()>0) 
 			model.addAttribute("noticeList", noticeList);
 		
-		return "post:/main/main";
+		return "/main/main";
 	}
 	
 }
