@@ -14,77 +14,89 @@
 <!-- End title -->
 <br>
 
+   <style>
+    .tbtn {
+      background-color: #5107B0;
+      float: center;
+      width: 330px;
+      height: 70px;
+      margin :20px;
+      padding: 10px 10px 10px 10px;
+      border: 1px solid #fff;
+      border-radius: 8px;
+      color: white; 
+/*       color: #e3cffc; */
+      border-radius: 13px;
+      font-size: 20px;
+    }
+    
+    .floatingInput {
+    	color: red;
+    }
+    	
+  </style>
+  
+
   <div class="container">
   	<div class="box" style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
-	<div style="border: 3px solid red; width: 70%;"><br>
+<!--   	<div class="box" style="display: flex; justify-content: space-between; flex-flow: row nowrap;"> -->
 	
-    <div class="row">
+<!--     <div class="row"> -->
+      <div class="col-sm-9 col-md-7 col-lg-80 mx-auto">
+<!--       <div class="col-sm-9 col-md-7 col-lg-65" > -->
 <!--       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto"> -->
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div class="card border-0 shadow rounded-3 my-5">
-          <div class="card-body p-4 p-sm-5" style="background-color:#F5EFFE;">
-            <h1 class="card-title text-center mb-5 fw-light fs-55"><b>사용자 인증 조회</b></h1>
+          <div class="card-body p-3 p-sm-5" style="background-color:#F5EFFE;">
+            <h1 class="card-title text-center mb-5 fw-light fs-13"><b>사용자 인증 결과</b></h1>
             <form>
                 <label for="floatingInput">사용자 번호</label>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" placeholder="${userInfo.user_seq_no }" readonly>
+              	<span class="form-control" id="floatingInput">${userInfo.user_seq_no }</span>
               </div>
                 <label for="floatingInput">사용자 이름</label>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" placeholder="${userInfo.user_name }" readonly>
+              	<span class="form-control" id="floatingInput">${userInfo.user_name }</span>
               </div>
                 <label for="floatingInput">등록 계좌수</label>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" placeholder="${userInfo.res_cnt }" readonly>
+              	<span class="form-control" id="floatingInput">${userInfo.res_cnt }</span>
               </div>
             </form>
-          </div>
-        </div>
-      </div>
-      
     </div>
-  </div>	
+    </div>
+    	<div class="box" style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
+  		<form method="get" action="/openbank/accountList">
+			<!-- 		필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 -->
+			<input type="hidden" name="access_token" value="${sessionScope.token }">
+			<%-- 		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }"> --%>
+			<input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> 
+			<input type="hidden" name="include_cancel_yn" value="Y"> 
+			<input type="hidden" name="sort_order" value="D"> 
+			<button type="submit" class="tbtn"><b style="color:#e3cffc;">내 보유 계좌&nbsp;</b>보러 가기</button>
+		</form>
+	
+<!-- 은재	카드로 바꾸기 -->
+			<form method="get" action="/openbank/goal">
+			<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+			<input type="hidden" name="access_token" value="${sessionScope.token }"> 
+			<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
+			<input type="hidden" name="fintech_use_num" value="120220217888941294172171"> 
+			<input type="hidden" name="tran_dtime" value="20221104134521"> 
+			<button type="submit" class="tbtn"><b style="color:#e3cffc;">내 보유 카드&nbsp;</b>보러 가기</button>
+		</form>
+<!-- 은재	카드로 바꾸기 -->
+	</div>
   </div>
   </div>
-  
+  </div>
   
 			
 <br><br><br>			
 
 
-
-	<form method="get" action="/openbank/accountList">
-		<!-- 		필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 -->
-		<input type="hidden" name="access_token"
-			value="${sessionScope.token }">
-		<%-- 		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }"> --%>
-		<input type="hidden" name="user_seq_no"
-			value="${userInfo.user_seq_no }"> <input type="hidden"
-			name="include_cancel_yn" value="Y"> <input type="hidden"
-			name="sort_order" value="D"> <input type="submit"
-			value="오픈뱅킹 등록 전계좌조회">
-	</form>
-	
-
 	
 	<hr><hr><hr>
 	여기서부터는 삭제 예정
-
-
-	<h1>💸계좌💸</h1>
-	2.2.3 등록계좌조회 API 마스킹된 출력용 계좌번호, 은행명, 계좌구분(분류코드), 계좌종류(분류코드), 예금주명
-	<form method="get" action="/openbank/accountList">
-		<!-- 		필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 -->
-		<input type="hidden" name="access_token"
-			value="${sessionScope.token }">
-		<%-- 		<input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }"> --%>
-		<input type="hidden" name="user_seq_no"
-			value="${userInfo.user_seq_no }"> <input type="hidden"
-			name="include_cancel_yn" value="Y"> <input type="hidden"
-			name="sort_order" value="D"> <input type="submit"
-			value="등록계좌조회">
-	</form>
-	<hr>
 
 
 	<!-- 잔액조회1 BORA입출금 -->
@@ -94,8 +106,8 @@
 		<input type="hidden" name="access_token" value="${sessionScope.token }"> 
 		<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
 		<input type="hidden" name="fintech_use_num" value="120220217888941294172171"> 
-		<input type="hidden" name="tran_dtime" value="20221104134521"> <input
-			type="submit" value="BORA입출금 계좌잔액조회">
+		<input type="hidden" name="tran_dtime" value="20221104134521"> 
+		<input type="submit" value="BORA입출금 계좌잔액조회">
 	</form>
 	<hr>
 
@@ -103,52 +115,15 @@
 	거래일시, 거래일자(참가은행), 은행이름, 계좌잔액(-금액가능), 출금가능금액, 상품명, 계좌개설일, 만기일, 최종거래일
 	<form method="get" action="/openbank/accountBalance">
 		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
-		<input type="hidden" name="access_token"
-			value="${sessionScope.token }"> <input type="hidden"
-			name="bank_tran_id" value="${accountBalance.bank_tran_id }">
-		<input type="hidden" name="fintech_use_num"
-			value="120220217888941294186856"> <input type="hidden"
-			name="tran_dtime" value="20221104134521"> <input
-			type="submit" value="123통장 계좌잔액조회">
+		<input type="hidden" name="access_token" value="${sessionScope.token }"> 
+		<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
+		<input type="hidden" name="fintech_use_num" value="120220217888941294186856"> 
+		<input type="hidden" name="tran_dtime" value="20221104134521"> 
+		<input type="submit" value="123통장 계좌잔액조회">
 	</form>
 	<hr>
 
 
-	<!-- 거래내역조회1 BORA입출금 -->
-	거래일자, 입출금구분, 거래유형, 거래금액. 거래후잔액
-	<form method="get" action="/openbank/accountTran">
-		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
-		<input type="hidden" name="access_token"
-			value="${sessionScope.token }"> <input type="hidden"
-			name="bank_tran_id" value="${accountTran.bank_tran_id}"> <input
-			type="hidden" name="fintech_use_num" value="120220217888941294172171">
-		<input type="hidden" name="inquiry_type" value='A'> <input
-			type="hidden" name="inquiry_base" value='D'> <input
-			type="hidden" name="from_date" value="20100101"> <input
-			type="hidden" name="to_date" value="20221104"> <input
-			type="hidden" name="sort_order" value="D"> <input
-			type="hidden" name="tran_dtime" value="20221104134521"> <input
-			type="submit" value="BORA입출금 거래내역조회">
-	</form>
-	<hr>
-
-	<!-- 거래내역조회2 123통장 -->
-	거래일자, 입출금구분, 거래유형, 거래금액. 거래후잔액
-	<form method="get" action="/openbank/accountTran">
-		<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
-		<input type="hidden" name="access_token"
-			value="${sessionScope.token }"> <input type="hidden"
-			name="bank_tran_id" value="${accountTran.bank_tran_id}"> <input
-			type="hidden" name="fintech_use_num" value="120220217888941294186856">
-		<input type="hidden" name="inquiry_type" value='A'> <input
-			type="hidden" name="inquiry_base" value='D'> <input
-			type="hidden" name="from_date" value="20100101"> <input
-			type="hidden" name="to_date" value="20221104"> <input
-			type="hidden" name="sort_order" value="D"> <input
-			type="hidden" name="tran_dtime" value="20221104134521"> <input
-			type="submit" value="123통장 거래내역조회">
-	</form>
-	<hr>
 
     <h1>💸카드💸</h1>
     2.2.4 등록카드조회 API

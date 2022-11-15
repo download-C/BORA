@@ -6,6 +6,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <h1>목돈 모으기 </h1>
 
+
 <div class="container">
 	<div class="box" style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
 	<!-- bar 차트 구역 -->
@@ -133,5 +134,9 @@ $('#moa_btn').click(function(){
 });// click
 	
 </script>
+
+
+
+
 
 <%@ include file="../include/footer.jsp"%>
