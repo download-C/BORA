@@ -257,9 +257,9 @@ $(document).ready(function(){
     		  }else if(cg == "식비"){
     			  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/food.png");
     		  }else if(cg == "교통비"){
-    			  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/saving.png");
+    			  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/transfer.png");
     		  }else if(cg == "편의점/마트"){
-    			  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/saving.png");
+    			  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/market.png");
     		  }else if(cg == "여가비"){
     			  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/travel.png");
     		  }else if(cg == "뷰티/쇼핑"){
