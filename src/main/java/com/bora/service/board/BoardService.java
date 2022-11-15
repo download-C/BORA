@@ -17,8 +17,8 @@ public interface BoardService {
 	// 2-1. 페이징 처리 적용한 글 목록 조회
 	public List<BoardVO> getBoardListPage(PageVO vo) throws Exception;
 	
-		// 2-2. 페이징 처리 적용한 글 목록 조회 (카테코리)
-		public List<BoardVO> getBoardListCtgr(PageMakerVO pm, String ctgr) throws Exception;
+		// 2-2. 카테고리 글 목록 조회
+		public List<BoardVO> getBoardListCtgr(String ctgr, Integer startNum) throws Exception;
 
 			// 2-3. 총 글 개수
 			public int getBoardCnt() throws Exception;

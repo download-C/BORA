@@ -47,19 +47,19 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	
 	// 2. 전체 글 목록 조회
-	@Override
-	public List<BoardVO> getBoardListAll() throws Exception {
-		log.info("(♥♥♥♥♥ 2.getBoardListAll) Service가 호출함");
-		
-		// DB가서 글 목록 모든 정보 가져오기
-		log.info("(♥♥♥♥♥ 2.getBoardListAll) mapper 갈 거");
-		List<BoardVO> boardList = sqlSession.selectList(NAMESPACE+".getBoardListAll");
-		
-		log.info("(♥♥♥♥♥ 2.getBoardListAll) mapper 가서 DB 처리 하고 왔고요~~ -> Service로 리턴할 거");
-		log.info("(♥♥♥♥♥ 2.getBoardListAll) 받아온 boardList.size: " + boardList.size());
-		
-		return boardList;
-	}
+//	@Override
+//	public List<BoardVO> getBoardListAll() throws Exception {
+//		log.info("(♥♥♥♥♥ 2.getBoardListAll) Service가 호출함");
+//		
+//		// DB가서 글 목록 모든 정보 가져오기
+//		log.info("(♥♥♥♥♥ 2.getBoardListAll) mapper 갈 거");
+//		List<BoardVO> boardList = sqlSession.selectList(NAMESPACE+".getBoardListAll");
+//		
+//		log.info("(♥♥♥♥♥ 2.getBoardListAll) mapper 가서 DB 처리 하고 왔고요~~ -> Service로 리턴할 거");
+//		log.info("(♥♥♥♥♥ 2.getBoardListAll) 받아온 boardList.size: " + boardList.size());
+//		
+//		return boardList;
+//	}
 	// 2. 전체 글 목록 조회 끝
 	
 	
@@ -109,22 +109,21 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	
 	
-			// 2-2. 페이징 처리한 글 목록 조회 VO  (카테고리)
+			// 2-2. 카테고리 글 목록 조회
 			@Override
-			public List<BoardVO> getBoardListCtgr(PageMakerVO pm, String ctgr) throws Exception {
+			public List<BoardVO> getBoardListCtgr(String ctgr, Integer startNum) throws Exception {
 				log.info("(♥♥♥♥♥ 2-2.getBoardList) Service가 호출함");
 				log.info("(♥♥♥♥♥ 2-2.getBoardList) mapper.xml 갈 거,, 가서 DB처리 하고 -> 바로 Service로 리턴할 거");
 				log.info("(♥♥♥♥♥ 2-2.getBoardList) ctgr: " + ctgr);
 				
 				Map<String, Object> map = new HashMap<String, Object>();
 				
-				map.put("pm", pm);
+				map.put("startNum", startNum);
 				map.put("b_ctgr", ctgr);
-				map.put("pageStart", 1);
-				map.put("perPageNum", 10);
+				map.put("cnt", 5); // 글 5개씩 추가되도록
 				return sqlSession.selectList(NAMESPACE+".getBoardList_ctgr", map);
 			}
-			// 2-2. 페이징 처리한 글 목록 조회 VO 끝
+			// 2-2. 카테고리 글 목록 조회 끝
 	
 			
 					// 글 개수 count 

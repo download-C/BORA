@@ -47,13 +47,13 @@
 	</select>
 	
 	
-		<!-- 2-2. 페이징 처리한 카테고리별!!! 글 목록 조회 =========================== -->
+		<!-- 2-2. 카테고리별!!! 글 목록 조회 =========================== -->
 		<select id="getBoardList_ctgr" resultType="BoardVO" resultMap="boardVO">
 			select *
 			from bora_cmnt_board
 			where b_ctgr = #{b_ctgr}
 			order by bno desc, b_regdate desc
-			limit #{pageStart}, #{perPageNum}
+			limit #{startNum}, #{cnt}
 		</select>
 	
 	
@@ -99,7 +99,7 @@
 	</select>
 	
 	
-	<!-- 7. main에 띄울 최신글 5개 목록 ========================= -->
+	<!-- 7. main에 띄울 커뮤니티 최신글 5개 목록 ========================= -->
 	<select id="getList5" resultType="BoardVO">
 		select bno, b_title, b_regdate
 		from bora_cmnt_board
