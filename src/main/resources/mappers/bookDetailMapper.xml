@@ -81,8 +81,10 @@
 	
 	<!-- 방금 가장 최신 가계부 글의 번호 불러오기 -->
 	<select id="getMonthBookDetailCnt" resultType="Integer">
-		select count(*) from bora_book_detail
-		where id=#{loginID}
+		select count(*) 
+		from bora_book_detail d join bora_book b
+		on b.bk_num = d.bk_num
+		where b.id=#{loginID} and b.bk_year=#{year} and b.bk_month=#{month} 
 	</select>
 	
 	<!-- 회원의 특정 가계부 내용 불러오기 -->

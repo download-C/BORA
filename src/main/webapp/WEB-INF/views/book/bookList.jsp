@@ -125,6 +125,7 @@ function success(msg3, msg4) {
 }//success 버튼
 	
 $(document).ready(function() {
+	alert
     
     let msg1 = "${msg1}";
     let msg2 = "${msg2}";
@@ -139,7 +140,7 @@ $(document).ready(function() {
 $(document).ready(function(){	
 	let msg3 = "${msg3}";
 	let msg4 = "${msg4}";
-	if(msg!="") {
+	if(msg3!="" && msg4!="") {
 		success(msg3, msg4);
 	}
  });
@@ -296,74 +297,118 @@ function uncomma(str) {
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 justify-content-center" >
   	<!-- 왼쪽 차트 박스 -->
-       <div class="container"
-          style=" background-color: white; padding: 20px; border-radius: 15px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7); margin: 40 auto;">
+       <div class="container mb-2"
+          style="background-color: white; padding: 20px; border-radius: 15px; height: 250px; 
+        			 box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
           <!-- 예산 추이 차트 자리 -->
 					<!-- 타이틀 부분 -->
-					<div style="width: 80%; height: 10%; margin: 0 auto; padding: 0; 
+					<div style="width: 100%; height: 10%; margin: 0 auto; padding: 0; 
 					        float: top; position: relative; top: 5%; left: 0;">
-					        <h3 style="text-align: center;">3개월 예산 추이</h3>
+					        <h5 style="text-align: center;"><b>3개월 예산 추이</b></h5>
+					        <div style="color: gray; font-size: 12px; text-align: center;">
+					        	※지난 3개월 의 예산 또는 지출이 없으면 0으로 표시됩니다.
+				        	</div>
 					        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
 									<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 									<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-							  	<canvas id="myChart" width="400" height="200"></canvas>
+							  	<canvas id="myChart" width="100%" style="max-height: 169px; max-width: 338px; margin: auto;"></canvas>
+							  	<!-- 차트 속성 및 데이터 -->
 									<script type="text/javascript">
 									var ctx = document.getElementById("myChart");
+									// 직전 3개월의 연/월/예산/지출 받아오기
+									// 변수 뒤의 숫자가 1달전, 2달전, 3달전 의미함
+									// 연
+									var bfyear1 = "<c:out value='${bfyear1}' />";
+									var bfyear2 = "<c:out value='${bfyear2}' />";
+									var bfyear3 = "<c:out value='${bfyear3}' />";
+									// 월
+									var bfmonth1 = "<c:out value='${bfmonth1}' />";
+									var bfmonth2 = "<c:out value='${bfmonth2}' />";
+									var bfmonth3 = "<c:out value='${bfmonth3}' />";
+									// 예산
+									var bfbudget1 = "<c:out value='${bfbudget1}' />";
+									var bfbudget2 = "<c:out value='${bfbudget2}' />";
+									var bfbudget3 = "<c:out value='${bfbudget3}' />";
+									
+									// 지출
+									var bfpercent1 = "<c:out value='${bfpercent1}' />";
+									var bfpercent2 = "<c:out value='${bfpercent2}' />";
+									var bfpercent3 = "<c:out value='${bfpercent3}' />";
+									
+// 									alert("(1달 전) "+bfyear1+"년 "+bfmonth1+"월 예산:"+bfbudget1+", 예산 대비 지출 퍼센트:"+bfpercent1);
+									
 									var chart = new Chart(ctx, {
 									  type: "bar",
 									  data: {
-									    labels: ["2020/02/17", "2020/02/23", "2020/02/29"],
-									    datasets: [
-									      {
-									        type: "line",
+									    labels: [bfyear3+"."+bfmonth3, bfyear2+"."+bfmonth2, bfyear1+"."+bfmonth1],
+									    datasets: 
+									    	[{type: "line",
 									        label: "예산 대비 지출(%)",
-									        backgrounColor: "#5107b0",
+									        backgroundColor: "#e3cffc",
 													borderColor: "#5107b0",									      
-									        data: [25, 13, 30],
+									        data: [bfpercent3, bfpercent2, bfpercent1],
 									        lineTension: 0,
-									        fill: true
+									        fill: false
 									      },
-									      {
-									        type: "bar",
-									        backgroundColor: "#fff",
-									        borderColor: "#000",
+									      {type: "bar",
+									        backgroundColor: "#e3cffc",
+									        borderColor: "#e3cffc",
 									        borderWidth: 1,
-									        label: "해당 월 예산",
-									        data: [60, 49, 72]
-									      }
-									    ]
-									  }
-									});
+									        label: "해당 월 예산(만원)",
+									        data: [bfbudget3, bfbudget2, bfbudget1]
+									      }],
+									  }, // data
+									  options: {
+										  scales: {
+						            yAxes: [{
+					                display: true,
+					                ticks: {
+				                    min: 0, // 최소값 0
+				                    stepSize: 20
+					                },
+					                scaleLabel: {
+				                    display: true,
+				                    labelString: '만원'
+					                }
+						            }]
+										  },
+// 										  maintainAspectRatio: false
+										} // options
+								  }); // Chart
 									</script>
 					</div>
-          <!-- 예산 추이 차트 자리 -->
+          <!-- 예산 추이 차트 자리 끝 -->
       </div>
-  	<!-- 왼쪽 차트 박스 -->
+  	<!-- 왼쪽 차트 박스 끝 -->
       <div class="col">
-        <div class="container"
-        style="background-color: white; padding: 20px; border-radius: 15px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
-          <div style="display: flex; justify-content: space-between; flex-flow: row nowrap; margin-bottom: 10px;">
-					</div>
-          <b>지출 <fmt:formatNumber pattern="#,###" value="${sum }" />원</b>
+        <div class="container mb-2"
+        style="background-color: white; padding: 20px; border-radius: 15px; height: 250px; 
+        			 box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
+          <div style="margin-bottom: 10px; max-width: 400px; margin:auto;">
+					
           	<div style="display: flex;" >
-	          <h4 style="width: 70%"><b>한 달 예산</b> <input type="number" name="bk_budget" id="bk_budget" value="${bk_budget}" style="text-align: right; width:70px; ">만원	</h4>
-	          <button id="budgetBtn" class="btn m3" style="background-color: #5107B0; width: 30%; margin:auto; padding: 0px; color:white" >
-						<span class="btn-inner--text" style="color: white;">예산 입력</span>
-						</button>
-						</div>
-						<br>
-         <h6>${restedBudget1 }만 ${restedBudget2 }원 남았습니다.</h6>
-        <div class="row no-gutters align-items-center">
-          <div class="col-auto">
-            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${percent }%</div>
-          </div>
-          <div class="col">
-            <div class="progress progress-sm mr-2">
-              <div class="progress-bar bg-info" role="progressbar" style="width: ${percent}%" aria-valuenow="50"
-                aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-          </div>
-          <p>이번 달 예산의 ${percent }%만큼 지출했어요 ! </p>
+		          <h4 style="width: 70%"><b>한 달 예산</b> <input type="number" name="bk_budget" id="bk_budget" value="${bk_budget}" style="text-align: right; width:70px; ">만원	</h4>
+		          <button id="budgetBtn" class="btn m3" style="background-color: #5107B0; width: 30%; margin:auto; padding: 0px; color:white" >
+							<span class="btn-inner--text" style="color: white;">예산 입력</span>
+							</button>
+					 </div>
+					 <h5>지출 <span style="color: red;"><fmt:formatNumber pattern="#,###" value="${sum }" />원</span></h5>
+	         <h6>${restedBudget1 }만 ${restedBudget2 }원 남았습니다.</h6>
+	         <div class="row no-gutters align-items-center">
+	           <div class="col-auto">
+	             <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+	            		  style="text-align: right;">${percent }%</div>
+	          	  </div>
+			          <div class="col">
+			            <div class="progress progress-lg mr-2">
+			              <div class="progress-bar bg-info" role="progressbar" style="width: ${percent}%;" aria-valuenow="50"
+			                aria-valuemin="0" aria-valuemax="100">
+	                	</div>
+	            		</div>
+	          		</div>
+	          <br>
+	          <p>이번 달 예산의 ${percent }%만큼 지출했어요 ! </p>
+	        </div>
         </div>
         </div>
       </div>

@@ -64,7 +64,7 @@ public class BookDetailServiceImpl implements BookDetailService{
 
 	@Override
 	public Integer getMonthBookDetailCnt(String loginID, int year, int month) throws Exception {
-		log.info("getBookDetailCnt(loginID, year, month) 호출");
+		log.info("getMonthBookDetailCnt(loginID, year, month) 호출");
 		return dao.getMonthBookDetailCnt(loginID, year, month);
 	}
 
