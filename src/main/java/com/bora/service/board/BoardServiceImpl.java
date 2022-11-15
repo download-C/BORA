@@ -71,12 +71,14 @@ public class BoardServiceImpl implements BoardService {
 	
 	
 	
-	// 2-2. 페이징 처리 적용한 글 목록 조회 (카테고리)
+	// 2-2. 카테고리 글 목록 조회
 	@Override
-	public List<BoardVO> getBoardListCtgr(PageMakerVO pm, String ctgr) throws Exception {
-		return dao.getBoardListCtgr(pm, ctgr);
+	public List<BoardVO> getBoardListCtgr(String ctgr, Integer startNum) throws Exception {
+		log.info("(♥♥♥♥♥ 2-2.getBoardListCtgr) 호출됨");
+		
+		return dao.getBoardListCtgr(ctgr, startNum);
 	}
-	// 2-2. 페이징 처리 적용한 글 목록 조회 (카테고리) 끝
+	// 2-2. 카테고리 글 목록 조회 끝
 	
 	
 	
@@ -86,13 +88,14 @@ public class BoardServiceImpl implements BoardService {
 				return dao.getBoardCnt();
 			}
 			
+			
 			@Override
 			public int getBoardCntCTGR(String ctgr) throws Exception {
 				return dao.getBoardCntCTGR(ctgr);
 			}
 	
 	
-			
+	
 	// 3. 글 1개 정보 불러오기 getBoard
 	@Override
 	public BoardVO getBoard(Integer bno) throws Exception {

@@ -198,4 +198,7 @@
     <button onclick="textbtn2()">textbtn2 버튼</button><br>
 
 
+            
+
+
 <%@ include file="../include/footer.jsp"%>

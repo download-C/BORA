@@ -43,27 +43,25 @@ a:hover {
 <script type="text/javascript">
 // <!-- ajax로 카테고리 호출 시 페이징 처리 대신 하는 메서드 -->
 	$(document).ready(function(){
-		// 모두다
-// 		var page = $("#page").val();
-// 		var pageStart = "<c:out value='${pm.pageStart }' />";
+		
 		$('.ctgr_btn').click(function(){
-			
-			
 			var ctgr = $(this).val();
-			alert(ctgr);
-			moreList(); // 더보기 함수 호출
+// 			alert(ctgr);
+			$('#ctgrHidden').val(ctgr); // input hidden에 클릭한 ctgr 값으로 채워놓기
+			$('#pagingDiv').remove()
+			var startNum = 0;
 
 			$.ajax({
 				url: "/ajax/ctgr",
-				data: {"ctgr": $(this).val(), },
+				data: {"ctgr": $(this).val(), "startNum":startNum},
 				dataType: "JSON",
 				type: "get",
 				success: function(data){
-						// alert('성공');
 					
 					$('tbody').html("");
 					$('tbody').html(function(){
 					$.each(data, function(index, item){
+						
 						var bno = item.bno;
 						var b_title = item.b_title;
 						var b_ctgr = item.b_ctgr;
@@ -76,6 +74,7 @@ a:hover {
 							// 수정된 적 없으면~
 							b_regdate = item.b_regdate;
 						}
+						
 						var date = new Date(b_regdate);
 						var regdate = date.getFullYear() +"년 " +(date.getMonth()+1)+"월 "+date.getDate()+"일 💜 "+date.getHours()+":"+date.getMinutes();
 						var b_readcount = item.b_readcount;
@@ -84,73 +83,116 @@ a:hover {
 						'<tr>'
 							+'<td>'+bno+'</td>'
 							+'<td>'+b_ctgr+'</td>'
-							+'<td><a href=/board/read?bno='+bno+'&page='+page+'>'+b_title+'</a>&nbsp; (' + b_cmtcount + ')</td>'
+							+'<td><a href=/board/read?bno='+bno+'&page=1>'+b_title+'</a>&nbsp; [' + b_cmtcount + ']</td>'
 							+'<td>'+nick+'</td>'
 							+'<td>'+regdate+'</td>'
 							+'<td>'+b_readcount+'</td>'
-						+'</tr>'		
+						+'</tr>'
 						); // append
 					}); //each
 					}); // html
 				}, //success
 				error: function(){
-					alert('실패');
-						// location.href="/board/list?page="+page;
+					alert('실팹니다~');
+					location.href="/board/list";
 				}
 			});// ajax
 			
 		}); // btn click
 		
 	});// jquery ready
-// <!-- ajax로 카테고리 호출 시 페이징 처리 대신 하는 메서드 끝 -->
 
+	
+// 더보기 구현 시작 ==========================================================
+	function moreList() {
+		//  	alert('더보기 함수 moreList 호출됨');
+		var startNum = $("#listBody tr").length; //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
+		var addListHtml = "";
+		var ctgr = $('#ctgrHidden').val();
+		console.log("startNum: " + startNum + " / ctgr:  " + ctgr); //콘솔로그로 startNum에 값이 들어오는지 확인
 
-	// 더보기 구현 시작 ==========================================================
-function moreList() {
- 
-    var startNum = $("#listBody tr").length;  //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
-    var addListHtml = "";
-    console.log("startNum", startNum); //콘솔로그로 startNum에 값이 들어오는지 확인
- 
-//      $.ajax({
-//         url : "/ajax/getMoreList",
-//         type : "get",
-//         dataType : "json",
-//         data : {"startNum":startNum},
-        
-//         success : function(data) {
-//             if(data.length < 10){
-//                 $("#addBtn").remove();   // 더보기 버튼을 div 클래스로 줘야 할 수도 있음
-//             }else{
-//             var addListHtml ="";
-//             if(data.length > 0){
-                
-//                 for(var i=0; i<data.length;i++) {
-//                     var idx = Number(startNum)+Number(i)+1;   
-//                     // 글번호 : startNum 이  10단위로 증가되기 때문에 startNum +i (+1은 i는 0부터 시작하므로 )
-//                     addListHtml += "<tr>";
-//                     addListHtml += "<td>"+ idx + "</td>";
-//                     addListHtml += "<td>"+ data[i].title + "</td>";
-//                     addListHtml += "<td>"+ data[i].description + "</td>";
-//                     addListHtml += "</tr>";
-//                 }
-//                 $("#listBody").append(addListHtml);
-//             }
-//             }
-//         }
-//     });
- 
-} // moreList()
+		$.ajax({
+			url : "/ajax/ctgr/getMoreList",
+			type : "get",
+			data : {
+				"startNum" : startNum,
+				"ctgr" : ctgr
+			},
+			dataType : "json",
 
+			success : function(rData) {
+				var addListHtml = "";
+
+				if (rData.length > 0) {
+					
+					$('tbody').append(function(){
+						$.each(rData, function(index, item){
+							
+							var bno = item.bno;
+							var b_title = item.b_title;
+							var b_ctgr = item.b_ctgr;
+							var nick = item.nick;
+							var b_regdate = '';
+							if(item.b_updatedate != null) {
+								// updatedate가 null이 아니라면~ == 수정된 적 있으면~
+								b_regdate = item.b_updatedate;
+							} else {
+								// 수정된 적 없으면~
+								b_regdate = item.b_regdate;
+							}
+							
+							var date = new Date(b_regdate);
+							var regdate = date.getFullYear() +"년 " +(date.getMonth()+1)+"월 "+date.getDate()+"일 💜 "+date.getHours()+":"+date.getMinutes();
+							var b_readcount = item.b_readcount;
+							var b_cmtcount = item.b_cmtcount;
+							
+							$('tbody').append(
+							'<tr>'
+								+'<td>'+bno+'</td>'
+								+'<td>'+b_ctgr+'</td>'
+								+'<td><a href=/board/read?bno='+bno+'&page=1>'+b_title+'</a>&nbsp; [' + b_cmtcount + ']</td>'
+								+'<td>'+nick+'</td>'
+								+'<td>'+regdate+'</td>'
+								+'<td>'+b_readcount+'</td>'
+							+'</tr>'		
+							); // append
+						}); //each
+						}); // html
+					
+					
+// 					for (var i = 0; i < rData.length; i++) {
+// 						var idx = Number(startNum) + Number(i) + 1;
+// 						// 글번호때문에 한 건가,,??? 나는 카테고리별로 들고 오는거니까 노상관
+// 						//                     alert('idx: ' + idx + ' / rData.length: ' + rData.length);
+
+// 						addListHtml += "<tr>";
+// 						addListHtml += "<td>" + rData[i].bno + "</td>";
+// 						addListHtml += "<td>" + rData[i].b_ctgr + "</td>";
+// 						addListHtml += "<td>" + rData[i].b_title + "</td>";
+// 						addListHtml += "<td>" + rData[i].nick + "</td>";
+// 						addListHtml += "<td>" + rData[i].regdate + "</td>";
+// 						addListHtml += "<td>" + rData[i].b_readcount + "</td>";
+// 						addListHtml += "</tr>";
+// 					} // for
+
+// 					$("#listBody").append(addListHtml);
+					
+				} // if
+				else {
+					alert('더 들고 올 글 없음');
+				} // else
+			},
+			error : function(request, status, error) {
+				alert('실팹니다~');
+				console.log("code: ", request.status)
+				console.log("message: ", request.responseText)
+				console.log("error: ", error);
+			}
+		}); // ajax
+
+	} // moreList()
 </script>
 
-	
-	
-	
-	
-	
-
-</script>
 
 
 
@@ -164,11 +206,12 @@ function moreList() {
 		<button type="button" value="알려줘BORA" class="ctgr_btn btn" id="btn_tip"  style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">알려줘<b style="color:#5107B0;">BORA</b></span></button>
 		<button type="button" value="친해져BORA" class="ctgr_btn btn" id="btn_meet" style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">친해져<b style="color:#5107B0;">BORA</b></span></button>
 		<button type="button" value="글쓰기" onclick="location.href='/board/insert';" class="btn" id="" style="background-color: #5107B0; float: right; width: 120px; margin: 0px 10px 10px 0px;"><span class="btn-inner--text" style="color: white;">글쓰기</span></button>
-			<input type="hidden" id="page" value="${pm.vo.page }"> 
+		<input type="hidden" id="page" value="${pm.vo.page }"> 
 <!-- 		<div class="radioCustom" style="display: flex; align-items: center; justify-content: center;"> -->
 <!-- 		<input type="radio" id="radio1" value="골라줘BORA" required  class="ctgr_btn btn" id="btn_pick" style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;">  <label for="radio1">골라줘BORA</label> -->
 <!-- 		<input type="radio" id="radio2" value="알려줘BORA" required class="ctgr_btn btn" id="btn_tip" style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"> <label for="radio2">알려줘BORA</label> -->
 <!-- 		<input type="radio" id="radio3" value="친해져BORA" required class="ctgr_btn btn" id="btn_meet" style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"> <label for="radio3">친해져BORA</label> -->
+		<input type="hidden" id="ctgrHidden" value="" >
 	</div>
 	</div>
 	</div>
@@ -218,7 +261,7 @@ function moreList() {
 	</div> <!-- container -->
 	<br><br>
 	<!-- ===================== 페이징 처리 구간 ========================== -->
-	<div>
+	<div id="pagingDiv">
 		<nav aria-label="Page navigation example">
 		<ul type="none" id="pageUl"  class="pagination justify-content-center">
 			

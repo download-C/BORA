@@ -16,10 +16,9 @@
   <style>
     .tdbtn {
       background-color: #5107B0;
-      font-size: 12 px;
+      font-size: 7 px;
       color: #fff;
-      padding: 2;
-      margin: 0;
+      padding: 3px 6px 3px 6px;
       border: 1px solid #fff;
       border-radius: 8px;
     }
@@ -64,7 +63,7 @@
         
           <table class="table table-hover" style="border-right: none; border-radius: 0; box-shadow: none;">
             <thead>
-              <tr style="font-size: 16px; ">
+              <tr style="font-size: 18px; ">
                 <th scope="col" style="color:black">계좌번호</th>
                 <th scope="col" style="color:black">은행명</th>
                 <th scope="col" style="color:black">계좌구분</th>
@@ -93,14 +92,14 @@
         <div class="table-responsive">
           <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;">
             <thead>
-              <tr>
-                <th scope="col" style="color:black">업무</th>
+              <tr style="font-size: 18px; ">
+                <th scope="col" style="color:black">업무 조회</th>
               </tr>
             </thead>
             <tbody>
 
               <tr>
-                <td style="padding-bottom: 7px; padding-top: 7px;">
+              <td style="padding-bottom: 6px; padding-top: 6px; ">
                     	<div class="box" style="display: flex; justify-content: space-between-center; flex-flow: row nowrap;">
                     	
                     <form method="get" action="/openbank/accountBalance" target="frm2">
@@ -109,7 +108,7 @@
 						<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
 						<input type="hidden" name="fintech_use_num" value="120220217888941294186856">
 						<input type="hidden" name="tran_dtime" value="20221104134521">
-						<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button>
+						<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액</button>
 					</form>   
 <!--                   <button class="tdbtn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button> -->
                 
@@ -123,7 +122,7 @@
 						<input type="hidden" name="to_date" value="20221104">
 						<input type="hidden" name="sort_order" value="D">
 						<input type="hidden" name="tran_dtime" value="20221104134521">
-					<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역조회</button>
+					<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역</button>
 					</form>
 <!--                   <button type="button" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역조회</button> -->
                 	
@@ -132,7 +131,7 @@
                 </td>
               </tr>
               <tr>
-                <td style="padding-bottom: 6px; padding-top: 6px;">
+                <td style="padding-bottom: 6px; padding-top: 6px; ">
                 	<div class="box" style="display: flex; justify-content: space-between-center; flex-flow: row nowrap;">
                    	<form method="get" action="/openbank/accountBalance" target="frm2">
 						<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
@@ -140,7 +139,7 @@
 						<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
 						<input type="hidden" name="fintech_use_num" value="120220217888941294172171">
 						<input type="hidden" name="tran_dtime" value="20221104134521">
-						<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button>
+						<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액</button>
 					</form>   
 <!--                   <button class="tdbtn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button> -->  
 
@@ -155,7 +154,7 @@
 						<input type="hidden" name="to_date" value="20221104">
 						<input type="hidden" name="sort_order" value="D">
 						<input type="hidden" name="tran_dtime" value="20221104134521">
-						<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역조회 </button>
+						<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역 </button>
 					</form>
 <!--                   <button class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역조회</button> -->
                   </div>
@@ -169,7 +168,7 @@
       <!-- 잔액조회버튼 -->
       <div class="col-10" style="padding-left: 0;">
         <div class="table-responsive">
-          <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;">
+          <table class="table table-hover" style="border-right: none;   border-radius: 0; box-shadow: none;">
             <tbody>
               <tr>
                 <th colspan="6" style="text-align: center;">총 잔액</th>
@@ -195,6 +194,13 @@
 
 
 	<!-- 목돈 모으기 -->
+
+컨셉을 단순히 통장에 돈을 넣어 모으는 목든 모으기에서 적금을 통해 목돈 모으는 계산 시뮬레이션으로 변경
+=> 모든 잔액을 불러서 내가 목표로 하는 금액에 달성해나가는 과정에서
+내가 목돈 1억을 모으려면 BORA적금에서 얼마가 모자라고 얼마 만큼의 기한 동안 얼마를 더 저금해야한다는 것으로 변경
+
+	
+	
 	
 		<form method="get" action="/openbank/goal">
 			<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
