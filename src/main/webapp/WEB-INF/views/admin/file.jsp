@@ -24,9 +24,23 @@ $(document).ready(function() {
     let message = "${msg}";
     if (message != "") {
         alert(message);
+// 		mupdate(message);
     }
 });
 </script>
+
+<script>
+// function mupdate(message) {
+//   	Swal.fire({
+// 	  title: message,
+// 	  text: '',
+// 	  padding: '3em',
+// 	  confirmButtonColor: '#7A1CF6'
+//    	})
+// }
+</script>
+
+
 <!-- 태그 적는 곳 -->
 
 

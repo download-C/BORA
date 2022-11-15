@@ -172,7 +172,6 @@ console.log(balArr);
 //임의로 값 넣어서 테스트 완,, 
 // name에는 상품명, bal에는 t계좌잔액 EL 표현식 저거 넣기
 balArr.push({name: name, bal: bal });        
-console.log('(test) bora통장 --> 4000 넣었음');
 localStorage.setItem('balArr', JSON.stringify(balArr)); // 새 요소 추가했으니,, balArr 업뎃시키기 
 
 // balArr.push({name:'${accountBalance.product_name }', bal:'${accountBalance.balance_amt }''});
@@ -182,4 +181,3 @@ localStorage.setItem('balArr', JSON.stringify(balArr)); // 새 요소 추가했�
 console.log(balArr);
 </script>
   
-  <h3><a href='/openbank/goal'>자산관리 목표 설정 이동</a></h3> <br>

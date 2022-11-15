@@ -151,11 +151,12 @@ $(document).ready(function(){
 <script>
 
 function warning(msg) {
-    Swal.fire(
-        '경고',
-        msg,
-        'warning' /*디자인 타입*/
-    )
+    Swal.fire({
+        title: '경고',
+        text: '',
+        icon: 'warning', /*디자인 타입*/
+        confirmButtonColor: '#7A1CF6'
+    });
 }//warning 버튼
 </script>
 
