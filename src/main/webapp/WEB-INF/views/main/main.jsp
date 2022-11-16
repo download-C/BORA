@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -139,7 +140,7 @@ $(document).ready(function(){
         <!-- News! -->
         <div class="container" style="margin: 0px 20px; width: 45%;">
           <h2>공지사항</h2>
-          <p align="right"><a href="/main/noticeList?page=1">더보기></a></p>
+          <p align="right"><a href="/main/noticeList?page=1" style="color: black;">더보기></a></p>
           <div class="table-responsive">
             <table class="table">
               <thead>
@@ -153,8 +154,8 @@ $(document).ready(function(){
               <c:forEach var="list" items="${noticeList }" >
                 <tr>
                   <td>${list.nno}</td>
-                  <td>${list.n_title}</td>
-                  <td>${list.n_regdate}</td>
+                  <td><a href="/main/noticeRead?nno=${list.nno }&page=1" style="color: black;	">${list.n_title}</a></td>
+                  <td><fmt:formatDate value="${list.n_regdate}" pattern="yyyy.MM.dd"/>  </td>
                 </tr>
               </c:forEach>
               </tbody>
