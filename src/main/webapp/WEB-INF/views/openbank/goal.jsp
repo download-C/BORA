@@ -138,5 +138,4 @@ $('#moa_btn').click(function(){
 
 
 
-
 <%@ include file="../include/footer.jsp"%>

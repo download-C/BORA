@@ -42,7 +42,6 @@ input::-webkit-inner-spin-button {
   <link href="${pageContext.request.contextPath}/resources/css/moneyMN.css" rel="stylesheet">
 
 
-
  <style>
   
     /* 

@@ -6,7 +6,6 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-
 <!-- title -->
 <div class="section-title">
   <h2><b>내 보유 계좌</b></h2>
@@ -278,6 +277,51 @@
     </div>
   <!-- 모달창 끝 -->
   <br>
+
+
+
+
+<!-- /////// 잔액 불러오기 ajax ///////////// -->
+<script src="${pageContext.request.contextPath }/resources/js/jquery/jquery-2.2.4.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/jquery.serializeObject.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+// 	window.onlaod = function(){
+		alert('alert 확인 1');
+		
+		
+// 		$.ajax({
+// 			url 		: "/openbank/balance",
+// 			type		: "POST",
+// 			data 		: formValues,
+// 			dataType	: 'json',
+// 			contentType : "application/json;charset=UTF-8",
+// 			success 	: function(data) {
+// 				if( ){
+// 					alert('잔액조회성공')
+// 					$('#req_accountBalance.balance_amt').val(data.accountBalance.balance_amt );
+// 				}else {
+// 					alert('잔액조회실패');
+// 					location.href = "/";
+// 					return false;
+// 				}
+				
+				
+// 			}
+			
+			
+// 		})
+		
+		
+// 	}//window.onlaod
+	
+	
+	
+});//jquery
+
+
+</script>
+
 
 
 	
