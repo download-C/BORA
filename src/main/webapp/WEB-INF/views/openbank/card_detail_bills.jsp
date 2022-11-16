@@ -25,7 +25,7 @@
 		</thead>
 		<tbody>	
 		<%-- cardDetailBills 객체에 저장되어 있는 카드 목록(bill_detail_list) 가져와서 반복하여 복수개 계좌 접근 --%>
-		<c:forEach var="cardDetailBills" items="${cardDetailBills.bill_detail_list }">
+		<c:forEach var="cardDetailBills" items="${cardDetailBills.bill_detail_list }" end="6">
 			<tr>
 				<td><span class="text-sm font-weight-normal">${cardDetailBills.paid_date }</span></td>
 				<td><span class="text-sm font-weight-normal">${cardDetailBills.paid_time }</span></td>
@@ -38,7 +38,9 @@
 	 </table>
 	</div> <!-- container -->
 	<br><br>
+	<hr>
   </div>
+  
 </div> <!-- col-12 -->
 </div> <!-- row -->
 

@@ -22,13 +22,11 @@
     
 </style>
 
+
 <h1>카드 기본 청구 내역</h1>
 
 <hr>
 
-<form id="searchTxtForm">
-<input type="hidden" name="viewCount" id="viewCount" value="0">
-<input type="hidden" name="starCount" id="startCount" value="0">
 <div class="row">
   <div class="col-12">
    <div class="card-body px-0 py-0" >
@@ -45,9 +43,9 @@
 			<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">신용체크구분</th>
 		</tr>
 		</thead>
-		<tbody id="listBody">	
+		<tbody id="listBody">
 		<%-- cardBills 객체에 저장되어 있는 카드 목록(bill_list) 가져와서 반복하여 복수개 계좌 접근 --%>
-		<c:forEach var="cardBills" items="${cardBills.bill_list }" varStatus="status" end="4">
+		<c:forEach var="cardBills" items="${cardBills.bill_list }" varStatus="status" end="6">
 			<tr>
 				<td><span class="text-sm font-weight-normal">${cardBills.charge_month }</span></td>
 				<td><span class="text-sm font-weight-normal">${cardBills.settlement_seq_no }</span></td>
@@ -55,22 +53,28 @@
 				<td><span class="text-sm font-weight-normal">${cardBills.charge_amt }</span></td>
 				<td><span class="text-sm font-weight-normal">${cardBills.settlement_day }</span></td>
 				<td><span class="text-sm font-weight-normal">${cardBills.settlement_date }</span></td>
-				<td><span class="text-sm font-weight-normal">${cardBills.credit_check_type }</span></td>
+				<td><span class="text-sm font-weight-normal">
+				<c:if test="${cardBills.credit_check_type =='01'}">
+				신용
+				</c:if>
+				<c:if test="${cardBills.credit_check_type =='02'}">
+				체크
+				</c:if>
+				</span></td>
 			</tr>
 	   </c:forEach>
 	   </tbody>
 	</table>
 	<br>
-	<div id="more_btn_div" align="center">
-	<hr>
-	  <a id="addBtn" href="javascript:moreContent('more_list', 10);">더보기</a>
-	</div>
-   </div> <!-- container -->
-   <br><br>
+<!-- 	<div id="more_btn_div" align="center"> -->
+<!-- 	  <a id="addBtn" href="javascript:moreContent('more_list', 5);">더보기</a> -->
+<%-- <a id="addBtn" href="/openbank/cardBills?end=${end+4 }">더보기</a> --%>
+	<br><br>
+  </div>
+  <hr>
   </div>
 </div> <!-- col-12 -->
 </div> <!-- row -->
-</form>
 
      <div class="col-2" style="padding-left: 0;">
         <div class="table-responsive">
