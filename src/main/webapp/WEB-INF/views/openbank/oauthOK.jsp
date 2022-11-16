@@ -7,20 +7,16 @@
 <link href="${pageContext.request.contextPath}/resources/css/openbankguide.css" rel="stylesheet">
   
   
-<%-- <h2>세션 토큰 : ${sessionScope.token }</h2> --%>
-<!-- <hr> -->
-<%-- <h4>액세스 토큰 : ${responseToken.access_token }</h4> --%>
-<%-- <h4>사용자 번호 : ${responseToken.user_seq_no }</h4> --%>
-<%-- <h4>token_type : ${responseToken.token_type }</h4> --%>
-<%-- <h4>expires_in : ${responseToken.expires_in }</h4> --%>
-<%-- <h4>refresh_token : ${responseToken.refresh_token }</h4> --%>
-<%-- <h4>scope : ${responseToken.scope }</h4> --%>
-
 
   <!-- title -->
   <div class="section-title">
     <h2><b>오픈뱅킹</b></h2><br><br>
-    <img src="${pageContext.request.contextPath}/resources/img/openbank.png" class="img-fluid">
+    <picture>
+	  <source media="(min-width: 1024px)" srcset="${pageContext.request.contextPath}/resources/img/openbank.png" class="img-fluid">
+  	  <source media="(min-width: 768px)" srcset="${pageContext.request.contextPath}/resources/img/openbank_small.png" class="img-fluid">
+  	  <img src="${pageContext.request.contextPath}/resources/img/openbank_small.png" class="img-fluid">
+	</picture>
+
 
   </div><br>
 
