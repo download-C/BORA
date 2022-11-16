@@ -4,9 +4,9 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 
-
-
-
+<link href="${pageContext.request.contextPath}/resources/css/openbankguide.css" rel="stylesheet">
+  
+  
 <%-- <h2>세션 토큰 : ${sessionScope.token }</h2> --%>
 <!-- <hr> -->
 <%-- <h4>액세스 토큰 : ${responseToken.access_token }</h4> --%>
@@ -50,69 +50,75 @@
 
 
 <!-- 토큰발급 화면예시 -->
-<div class="row row-cols-md-13 g-13 justify-content-center">
- <div class="col-md-13 col-12">
-        <div class="card border-left-info shadow h-100 py-2">
-          <div class="card-body">
+  <div class="container">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12 col-12">
+          <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
               <div class="container">
               <h3>※ 오픈뱅킹 사용자 인증 예시</h3><br>
               <span style="font-size: 20px;">◼ 계좌 정보에는 현재 오픈뱅킹 인증이 완료된 보유 계좌 정보를 입력하여 주시기 바랍니다.</span><br>
           	  <span style="font-size: 20px; color: red" >◼ BORA에서 오픈뱅킹 테스트 입력 시 아래의 계좌 정보를 입력해주세요. <br>
               → 오픈뱅크 0518030909 BORA입출금 </span>
-              </div>
-              <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-              <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                  <table class="table col-md-10"
-                    style="width:100%; overflow:auto; border-radius: 12px; text-align: center;">
-					<!-- 첫번째행 -->
-                    <thead style="background-color: gray; font-size: 20px;">
-                      <tr>
-                        <th>① 본인 인증</th>
-                        <th>② 이용 동의</th>
-                        <th>③ 인증 절차</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                      	<td><img src="${pageContext.request.contextPath}/resources/img/token/token1.png" width="100%"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/token/token2.png" width="100%"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/token/token3.png" width="100%"></td>
+     		  </div>
+              <style>
+                th,
+                td {
+                  text-align: center;
+                }
+              </style>
+              <div class="card-body ">
+                <table class="table" >
+                  <!-- 첫번째행 -->
+                  <thead>
+                  <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><img src="${pageContext.request.contextPath}/resources/img/token/token1.png" class="img-fluid"></td>
+                      <td><img src="${pageContext.request.contextPath}/resources/img/token/token2.png" class="img-fluid"></td>
+                      <td><img src="${pageContext.request.contextPath}/resources/img/token/token3.png" class="img-fluid"></td>
                       </tr>
                     </tbody>
 					<!-- 두번째행 -->
-                    <thead style="background-color: gray; font-size: 20px;">
+                <thead>
                       <tr>
-                        <th>④ 계좌 정보 입력 </th>
-                        <th>⑤ ARS 동의</th>
-                        <th>⑥ 이메일 등록</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-						<td><img src="${pageContext.request.contextPath}/resources/img/token/token4.png" width="300px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/token/token5.png" width="300px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/token/token6.png" width="300px;"></td>
-                      </tr>
-                    </tbody>
-                    
-                  </table>
-                </div>
+                      <td><img src="${pageContext.request.contextPath}/resources/img/token/token4.png" class="img-fluid"></td>
+                      <td><img src="${pageContext.request.contextPath}/resources/img/token/token5.png" class="img-fluid"></td>
+                      <td><img src="${pageContext.request.contextPath}/resources/img/token/token6.png" class="img-fluid"></td>
+                      </td> 
+                    </tr>
+                  </tbody>
+                </table>
               </div>
+            </div>
           </div>
         </div>
       </div>
+    </div>
 
 
-<div class="m-4">
-    <div class="container" style="justify-content: center; align-items: center;">
-      <div class="row">
-        <div class="col-md-5">
-          <div class="card border-left-info shadow h-100 py-2">
-            <div class="card-body">
-              <div class="container" style="justify-content: center; align-items:center;">
-                <h3 style="text-align: center;">오픈뱅킹 사용자 인증</h3>
-                <!-- 인증 요청 작업 수행 -->
+<div class="container" style="justify-content: center; align-items: center;">
+      <div class="m-4">
+        <div class="row" style="justify-content: center; align-items: center;"  >
+          <div class="col-md-6" >
+            <div class="card border-left-info shadow h-100 py-2">
+              <div class="card-body">
+                <div class="container" style="justify-content: center; align-items:center;">
+                  <h3 style="text-align: center;">오픈뱅킹 사용자 인증</h3>
+                  <!-- 인증 요청 작업 수행 -->
                 <form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get"
                   style="text-align: center;">
                   <input type="hidden" name="response_type" value="code">
@@ -151,6 +157,7 @@
       </div>
     </div>
   </div>
+  
 
   <br>
 
