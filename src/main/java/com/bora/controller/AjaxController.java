@@ -2,6 +2,7 @@ package com.bora.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,8 +11,10 @@ import java.util.Random;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -30,6 +33,7 @@ import com.bora.domain.board.BoardVO;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
 import com.bora.domain.member.MemberVO;
+import com.bora.domain.openbank.card.bill.CardBillsVO;
 import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookVO;
 import com.bora.service.CardPayService;
@@ -488,5 +492,6 @@ public class AjaxController {
 
 		return new ResponseEntity<List<BoardVO>>(boardService.getList5(), HttpStatus.OK);
 	}
+	
 
 }// class AjaxController
