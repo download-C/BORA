@@ -316,7 +316,6 @@ a:hover {
 	
 	if(result == "MOD_OK"){
 		success("수정이 완료되었습니다 🥰");
-// 		alert("글 수정 완 🥰");
 	}
 	
 	if(result == "DEL_OK"){

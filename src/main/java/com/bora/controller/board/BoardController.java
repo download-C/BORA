@@ -36,6 +36,8 @@ public class BoardController {
 	@Autowired
 	private CommentService cmtService;
 	
+	@Inject
+	private HttpSession session; 
 	// 멤버변수 끝 ============================================
 	
 	
@@ -45,6 +47,17 @@ public class BoardController {
 	public void insertBoardGET() throws Exception {
 		log.info("(♥♥♥♥♥ insertBoardGET) 호출됨");
 		log.info("(♥♥♥♥♥ insertBoardGET) 리턴타입 void라서 들어온 주소 /board/insert.jsp 로 이동할게요");
+		
+
+		// 로그인 안 한 경우 로그인 페이지로 이동
+//		String loginID = (String) session.getAttribute("loginID");
+//		log.info("(♥♥♥♥♥ 1-2.registerPOST) loginID: " + loginID);
+//		
+//		if(loginID == null) {
+//			rttr.addFlashAttribute("noLogin", "로그인 후 이용 가능한 페이지입니다.");
+//			return "redirect:/main/login";
+//		}
+		
 	}
 	// 1. 글쓰기 GET 끝
 	
@@ -64,7 +77,7 @@ public class BoardController {
 		
 		// 페이지 이동(글 목록으로)
 			// 글쓰기 성공 알림 띄우기(일회성)
-		rttr.addFlashAttribute("msg", "OK");  
+		rttr.addFlashAttribute("msg", "OK"); 
 		
 		log.info("(♥♥♥♥♥ 1-2.registerPOST) redirect:/board/list 로 이동할거");
 		return "redirect:/board/list"; // 주소줄 변화 O + 페이지 이동 O

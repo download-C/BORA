@@ -11,10 +11,20 @@
 	if (loginID == null) {
 %>
 <script>
-	warning("로그인 후 사용 가능한 페이지입니다.");
-	setTimeout(function(){
-		location.href = "/main/login";
-	}, 2000);
+	$(document).ready(function(){
+		let message = '${noLogin}';
+		if(message != ''){
+			warning(message);
+			location.href = "/main/login";
+		}
+	}
+	); //ready
+	
+	
+// 	warning("로그인 후 사용 가능한 페이지입니다.");
+// 	setTimeout(function(){
+// 		location.href = "/main/login";
+// 	}, 2000);
 	
 	
 	//warning 버튼
