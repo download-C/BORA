@@ -27,6 +27,7 @@ import com.bora.domain.openbank.card.CardListRequestVO;
 import com.bora.domain.openbank.card.CardListResponseVO;
 import com.bora.domain.openbank.card.bill.CardBillsRequestVO;
 import com.bora.domain.openbank.card.bill.CardBillsResponseVO;
+import com.bora.domain.openbank.card.bill.CardBillsVO;
 import com.bora.domain.openbank.card.bill.CardDetailBillsRequestVO;
 import com.bora.domain.openbank.card.bill.CardDetailBillsResponseVO;
 import com.bora.service.openbank.OpenBankingService;
@@ -179,6 +180,8 @@ public class OpenbankController {
 		model.addAttribute("cardInfo", cardInfo);
 		model.addAttribute("cardInfo", cardInfo);
 		session.setAttribute("access_token", cardInfoRequestVO.getAccess_token());
+		session.setAttribute("bank_tran_id", cardInfoRequestVO.getBank_tran_id());
+		session.setAttribute("User_seq_no", cardInfoRequestVO.getUser_seq_no());
 
 		log.info("Access_token : " + cardInfoRequestVO.getAccess_token());
 		log.info("cardInfo : " + cardInfoRequestVO.getUser_seq_no());
@@ -205,7 +208,7 @@ public class OpenbankController {
 
 		// Model 객체에 CardListResponseVO 객체와 엑세스토큰 저장
 		model.addAttribute("cardList", cardList);
-		model.addAttribute("access_token", cardListRequestVO.getAccess_token());
+		session.setAttribute("access_token", cardListRequestVO.getAccess_token());
 
 		return "/openbank/card_list";
 	}
@@ -219,7 +222,10 @@ public class OpenbankController {
 		// Service 객체의 billsCard() 메서드를 호출하여 사용자 정보 조회
 		// => 파라미터 : CardBillsRequestVO, 리턴타입 CardBillsResponseVO
 		CardBillsResponseVO cardBills = openBankingService.billsCard(cardBillsRequestVO);
-
+		
+        
+		CardBillsVO vo = new CardBillsVO();
+		
 		log.info("cardBillsRequestVO : " + cardBillsRequestVO.getAccess_token());
 		log.info("cardBillsRequestVO : " + cardBillsRequestVO.getBank_tran_id());
 		log.info("cardBillsRequestVO : " + cardBillsRequestVO.getUser_seq_no());
@@ -230,8 +236,20 @@ public class OpenbankController {
 
 		// Model 객체에 CardBillsResponseVO 객체와 엑세스토큰 저장
 		model.addAttribute("cardBills", cardBills);
-		model.addAttribute("access_token", cardBillsRequestVO.getAccess_token());
-
+		session.setAttribute("access_token", cardBillsRequestVO.getAccess_token());
+		session.setAttribute("bank_tran_id", cardBillsRequestVO.getBank_tran_id());
+		session.setAttribute("user_seq_no", cardBillsRequestVO.getUser_seq_no());
+        
+		vo.setCredit_check_type("credit_check_type");
+		if(vo.getCredit_check_type() == "01") {
+			String credit_check_type = "신용";
+			vo.setCredit_check_type(credit_check_type);
+		}
+		if(vo.getCredit_check_type() == "02") {
+			String credit_check_type = "체크";
+			vo.setCredit_check_type(credit_check_type);
+		}
+		
 		return "/openbank/card_bills";
 	}
 
@@ -255,7 +273,9 @@ public class OpenbankController {
 
 		// Model 객체에 CardDetailBillsResponseVO 객체와 엑세스토큰 저장
 		model.addAttribute("cardDetailBills", cardDetailBills);
-		model.addAttribute("access_token", cardDetailBillsRequestVO.getAccess_token());
+		session.setAttribute("access_token", cardDetailBillsRequestVO.getAccess_token());
+		session.setAttribute("bank_tran_id", cardDetailBillsRequestVO.getBank_tran_id());
+		session.setAttribute("user_seq_no", cardDetailBillsRequestVO.getUser_seq_no());
 
 		return "/openbank/card_detail_bills";
 	}
