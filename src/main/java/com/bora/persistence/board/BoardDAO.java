@@ -19,8 +19,8 @@ public interface BoardDAO {
 		// 2-2. 카테고리 글 목록 조회
 		public List<BoardVO> getBoardListCtgr(String ctgr, Integer startNum) throws Exception;
 		
-			public int getBoardCnt() throws Exception;	
-			public int getBoardCntCTGR(String ctgr) throws Exception;
+			public Integer getBoardCnt() throws Exception;	
+			public Integer getBoardCntCTGR(String ctgr) throws Exception;
 	
 	// 3. 글 1개 정보 가져오기
 	public BoardVO getBoard(Integer bno) throws Exception;
@@ -32,7 +32,7 @@ public interface BoardDAO {
 	public Integer updateBoard(BoardVO vo/* , String id */) throws Exception;
 
 	// 5. 글 삭제하기
-	public int deleteBoard(Integer bno/* , String id */) throws Exception;
+	public Integer deleteBoard(Integer bno/* , String id */) throws Exception;
 
 	// 6. id -> 닉네임 끌고 오기
 	public String getNick(String id) throws Exception;

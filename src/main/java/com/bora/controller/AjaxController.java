@@ -153,80 +153,6 @@ public class AjaxController {
 		return entity;
 	}
 
-	// 카테고리 ajax ======================================== 구!!!!!!!!!!!!!!!!!!
-//	@RequestMapping(value = "/ctgr", method = RequestMethod.GET)
-//	public ResponseEntity<List<BoardVO>> ctgr(@RequestParam("ctgr") String ctgr, String pageStart, HttpSession session,
-//			PageVO vo, Model model) throws Exception {
-//		int cnt = 0;
-//		PageMakerVO pm = new PageMakerVO();
-//		log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgr() 호출됨");
-//		log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgr: " + ctgr);
-//
-//		List<BoardVO> boardList = null;
-//		if (ctgr.equals("알려줘BORA") || ctgr.equals("친해져BORA") || ctgr.equals("골라줘BORA")) {
-//
-//			cnt = boardService.getBoardCntCTGR(ctgr);
-//			log.info("글 개수 :" + cnt);
-//			vo = new PageVO();
-//			log.info("vo: " + vo);
-//			pm.setVo(vo);
-//			pm.setTotalCnt(cnt);
-//			boardList = boardService.getBoardListCtgr(pm, ctgr);
-//			log.info("boardListCTGR 개수: " + boardList.size());
-//		} else {
-//			cnt = boardService.getBoardCnt();
-//			log.info("글 개수 :" + cnt);
-//			vo = new PageVO();
-//			pm.setVo(vo);
-//			pm.setTotalCnt(cnt);
-//			boardList = boardService.getBoardListPage(vo);
-//			log.info("boardListALL 개수: " + boardList.size());
-//		}
-//		session.setAttribute("isUpdate", false);
-//
-//		log.info("pm: " + pm);
-////       model.addAttribute("pm", pm);
-//		ResponseEntity<List<BoardVO>> entity = new ResponseEntity<List<BoardVO>>(boardList, HttpStatus.OK);
-//		return entity;
-//	}
-//
-//	@RequestMapping(value = "/paging", method = RequestMethod.GET)
-//	public ResponseEntity<PageMakerVO> paging(@RequestParam("ctgr") String ctgr, String pageStart, HttpSession session,
-//			PageVO vo, Model model) throws Exception {
-//		int cnt = 0;
-//		PageMakerVO pm = new PageMakerVO();
-//		log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgr() 호출됨");
-//		log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgr: " + ctgr);
-//
-//		List<BoardVO> boardList = null;
-//		if (ctgr.equals("알려줘BORA") || ctgr.equals("친해져BORA") || ctgr.equals("골라줘BORA")) {
-//
-//			cnt = boardService.getBoardCntCTGR(ctgr);
-//			log.info("글 개수 :" + cnt);
-//			vo = new PageVO();
-//			log.info("vo: " + vo);
-//			pm.setVo(vo);
-//			pm.setTotalCnt(cnt);
-//			boardList = boardService.getBoardListCtgr(pm, ctgr);
-//			log.info("boardListCTGR 개수: " + boardList.size());
-//		} else {
-//			cnt = boardService.getBoardCnt();
-//			log.info("글 개수 :" + cnt);
-//			vo = new PageVO();
-//			pm.setVo(vo);
-//			pm.setTotalCnt(cnt);
-//			boardList = boardService.getBoardListPage(vo);
-//			log.info("boardListALL 개수: " + boardList.size());
-//		}
-//		session.setAttribute("isUpdate", false);
-//
-//		log.info("pm: " + pm);
-//		model.addAttribute("pm", pm);
-//		ResponseEntity<PageMakerVO> entity = new ResponseEntity<PageMakerVO>(pm, HttpStatus.OK);
-//		return entity;
-//	}
-	// 카테고리 ajax 끝 ==================================
-	
 	
 	// 카테고리 ajax ========================================
 	@RequestMapping(value = "/ctgr", method = RequestMethod.GET)
@@ -243,7 +169,7 @@ public class AjaxController {
 			log.info(" 실팹니다,,,");
 		}
 		
-		// 조회수때메.. 일단 놔두자
+		// 조회수때메..
 		session.setAttribute("isUpdate", false);
 		
 		ResponseEntity<List<BoardVO>> entity = new ResponseEntity<List<BoardVO>>(boardListCtgr, HttpStatus.OK);
@@ -253,23 +179,34 @@ public class AjaxController {
 	
 	// 카테고리 더보기 버턴 눌렀을 때
 	@RequestMapping(value = "/ctgr/getMoreList", method = RequestMethod.GET)
-	public ResponseEntity<List<BoardVO>> ctgrGetMoreList(@RequestParam("ctgr") String ctgr, @RequestParam("startNum") Integer startNum) throws Exception {
-		log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgr() 호출됨");
-		log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgr: " + ctgr);
+	public ResponseEntity<Map<String, Object>> ctgrGetMoreList(@RequestParam("ctgr") String ctgr, @RequestParam("startNum") Integer startNum) throws Exception {
+		log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgrGetMoreList() 호출됨");
+		log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgrGetMoreList() ctgr: " + ctgr + " / startNum: " + startNum);
 		
 		List<BoardVO> boardListCtgr = null;
 		if (ctgr.equals("알려줘BORA") || ctgr.equals("친해져BORA") || ctgr.equals("골라줘BORA")) {
 			boardService.getBoardCntCTGR(ctgr);
 			boardListCtgr = boardService.getBoardListCtgr(ctgr, startNum);
-			log.info("boardList.size", boardListCtgr.size());
+			log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgrGetMoreList() boardListCtgr.size: ", boardListCtgr.size());
 		} else {
-			log.info("실팹니다,,");
+			log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgrGetMoreList() 실팹니다,,");
 		}
 		
-		// 조회수 ㅇㅇㅇㅇㅇㅇㅇ
+		// for 조회수
 		session.setAttribute("isUpdate", false);
 		
-		ResponseEntity<List<BoardVO>> entity = new ResponseEntity<List<BoardVO>>(boardListCtgr, HttpStatus.OK);
+		// 해당 카테고리 총 글 개수도 같이 보내기
+		// session.setAttribute("ctgrCount", boardService.getBoardCntCTGR(ctgr)); 
+		//   세션에 ㄴㄴ..... ajax라 카테고리가 다 중복돼서,, 정확한 값 안 나옴
+		int ctgrCount = boardService.getBoardCntCTGR(ctgr);
+		log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgrGetMoreList()  해당 카테고리 총 글 개수: " + ctgrCount);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("ctgrCount", ctgrCount);
+		map.put("boardListCtgr", boardListCtgr);
+		
+		ResponseEntity<Map<String, Object>> entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 		return entity;
 	}
 	// 카테고리 ajax 끝 ==================================
@@ -481,12 +418,5 @@ public class AjaxController {
 		return entity;
 	}
 
-	// 메인에서 커뮤니티 최신글 목록 5개 불러오기
-	@RequestMapping(value = "/getList5", method = RequestMethod.GET)
-	public ResponseEntity<List<BoardVO>> getBoardList5() throws Exception {
-		log.info(" (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ getBoardList5() 호출됨");
-
-		return new ResponseEntity<List<BoardVO>>(boardService.getList5(), HttpStatus.OK);
-	}
 
 }// class AjaxController

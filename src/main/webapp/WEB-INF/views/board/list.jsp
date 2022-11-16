@@ -24,6 +24,23 @@ a:hover {
     --bs-pagination-active-border-color: #e3cffc  !important;
 }
 
+/*  카테고리 버튼 클릭 시,, 배경 바뀌는 거 css 걸어보려고 했는데 안먹네
+.ctgr_curr {
+	background-color: #ffffff; 
+	float: left; 
+	width: 160px; 
+	margin: 0px 10px 10px 0px; 
+	border-radius: 25px;
+}
+
+.ctgr_wait {
+	background-color: #e3cffc; 
+	float: left; 
+	width: 160px; 
+	margin: 0px 10px 10px 0px; 
+	border-radius: 25px;
+} */
+
 </style>
 
 
@@ -56,8 +73,23 @@ a:hover {
 			var ctgr = $(this).val();
 // 			alert(ctgr);
 			$('#ctgrHidden').val(ctgr); // input hidden에 클릭한 ctgr 값으로 채워놓기
-			$('#pagingDiv').remove();
+			$('#pagingDiv').remove();   // 카테고리 클릭 시, 페이징 처리 div는 숨겨놓기
 			var startNum = 0;
+			
+			// 클릭된 카테고리만 배경색 다르게
+			if(ctgr=='골라줘BORA'){
+				$('#btn_pick').attr('style', 'background-color: #ffffff; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
+				$('#btn_tip').attr('style', 'background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
+				$('#btn_meet').attr('style', 'background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
+			} else if (ctgr=='알려줘BORA'){
+				$('#btn_pick').attr('style', 'background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
+				$('#btn_tip').attr('style', 'background-color: #ffffff; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
+				$('#btn_meet').attr('style', 'background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
+			} else if (ctgr=='친해져BORA'){
+				$('#btn_pick').attr('style', 'background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
+				$('#btn_tip').attr('style', 'background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
+				$('#btn_meet').attr('style', 'background-color: #ffffff; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
+			}
 
 			$.ajax({
 				url: "/ajax/ctgr",
@@ -74,28 +106,37 @@ a:hover {
 						var b_title = item.b_title;
 						var b_ctgr = item.b_ctgr;
 						var nick = item.nick;
-						var b_regdate = '';
-						if(item.b_updatedate != null) {
-							// updatedate가 null이 아니라면~ == 수정된 적 있으면~
-							b_regdate = item.b_updatedate;
-						} else {
-							// 수정된 적 없으면~
-							b_regdate = item.b_regdate;
-						}
-						
-						var date = new Date(b_regdate);
-						var regdate = date.getFullYear() +"년 " +(date.getMonth()+1)+"월 "+date.getDate()+"일 💜 "+date.getHours()+":"+date.getMinutes();
 						var b_readcount = item.b_readcount;
 						var b_cmtcount = item.b_cmtcount;
+						var regdate = '';  // 날짜.. 포맷때메 조금 긺
+						
+							if(item.b_updatedate != null) {
+								// updatedate가 null이 아니라면~ == 수정된 적 있으면~
+								regdate = item.b_updatedate;
+							} else {
+								// 수정된 적 없으면~
+								regdate = item.b_regdate;
+							}
+							
+							var dateObj = new Date(regdate);
+							var year = dateObj.getFullYear();
+							var month = dateObj.getMonth()+1;
+							var day = dateObj.getDate();
+							var hh = dateObj.getHours();
+							var mi = dateObj.getMinutes();
+							var format = year+". " + (("00"+month.toString()).slice(-2)) + ". " + (("00"+day.toString()).slice(-2)) + ". 💜 " + (("00"+hh.toString()).slice(-2)) + ":" + (("00"+mi.toString()).slice(-2));
+							  // console.log("format", format);
+						
 						$('tbody').append(
-						'<tr>'
+						'<tr style="text-align: center;">'
 							+'<td>'+bno+'</td>'
 							+'<td>'+b_ctgr+'</td>'
-							+'<td><a href=/board/read?bno='+bno+'&page=1>'+b_title+'</a>&nbsp; <span style="color: #5107B0; font-size: small;">[' + b_cmtcount + ']</span></td>'
+							+'<td style="text-align: left;"><a href=/board/read?bno='+bno+'&page=1>'+b_title+'</a>&nbsp; <span style="color: #5107B0; font-size: small;">[' + b_cmtcount + ']</span></td>'
 							+'<td>'+nick+'</td>'
-							+'<td>'+regdate+'</td>'
+							+'<td>'+format+'</td>'
 							+'<td>'+b_readcount+'</td>'
 						+'</tr>'
+						
 						); // append
 					}); //each
 					}); // html
@@ -119,6 +160,9 @@ a:hover {
 		var ctgr = $('#ctgrHidden').val();
 		console.log("startNum: " + startNum + " / ctgr:  " + ctgr); //콘솔로그로 startNum에 값이 들어오는지 확인
 
+// 		$('#addBtn').text('더보기  ' + 현 글 개수  / 총 글 개수 );
+// 		$('#addBtn').text('더보기  ' + startNum  / 총 글 개수 );
+		
 		$.ajax({
 			url : "/ajax/ctgr/getMoreList",
 			type : "get",
@@ -129,61 +173,59 @@ a:hover {
 			dataType : "json",
 
 			success : function(rData) {
+				var ctgrCount = rData.ctgrCount
+				alert('ctgrCount: ' + ctgrCount);
+				alert('startNum: ' + $("#listBody tr").length);
+				
+				console.log("boardListCtgr", rData.boardListCtgr);
+				
+				$('#addBtn').text('더보기  ' + startNum + ' / ' + ctgrCount );
+				
 				var addListHtml = "";
 
 				if (rData.length > 0) {
 					
 					$('tbody').append(function(){
 						$.each(rData, function(index, item){
+							console.log("index", index);
 							
 							var bno = item.bno;
 							var b_title = item.b_title;
 							var b_ctgr = item.b_ctgr;
 							var nick = item.nick;
-							var b_regdate = '';
-							if(item.b_updatedate != null) {
-								// updatedate가 null이 아니라면~ == 수정된 적 있으면~
-								b_regdate = item.b_updatedate;
-							} else {
-								// 수정된 적 없으면~
-								b_regdate = item.b_regdate;
-							}
-							
-							var date = new Date(b_regdate);
-							var regdate = date.getFullYear() +"년 " +(date.getMonth()+1)+"월 "+date.getDate()+"일 💜 "+date.getHours()+":"+date.getMinutes();
 							var b_readcount = item.b_readcount;
 							var b_cmtcount = item.b_cmtcount;
+							var regdate = '';  // 날짜.. 포맷때메 조금 긺
+							
+								if(item.b_updatedate != null) {
+									// updatedate가 null이 아니라면~ == 수정된 적 있으면~
+									regdate = item.b_updatedate;
+								} else {
+									// 수정된 적 없으면~
+									regdate = item.b_regdate;
+								}
+								
+								var dateObj = new Date(regdate);
+								var year = dateObj.getFullYear();
+								var month = dateObj.getMonth()+1;
+								var day = dateObj.getDate();
+								var hh = dateObj.getHours();
+								var mi = dateObj.getMinutes();
+								var format = year+". " + (("00"+month.toString()).slice(-2)) + ". " + (("00"+day.toString()).slice(-2)) + ". 💜 " + (("00"+hh.toString()).slice(-2)) + ":" + (("00"+mi.toString()).slice(-2));
 							
 							$('tbody').append(
-							'<tr>'
+							'<tr style="text-align: center;">'
 								+'<td>'+bno+'</td>'
 								+'<td>'+b_ctgr+'</td>'
-								+'<td><a href=/board/read?bno='+bno+'&page=1>'+b_title+'</a>&nbsp; <span style="color: #5107B0; font-size: small;">[' + b_cmtcount + ']</span></td>'
+								+'<td style="text-align: left;"><a href=/board/read?bno='+bno+'&page=1>'+b_title+'</a>&nbsp; <span style="color: #5107B0; font-size: small;">[' + b_cmtcount + ']</span></td>'
 								+'<td>'+nick+'</td>'
-								+'<td>'+regdate+'</td>'
+								+'<td>'+format+'</td>'
 								+'<td>'+b_readcount+'</td>'
-							+'</tr>'		
+							+'</tr>'
+							
 							); // append
 						}); //each
-						}); // html
-					
-					
-// 					for (var i = 0; i < rData.length; i++) {
-// 						var idx = Number(startNum) + Number(i) + 1;
-// 						// 글번호때문에 한 건가,,??? 나는 카테고리별로 들고 오는거니까 노상관
-// 						//                     alert('idx: ' + idx + ' / rData.length: ' + rData.length);
-
-// 						addListHtml += "<tr>";
-// 						addListHtml += "<td>" + rData[i].bno + "</td>";
-// 						addListHtml += "<td>" + rData[i].b_ctgr + "</td>";
-// 						addListHtml += "<td>" + rData[i].b_title + "</td>";
-// 						addListHtml += "<td>" + rData[i].nick + "</td>";
-// 						addListHtml += "<td>" + rData[i].regdate + "</td>";
-// 						addListHtml += "<td>" + rData[i].b_readcount + "</td>";
-// 						addListHtml += "</tr>";
-// 					} // for
-
-// 					$("#listBody").append(addListHtml);
+					}); // append
 					
 				} // if
 				else {
@@ -228,33 +270,33 @@ a:hover {
     <div class="container">
 		<table  class="table table-hover" style="box-shadow: 7px 14px 90px 3px rgba(163, 174, 184, 0.7);">
 			<thead class="bg-gray-100">
-				<tr style="color:#5107B0; background-color: #e3cffc;" >
+				<tr style="color:white; background-color: #5107B0; text-align: center;" >
 					<th class="text-xs font-weight-semibold opacity-7" style="width: 5%; ">번호</th>
-					<th class="text-xs font-weight-semibold opacity-7" style="width: 10%; ">카테고리</th>
-					<th class="text-xs font-weight-semibold opacity-7 ps-2" style="width: 40%; ">제목</th>
+					<th class="text-xs font-weight-semibold opacity-7" style="width: 13%; ">카테고리</th>
+					<th class="text-xs font-weight-semibold opacity-7 ps-2" style="width: 35%; ">제목</th>
 					<th class="text-xs font-weight-semibold opacity-7 ps-2" style="width: 10%; ">닉네임</th>
 					<th class="text-xs font-weight-semibold opacity-7 ps-2" style="width: 20%; ">작성일</th>
-					<th class="text-xs font-weight-semibold opacity-7 ps-2" style="width: 5%; ">조회수</th>
+					<th class="text-xs font-weight-semibold opacity-7 ps-2" style="width: 7%; ">조회수</th>
 				</tr>
 			</thead>
 			<tbody id="listBody">	
 <%-- 			<c:forEach var="vo" items="${boardList }" varStatus="status"> --%>
 				<c:forEach var="vo" items="${boardList }">
 				
-					<tr>
+					<tr style="text-align: center;">
 						<td><span class="text-sm font-weight-normal">${vo.bno}</span></td>
 						<td><div class="my-auto"><h6 class="mb-0 text-sm">${vo.b_ctgr}</h6></div></td>
-						<td><a href="/board/read?bno=${vo.bno }&page=${pm.vo.page}">${vo.b_title }</a><!-- </p> -->
+						<td style="text-align: left;"><a href="/board/read?bno=${vo.bno }&page=${pm.vo.page}">${vo.b_title }</a><!-- </p> -->
 							&nbsp; <span style="color: #5107B0; font-size: small;">[${vo.b_cmtcount }]</span> <%-- (${cmtList[status.index] })  --%>
 						</td>
-						<td><b>${vo.nick }</b></td>
+						<td>${vo.nick }</td>
 						<td><span class="text-sm font-weight-normal">
 							<c:choose>
 								<c:when test="${vo.b_updatedate eq null }">
-									<fmt:formatDate value="${vo.b_regdate }" pattern="YYYY년 MM월 dd일 💜  HH:mm" />
+									<fmt:formatDate value="${vo.b_regdate }" pattern="YYYY. MM. dd. 💜  HH:mm" />
 								</c:when>
 								<c:otherwise>
-									<fmt:formatDate value="${vo.b_updatedate }" pattern="YYYY년 MM월 dd일 💜  HH:mm" />
+									<fmt:formatDate value="${vo.b_updatedate }" pattern="YYYY. MM. dd. 💜  HH:mm" />
 								</c:otherwise>
 							</c:choose> 
 							</span>
@@ -314,12 +356,12 @@ a:hover {
 		success("글 작성이 완료되었습니다 🥰");
 	}
 	
-	if(result == "MOD_OK"){
-		success("수정이 완료되었습니다 🥰");
-	}
+// 	if(result == "MOD_OK"){
+// 		success("수정이 완료되었습니다 🥰"); read.jsp 페이지로 옮김
+// 	}
 	
 	if(result == "DEL_OK"){
-		success("삭제가 완료되었습니다 🥰");
+// 		success("삭제가 완료되었습니다 🥰");
 	}
 </script>
 

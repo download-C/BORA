@@ -31,6 +31,7 @@ import com.bora.domain.member.NaverLoginBO;
 import com.bora.domain.report.BookVO;
 import com.bora.service.MainService;
 import com.bora.service.MemberService;
+import com.bora.service.board.BoardService;
 import com.bora.service.board.NoticeService;
 import com.bora.service.report.BookService;
 import com.github.scribejava.core.model.OAuth2AccessToken;
@@ -49,6 +50,8 @@ public class MainController {
 	private NoticeService noticeService;
 	@Inject
 	private BookService bookService;
+	@Inject
+	private BoardService boardService;
 
 	
 	@Inject
@@ -69,9 +72,13 @@ public class MainController {
 		log.info("/main -> main.jsp");
 		session.setAttribute("isUpdate", false);
 		List<NoticeVO> noticeList = noticeService.getNoticeListMain();
+		List<BoardVO> cmntList = boardService.getList5();
 		log.info("공지사항 글 개수: "+noticeList.size());
+		log.info("커뮤니티 글 개수: "+cmntList.size());
 		if(noticeList.size()>0) 
 			model.addAttribute("noticeList", noticeList);
+		if(cmntList.size()>0) 
+			model.addAttribute("cmntList", cmntList);
 	}
 	
 	@RequestMapping(value="/about", method=RequestMethod.GET)

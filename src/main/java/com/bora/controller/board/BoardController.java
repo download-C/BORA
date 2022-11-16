@@ -47,17 +47,6 @@ public class BoardController {
 	public void insertBoardGET() throws Exception {
 		log.info("(♥♥♥♥♥ insertBoardGET) 호출됨");
 		log.info("(♥♥♥♥♥ insertBoardGET) 리턴타입 void라서 들어온 주소 /board/insert.jsp 로 이동할게요");
-		
-
-		// 로그인 안 한 경우 로그인 페이지로 이동
-//		String loginID = (String) session.getAttribute("loginID");
-//		log.info("(♥♥♥♥♥ 1-2.registerPOST) loginID: " + loginID);
-//		
-//		if(loginID == null) {
-//			rttr.addFlashAttribute("noLogin", "로그인 후 이용 가능한 페이지입니다.");
-//			return "redirect:/main/login";
-//		}
-		
 	}
 	// 1. 글쓰기 GET 끝
 	
@@ -180,7 +169,9 @@ public class BoardController {
 		log.info("(♥♥♥♥♥ 3.readGET) 호출됨");
 		
 		// 직전 페이지(list.jsp)에서 전달된 정보(bno) 저장
-		log.info("(♥♥♥♥♥ 3.readGET) 넘어온 bno: " + bno);
+		log.info("(♥♥♥♥♥ 3.readGET) 넘어온 bno: " + bno + " / page: " + page);
+		// 넘어온 페이지 정보 모델에 저장
+		model.addAttribute("page", page);
 		
 		// 한 번 이 글 본 사람은 더이상 조회수 안 올라가게~~~ 
 		// boolean isUpdate 이용,, 2()에서 세션에 저장해놓은 거 여기서 넘겨받음
@@ -206,14 +197,15 @@ public class BoardController {
 	
 	// 4. 글 수정하기 GET (기존 정보 조회 + 뉴 정보 입력받기)    http://localhost:8088/board/update
 	@RequestMapping (value = "/update", method = RequestMethod.GET)
-	public void updateGET(@RequestParam("bno") int bno, Model model) throws Exception {
+	public void updateGET(@RequestParam("bno") int bno, 
+						  @RequestParam("page") int page, Model model) throws Exception {
 		log.info("(♥♥♥♥♥ 4.updateGET) 호출됨");
-		
-		log.info("(♥♥♥♥♥ 4.updateGET) bno: " + bno);
+		log.info("(♥♥♥♥♥ 4.updateGET) bno: " + bno + " / page: " + page);
 		
 		// bno에 해당하는 글 정보 가져오기 (service 사용해서),, 밑에 바아로 넣기!!
 		// 연결된 뷰에 정보 전달 (用 Model 객체)
 		model.addAttribute("vo", service.getBoard(bno));
+		model.addAttribute("page", page);
 		
 		// 페이지 이동(기존 bno번 글 정보 출력)  -> /board/update
 		log.info("(♥♥♥♥♥ 4.updateGET) 리턴타입 void니까 들어온 주소 /board/update.jsp로 이동");
@@ -224,7 +216,7 @@ public class BoardController {
 	
 	// 4-1. 글 수정하기 POST  (수정할 new 데이터 처리)
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String modifyPOST(BoardVO vo, RedirectAttributes rttr) throws Exception {
+	public String modifyPOST(BoardVO vo, RedirectAttributes rttr, @RequestParam("page") String page) throws Exception {
 		log.info("(♥♥♥♥♥ 4-1.updatePOST) 호출됨");
 		log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정할 정보들 잘 넘어왔나? vo: " + vo);
 		
@@ -236,8 +228,8 @@ public class BoardController {
 			
 			// 수정 성공 시 --> list.jsp 페이지로 이동
 			log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정 성공^^ ㅊㅋㅊㅋ");
-			log.info("(♥♥♥♥♥ 4-1.updatePOST) redirect:/board/list.jsp로 이동");
-			return "redirect:/board/list"; // 주소줄 변화 O + 페이지 이동 O니까 redirect
+			log.info("(♥♥♥♥♥ 4-1.updatePOST) redirect:/board/read?bno=해당bno로 이동");
+			return "redirect:/board/read?bno="+vo.getBno()+"&page="+page; // 주소줄 변화 O + 페이지 이동 O니까 redirect
 		} else {
 			log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정 실패;;  /update?bno=" + vo.getBno()+ ".jsp로 이동");
 			return "/board/update?bno="+vo.getBno();
@@ -260,13 +252,13 @@ public class BoardController {
 		int result = service.deleteBoard(bno);
 		
 		if(result == 1) {
-			rttr.addAttribute("msg", "DEL_OK");
+			rttr.addFlashAttribute("msg", "DEL_OK");
 			log.info("(♥♥♥♥♥ 5.deletePOST) 삭제 성공");
 			log.info("(♥♥♥♥♥ 5.deletePOST) redirect:/board/list로 이동");
-			return "redirect:/board/list";
+			return "redirect:/board/list?page=1";
 		} else {
 			log.info("(♥♥♥♥♥ 5.deletePOST) 삭제 실패;;");
-			return "redirect:/board/list";
+			return "redirect:/board/list?page=1";
 		}
 		
 	}

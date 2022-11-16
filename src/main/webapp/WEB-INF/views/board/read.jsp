@@ -12,8 +12,8 @@
 	if (loginID == null) {
 %>
 <script>
-	warning("로그인 후 사용 가능한 페이지입니다.");
-	location.href = "/main/login";
+	warning("로그인 후 <br> 이용 가능합니다.");
+	setTimeout(function(){ location.href="/main/login"; }, 1500);
 	
 	//warning 버튼
 	function warning(result) {
@@ -308,7 +308,8 @@ $(document).ready(function(){
 		<!-- 수정, 삭제 시 필요한 글 번호(bno) 저장하는 폼태그 =====================-->
 		<form role="bno_form" method="post">
 			<input type="hidden" name="bno" value="${vo.bno }">
-			<input type="hidden" name="id" value="${vo.id}" readonly>
+			<input type="hidden" name="id" value="${vo.id}">
+			<input type="hidden" name="page" value="${page}">
 		</form>
 		<!-- 수정, 삭제 시 필요한 글 번호(bno) 저장하는 폼태그 껏 =====================-->
 
@@ -332,12 +333,14 @@ $(document).ready(function(){
 						</c:choose> &nbsp;&nbsp;&nbsp; 
 						<b>작성자: </b> ${vo.nick }</div>
 				</header>
+				<hr>
 				<!-- Preview image figure-->
 				<figure class="mb-4">
 <!-- 					<img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /> -->
 				</figure>
 				<!-- Post content-->
-				<section class="card-body border-left-info shadow h-100 py-2 mb-5" style="padding-left: 5%;">
+				<section class="mb-5">
+<!-- 				<section class="card-body border-left-info shadow h-100 py-2 mb-5" style="padding-left: 5%;"> -->
 					<p class="fs-5 mb-4">${vo.b_content }</p>
 				</section>
 				
@@ -358,11 +361,6 @@ $(document).ready(function(){
 			<!-- 							<div> -->
 			<%-- 								<input type="text" name="b_file" value="${vo.b_file }" readonly> --%>
 			<!-- 							</div> -->
-
-			<!-- 							<input type="button" value="수정" class="btn_mod"> <input -->
-			<!-- 								type="button" value="삭제" class="btn_del"> <input -->
-			<!-- 								type="button" value="목록" class="btn_list"> -->
-
 
 
 			<!-- Comments section-->
@@ -436,7 +434,8 @@ $(document).ready(function(){
 		
 		$(".btn_list").click(function() {
 			// 목록 버턴 클릭했을 때
-			history.back();
+// 			history.back(); //얘때메 계속 알림 떴나?? ㄱ-
+			location.href = "/board/list?page="+${page};
 		});// 목록 버턴 click
 
 		
@@ -479,6 +478,24 @@ $(document).ready(function(){
 		           }
 		       })
 		   }//confirm(예, 아니오 확인) 버튼
+		
+		   
+		// 수정 완료하고 다시 왔을 때 알림 띄우기
+			// success 버튼
+			function success(result) {
+			    Swal.fire({
+			        title: result,
+			        text: '',
+			        icon: 'success', /*디자인 타입*/
+			        confirmButtonColor: '#7A1CF6'
+			    });
+			}//success 버튼
+			
+		let result = "${msg}";
+		
+		if(result == "MOD_OK"){
+			success("수정이 완료되었습니다 🥰");
+		}
 		
 	});// jQuery ready
 </script>
