@@ -10,11 +10,24 @@
   <h2>보유 카드 목록</h2>
 </div>
 <!-- End title -->
-<script>
-$(document).ready(function(){
-	$(tbody)
-});
-</script>
+
+<style>
+    .tdbtn {
+      background-color: #5107B0;
+      font-size: 12 px;
+      color: #fff;
+      padding: 2;
+      margin: 0;
+      border: 1px solid #fff;
+      border-radius: 8px;
+    }
+
+    .modal {
+      --bs-modal-width: 1300px;
+      --bs-modal-height: 850px;
+    }
+    
+</style>
 
 <!-- card -->
   <div class="container">
@@ -45,305 +58,97 @@ $(document).ready(function(){
 	  </table>
 	</div> <!-- container -->
 	</div>
-<!--       <div class="col-2" style="padding-left: 0;"> -->
-<!--         <div class="table-responsive"> -->
-<!--           <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;"> -->
-<!--             <thead> -->
-<!--               <tr> -->
-<!--                 <th scope="col" style="color:black">업무</th> -->
-<!--               </tr> -->
-<!--             </thead> -->
-<!--             <tbody> -->
+      <div class="col-2" style="padding-left: 0;">
+        <div class="table-responsive">
+          <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;">
+            <thead>
+              <tr>
+                <th scope="col" style="color:black">업무</th>
+              </tr>
+            </thead>
+            <tbody>
 
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
+              <tr>
+                <td style="padding-bottom: 6px; padding-top: 6px;">
                 
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="9191919112121212"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-		            
-<!--                 </td> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
+                    <form action="/openbank/cardInfo" method="post">
+		            <input type="hidden" name="access_token" value="${sessionScope.token }">
+	                <input type="hidden" name="bank_tran_id" value="${sessionScope.bank_tran_id }">
+			        <input type="hidden" name="user_seq_no" value="${sessionScope.user_seq_no }">
+		            <input type="hidden" name="bank_code_std" value="399">
+		            <input type="hidden" name="member_bank_code" value="399">
+		            <input type="hidden" name="card_id" value="itwill01">
+		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">
+		            </form>
+     
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 6px; padding-top: 6px;">
                     
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="123123123"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
+                    <form action="/openbank/cardInfo" method="post">
+		            <input type="hidden" name="access_token" value="${sessionScope.token }">
+	                <input type="hidden" name="bank_tran_id" value="${sessionScope.bank_tran_id }">
+			        <input type="hidden" name="user_seq_no" value="${sessionScope.user_seq_no }">
+		            <input type="hidden" name="bank_code_std" value="399">
+		            <input type="hidden" name="member_bank_code" value="399">
+		            <input type="hidden" name="card_id" value="itwill02">
+		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">
+		            </form>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 6px; padding-top: 6px;">
                 
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="2030200200"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
+                    <form action="/openbank/cardInfo" method="post">
+		            <input type="hidden" name="access_token" value="${sessionScope.token }">
+	                <input type="hidden" name="bank_tran_id" value="${sessionScope.bank_tran_id }">
+			        <input type="hidden" name="user_seq_no" value="${sessionScope.user_seq_no }">
+		            <input type="hidden" name="bank_code_std" value="399">
+		            <input type="hidden" name="member_bank_code" value="399">
+		            <input type="hidden" name="card_id" value="itwill03">
+		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">
+		            </form>
 		            
-<!--                 </td> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 6px; padding-top: 6px;">
                     
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="abcABCAAA"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
+                    <form action="/openbank/cardInfo" method="post">
+		            <input type="hidden" name="access_token" value="${sessionScope.token }">
+	                <input type="hidden" name="bank_tran_id" value="${sessionScope.bank_tran_id }">
+			        <input type="hidden" name="user_seq_no" value="${sessionScope.user_seq_no }">
+		            <input type="hidden" name="bank_code_std" value="399">
+		            <input type="hidden" name="member_bank_code" value="399">
+		            <input type="hidden" name="card_id" value="itwill04">
+		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">
+		            </form>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 6px; padding-top: 6px;">
                 
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="abababababababab"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
+                    <form action="/openbank/cardInfo" method="post">
+		            <input type="hidden" name="access_token" value="${sessionScope.token }">
+	                <input type="hidden" name="bank_tran_id" value="${sessionScope.bank_tran_id }">
+			        <input type="hidden" name="user_seq_no" value="${sessionScope.user_seq_no }">
+		            <input type="hidden" name="bank_code_std" value="399">
+		            <input type="hidden" name="member_bank_code" value="399">
+		            <input type="hidden" name="card_id" value="itwill05">
+		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">
+		            </form>
 		            
-<!--                 </td> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
-                    
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="acacacacacac"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
-                
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="123456709"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-		            
-<!--                 </td> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
-                    
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="1357924680"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
-                
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="thslr025888"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-		            
-<!--                 </td> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
-                    
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="bora02"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
-                
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="boraisgood"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-		            
-<!--                 </td> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
-                    
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="likethisone"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
-                
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="boraisgreat"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-		            
-<!--                 </td> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
-                    
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="thisisgoodidea"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
-                
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="wantthis"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-		            
-<!--                 </td> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
-                    
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="itwill8"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
-                
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="itwill9"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-		            
-<!--                 </td> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
-                    
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="itwill10"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
-                
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="itwill7"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-		            
-<!--                 </td> -->
-<!--               </tr> -->
-<!--               <tr> -->
-<!--                 <td style="padding-bottom: 6px; padding-top: 6px;"> -->
-                    
-<!--                     <form action="/openbank/cardInfo" method="post"> -->
-<%-- 		            <input type="hidden" name="access_token" value="${sessionScope.token }"> --%>
-<%-- 	                <input type="hidden" name="bank_tran_id" value="${cardInfo.bank_tran_id }"> --%>
-<%-- 			        <input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }"> --%>
-<!-- 		            <input type="hidden" name="bank_code_std" value="399"> -->
-<!-- 		            <input type="hidden" name="member_bank_code" value="399"> -->
-<!-- 		            <input type="hidden" name="card_id" value="itwill5"> -->
-<!-- 		            <input type="submit" value="정보조회" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal"> -->
-<!-- 		            </form> -->
-<!--               </tr> -->
-<!--             </tbody> -->
-<!--           </table> -->
-<!--         </div> -->
-<!--       </div> -->
+                </td>
+              </tr>
+             
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-<!--     </div> -->
-<!--   </div> -->
+    </div>
+  </div>
 
-<!--   <hr> -->
+  <hr>
 	  
 <%@ include file="../include/footer.jsp"%>
 
