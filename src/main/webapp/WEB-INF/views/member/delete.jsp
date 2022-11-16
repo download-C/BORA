@@ -13,9 +13,17 @@ if(loginID==null) {%>
 $(document).ready(function() {
     let message = "${msg}";
     if (message != "") {
-        alert(message);
     }
 })
+
+function warning(msg1, msg2) {
+   Swal.fire(
+    msg1,
+    msg2,
+    'warning' /*디자인 타입*/
+	)
+}
+
 </script>
 
 <!-- 회원 탈퇴를 위한 비밀번호 입력 시 비밀번호 일치 여부 확인 후
@@ -57,7 +65,8 @@ $(document).ready(function(){
                }
            })
 				}else {
-					alert("비밀번호가 틀립니다.");
+					warning("이런? 🤔🤔🤔","비밀번
+							호가 틀리네요!");
 					return false;
 				} // result == ok
 			} //success

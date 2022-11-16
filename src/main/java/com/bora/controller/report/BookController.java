@@ -69,6 +69,7 @@ public class BookController {
 		String loginID = (String) session.getAttribute("loginID");
 		int bk_year = Integer.parseInt(request.getParameter("bk_year"));
 		int bk_month = Integer.parseInt(request.getParameter("bk_month"));
+		log.info("가계부 작성한 달: "+bk_month);
 		int bk_day = Integer.parseInt(request.getParameter("bk_day"));
 		String bk_iow = request.getParameter("bk_iow");
 		String bk_group = request.getParameter("bk_group");
@@ -120,7 +121,6 @@ public class BookController {
 			rttr.addFlashAttribute("msg4", "가계부 작성에 실패했습니다.");
 			return "redirect:/book/write";
 		}
-
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -130,6 +130,7 @@ public class BookController {
 		log.info("(♥♥♥♥♥ 2-1.listPageGET) 호출됨");
 		log.info(year + "년 " + month + "월 가계부 불러오기");
 		loginID = (String) session.getAttribute("loginID");
+		double percent = 0;
 
 		// 0. 로그인 여부 확인
 		if (loginID == null) {
@@ -147,30 +148,6 @@ public class BookController {
 		model.addAttribute("month", month);
 		model.addAttribute("day", day);
 		
-		// 1, 2, 3 개월 전 예산 및 지출 구해서 보내기
-		for(int i=1; i<4; i++) {
-			if(month-i >0 ) {
-				model.addAttribute("bfmonth"+i, month-i);
-				model.addAttribute("bfyear"+i, year);
-				BookVO book = service.getMonthBook(year, month-i, loginID);
-				if(book==null) {
-					book.setBk_year(year);
-					book.setBk_month(month-i);
-					book.setBk_budget(0);
-					book.setId(loginID);
-					service.writeBook(book);
-				}
-				model.addAttribute("bfbudget"+i, service.getMonthBudget(loginID, year, month-i));
-				model.addAttribute("bfsum"+i, service.getMonthBookMoney(loginID, year, month-i));
-			} else {
-				model.addAttribute("bfmonth"+i, 13-i);
-				model.addAttribute("bfyear"+i, year-1);
-				model.addAttribute("bfbudget"+i, service.getMonthBudget(loginID, year, 13-i));
-				model.addAttribute("bfsum"+i, service.getMonthBookMoney(loginID, year, 13-i));
-			}
-		}
-				
-
 		// 해당 연월의 가계부 불러오기
 		log.info(loginID + "님의 " + year + "년 " + month + "월 가계부 불러오기");
 
@@ -182,19 +159,21 @@ public class BookController {
 			detailList = dService.getMonthBookDetailList(year, month, loginID, pm);
 			log.info("가져온 가계부 개수: " + detailList.size());
 
-			// 2-1. 가계부 디테일이 있을 때
+			// 2-1. 디테일이 있을 때
 			if (detailList.size() != 0) {
+				log.info(year+"년 "+month+"월 가계부 구체 내역 있음");
 				model.addAttribute("detailList", detailList);
 				int bk_budget = service.getMonthBudget(loginID, year, month);
 
-				// 3-1. 가계부도 있고 예산도 있을 때
+				// 3-1. 디테일도 있고 예산도 있을 때
 				if (bk_budget > 0) {
-					log.info("한달 예산: " + bk_budget + "만원");
+					log.info("예산 있음");
+					log.info(month+"월 예산: " + bk_budget + "만원");
 					model.addAttribute("bk_budget", bk_budget);
 
 					// 해당 달의 지출 합계
 					int sum = service.getMonthBookMoney(loginID, year, month);
-					log.info("한 달 지출: " + sum + "원");
+					log.info(month+"월 지출: " + sum + "원");
 					if (sum > 0) model.addAttribute("sum", sum);
 					else model.addAttribute("sum", 0);
 
@@ -208,30 +187,36 @@ public class BookController {
 
 					// 해당 달의 예산 대비 지출 퍼센트
 					double moneyPercent = ((sum / (double) (bk_budget * 10000)) * 100);
-					double percent = Math.round(moneyPercent * 1000) / 1000;
+					percent = Math.round(moneyPercent * 1000) / 1000;
 					log.info("한 달 예산 대비 지출 퍼센트 :" + percent + "%");
 					model.addAttribute("percent", percent);
 
 					// 가계부 지출이 예산의 70%가 넘을 때
 					if (moneyPercent >= 70) {
+						log.info("예산의 70% 이상 지출");
 						model.addAttribute("restedBudget1", restedBudget1);
 						model.addAttribute("restedBudget2", restedBudget2);
 						model.addAttribute("percent", percent);
-						return "/book/bookList";
 					} else {
 						model.addAttribute("restedBudget1", restedBudget1);
 						model.addAttribute("restedBudget2", restedBudget2);
 						model.addAttribute("year", year);
 						model.addAttribute("month", month);
 						model.addAttribute("percent", percent);
-						return "/book/bookList";
 
 					}
-				// 3-2. 이번 달 예산이 없을 때
+				// 3-2. 디테일은 있지만 예산이 없을 때
 				} else {
+					log.info("예산 설정 안 함");
 					model.addAttribute("bk_budget", 0);
-					rttr.addFlashAttribute("msg1", "Oops!😅😅😅");
-					rttr.addFlashAttribute("msg2", "아직 이번 달 예산을 설정하지 않으셨네요!");
+					rttr.addFlashAttribute("msg3", "Opps!😅😅😅");
+					rttr.addFlashAttribute("msg4", "아직 이번 달 예산을 작성하지 않으셨네요!");
+					log.info("FlashAttribute 보내기 성공");
+					// 해당 달의 지출 합계
+					int sum = service.getMonthBookMoney(loginID, year, month);
+					log.info(month+"월 지출: " + sum + "원");
+					if (sum > 0) model.addAttribute("sum", sum);
+					else model.addAttribute("sum", 0);
 				}
 			// 2-2. 해당 연 월의 가계부 디테일이 없을 때
 			} else {
@@ -251,8 +236,9 @@ public class BookController {
 
 				// 가계부도 없고 예산도 없을 때
 				} else {
+					log.info("아무것도 없음,,,");
 					model.addAttribute("bk_budget", 0);
-					rttr.addFlashAttribute("msg1", "Opps~!");
+					rttr.addFlashAttribute("msg1", "Opps!😅😅😅");
 					rttr.addFlashAttribute("msg2", "아직 가계부를 작성하지 않으셨네요!");
 				}
 			}
@@ -266,9 +252,74 @@ public class BookController {
 			book.setBk_budget(0);
 			service.writeBook(book);
 			model.addAttribute("bk_budget", 0);
-			rttr.addFlashAttribute("msg1", "Opps~!");
+			rttr.addFlashAttribute("msg1", "Opps!😅😅😅");
 			rttr.addFlashAttribute("msg2", "아직 가계부를 작성하지 않으셨네요!");
 		}
+		
+		log.info("해당 월의 3달 전 예산 및 지출 담기");
+		
+		// 1, 2, 3 개월 전 예산 및 지출 구해서 보내기
+		for(int i=1; i<4; i++) {
+			if(month-i >0 ) {
+				BookVO book = service.getMonthBook(year, month-i, loginID);
+				log.info(i+" 전 달의 정보: "+book);
+				// 가계부 불러오려 했는데 없으면 예산 0으로 새로 생성!
+				if(book==null) {
+					book = new BookVO();
+					book.setBk_year(year);
+					book.setBk_month(month-i);
+					book.setBk_budget(0);
+					book.setId(loginID);
+					service.writeBook(book);
+					log.info("CCCCCCCCCCC "+year+"년 "+(month-i)+"월 가계부 생성");
+				}
+				model.addAttribute("bfyear"+i, year);
+				model.addAttribute("bfmonth"+i, month-i);
+				int bfbudget = service.getMonthBudget(loginID, year, month-i);
+				model.addAttribute("bfbudget"+i, bfbudget);
+				int bfsum = service.getMonthBookMoney(loginID, year, month-i);
+				log.info("year: "+year+", month:"+(month-i));
+				log.info(i+"전 달 예산 및 지출: "+bfbudget+", "+bfsum);
+				// i전 달의 예산이 있을 때
+				if(bfbudget!=0) {
+					// i전 달의 예산, 지출 모두 있을 때 
+					if(bfsum!=0) {
+						percent = (double)((bfsum/(bfbudget)))/100;
+						model.addAttribute("bfpercent"+i, percent);
+					// i전 달의 예산 지출 둘 다 없을 때
+					} else {
+						percent = 0;
+					}
+				// i전 달의 예산이 없을 때
+				}else {
+					percent = 0;
+				}
+			// 가계부에서 불러오려는 연 월이 지난 해일 경우!
+			} else {
+				model.addAttribute("bfyear"+i, year-1);
+				model.addAttribute("bfmonth"+i, 13-i);
+				int bfbudget = service.getMonthBudget(loginID, year-1, 13-i);
+				model.addAttribute("bfbudget"+i, bfbudget);
+				log.info("year: "+year+", month-"+i+": "+(month-i));
+				int bfsum = service.getMonthBookMoney(loginID, year-1, 13-i);
+				if(bfbudget!=0) {
+					// i전 달의 예산, 지출 모두 있을 때 
+					if(bfsum!=0) {
+						percent = (double)((bfsum/(bfbudget*10000)))*100;
+						model.addAttribute("bfpercent"+i, percent);
+					// i전 달의 예산 지출 둘 다 없을 때
+					} else {
+						percent = 0;
+					}
+				// i전 달의 예산이 없을 때
+				}else {
+					percent = 0;
+				}
+			}
+			model.addAttribute("bfpercent"+i, percent);
+			log.info("CCCCCCCCCC bfmonth"+i+", bfyear"+i+", bfbudget"+i+", bfpercent"+i+"보내기 완료");
+		}
+		// 1, 2, 3 개월 전 예산 및 지출 구해서 보내기 끝 --------------------------
 		return "/book/bookList";
 	}
 

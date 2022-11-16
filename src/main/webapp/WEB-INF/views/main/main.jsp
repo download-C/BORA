@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -138,8 +139,8 @@ $(document).ready(function(){
       <div class="row row-cols-md-3 g-3" style="display: flex; justify-content: space-between; flex-flow: row nowrap; margin-bottom: 10px;">
         <!-- News! -->
         <div class="container" style="margin: 0px 20px; width: 45%;">
-          <h2>공지사항</h2>
-          <p align="right"><a href="/main/noticeList?page=1">더보기></a></p>
+          <h2><b>공지사항</b></h2>
+          <p align="right"><b><a href="/main/noticeList?page=1" style="color: #444444;">더보기 ></a></b></p>
           <div class="table-responsive">
             <table class="table">
               <thead>
@@ -153,8 +154,8 @@ $(document).ready(function(){
               <c:forEach var="list" items="${noticeList }" >
                 <tr>
                   <td>${list.nno}</td>
-                  <td>${list.n_title}</td>
-                  <td>${list.n_regdate}</td>
+                  <td><a href="/main/noticeRead?nno=${list.nno }&page=1" style="color: #444444;	">${list.n_title}</a></td>
+                  <td><fmt:formatDate value="${list.n_regdate}" pattern="yyyy.MM.dd"/>  </td>
                 </tr>
               </c:forEach>
               </tbody>
@@ -181,8 +182,8 @@ $(document).ready(function(){
 </script>
 
         <div class="container" style="margin: 0px 20px; width: 45%;">
-          <h2>커뮤니티</h2>
-          <p align="right">더보기></p>
+          <h2><b>커뮤니티</b></h2>
+          <p align="right"><b><a>더보기 ></a></b></p>
           <div class="table-responsive">
             <table class="table">
               <thead>

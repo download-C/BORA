@@ -65,9 +65,9 @@ public class MainController {
 
 	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public void main(Model model) throws Exception{
+	public void main(Model model, HttpSession session) throws Exception{
 		log.info("/main -> main.jsp");
-		
+		session.setAttribute("isUpdate", false);
 		List<NoticeVO> noticeList = noticeService.getNoticeListMain();
 		log.info("공지사항 글 개수: "+noticeList.size());
 		if(noticeList.size()>0) 
@@ -444,6 +444,7 @@ public class MainController {
 		log.info("(♥♥♥♥♥ 3.readGET) 넘어온 nno: " + nno);
 
 		log.info("(♥♥♥♥♥ 3.readGET) isUpdate: " + session.getAttribute("isUpdate"));
+		
 		boolean isUpdate = (boolean)session.getAttribute("isUpdate");
 		
 		if(!isUpdate) { 

@@ -82,8 +82,8 @@ public class BookDetailDAOImpl implements BookDetailDAO{
 	public Integer getMonthBookDetailCnt(String loginID, int year, int month) throws Exception {
 		log.info("getBookDetailCnt(loginID) 호출");
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("bk_year", year);
-		map.put("bk_month", month);
+		map.put("year", year);
+		map.put("month", month);
 		map.put("loginID", loginID);
 		return session.selectOne(NAMESPACE+".getMonthBookDetailCnt", map);
 	}

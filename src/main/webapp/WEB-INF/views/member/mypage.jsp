@@ -66,9 +66,10 @@ function success(msg) {
                   style="background-color: #5107b0; border-color: #5107b0" onclick="location.href='/member/update';">수정하기</button>
 						</div>
 				</div>
-						<div class="container" align="right" style="color: #d4c6eb; margin: 5px; font-size: x-small;"
+					<br>
+						<div class="container" align="right" style="color: #d1b9f6; margin: 5px; font-size: 15px;"
 						 	onclick="location.href='/member/delete';"> 
-                <span>회원탈퇴 ></span>
+                <span>회원탈퇴 >></span>
             </div>
 					</div>	
 			</div>
