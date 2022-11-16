@@ -418,28 +418,21 @@ function uncomma(str) {
 	<div class="left-box">
 		
 	</div>
-
-	
-	<div class="right-box" >
-		<!-- 가계부 연 월 선택 -->
-	
-	</div>	
-		<div> &nbsp;&nbsp;&nbsp;&nbsp; </div>
-		<!-- 가계부 쓰기 버튼 -->
-		<div style="float: right; margin-bottom: 5px;">
-			<input type="button" value="가계부 쓰기" class="btn m3" 
-				onclick="location.href='/book/write?year=${year}&month=${month}&day=${day }';" 
-				style="background-color: #5107B0; width: 100px; margin:auto; padding: 0px; color:white">
+			<!-- 가계부 쓰기 버튼 -->
+			<div style="float: right; margin: 0 10px 10px 0;">
+				<input type="button" value="가계부 쓰기" class="btn m3" 
+					onclick="location.href='/book/write?year=${year}&month=${month}&day=${day }';" 
+					style="background-color: #5107B0; font-size:large; width: 100px; margin:auto; padding: 5px; color:white">
+			</div>
 		</div>
-	</div>
 		
 
 		<!-- 가계부 목록 -->
-		<div class="listTable">
-		
-			<table border="1" style="width: 100%; text-align: center; ">
+		<div class="listTable" style="width: 100%; text-align: center; background-color: white; padding: 10px; border-radius: 15px;
+        			 box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);" >
+			<table border="1" style="width: 100%; margin: auto;">
 			<thead style="background-color: #5107B0; color: white; ">
-				<tr>
+				<tr style="height: 40px;">
 					<td width="10%">일</td>
 					<td width="10%">항목</td>
 					<td width="10%">자산</td>
@@ -451,7 +444,7 @@ function uncomma(str) {
 			</thead>
 			<tbody>
 				<c:forEach items="${detailList }" var="list">
-				<tr style="border-bottom-color: gray;">
+				<tr style="height: 40px; background-color:white;">
 					<td>${list.bk_day }일</td>
 					<td>${list.bk_iow }</td>
 					<td>${list.bk_group }</td>
@@ -460,11 +453,11 @@ function uncomma(str) {
 					<td>${list.bk_memo }</td>
 					<td style="font-size: x-small">
 						<button id="budgetBtn" class="btn m3"  onclick="location.href='/book/update?page=1&bk_num=${list.bk_num}&bk_detail_num=${list.bk_detail_num }';"
-						style="background-color: #5107B0; width: 100px; margin:auto; padding: 0px; color:white; max-width:50px;" >
+						style="background-color: #5107B0; width: 80px; margin:auto; padding: 0px; color:white; max-width:50px;" >
 						<span class="btn-inner--text" style="color: white;">수정</span>
 						</button>
 						<button id="budgetBtn" class="btn m3"  onclick="location.href='/book/delete?page=1&bk_num=${list.bk_num}&bk_detail_num=${list.bk_detail_num }';"
-						style="background-color: #5107B0; width: 100px; margin:auto; padding: 0px; color:white; max-width:50px;" >
+						style="background-color: #5107B0; width: 80px; margin:auto; padding: 0px; color:white; max-width:50px;" >
 						<span class="btn-inner--text" style="color: white;">삭제</span>
 						</button>
 					</td>
