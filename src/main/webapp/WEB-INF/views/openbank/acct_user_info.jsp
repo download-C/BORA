@@ -14,14 +14,26 @@
 <!-- End title -->
 <br>
 
+
+<style type="text/css">
+   div{
+       width : 100%;
+       height : 100%;
+       margin : 0;
+       padding : 0;
+       border : none;  
+       overflow : auto;                    
+   }    
+</style> 
+
    <style>
     .tbtn {
       background-color: #5107B0;
       float: center;
-      width: 330px;
-      height: 70px;
-      margin :20px;
-      padding: 10px 10px 10px 10px;
+/*       width: 330px; */
+/*       height: 70px; */
+      margin :30px;  
+      padding: 20px 50px 20px 50px;
       border: 1px solid #fff;
       border-radius: 8px;
       color: white; 
@@ -42,7 +54,7 @@
 <!--   	<div class="box" style="display: flex; justify-content: space-between; flex-flow: row nowrap;"> -->
 	
 <!--     <div class="row"> -->
-      <div class="col-sm-9 col-md-7 col-lg-80 mx-auto">
+      <div class="col-sm-9 col-md-7 col-lg-70 mx-auto">
 <!--       <div class="col-sm-9 col-md-7 col-lg-65" > -->
 <!--       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto"> -->
         <div class="card border-0 shadow rounded-3 my-5">
@@ -64,7 +76,8 @@
             </form>
     </div>
     </div>
-    	<div class="box" style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
+<!--     	<div class="box" style="display: flex; justify-content: space-between; flex-flow: row nowrap;"> -->
+    	<div class="col-sm-19 col-md-17 col-lg-80 mx-auto" style="display: flex; justify-content: space-between;">
   		<form method="get" action="/openbank/accountList">
 			<!-- 		필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 -->
 			<input type="hidden" name="access_token" value="${sessionScope.token }">
