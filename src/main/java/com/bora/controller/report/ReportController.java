@@ -20,6 +20,7 @@ import com.bora.controller.MemberController;
 import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookVO;
 import com.bora.service.CardPayService;
+import com.bora.service.report.BookService;
 import com.bora.service.report.ConsumeAllListService;
 import com.bora.service.report.ReportService;
 
@@ -32,6 +33,9 @@ public class ReportController {
 	  
 	   @Inject
 	   HttpSession session;
+	   
+	   @Inject
+	   private BookService bservice;
 	  
 	
 	   String loginID;
@@ -56,9 +60,11 @@ public class ReportController {
 	   
 	   
 		// http://localhost:8088/report/categoryList
+	   
+	// 1-1. 해당 연월의 가계부가 있을 때
 	   //카테고리 별 합계
 	   @RequestMapping(value="/categoryList", method = RequestMethod.GET)
-	   public void categorylist(Model model) throws Exception{
+	   public void categorylist(Model model, RedirectAttributes rttr) throws Exception{
 		   log.info(" φ(._.) categorylist() 호출 ");
 		   
 		   loginID=(String)session.getAttribute("loginID");
@@ -72,6 +78,7 @@ public class ReportController {
 			model.addAttribute("month", month);
 			model.addAttribute("day", day);
 		   
+			if (service.cateSum(year, month, loginID)!= null) {
 		   log.info(service.cateSum(year, month, loginID)+"");
 		   List<Integer> sumArr = new ArrayList<>();
 		   List<String> caArr = new ArrayList<String>();
@@ -114,9 +121,16 @@ public class ReportController {
 				log.info("바꾼 정보: "+dtlvo);
 				model.addAttribute("consumeList", dtlvo);
 			}
+	   
+	   else {
+	
+		   log.info("@@@@@@@@@@@@@@@@@오니?");
+			rttr.addFlashAttribute("msg1", "Opps~!");	
+			rttr.addFlashAttribute("msg2", "아직 가계부를 작성하지 않으셨네요!");
+		}
+	   
+	   }
 }
-	   
-	   
 	 
 	   
 	   

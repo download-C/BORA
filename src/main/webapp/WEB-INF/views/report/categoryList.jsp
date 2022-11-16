@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../include/header.jsp"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script	src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
@@ -23,17 +24,17 @@
 <!-- 사이드바 js -->
 
 <style type="text/css">
-	 	@media (min-width: 1400px) {
-      .container {
-        max-width: 1200px;
-      }
-    }
+	 
 		@media (max-width: 576px) {
 			.container {
 				display: inline-block;
 				
 			}
 		}
+		
+		#csList{
+text-align: center
+}
 </style>
 <%
 	if (loginID == null) {
@@ -46,8 +47,75 @@
 	}
 %>
 <script>
-$(document).ready(function(){
+$(document).ready(function() {
+    let msg = "${msg}";
+    if (msg != "") {
+        info(msg);
+    }
+})
 
+//info 버튼
+function info(msg1, msg2) {
+    Swal.fire(
+     msg1,
+     msg2,
+     'info' /*디자인 타입*/
+    )
+}//info 버튼
+
+//버튼 배경색 입히는 버튼
+function bora() {
+	Swal.fire({
+		  title: '로그인 후 이용 가능합니다.',
+    	  width: 600,
+    	  padding: '3em',
+		  background: '#fff',
+		  backdrop: '#fff' //#7A1CF6에 투명도
+	 });
+}//버튼 배경색 입히는 버튼	
+
+function success(msg3, msg4) {
+    Swal.fire(
+        msg3,
+        msg4,
+        'success' /*디자인 타입*/
+    )
+}//success 버튼
+	
+$(document).ready(function() {
+    
+    let msg1 = "${msg1}";
+    let msg2 = "${msg2}";
+    if(msg1!="" && msg2!="") {
+    	info(msg1, msg2);
+    }
+})
+</script>
+
+
+
+
+<script type="text/javascript">
+function inputNumberFormat(obj){
+	obj.value = comma(uncomma(obj.value));
+}
+
+function comma(str){
+	str = String(str);
+	return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+
+function uncomma(str){
+	str = String(str);
+	return str.replace(/[^\d]+/g, '');
+}
+
+</script>
+
+
+<script>
+
+$(document).ready(function(){
 
 
 
@@ -171,7 +239,7 @@ $(document).ready(function(){
                    $('#tbody').append(
                    '<tr>'
                      +'<td>'+bk_memo+'</td>'
-                      +'<td>'+bk_money+'원</td>'
+                     +'<td>'+bk_money+'원</td>'
                    +'</tr>'   
                    ); // append
                 }); //each
@@ -267,7 +335,7 @@ $(document).ready(function(){
     		  }else if(cg == "통신비"){
     			  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/phone.png");
     		  }else{
-    			  alert('없어용 꿀꿀');
+    			  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/noexist.png");
     		  }
     		  
     		  
@@ -323,7 +391,7 @@ $(document).ready(function(){
 							<c:if test="${year eq '2021'}">selected</c:if>>2021</option>
 					</select>
 			</form>
-			년 &nbsp;</a>
+			년 &nbsp;
 			<form id="form2" method="get" action=""
 				style="display: inline-block; width: 6%">
 				<select name="month" id="month">
@@ -359,31 +427,29 @@ $(document).ready(function(){
 
 <%-- 	<canvas id="myChart" width="400" height="400"></canvas> --%>
 
-<div class="container"  style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
-
+<div class="container">
+	<div class="container">
 	<!---------------------- 차트 부분 시작 ------------------------------>
 	<div class="row row-cols-md-4 g-4">
-		<div class="col-md-12 col-12" >
+		<div class="col-md-6 col-12" >
 			<div class="card border-left-info shadow h-100 py-2">
 				<div class="card-body">
-					<div class="chart-pie pt-4 pb-2">
-						<canvas id="myChart"></canvas>
+					<div class="chart-pie pt-4 pb-2 justify-content-center  align-items-center">
+						<canvas id="myChart" style="margin:0 auto;"></canvas>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	
 	<!---------------------- 차트 부분 끝 ------------------------------>
 	
   <!---------------------- 이번 달 상세 내역: 전월 대비 차액, 비교 ------------------------------>
-   <div class="col-md-6 col-12" style="float:right">
+<div class="col-md-6 col-12">
         <div class="card border-left-info shadow h-100 py-2">
           <div class="card-body">
-          
             <table class="table table-striped mb-0">
               <thead style="background-color: gray; text-align: center;">
-
-
+※ 저번달 혹은 이번달 내역이 없으면 0으로 표기 됩니다
             <tr>
               <th scope="col">카테고리</th>
              <th scope="col">총소비</th>
@@ -391,23 +457,28 @@ $(document).ready(function(){
               <th scope="col">전월대비</th>
             </tr>
              </thead>
+  
+   
          
-            <tbody id="tbody3">
+            <tbody id="tbody3" style="text-align: center;">
                <c:forEach var="vo" items="${consumeList }">
                   <tr>
-                    <td>${vo.bk_category}</td>
-                     <td>${vo.bk_sum }</td>
-                    <td>${vo.bk_minus }</td>
-                    <td>${vo.bk_compare}</td>
+                   <td >${vo.bk_category}</td>
+                     <td > <fmt:formatNumber value="${vo.bk_sum}" pattern="#,###" />원</td>
+                    <td >${vo.bk_minus }</td>
+                    <td >${vo.bk_compare}%</td>
                      </tr>
                      
                </c:forEach>
-               ※ 저번달 혹은 이번달 내역이 없으면 0으로 표기 됩니다
+              
                </tbody>
      		  </table>
+     		
        	</div>
     	</div>
    </div>
+   </div>
+   
 	<!---------------------- 이번 달 상세 내역: 전월 대비 차액, 비교 ------------------------------>
 </div>
 
@@ -436,14 +507,12 @@ $(document).ready(function(){
 
 
 <!---------------------- 내역/날짜 TOP3 ------------------------------>
-<div class="container">
-
-<div class="containr" style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
-<div class="container"
-	style="width: 49%; background-color: white; padding: 20px; border-radius: 15px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
-		<h4 style="text-align: center;"><%=loginID%>님의 <%=month %>월 소비내역 TOP3
-		</h4>
-		<i class="fa-solid fa-ranking-star"></i>
+<div class="row row-cols-md-3 g-3 justify-content-center">
+      <!-- 카테고리별 -->
+      <div class="container"
+        style=" background-color: white; padding: 20px; margin:15px; border-radius: 15px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
+		<h4 style="text-align: center;">${nick}님의 <%=month %>월 소비내역 TOP3
+		<i class="fa-solid fa-ranking-star"></i></h4>
 		<div class="table-responsive">
 			<table class="table">
 				<tbody style="text-align: center;" id="tbody">
@@ -451,7 +520,7 @@ $(document).ready(function(){
 					<c:forEach var="vo" items="${top3}">
 						<tr>
 							<td>${vo.bk_memo}</td>
-							<td>${vo.bk_money}원</td>
+							<td> <fmt:formatNumber value="${vo.bk_money}" pattern="#,###"/>원</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -459,11 +528,10 @@ $(document).ready(function(){
 			</table>
 		</div>
 	</div>
-	<div class="container"
-	style="width: 49%; background-color: white; padding: 20px; border-radius: 15px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
-		<h4 style="text-align: center;"><%=loginID%>님의 <%=month %>월 소비날짜 TOP3
-		</h4>
-		<i class="fa-solid fa-ranking-star"></i>
+<div class="container"
+	style=" background-color: white; padding: 20px; margin:15px; border-radius: 15px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
+		<h4 style="text-align: center;">${nick }님의 <%=month %>월 소비날짜 TOP3
+		<i class="fa-solid fa-ranking-star"></i></h4>
 		<div class="table-responsive">
 			<table class="table">
 				<tbody style="text-align: center;" id="tbody2">
@@ -471,7 +539,7 @@ $(document).ready(function(){
 					<c:forEach var="vo" items="${top3date}">
 						<tr>
 							<td>${vo.bk_day}일</td>
-							<td>${vo.bk_sum}원</td>
+							<td> <fmt:formatNumber value="${vo.bk_sum}" pattern="#,###"/>원</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -482,6 +550,8 @@ $(document).ready(function(){
 </div>
 </div>
 </div>
+
+<br><br>
 <!---------------------- 내역/날짜 TOP3 끝 ------------------------------>
 
 
