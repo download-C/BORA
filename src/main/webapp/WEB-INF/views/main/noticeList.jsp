@@ -5,7 +5,23 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<style>
+a {
+  color: black;
+  text-decoration: none;
+}
 
+a:hover {
+  color: #5107B0;
+  text-decoration: none;
+}
+
+.pagination {
+    --bs-pagination-active-bg: #e3cffc  !important; 
+    --bs-pagination-active-border-color: #e3cffc  !important;
+}
+
+</style>
 <div class="section-title">
   <h2><b>공지사항</b></h2>
   
@@ -40,7 +56,7 @@
 								 <c:forEach var="list" items="${noticeList }">
 								 <tr style="text-align: center;">
 									 <td><span class="text-sm font-weight-normal">${list.nno}</span></td>
-									 <td> <p class="text-sm font-weight-normal mb-0"><a href="/main/noticeRead?nno=${list.nno }&page=1" style="color: black;	">
+									 <td> <p class="text-sm font-weight-normal mb-0" style="text-align: left;"><a href="/main/noticeRead?nno=${list.nno }&page=1" style="color: black;	">
 									 					${list.n_title }</a></p> </td>
 									 <td><b>관리자</b></td>
 									 <td> <span  class="text-sm font-weight-normal"></span><fmt:formatDate value="${list.n_regdate }" pattern="YYYY.MM.dd. HH:mm" /> </td>
@@ -56,30 +72,26 @@
 </div>
 <!-- End table -->
 	<!-- ===================== 페이징 처리 구간 ========================== -->
-	<nav aria-label="Page navigation example">
-		<ul class="pagination justify-content-center" >
+<div id="pagingDiv">
+		<nav aria-label="Page navigation example">
+		<ul type="none" id="pageUl"  class="pagination justify-content-center">
 			<c:if test="${pm.prev }"> 
-				<li class="page-item">
-					<a class="page-link" aria-label="Previous" style="color:#621fb7;" 
-						 href="/main/noticeList?page=${pm.pageStart - 1 }">
-						 <span aria-hidden="true"> &laquo;</span>
-					</a>
+				<li><a href="/main/noticeList?page=${pm.pageStart - 1 }" class="page-item" aria-label="Previous" style="color:#621fb7;">
+						<span aria-hidden="true">&laquo;</span></a>
 				</li>
 			</c:if>
 			<c:forEach var="index" begin="${pm.pageStart }" end="${pm.endPage }"> 
-				<li class="page-item" ${pm.vo.page == index? 'class=active' : '' }  style="float: left;">
-					<a class="page-link" aria-label="Next" style="color:#5107B0;" 
-						 href="/main/noticeList?page=${index}"> 
-						 <span aria-hidden="true">&nbsp;&nbsp; ${index} &nbsp;&nbsp;</span>
-				  </a>
-
+				<li ${pm.vo.page == index? 'class=active' : '' }  style="float: left;"  class="page-item">
+					<a href="/main/noticeList?page=${index }" style="color:#621fb7;"  class="page-link" > ${index} </a>
 				</li>
 			</c:forEach>
 			<c:if test="${pm.next }">
-				<li><a href="/main/noticeList?page=${pm.endPage + 1 }">&raquo;</a></li>
+				<li class="page-item"><a href="main/noticeList?page=${pm.endPage + 1 }" class="page-link"  aria-label="Next" style="color:#621fb7;">
+					<span aria-hidden="true">&raquo;</span></a></li>
 			</c:if>
 		</ul>
-	</nav>
+		</nav>
+	</div>
 	<!-- ===================== 페이징 처리 구간 끝 ========================== -->
 
 <script type="text/javascript">
