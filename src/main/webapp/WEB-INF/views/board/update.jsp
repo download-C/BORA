@@ -6,18 +6,25 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link href=" ${pageContext.request.contextPath}/resources/css/writeForm.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
-<%-- 
 <%
 	if (loginID == null) {
 %>
 <script>
-	alert("세션값이 만료되어 로그인 페이지로 이동합니다.");
+	warning("로그인 후 사용 가능한 페이지입니다.");
 	location.href = "/main/login";
+	
+    //warning 버튼
+	function warning(result) {
+        Swal.fire(
+            result,
+            '',
+            'warning' /*디자인 타입*/
+        )
+    }//warning 버튼
 </script>
 <%
 	}
 %>
- --%>
 
 <!-- ======== for 썸머노트 ============== -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>

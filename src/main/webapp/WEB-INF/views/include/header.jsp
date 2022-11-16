@@ -114,7 +114,7 @@ if(session!=null) {
       </div>
       <div class="social-links nav justify-content-end">
     <%if(loginID != null){%>
-    		<a>♡${nick }님♡</a> 
+    		<a>💜${nick }님💜</a> 
     		<a href="/member/mypage"  class="twitter">마이페이지</a>
         <a href="/member/logout" class="twitter">로그아웃</a>
     <%} else {%>

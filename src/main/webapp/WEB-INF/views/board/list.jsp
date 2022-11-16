@@ -44,11 +44,19 @@ a:hover {
 // <!-- ajax로 카테고리 호출 시 페이징 처리 대신 하는 메서드 -->
 	$(document).ready(function(){
 		
+		// 더보기 버튼 평소에는 숨기고 있다가
+		$('#addBtn').hide();
+		
 		$('.ctgr_btn').click(function(){
+			
+			// 카테고리 버턴 클릭했을 때~
+			// 더보기 버튼 등장
+			$('#addBtn').show();
+			
 			var ctgr = $(this).val();
 // 			alert(ctgr);
 			$('#ctgrHidden').val(ctgr); // input hidden에 클릭한 ctgr 값으로 채워놓기
-			$('#pagingDiv').remove()
+			$('#pagingDiv').remove();
 			var startNum = 0;
 
 			$.ajax({
@@ -83,7 +91,7 @@ a:hover {
 						'<tr>'
 							+'<td>'+bno+'</td>'
 							+'<td>'+b_ctgr+'</td>'
-							+'<td><a href=/board/read?bno='+bno+'&page=1>'+b_title+'</a>&nbsp; [' + b_cmtcount + ']</td>'
+							+'<td><a href=/board/read?bno='+bno+'&page=1>'+b_title+'</a>&nbsp; <span style="color: #5107B0; font-size: small;">[' + b_cmtcount + ']</span></td>'
 							+'<td>'+nick+'</td>'
 							+'<td>'+regdate+'</td>'
 							+'<td>'+b_readcount+'</td>'
@@ -150,7 +158,7 @@ a:hover {
 							'<tr>'
 								+'<td>'+bno+'</td>'
 								+'<td>'+b_ctgr+'</td>'
-								+'<td><a href=/board/read?bno='+bno+'&page=1>'+b_title+'</a>&nbsp; [' + b_cmtcount + ']</td>'
+								+'<td><a href=/board/read?bno='+bno+'&page=1>'+b_title+'</a>&nbsp; <span style="color: #5107B0; font-size: small;">[' + b_cmtcount + ']</span></td>'
 								+'<td>'+nick+'</td>'
 								+'<td>'+regdate+'</td>'
 								+'<td>'+b_readcount+'</td>'
@@ -201,7 +209,7 @@ a:hover {
   <div class="col-12">
    <div class="d-sm-flex align-items-center mb-3">
 	<div class="container">
-		<button type="button" value="모두다BORA" class="ctgr_btn btn" id="btn_all"  style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">모두다<b style="color:#5107B0;">BORA</b></span></button>
+		<button type="button" value="모두다BORA" class="btn" onclick="location.href='/board/list';" id="btn_all"  style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">모두다<b style="color:#5107B0;">BORA</b></span></button>
 		<button type="button" value="골라줘BORA" class="ctgr_btn btn" id="btn_pick" style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">골라줘<b style="color:#5107B0;">BORA</b></span></button>
 		<button type="button" value="알려줘BORA" class="ctgr_btn btn" id="btn_tip"  style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">알려줘<b style="color:#5107B0;">BORA</b></span></button>
 		<button type="button" value="친해져BORA" class="ctgr_btn btn" id="btn_meet" style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">친해져<b style="color:#5107B0;">BORA</b></span></button>

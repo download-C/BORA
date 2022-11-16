@@ -11,8 +11,20 @@
 	if (loginID == null) {
 %>
 <script>
-	alert("로그인 후 사용 가능한 페이지입니다.");
-	location.href = "/main/login";
+	warning("로그인 후 사용 가능한 페이지입니다.");
+	setTimeout(function(){
+		location.href = "/main/login";
+	}, 2000);
+	
+	
+	//warning 버튼
+	function warning(result) {
+	    Swal.fire(
+	        result,
+	        '',
+	        'warning' /*디자인 타입*/
+	    )
+	}//warning 버튼
 </script>
 <%
 	}
@@ -69,18 +81,22 @@
 			</span>
 			<div class="insertBoard">
 				<!-- 아이디&닉네임 히든 구간~~ -->
-				<input type="hidden" name="id" value="${loginID }"> <input
-					type="hidden" name="nick" value="${sessionScope.nick }"
-					class="input100">
+				<input type="hidden" name="id" value="${loginID }"> 
+				<input type="hidden" name="nick" value="${sessionScope.nick }" class="input100">
 				<div class="wrap-input100 validate-input" style="height: 62px;">
 					<!-- 카테고리 -->
-					<select name="b_ctgr" class="selectcategory"
+					<select name="b_ctgr" class="selectcategory" required 
 						style="border-style: none; width: 100%; font-size: 16px; padding: 0 20px 0 23px; height: 62px; display: block; margin: auto; color: gray; border-radius: 23px;">
 						<option value="" disabled selected style="color: black;">카테고리를 선택해주세요</option>
 						<option value="골라줘BORA" style="color: black;">골라줘BORA</option>
 						<option value="알려줘BORA" style="color: black;">알려줘BORA</option>
 						<option value="친해져BORA" style="color: black;">친해져BORA</option>
 					</select>
+							<script>
+								if ($('select').val() == '') {
+									return false;
+								}
+							</script>
 				</div>
 				<div class="wrap-input100 validate-input">
 					<!-- 제목 -->

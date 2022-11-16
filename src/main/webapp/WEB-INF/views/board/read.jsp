@@ -12,8 +12,17 @@
 	if (loginID == null) {
 %>
 <script>
-	alert("세션값이 만료되어 로그인 페이지로 이동합니다.");
+	warning("로그인 후 사용 가능한 페이지입니다.");
 	location.href = "/main/login";
+	
+	//warning 버튼
+	function warning(result) {
+	    Swal.fire(
+	        result,
+	        '',
+	        'warning' /*디자인 타입*/
+	    )
+	}//warning 버튼
 </script>
 <%
 	}
@@ -56,8 +65,14 @@ $(document).ready(function(){
 	    });
 	}//success 버튼
 	
-	//warning 버튼
- 
+    //warning 버튼
+	function warning(result) {
+        Swal.fire(
+            result,
+            '',
+            'warning' /*디자인 타입*/
+        )
+    }//warning 버튼
 	// 알림 모달창 호출 함수 끝 --------------
 	
 	
