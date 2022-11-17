@@ -26,9 +26,11 @@
 </style>    
 
 <style type="text/css">
+ #box1, #box2 {
+  	max-width: 49%; 
+  }
 @media(max-width: 576px) { 
 	tbody {
-		font-size: 0.7rem;
 	}
 	.m3 {
 		font-size: 0.6rem;
@@ -39,6 +41,9 @@
       .row {
         display: block;
       }
+      #box1, #box2 {
+  			max-width: 90%; 
+  }
     }
     @media (min-width: 1400px) {
       .container {
@@ -73,6 +78,9 @@
       top: 0;
       position: sticky;
     }
+   
+  }
+
 </style>
 
 <%
@@ -156,20 +164,20 @@ $(document).ready(function(){
 	var restedBudget2 = "<c:out value='${restedBudget2}' />";  // 남은 예산2 (만 자리 이하 천백십일원)
 	if (percent>=70.0	) {
 		restedBudgetPercent = 100-percent;  // 남은 예산 퍼센트
-		let msg = "설정하신 예산 '<b style='color: #81d742;'>"+bk_budget+"만원</b>'에서 <br>"
-							+"'<b style='color:#f07160;'>"+restedBudget1+"만 "+restedBudget2+"원("
-							+restedBudgetPercent+"%)</b>' 남았습니다!";
+		let msg = "<sapn style='font-size: 80%'>설정하신 예산 <b style='color: #81d742;'>"+bk_budget+"만원</b>에서 <br>"
+		+"<b style='color:#f07160;'>"+restedBudget1+"만 "+restedBudget2+"원("
+		+restedBudgetPercent+"%)</b> 남았습니다!</span>";
 		warning(msg);
 	}
 });
 </script>
 
 <!-- alert 모달 -->
-<script>
+<script>	
 
 function warning(msg) {
     Swal.fire({
-        title: '경고',
+        title: msg,
         text: '',
         icon: 'warning', /*디자인 타입*/
         confirmButtonColor: '#7A1CF6'
@@ -267,24 +275,25 @@ function uncomma(str) {
 <div class="form-floating" style="">
 		<div style="margin: 50px 0px; text-align:center; ">
 			<h3><select name="year" id="year" onchange="changeSelect()">
-				<option value="2021">2021년</option>
-				<option value="2022">2022년</option>
-				<option value="2023">2023년</option>
+				<option value="2020">2020</option>
+				<option value="2021">2021</option>
+				<option value="2022">2022</option>
+				<option value="2023">2023</option>
+				<option value="2024">2024</option>
 			</select>년 &nbsp;&nbsp;
 			<select name="month" id="month" onchange="changeSelect()">
-					<option value="">월</option>
-					<option value="1">1월</option>
-					<option value="2">2월</option>
-					<option value="3">3월</option>
-					<option value="4">4월</option>
-					<option value="5">5월</option>
-					<option value="6">6월</option>
-					<option value="7">7월</option>
-					<option value="8">8월</option>
-					<option value="9">9월</option>
-					<option value="10">10월</option>
-					<option value="11">11월</option>
-					<option value="12">12월</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
 			</select>월 가계부</h3>
 		
 		</div>
@@ -297,7 +306,7 @@ function uncomma(str) {
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 justify-content-center" >
   	<!-- 왼쪽 차트 박스 -->
-       <div class="container mb-2"
+       <div class="container mb-2 " id="box1"
           style="background-color: white; padding: 20px; border-radius: 15px; height: 250px; 
         			 box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
           <!-- 예산 추이 차트 자리 -->
@@ -380,20 +389,22 @@ function uncomma(str) {
           <!-- 예산 추이 차트 자리 끝 -->
       </div>
   	<!-- 왼쪽 차트 박스 끝 -->
-      <div class="col">
-        <div class="container mb-2"
-        style="background-color: white; padding: 20px; border-radius: 15px; height: 250px; 
+  	<!-- 오른쪽 예산 박스 시작 -->
+        <div class="container mb-2" id="box2"
+          style="background-color: white; padding: 20px; border-radius: 15px; height: 250px; 
         			 box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
           <div style="margin-bottom: 10px; max-width: 400px; margin:auto;">
 					
           	<div style="display: flex;" >
-		          <h4 style="width: 70%"><b>한 달 예산</b> <input type="number" name="bk_budget" id="bk_budget" value="${bk_budget}" style="text-align: right; width:70px; ">만원	</h4>
-		          <button id="budgetBtn" class="btn m3" style="background-color: #5107B0; width: 30%; margin:auto; padding: 0px; color:white" >
-							<span class="btn-inner--text" style="color: white;">예산 입력</span>
+		          <h5 style="width: 70%"><b>한 달 예산</b> 
+		          	<input type="number" name="bk_budget" id="bk_budget" value="${bk_budget}" style="text-align: right; width:70px; ">만원</h5>
+		          <button id="budgetBtn" class="btn m3" style="background-color: #5107B0; width: 20%; margin:auto; padding: 0px; color:white" >
+							<span class="btn-inner--text" style="color: white;">예산<br>입력</span>
 							</button>
 					 </div>
+					 <br>
 					 <h5>지출 <span style="color: red;"><fmt:formatNumber pattern="#,###" value="${sum }" />원</span></h5>
-	         <h6>${restedBudget1 }만 ${restedBudget2 }원 남았습니다.</h6>
+	         <h6 style="font-size: 95%">설장하신 예산에서 ${restedBudget1 }만 ${restedBudget2 }원 남았습니다.</h6> <br>
 	         <div class="row no-gutters align-items-center">
 	           <div class="col-auto">
 	             <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
@@ -412,7 +423,7 @@ function uncomma(str) {
         </div>
         </div>
       </div>
-      </div>
+     
   </div>
 	<div style="display: flex; justify-content: space-between; flex-flow: row nowrap; max-height: 50px; margin-top: 20px;">
 	<div class="left-box">
@@ -482,7 +493,7 @@ function uncomma(str) {
 				</c:if>
 			</ul>
 		</div>
-	</div>
+ </div>
 <!-- 태그 적는 곳 -->
 <!-- Jquery CDN 로드 : 항상 최신 버전 사용 -->    
 
