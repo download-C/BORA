@@ -111,11 +111,7 @@ public class BookController {
 			dService.writeBookDetail(detail);
 			log.info("가계부 작성 성공! 리스트로 이동");
 			rttr.addFlashAttribute("msg3", "가계부 작성이 완료되었습니다.");
-			Calendar cal = Calendar.getInstance();
-			int year = cal.get(Calendar.YEAR);
-			int month = cal.get(Calendar.MONTH)+1;
-			int day = cal.get(Calendar.DATE);
-			return "redirect:/book/list?year="+year+"&month="+month+"&day="+day;
+			return "redirect:/book/list?year="+bk_year+"&month="+bk_month+"&day="+bk_day;
 		} else {
 			log.info("가계부 작성 실패");
 			rttr.addFlashAttribute("msg4", "가계부 작성에 실패했습니다.");
