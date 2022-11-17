@@ -21,8 +21,8 @@ public interface BoardService {
 		public List<BoardVO> getBoardListCtgr(String ctgr, Integer startNum) throws Exception;
 
 			// 2-3. 총 글 개수
-			public int getBoardCnt() throws Exception;
-			public int getBoardCntCTGR(String ctgr) throws Exception;
+			public Integer getBoardCnt() throws Exception;
+			public Integer getBoardCntCTGR(String ctgr) throws Exception;
 			
 	// 3. 글 1개 정보 불러오기
 	public BoardVO getBoard(Integer bno) throws Exception; 

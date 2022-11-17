@@ -84,13 +84,13 @@ public class BoardServiceImpl implements BoardService {
 	
 			// 2-3. 총 글 개수
 			@Override
-			public int getBoardCnt() throws Exception {
+			public Integer getBoardCnt() throws Exception {
 				return dao.getBoardCnt();
 			}
 			
 			
 			@Override
-			public int getBoardCntCTGR(String ctgr) throws Exception {
+			public Integer getBoardCntCTGR(String ctgr) throws Exception {
 				return dao.getBoardCntCTGR(ctgr);
 			}
 	

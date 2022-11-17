@@ -77,7 +77,7 @@
 	<!-- 4-1. 글 수정 ====================================== -->
 	<update id="updateBoard">
 		update bora_cmnt_board
-		set b_title = #{b_title}, b_content = #{b_content}, b_file = #{b_file}, b_updatedate = now()
+		set b_title = #{b_title}, b_content = #{b_content}, b_file = #{b_file}, b_ctgr = #{b_ctgr}, b_updatedate = now()
 		where bno = #{bno}
 <!-- 		and id = #{id} -->
 	</update>
@@ -105,7 +105,7 @@
 		from bora_cmnt_board
 		where bno &gt; 0
 		order by bno desc
-		limit 1, 5
+		limit 0, 5
 	</select>
 	
 	
