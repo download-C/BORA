@@ -128,14 +128,14 @@ public class BoardDAOImpl implements BoardDAO {
 			
 					// 글 개수 count 
 					@Override
-					public int getBoardCnt() throws Exception {
+					public Integer getBoardCnt() throws Exception {
 						log.info("getBoardCnt() 호출");
 						log.info(sqlSession.selectOne(NAMESPACE+".getBoardCnt")+"");
 						return sqlSession.selectOne(NAMESPACE+".getBoardCnt");
 					}
 					
 					@Override
-					public int getBoardCntCTGR(String b_ctgr) throws Exception {
+					public Integer getBoardCntCTGR(String b_ctgr) throws Exception {
 						log.info("getBoardCntCTGR() 호출");
 						return sqlSession.selectOne(NAMESPACE+".getBoardCntCTGR", b_ctgr);
 					}
@@ -189,7 +189,7 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	// 5. 글 삭제하기
 	@Override
-	public int deleteBoard(Integer bno/* , String id */) throws Exception {
+	public Integer deleteBoard(Integer bno/* , String id */) throws Exception {
 		log.info("(♥♥♥♥♥ 5.removeBoard) Service가 호출함");
 		
 		log.info("(♥♥♥♥♥ 5.removeBoard) mapper 가서 DB 처리하러..");

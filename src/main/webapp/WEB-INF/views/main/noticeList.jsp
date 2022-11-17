@@ -42,11 +42,11 @@ a:hover {
 			</div>
 				 <div class="px-0 py-0" >
            <div class="container">
-         	   <table class="table table-hover" style="box-shadow: 7px 14px 90px 3px rgba(163, 174, 184, 0.7);">
+         	   <table class="table table-hover" style="box-shadow: 7px 14px 90px 3px rgba(163, 174, 184, 0.7); width: 80%; margin:auto;">
 	             <thead>
 	               <tr style="text-align: center; color:white; background-color: #5107B0;" >
 									 <th class="text-xs font-weight-semibold opacity-7" style="font-weight: normal;">번호</th>
-									 <th class="text-xs font-weight-semibold opacity-7" style="width: 50%; font-weight: normal;">제목</th>
+									 <th class="text-xs font-weight-semibold opacity-7" style="width: 40%; font-weight: normal;">제목</th>
 									 <th class="text-xs font-weight-semibold opacity-7" style="font-weight: normal;">닉네임</th>
 									 <th class="text-xs font-weight-semibold opacity-7" style="font-weight: normal;">작성일</th>
 									 <th class="text-xs font-weight-semibold opacity-7" style="font-weight: normal;">조회수</th>

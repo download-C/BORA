@@ -7,7 +7,6 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-
 <!-- alert 모달 필수  --> 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
@@ -37,7 +36,7 @@ function login(message) {
 </script>
 
 
-<!-- 뉴스 시작 -->
+<!-- 뉴스 JS 시작 -->
 <script type="text/javascript">
 $(document).ready(function(){
 		$.ajax({
@@ -45,14 +44,34 @@ $(document).ready(function(){
 			success:function(rData){
 				$(rData).find("item").each(function(index){
 					if (index < 3) {
-						// 기사 3개만 나타나도록
+						// 기사 3개만 나타나도록 (0, 1, 2)
 						var title = $(this).find("title").text();
-						var link = $(this).find("link").text();
 						var desc = $(this).find("description").text();
-						$('#newsDiv').append(title+"<br>"+desc+"<br><a href='"+link+"' target='_blank'>기사 보러 ㄱㄱ</a><hr>");
+						var link = $(this).find("link").text();
+						
+						switch(index) {
+						case 0:
+							$('#newsTitle1').html(title);
+							$('#newsDesc1').html(desc + '...');
+							$('#newsLink1').attr('href', link);
+							$('#newsLink1').attr('target', '_blank');
+							break;
+						case 1:
+							$('#newsTitle2').html(title);
+							$('#newsDesc2').html(desc + '...');
+							$('#newsLink2').attr('href', link);
+							$('#newsLink2').attr('target', '_blank');
+							break;
+						case 2:
+							$('#newsTitle3').html(title);
+							$('#newsDesc3').html(desc + '...');
+							$('#newsLink3').attr('href', link);
+							$('#newsLink3').attr('target', '_blank');
+							break;
+						}
 					} else return false;
-				});
-			},
+				}); // each
+			}, // success
 			error:function(){
 				alert("페이지 다녀오기 실패");
 			}
@@ -61,8 +80,9 @@ $(document).ready(function(){
 </script>
 
 <div class="container">
+<!-- 뉴스 JS 끝 -->
 
-<!-- 뉴스끝 -->
+
 <!-- mainslide -->
   <section id="mainslide">
     <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
@@ -73,10 +93,10 @@ $(document).ready(function(){
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active" data-bs-interval="10000" style="display: flex;">
-          <img src="${pageContext.request.contextPath}/resources/img/banner2.png" class="d-block w-100" alt="...">
+          <img src="${pageContext.request.contextPath}/resources/img/002.png" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item" data-bs-interval="2000">
-          <img src="${pageContext.request.contextPath}/resources/img/banner1.png" class="d-block w-100" alt="...">
+          <img src="${pageContext.request.contextPath}/resources/img/001.png" class="d-block w-100" alt="...">
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -91,46 +111,53 @@ $(document).ready(function(){
   </section>
   <!-- End mainslide -->
 
-  <!-- cardNews -->
+  <!-- 뉴스 공간 =============================================== -->
   <section id="cardnews" class="mt-5">
     <div class="container">
       <h2 class="ms-5"><b>금융뉴스</b></h2>
-      <p class="me-5" align="right"><b>더보기></b></p>
+      <p class="me-5" align="right">
+      	<b><a href="https://news.jtbc.co.kr/section/index.aspx?scode=20" target="_blank"
+      			style="color: #444444;">더보기> </a></b>
+      </p>
       <div class="row row-cols-1 row-cols-md-3 g-3 me-5 ms-5">
+        
+        <!-- 뉴스 1 =========================== -->
         <div class="col">
-          <!-- Card with default left text alignment -->
           <div class="card text-center">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some dummy text to make up the card's content. You can replace it anytime.</p>
-              <a href="#" class="btn btn-primary" style="border: none; background: #5107B0;">자세히보기</a>
+              <h5 class="card-title" id="newsTitle1"></h5>
+              <p class="card-text" id="newsDesc1"></p>
+              <a id="newsLink1" href="#" class="btn btn-primary" style="border: none; background: #5107B0;">자세히보기</a>
             </div>
           </div>
         </div>
+        
+        <!-- 뉴스 2 =========================== -->
         <div class="col">
-          <!-- Card with center text alignment -->
           <div class="card text-center">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some dummy text to make up the card's content. You can replace it anytime.</p>
-              <a href="#" class="btn btn-primary" style="border: none; background: #5107B0;">자세히보기</a>
+              <h5 class="card-title" id="newsTitle2"></h5>
+              <p class="card-text" id="newsDesc2"></p>
+              <a id="newsLink2" href="#" class="btn btn-primary" style="border: none; background: #5107B0;">자세히보기</a>
             </div>
           </div>
         </div>
+        
+        <!-- 뉴스 3 =========================== -->
         <div class="col">
-          <!-- Card with right text alignment -->
           <div class="card text-center">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some dummy text to make up the card's content. You can replace it anytime.</p>
-              <a href="#" class="btn btn-primary" style="border: none; background: #5107B0;">자세히보기</a>
+              <h5 class="card-title" id="newsTitle3"></h5>
+              <p class="card-text" id="newsDesc3"></p>
+              <a id="newsLink3" href="#" class="btn btn-primary" style="border: none; background: #5107B0;">자세히보기</a>
             </div>
           </div>
         </div>
+        
       </div>
     </div>
   </section>
-  <!-- End cardNews -->
+  <!-- 뉴스 공간 끝 =============================================== -->
 
   <br><br>
   <hr><br><br>
@@ -155,7 +182,7 @@ $(document).ready(function(){
                 <tr>
                   <td>${list.nno}</td>
                   <td><a href="/main/noticeRead?nno=${list.nno }&page=1" style="color: #444444;	">${list.n_title}</a></td>
-                  <td><fmt:formatDate value="${list.n_regdate}" pattern="yyyy.MM.dd"/>  </td>
+                  <td><fmt:formatDate value="${list.n_regdate}" pattern="yyyy.MM.dd."/>  </td>
                 </tr>
               </c:forEach>
               </tbody>
@@ -165,25 +192,9 @@ $(document).ready(function(){
         <!-- End News! -->
 
         <!-- community -->
-<script type="text/javascript">
-$(document).ready(function(){
-	$.ajax({
-		url: '/ajax/getList5',
-		type: 'get',
-		success: function(rData){
-			console.log('갔다 왔삼');
-		}
-		
-		
-		
-	}); // ajax
-	
-}); // jquery ready
-</script>
-
         <div class="container" style="margin: 0px 20px; width: 45%;">
           <h2><b>커뮤니티</b></h2>
-          <p align="right"><b><a>더보기 ></a></b></p>
+          <p align="right"><b><a href="/board/list" style="color: #444444;">더보기 ></a></b></p>
           <div class="table-responsive">
             <table class="table">
               <thead>
@@ -194,18 +205,21 @@ $(document).ready(function(){
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>커뮤니티입니다.</td>
-                  <td>2022.10.28</td>
-                </tr>
+              	<c:forEach items="${cmntList }" var="cList">
+                	<tr>
+                	  <td>${cList.bno}</td>
+                  	  <td><a href="/board/read?bno=${cList.bno}&page=1", style="color: #444444;">${cList.b_title}</a></td>
+                 	  <td><fmt:formatDate value="${cList.b_regdate }" pattern="yyyy.MM.dd." /></td>
+                    </tr>
+                </c:forEach>
               </tbody>
             </table>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
+        </div> <!-- cmnt container -->
+        
+      </div> <!-- row -->
+    </div> <!-- container -->
+  </div> <!-- m-4 -->
   <!-- End community -->
 </div>
 

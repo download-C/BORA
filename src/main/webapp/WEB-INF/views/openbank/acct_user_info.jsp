@@ -16,7 +16,7 @@
 
 
 <style type="text/css">
-   div{
+   .box{
        width : 100%;
        height : 100%;
        margin : 0;
@@ -55,8 +55,6 @@
 	
 <!--     <div class="row"> -->
       <div class="col-sm-9 col-md-7 col-lg-70 mx-auto">
-<!--       <div class="col-sm-9 col-md-7 col-lg-65" > -->
-<!--       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto"> -->
         <div class="card border-0 shadow rounded-3 my-5">
           <div class="card-body p-3 p-sm-5" style="background-color:#F5EFFE;">
             <h1 class="card-title text-center mb-5 fw-light fs-13"><b>사용자 인증 결과</b></h1>
@@ -76,6 +74,7 @@
             </form>
     </div>
     </div>
+    <!-- 내 보유 계좌  -->
 <!--     	<div class="box" style="display: flex; justify-content: space-between; flex-flow: row nowrap;"> -->
     	<div class="col-sm-19 col-md-17 col-lg-80 mx-auto" style="display: flex; justify-content: space-between;">
   		<form method="get" action="/openbank/accountList">
@@ -88,8 +87,8 @@
 			<button type="submit" class="tbtn"><b style="color:#e3cffc;">내 보유 계좌&nbsp;</b>보러 가기</button>
 		</form>
 	
-<!-- 은재	카드로 바꾸기 -->
-			<form method="get" action="/openbank/cardList">
+    <!-- 내 보유 카드  -->
+		<form method="get" action="/openbank/cardList">
 			<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 		    <input type="hidden" name="access_token" value="${sessionScope.token }">
 		    <input type="hidden" name="bank_tran_id" value="${cardList.bank_tran_id }">
@@ -99,13 +98,25 @@
         <!-- <input type="hidden" name="befor_inquiry_trace_info" value="V"> -->
 			<button type="submit" class="tbtn"><b style="color:#e3cffc;">내 보유 카드&nbsp;</b>보러 가기</button>
 		</form>
-<!-- 은재	카드로 바꾸기 -->
+		
+	<!-- 목돈 모으기  -->	
+<!-- 		<form method="get" action="/openbank/goal"> -->
+<%-- 			<input type="hidden" name="access_token" value="${sessionScope.token }">  --%>
+<%-- 			<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }"> --%>
+<!-- 			<input type="hidden" name="fintech_use_num" value="120220217888941294172171">  -->
+<!-- 			<input type="hidden" name="tran_dtime" value="20221104134521">  -->
+<!-- 			<button type="submit" class="tbtn"><b style="color:#e3cffc;">목돈&nbsp;</b>모으기</button> -->
+<!-- 		</form> -->
+		
+		
+		
 	</div>
   </div>
   </div>
   </div>
-  	
+
 <br><br><br>	
 		
+
 
 <%@ include file="../include/footer.jsp"%>

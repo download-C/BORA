@@ -11,12 +11,22 @@
 	if (loginID == null) {
 %>
 <script>
-	alert("로그인 후 사용 가능한 페이지입니다.");
-	location.href = "/main/login";
+	warning("로그인 후 <br> 이용 가능합니다.");
+	setTimeout(function(){ location.href="/main/login"; }, 2000);
+	
+	//warning 버튼
+	function warning(result) {
+	    Swal.fire(
+	        result,
+	        '',
+	        'warning' /*디자인 타입*/
+	    );
+	}//warning 버튼
 </script>
 <%
 	}
 %>
+
 
 <!-- ======== for 썸머노트 ============== -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
@@ -29,32 +39,10 @@
 			maxHeight : null, // 최대 높이
 			focus : true, // 에디터 로딩후 포커스를 맞출지 여부
 			lang : "ko-KR", // 한글 설정
-			placeholder : '최대 2048자까지 쓸 수 있습니다,, 아마도? ㅎ', //placeholder 설정
+			placeholder : '최대 2048자까지 쓸 수 있습니다', //placeholder 설정
 		});
 	});
-
-	// file첨부
-	/* function sendFile(file, editor) {
-	 var form_data = new FormData();
-	 form_data.append('file', file);
-	 $.ajax({
-	 data : form_data,
-	 type : "POST",
-	 url : '/resources/summerimages',
-	 cache : false,
-	 contentType : false,
-	 enctype : 'multipart/form-data',
-	 processData : false,
-	 success : function(url) {
-	 alert('summernote file 첨부 url로 갔다 오기 성공');
-	 $(editor).summernote('insertImage', url, function($image) {
-	 $image.css('width', "25%");
-	 });
-	 } // success
-	 });// ajax
-	 } */
 </script>
-
 <script src="${pageContext.request.contextPath}/resources/js/summernote/summernote-lite.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/summernote/summernote-lite.css">
@@ -69,18 +57,18 @@
 			</span>
 			<div class="insertBoard">
 				<!-- 아이디&닉네임 히든 구간~~ -->
-				<input type="hidden" name="id" value="${loginID }"> <input
-					type="hidden" name="nick" value="${sessionScope.nick }"
-					class="input100">
+				<input type="hidden" name="id" value="${loginID }"> 
+				<input type="hidden" name="nick" value="${sessionScope.nick }" class="input100">
 				<div class="wrap-input100 validate-input" style="height: 62px;">
 					<!-- 카테고리 -->
-					<select name="b_ctgr" class="selectcategory"
+					<select name="b_ctgr" class="selectcategory" required 
 						style="border-style: none; width: 100%; font-size: 16px; padding: 0 20px 0 23px; height: 62px; display: block; margin: auto; color: gray; border-radius: 23px;">
 						<option value="" disabled selected style="color: black;">카테고리를 선택해주세요</option>
 						<option value="골라줘BORA" style="color: black;">골라줘BORA</option>
 						<option value="알려줘BORA" style="color: black;">알려줘BORA</option>
 						<option value="친해져BORA" style="color: black;">친해져BORA</option>
 					</select>
+<!-- 					<script> if ($('select').val() == '') { return false; } </script> -->
 				</div>
 				<div class="wrap-input100 validate-input">
 					<!-- 제목 -->
@@ -93,9 +81,9 @@
 					<!-- 내용 -->
 					<textarea id="summernote" name="b_content" class="input100"></textarea>
 				</div>
-				<div class="wrap-input100 validate-input">
-					파일 <input type="text" name="b_file" class="input100">
-				</div>
+<!-- 				<div class="wrap-input100 validate-input"> -->
+<!-- 					파일 <input type="text" name="b_file" class="input100"> -->
+<!-- 				</div> -->
 				<div class="container-contact100-form-btn">
 					<input type="submit" value="글쓰기" class="contact100-form-btn">
 				</div>
