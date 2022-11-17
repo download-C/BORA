@@ -40,7 +40,6 @@ input::-webkit-inner-spin-button {
   <link href="${pageContext.request.contextPath}/resources/css/moneyMN.css" rel="stylesheet">
 
 
-
  <style>
   
     /* 
@@ -68,11 +67,7 @@ td, th {
   border-left: 1px solid #ddd; 
   text-align: left; 
 }
-/* 
-Max width before this PARTICULAR table gets nasty
-This query will take effect for any screen smaller than 760px
-and also iPads specifically.
-*/
+
 @media 
 only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {

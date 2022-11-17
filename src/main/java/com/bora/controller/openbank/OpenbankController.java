@@ -63,7 +63,7 @@ public class OpenbankController {
 
 	// http://localhost:8088/openbank/oauth
 	@RequestMapping(value = "/callback", method = RequestMethod.GET)
-	public String getToken(RequestTokenVO requestTokenVO, Model model) throws Exception {
+	public String getToken(RequestTokenVO requestTokenVO, Model model, HttpSession session) throws Exception {
 		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  토큰발급 가기");
 		log.info("/openbank/oauthOK 로 이동");
 
