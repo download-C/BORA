@@ -7,7 +7,7 @@
      
 <!-- title -->
 <div class="section-title">  
-  <h2>보유 카드 목록</h2>
+  <h2>보유카드목록</h2>
 </div>
 <!-- End title -->
 
@@ -26,8 +26,28 @@
       --bs-modal-width: 1300px;
       --bs-modal-height: 850px;
     }
+    .tbtn {
+      background-color: #5107B0;
+      float: center;
+/*       width: 330px; */
+/*       height: 70px; */
+      margin :30px;  
+      padding: 5px 20px 5px 20px;
+      border: 1px solid #fff;
+      border-radius: 8px;
+      color: white; 
+/*       color: #e3cffc; */
+      border-radius: 13px;
+      font-size: 20px;
+      align-self: center;
+    }
+    
+    .floatingInput {
+    	color: red;
+    }
     
 </style>
+
 
 <!-- card -->
   <div class="container">
@@ -51,7 +71,12 @@
 			    <td>${cardList.card_id }</td>
 			    <td>${cardList.card_num_masked }</td>
 				<td>${cardList.card_name }</td>
-				<td>${cardList.card_member_type }</td>
+				<td>
+				<c:if test="${cardList.card_member_type =='1'}">
+				본인</c:if>
+				<c:if test="${cardList.card_member_type =='2'}">
+				가족</c:if>
+				</td>
 			</tr>
 		</c:forEach>
 		</tbody>
@@ -166,7 +191,6 @@
     </div>
   </div>
 
-  <hr>
   
    <!-- 모달창 -->
    <!--   	카드정보조회 -->
@@ -202,18 +226,9 @@
    <!-- 모달창 끝 -->
   <br>
   
-  <div class="col-2" style="padding-left: 0;">
-        <div class="table-responsive">
-          <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;">
-            <thead>
-              <tr>
-                <th scope="col" style="color:black">업무</th>
-              </tr>
-            </thead>
-            <tbody>
-
-             <tr>
-               <td style="padding-bottom: 6px; padding-top: 6px;">
+    <div class="container">
+  	<div class="box" style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
+          <div class="col-sm-19 col-md-17 col-lg-80 mx-auto" style="display: flex; justify-content: space-between;">
                 <!-- 카드청구기본정보조회 -->
 	            <form method="get" action="/openbank/cardBills">
                 <%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
@@ -224,14 +239,11 @@
 		        <input type="hidden" name="member_bank_code" value="399">
 		        <input type="hidden" name="from_month" value="202210">
 		        <input type="hidden" name="to_month" value="202211">
-		        <input type="submit" class="tdbtn" value="카드청구조회">
-                </form>
-               </td>
-              </tr>
-            </tbody>
-          </table>
+		        <button type="submit" class="tbtn"><b style="color:#e3cffc;">카드청구기본내역</b></button>
+                </form>        
+          </div>
         </div>
-      </div>
+     </div>
 	  
 <%@ include file="../include/footer.jsp"%>
 

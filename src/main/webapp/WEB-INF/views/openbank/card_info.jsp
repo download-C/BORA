@@ -135,16 +135,14 @@ only screen and (max-width: 760px),
 		</thead>
 		<tbody>
 			<tr>
-				<td>${cardInfo.card_type }</td>
-				<td>${cardInfo.settlement_bank_code }</td>
-				<td>${cardInfo.settlement_account_num_masked }</td>
 				<td>	
 				<c:if test="${cardInfo.card_type =='01'}">
-				신용
-				</c:if>
+				신용</c:if>
 				<c:if test="${cardInfo.card_type =='02'}">
-				체크
-				</c:if></td>
+				체크</c:if></td>
+				<td>${cardInfo.settlement_bank_code }</td>
+				<td>${cardInfo.settlement_account_num_masked }</td>
+				<td>${cardInfo.issue_date }</td>
 			</tr>	
 		</tbody>
 	</table>
