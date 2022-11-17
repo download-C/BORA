@@ -6,6 +6,7 @@
 
 <link href="${pageContext.request.contextPath}/resources/css/openbankguide.css" rel="stylesheet">
 
+
 <style>
 th, td {
 	text-align: center;
@@ -20,7 +21,6 @@ th, td {
       border: 1px solid #fff;
       border-radius: 8px;
       color: white; 
-/*       color: #e3cffc; */
       border-radius: 13px;
       font-size: 30px;
     }
@@ -30,10 +30,10 @@ th, td {
     }
     
 </style>
-
+<br>
 <!-- title -->
   <div class="section-title">
-    <h2><b>오픈뱅킹</b></h2><br><br>
+    <h2><b>오픈뱅킹</b></h2><br>
     <picture>
 	  <source media="(min-width: 1024px)" srcset="${pageContext.request.contextPath}/resources/img/openbank1.png" class="img-fluid">
   	  <source media="(min-width: 768px)" srcset="${pageContext.request.contextPath}/resources/img/openbank_small.png" class="img-fluid">

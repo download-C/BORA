@@ -116,7 +116,7 @@ function diffDay() {
 
 	$('#remain-time').html(
 			diffYear + '년 ' + diffDateShow + '일 ' + diffHour + '시간 ' + diffMin + '분 ' + diffSec
-					+ '초.. 남았습니다....⏳');
+					+ '초 남았습니다⏳');
 
 } // diffDay()
 
