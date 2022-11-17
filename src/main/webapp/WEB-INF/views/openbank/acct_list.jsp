@@ -101,13 +101,13 @@
               <td style="padding-bottom: 6px; padding-top: 6px; ">
                     	<div class="box" style="display: flex; justify-content: space-between-center; flex-flow: row nowrap;">
                     	
-                    <form method="get" action="/openbank/accountBalance" target="frm2">
+                    <form method="get" action="/openbank/accountBalance" target="frm2" id="fr1">
 					<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 						<input type="hidden" name="access_token" value="${sessionScope.token }">
 						<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
 						<input type="hidden" name="fintech_use_num" value="120220217888941294186856">
 						<input type="hidden" name="tran_dtime" value="20221104134521">
-						<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액</button>
+						<button type="submit" id="fr1btn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액</button>
 					</form>   
 <!--                   <button class="tdbtn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button> -->
                 
@@ -132,13 +132,13 @@
               <tr>
                 <td style="padding-bottom: 6px; padding-top: 6px; ">
                 	<div class="box" style="display: flex; justify-content: space-between-center; flex-flow: row nowrap;">
-                   	<form method="get" action="/openbank/accountBalance" target="frm2">
+                   	<form method="get" action="/openbank/accountBalance" target="frm2" id="fr2">
 						<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 						<input type="hidden" name="access_token" value="${sessionScope.token }">
 						<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
 						<input type="hidden" name="fintech_use_num" value="120220217888941294172171">
 						<input type="hidden" name="tran_dtime" value="20221104134521">
-						<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액</button>
+						<button type="submit"  id="fr2btn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액</button>
 					</form>   
 <!--                   <button class="tdbtn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button> -->  
 
@@ -282,22 +282,35 @@
 
 
 <!-- /////// 잔액 불러오기 ajax ///////////// -->
-<script src="${pageContext.request.contextPath }/resources/js/jquery/jquery-2.2.4.min.js"></script>
+
+
+
+
+
 <script src="${pageContext.request.contextPath }/resources/js/jquery.serializeObject.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-// 	window.onlaod = function(){
-		alert('alert 확인 1');
+// $(document).ready(function(){
+// 	window.onload = function(){
+// 		alert('window onload 확인 1');
+	
+// 		let info1 = $('#fr1').serializeObject();
+// 		let info2 = $('#fr2').serializeObject();
 		
+// 		var result = confirm("잔액 조회?");
+// 		if(result){
+			
+// 		}
 		
 // 		$.ajax({
-// 			url 		: "/openbank/balance",
-// 			type		: "POST",
-// 			data 		: formValues,
+// 			url 		: "/openbank/acc_balance",
+// 			type		: "GET",
+// 			async:		: true,
+// // 			data 		: formValues,
+// 			data		: JSON.stringify(info),
 // 			dataType	: 'json',
 // 			contentType : "application/json;charset=UTF-8",
 // 			success 	: function(data) {
-// 				if( ){
+// 				if(data.rsp_code == "A0000" ){
 // 					alert('잔액조회성공')
 // 					$('#req_accountBalance.balance_amt').val(data.accountBalance.balance_amt );
 // 				}else {
@@ -306,22 +319,61 @@ $(document).ready(function(){
 // 					return false;
 // 				}
 				
-				
 // 			}
-			
-			
-// 		})
-		
+// 		});
 		
 // 	}//window.onlaod
 	
-	
-	
-});//jquery
+// });//jquery
 
 
 </script>
 
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		// 	window.onload = function(){
+		alert('window onload 확인 1');
+		
+		$("#fr1btn").on('click', function() {
+			let info = $("#fr1").serialize();
+			
+			$.ajax({
+				url : "./openbank/acct_list",
+				type : "GET",
+				async: true,
+				data : JSON.stringify(info), // 전송 데이터
+				dataType : 'json', // 전송 데이터 형식
+				contentType : "application/json;charset=UTF-8",
+				success : function(data) { // 성공 시 실행
+					console(data);
+					alert("성공");
+// 					$("#result_ph_number").html(res.ph_number);
+// 					$('#req_accountBalance.balance_amt').val(data.accountBalance.balance_amt );
+// 					$('#result_balance_amt').html(res.balance_amt );
+
+				},
+				error : function(error) { //실패 시 실행
+					console(error);
+					alert("실패 원인 : " + error);
+				}
+
+			});//ajax
+
+		});//fr1btn
+		// 	}//window.onlaod
+
+	});//jquery
+</script>
+
+<%
+	request.setCharacterEncoding("utf-8");
+
+	String balance_amt = request.getParameter("balance_amt");
+%>
+{
+	"balance_amt" : "<%=balance_amt%>"
+}
 
 
 	
