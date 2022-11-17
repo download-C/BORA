@@ -162,7 +162,7 @@ public class AjaxController {
 		
 		List<BoardVO> boardListCtgr = null;
 		if (ctgr.equals("알려줘BORA") || ctgr.equals("친해져BORA") || ctgr.equals("골라줘BORA")) {
-			boardService.getBoardCntCTGR(ctgr);
+//			boardService.getBoardCntCTGR(ctgr);
 			boardListCtgr = boardService.getBoardListCtgr(ctgr, startNum);
 			log.info("boardList.size", boardListCtgr.size());
 		} else {
@@ -177,36 +177,35 @@ public class AjaxController {
 	}
 	
 	
+	// 카테고리별 총 글 개수만 리턴
+	@RequestMapping(value = "/ctgr/count", method = RequestMethod.GET)
+	public Integer ctgrCount(@RequestParam("ctgr") String ctgr) throws Exception {
+		log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgrCount()  호출됨");
+		log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgrCount()  ctgr: " + ctgr);
+		return boardService.getBoardCntCTGR(ctgr);
+	}
+	
+	
 	// 카테고리 더보기 버턴 눌렀을 때
 	@RequestMapping(value = "/ctgr/getMoreList", method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> ctgrGetMoreList(@RequestParam("ctgr") String ctgr, @RequestParam("startNum") Integer startNum) throws Exception {
+	public ResponseEntity<List<BoardVO>> ctgrGetMoreList(@RequestParam("ctgr") String ctgr, @RequestParam("startNum") Integer startNum) throws Exception {
 		log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgrGetMoreList() 호출됨");
 		log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgrGetMoreList() ctgr: " + ctgr + " / startNum: " + startNum);
 		
 		List<BoardVO> boardListCtgr = null;
 		if (ctgr.equals("알려줘BORA") || ctgr.equals("친해져BORA") || ctgr.equals("골라줘BORA")) {
-			boardService.getBoardCntCTGR(ctgr);
+//			boardService.getBoardCntCTGR(ctgr);
 			boardListCtgr = boardService.getBoardListCtgr(ctgr, startNum);
-			log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgrGetMoreList() boardListCtgr.size: ", boardListCtgr.size());
+			log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgrGetMoreList() boardListCtgr.size: " + boardListCtgr.size());
 		} else {
 			log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgrGetMoreList() 실팹니다,,");
+			return null;
 		}
 		
 		// for 조회수
 		session.setAttribute("isUpdate", false);
 		
-		// 해당 카테고리 총 글 개수도 같이 보내기
-		// session.setAttribute("ctgrCount", boardService.getBoardCntCTGR(ctgr)); 
-		//   세션에 ㄴㄴ..... ajax라 카테고리가 다 중복돼서,, 정확한 값 안 나옴
-		int ctgrCount = boardService.getBoardCntCTGR(ctgr);
-		log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ctgrGetMoreList()  해당 카테고리 총 글 개수: " + ctgrCount);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("ctgrCount", ctgrCount);
-		map.put("boardListCtgr", boardListCtgr);
-		
-		ResponseEntity<Map<String, Object>> entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+		ResponseEntity<List<BoardVO>> entity = new ResponseEntity<List<BoardVO>>(boardListCtgr, HttpStatus.OK);
 		return entity;
 	}
 	// 카테고리 ajax 끝 ==================================

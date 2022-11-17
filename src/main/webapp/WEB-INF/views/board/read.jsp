@@ -110,7 +110,7 @@ $(document).ready(function(){
 						str += "<span><small> "+cmtService.displayTime(list[i].c_updatedate)+"</small></span><span>";
 					}
 					
-						str += "<button id='cmt_btn_re' style='border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px; float: right;'> 답글</button>";
+// 						str += "<button id='cmt_btn_re' style='border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px; float: right;'> 답글</button>";
 					// id가 admin이거나 본인일 때만 -> 수정, 삭제 버턴 나오게 제어
 					if (list[i].id == loginID || loginID == 'admin') {
 						str += "<button id='cmt_btn_del' style='border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px; float: right;'>삭제</button>";
@@ -389,8 +389,8 @@ $(document).ready(function(){
 											<strong> 닉네임 </strong> 
 											<span> <small> c_regdate </small> </span>
 											<span align="right";>
-												<button id="cmt_btn_re" 
-													style="border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px; float: right;">답글</button>
+<!-- 												<button id="cmt_btn_re"  -->
+<!-- 													style="border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px; float: right;">답글</button> -->
 												<button id="cmt_btn_mod"
 													style="border: none; margin: 2px; background-color: #ecdffd; border-radius: 5px; float: right;">수정</button>
 												<button id="cmt_btn_del"

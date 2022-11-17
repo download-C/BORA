@@ -51,30 +51,38 @@ a:hover {
 </div>
 <!-- End title -->
 
-<!-- 	<div> -->
 <%-- 		<p>EL{msg} : ${msg }</p> --%>
 <%-- 		<p>EL{pm} : ${pm }</p> --%>
 <%-- 		<p>EL{pm.vo.page}: ${pm.vo.page }</p> --%>
-<!-- 	</div> -->
 	
 <script type="text/javascript">
-// <!-- ajax로 카테고리 호출 시 페이징 처리 대신 하는 메서드 -->
+	// 알림 모달창 호출 함수 --------------
+	//warning 버튼
+	function warning(result) {
+	    Swal.fire(
+	        result,
+	        '',
+	        'warning' /*디자인 타입*/
+	    )
+	}//warning 버튼
+	// 알림 모달창 호출 함수 끝--------------
+
+	// 카테고리 하면서 계속 쓸 놈들,, 멤변으로 선언
+	var startNum = $("#listBody tr").length;
+	var currNum;
+	var ctgrCount;
+	var ctgr;
+
 	$(document).ready(function(){
-		
+	// 카테고리 시작 ======================================
 		// 더보기 버튼 평소에는 숨기고 있다가
 		$('#addBtn').hide();
 		
 		$('.ctgr_btn').click(function(){
-			
 			// 카테고리 버턴 클릭했을 때~
-			// 더보기 버튼 등장
-			$('#addBtn').show();
-			
-			var ctgr = $(this).val();
-// 			alert(ctgr);
+			ctgr = $(this).val();  // 카테고리 변수 채우고
 			$('#ctgrHidden').val(ctgr); // input hidden에 클릭한 ctgr 값으로 채워놓기
 			$('#pagingDiv').remove();   // 카테고리 클릭 시, 페이징 처리 div는 숨겨놓기
-			var startNum = 0;
 			
 			// 클릭된 카테고리만 배경색 다르게
 			if(ctgr=='골라줘BORA'){
@@ -90,6 +98,8 @@ a:hover {
 				$('#btn_tip').attr('style', 'background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
 				$('#btn_meet').attr('style', 'background-color: #ffffff; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
 			}
+			
+			startNum = 0;
 
 			$.ajax({
 				url: "/ajax/ctgr",
@@ -101,7 +111,6 @@ a:hover {
 					$('tbody').html("");
 					$('tbody').html(function(){
 					$.each(data, function(index, item){
-						
 						var bno = item.bno;
 						var b_title = item.b_title;
 						var b_ctgr = item.b_ctgr;
@@ -138,30 +147,44 @@ a:hover {
 						+'</tr>'
 						
 						); // append
-					}); //each
+					  }); //each
 					}); // html
+					
 				}, //success
 				error: function(){
-					alert('실팹니다~');
+ 					// alert('실팹니다~');
 					location.href="/board/list";
 				}
 			});// ajax
 			
+			
+			// + 해당 카테고리 글 총 개수 ctgrCount 변수에 넣기 & 더보기 버턴에 보여주기
+			$.ajax({
+				url: '/ajax/ctgr/count',
+				type: 'get',
+				data: {'ctgr':ctgr},
+				dataType: 'json',
+				success: function(rData){
+					ctgrCount = rData;
+					// currNum 업뎃해주고
+					currNum = $("#listBody tr").length;
+					// alert('currNum: ' + currNum);
+					
+					$('#addBtn').text('더보기  ' + currNum + ' / ' + ctgrCount );
+				}
+			}); // ajax
+			
+			$('#addBtn').show();   // 셋팅 다 하고 숨겨왔던,, 더보기 버튼 등장
+			
 		}); // btn click
-		
 	});// jquery ready
 
 	
-// 더보기 구현 시작 ==========================================================
+// 더보기 함수 시작 ==================================================
 	function moreList() {
-		//  	alert('더보기 함수 moreList 호출됨');
-		var startNum = $("#listBody tr").length; //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
-		var addListHtml = "";
-		var ctgr = $('#ctgrHidden').val();
+		startNum = $("#listBody tr").length; //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
+		ctgr = $('#ctgrHidden').val();
 		console.log("startNum: " + startNum + " / ctgr:  " + ctgr); //콘솔로그로 startNum에 값이 들어오는지 확인
-
-// 		$('#addBtn').text('더보기  ' + 현 글 개수  / 총 글 개수 );
-// 		$('#addBtn').text('더보기  ' + startNum  / 총 글 개수 );
 		
 		$.ajax({
 			url : "/ajax/ctgr/getMoreList",
@@ -171,24 +194,10 @@ a:hover {
 				"ctgr" : ctgr
 			},
 			dataType : "json",
-
 			success : function(rData) {
-				var ctgrCount = rData.ctgrCount
-				alert('ctgrCount: ' + ctgrCount);
-				alert('startNum: ' + $("#listBody tr").length);
-				
-				console.log("boardListCtgr", rData.boardListCtgr);
-				
-				$('#addBtn').text('더보기  ' + startNum + ' / ' + ctgrCount );
-				
-				var addListHtml = "";
-
 				if (rData.length > 0) {
-					
 					$('tbody').append(function(){
 						$.each(rData, function(index, item){
-							console.log("index", index);
-							
 							var bno = item.bno;
 							var b_title = item.b_title;
 							var b_ctgr = item.b_ctgr;
@@ -213,6 +222,7 @@ a:hover {
 								var mi = dateObj.getMinutes();
 								var format = year+". " + (("00"+month.toString()).slice(-2)) + ". " + (("00"+day.toString()).slice(-2)) + ". 💜 " + (("00"+hh.toString()).slice(-2)) + ":" + (("00"+mi.toString()).slice(-2));
 							
+							// 갖다 붙이기 시작
 							$('tbody').append(
 							'<tr style="text-align: center;">'
 								+'<td>'+bno+'</td>'
@@ -227,23 +237,25 @@ a:hover {
 						}); //each
 					}); // append
 					
+					currNum = $("#listBody tr").length;
+					
 				} // if
 				else {
-					alert('더 들고 올 글 없음');
+					warning('더이상 게시글이 <br> 존재하지 않습니다~ 😅');
 				} // else
-			},
+			
+				$('#addBtn').text('더보기  ' + currNum + ' / ' + ctgrCount );
+				
+			}, // success
 			error : function(request, status, error) {
-				alert('실팹니다~');
+				warning('실팹니다~');
 				console.log("code: ", request.status)
 				console.log("message: ", request.responseText)
 				console.log("error: ", error);
 			}
 		}); // ajax
-
 	} // moreList()
 </script>
-
-
 
 
 <!-- table -->
@@ -307,7 +319,7 @@ a:hover {
 				</c:forEach>
 			</tbody>
 		</table>
-		<div> <button id="addBtn" onclick="moreList();"><span>더보기</span></button> </div>
+		<div> <button id="addBtn" onclick="moreList();">더보기 </button> </div>
 	</div> <!-- container -->
 	<br><br>
 	<!-- ===================== 페이징 처리 구간 ========================== -->
