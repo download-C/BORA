@@ -1,11 +1,13 @@
 package com.bora.controller.openbank;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -178,10 +180,9 @@ public class OpenbankController {
 
 		// Model 객체에 CardListResponseVO 객체와 엑세스 토큰 저장
 		model.addAttribute("cardInfo", cardInfo);
-		model.addAttribute("cardInfo", cardInfo);
 		session.setAttribute("access_token", cardInfoRequestVO.getAccess_token());
 		session.setAttribute("bank_tran_id", cardInfoRequestVO.getBank_tran_id());
-		session.setAttribute("User_seq_no", cardInfoRequestVO.getUser_seq_no());
+		session.setAttribute("user_seq_no", cardInfoRequestVO.getUser_seq_no());
 
 		log.info("Access_token : " + cardInfoRequestVO.getAccess_token());
 		log.info("cardInfo : " + cardInfoRequestVO.getUser_seq_no());
@@ -209,6 +210,8 @@ public class OpenbankController {
 		// Model 객체에 CardListResponseVO 객체와 엑세스토큰 저장
 		model.addAttribute("cardList", cardList);
 		session.setAttribute("access_token", cardListRequestVO.getAccess_token());
+		session.setAttribute("bank_tran_id", cardListRequestVO.getBank_tran_id());
+		session.setAttribute("user_seq_no", cardListRequestVO.getUser_seq_no());
 
 		return "/openbank/card_list";
 	}
@@ -222,9 +225,7 @@ public class OpenbankController {
 		// Service 객체의 billsCard() 메서드를 호출하여 사용자 정보 조회
 		// => 파라미터 : CardBillsRequestVO, 리턴타입 CardBillsResponseVO
 		CardBillsResponseVO cardBills = openBankingService.billsCard(cardBillsRequestVO);
-		
-        
-		CardBillsVO vo = new CardBillsVO();
+		 
 		
 		log.info("cardBillsRequestVO : " + cardBillsRequestVO.getAccess_token());
 		log.info("cardBillsRequestVO : " + cardBillsRequestVO.getBank_tran_id());
@@ -239,16 +240,6 @@ public class OpenbankController {
 		session.setAttribute("access_token", cardBillsRequestVO.getAccess_token());
 		session.setAttribute("bank_tran_id", cardBillsRequestVO.getBank_tran_id());
 		session.setAttribute("user_seq_no", cardBillsRequestVO.getUser_seq_no());
-        
-		vo.setCredit_check_type("credit_check_type");
-		if(vo.getCredit_check_type() == "01") {
-			String credit_check_type = "신용";
-			vo.setCredit_check_type(credit_check_type);
-		}
-		if(vo.getCredit_check_type() == "02") {
-			String credit_check_type = "체크";
-			vo.setCredit_check_type(credit_check_type);
-		}
 		
 		return "/openbank/card_bills";
 	}
