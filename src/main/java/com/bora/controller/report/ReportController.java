@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.controller.MemberController;
@@ -64,75 +65,93 @@ public class ReportController {
 	// 1-1. 해당 연월의 가계부가 있을 때
 	   //카테고리 별 합계
 	   @RequestMapping(value="/categoryList", method = RequestMethod.GET)
-	   public void categorylist(Model model, RedirectAttributes rttr) throws Exception{
+	   public void categorylist(@RequestParam("year") int year,@RequestParam("month") int month, Model model, RedirectAttributes rttr) throws Exception{
 		   log.info(" φ(._.) categorylist() 호출 ");
 		   
 		   loginID=(String)session.getAttribute("loginID");
-		   
-		   // 현재 연과 월을 기본으로 보여줌
-			Calendar cal = Calendar.getInstance();
-			int year = cal.get(Calendar.YEAR);
-			int month = cal.get(Calendar.MONTH)+1;
-			int day = cal.get(Calendar.DATE);
-			model.addAttribute("year", year);
-			model.addAttribute("month", month);
-			model.addAttribute("day", day);
-		   
-			if (service.cateSum(year, month, loginID)!= null) {
-		   log.info(service.cateSum(year, month, loginID)+"");
 		   List<Integer> sumArr = new ArrayList<>();
 		   List<String> caArr = new ArrayList<String>();
 		   
-		   for(BookDetailVO bkVO:service.cateSum(year, month, loginID)) {
-			   sumArr.add(bkVO.getBk_sum());
-			   caArr.add("'"+bkVO.getBk_category()+"'");
-			   
-		   } //배열로 합계, 카테고리 불러오기
-//			model.addAttribute("cateSum", service.cateSum(year, month, loginID));
-		   log.info("합계 사이즈: "+sumArr.size()+"");
-		   log.info("카테고리 리스트 사이즈: "+caArr.size()+"");
-			model.addAttribute("sumArr", sumArr);
-			model.addAttribute("caArr", caArr); 
-	   
-			
-
-			//top3
-			
-			log.info(year +""+ month+"");
-			model.addAttribute("top3", service.Top3Store(year, month, loginID));
-			model.addAttribute("top3date", service.Top3Date(year, month, loginID));     //top3 날짜 버전 호출
-			if(service.ConsumeTag(year, month, loginID).size()!=0) {
-				model.addAttribute("bk_category", 
-						service.ConsumeTag(year, month, loginID).get(0).getBk_category());
-			}
-			
-			
-			
-			//전월대비
-				
-			List<BookDetailVO> dtlvo = service.getConsumeMinus(year, month, loginID);
-			for(int i=0; i<dtlvo.size(); i++) {	
-				BookDetailVO detail = dtlvo.get(i) ;
-				if(detail.getBk_minus()== null) {
-					detail.setBk_minus(0);
-				} else continue;
-
-			}
-				log.info("바꾼 정보: "+dtlvo);
-				model.addAttribute("consumeList", dtlvo);
-			}
-	   
-	   else {
+		    // 현재 연과 월을 기본으로 보여줌
+		  
+//			Calendar cal = Calendar.getInstance();
+//			int year = cal.get(Calendar.YEAR);
+//			int month = cal.get(Calendar.MONTH)+1;
+//			int day = cal.get(Calendar.DATE);
+		   
+		   
+		   
+		   
+			model.addAttribute("year", year);
+			model.addAttribute("month", month);
+//			model.addAttribute("day", day);
+		 
 	
-		   log.info("@@@@@@@@@@@@@@@@@오니?");
-			rttr.addFlashAttribute("msg1", "Opps~!");	
-			rttr.addFlashAttribute("msg2", "아직 가계부를 작성하지 않으셨네요!");
-		}
-	   
+			// 11월  소비내역이 있는지 없는지 체크하는 메서드 체크
+
+			if (service.cateSum(year, month, loginID).size() != 0) {
+		
+			   log.info(service.cateSum(year, month, loginID)+"");
+			  
+			   
+			   for(BookDetailVO bkVO:service.cateSum(year, month, loginID)) {
+				   sumArr.add(bkVO.getBk_sum());
+				   caArr.add("'"+bkVO.getBk_category()+"'");
+				   
+			   } 
+			   
+			   //배열로 합계, 카테고리 불러오기
+	//			model.addAttribute("cateSum", service.cateSum(year, month, loginID));
+			   log.info("합계 사이즈: "+sumArr.size()+"");
+			   log.info("카테고리 리스트 사이즈: "+caArr.size()+"");
+				model.addAttribute("sumArr", sumArr);
+				model.addAttribute("caArr", caArr); 
+		   
+				
+	
+				//top3
+				log.info(year +""+ month+"");
+				model.addAttribute("top3", service.Top3Store(year, month, loginID));
+				model.addAttribute("top3date", service.Top3Date(year, month, loginID));     //top3 날짜 버전 호출
+				if(service.ConsumeTag(year, month, loginID).size()!=0) {
+					model.addAttribute("bk_category", 
+							service.ConsumeTag(year, month, loginID).get(0).getBk_category());
+				}
+				
+				
+				
+				//전월대비
+				List<BookDetailVO> dtlvo = service.getConsumeMinus(year, month, loginID);
+				for(int i=0; i<dtlvo.size(); i++) {	
+					BookDetailVO detail = dtlvo.get(i) ;
+					if(detail.getBk_minus()== null) {
+						detail.setBk_minus(0);
+					} else continue;
+	
+				}
+					log.info("바꾼 정보: "+dtlvo);
+					model.addAttribute("consumeList", dtlvo);
+					
+					
+				} else {
+					System.out.println("################################");
+		
+					model.addAttribute("msg1", "🤑🤑🤑🤑");
+					model.addAttribute("msg2", "가계부를 작성하셔야 리포트를 보실 수 있어요!");
+
+					model.addAttribute("sumArr", sumArr);
+					model.addAttribute("caArr", caArr); 
+					
+				}
+			
+			
+			
+			
+			
+			
 	   }
 }
-	 
-	   
+
 	   
 	     
 

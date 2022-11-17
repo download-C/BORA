@@ -5,23 +5,17 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <script	src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
+
 <!-- IONICONS -->
 <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 
 <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/report_side.css" rel="stylesheet">
-<!-- 사이드바 js -->
-<script>
-  function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-  }
 
-  function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-  }
-</script>
-<!-- 사이드바 js -->
 
 <style type="text/css">
 	 
@@ -46,15 +40,9 @@ text-align: center
 <%
 	}
 %>
-<script>
-$(document).ready(function() {
-    let msg = "${msg}";
-    if (msg != "") {
-        info(msg);
-    }
-})
 
-//info 버튼
+
+<script>
 function info(msg1, msg2) {
     Swal.fire(
      msg1,
@@ -63,33 +51,56 @@ function info(msg1, msg2) {
     )
 }//info 버튼
 
-//버튼 배경색 입히는 버튼
-function bora() {
-	Swal.fire({
-		  title: '로그인 후 이용 가능합니다.',
-    	  width: 600,
-    	  padding: '3em',
-		  background: '#fff',
-		  backdrop: '#fff' //#7A1CF6에 투명도
-	 });
-}//버튼 배경색 입히는 버튼	
 
-function success(msg3, msg4) {
-    Swal.fire(
-        msg3,
-        msg4,
-        'success' /*디자인 타입*/
-    )
-}//success 버튼
+$(document).ready(function() {
+    let msg = "${msg}";
+    if (msg != "") {
+        info(msg);
+    }
+});
+
+
+
+
+
 	
 $(document).ready(function() {
-    
+     
     let msg1 = "${msg1}";
     let msg2 = "${msg2}";
+
+    
     if(msg1!="" && msg2!="") {
     	info(msg1, msg2);
     }
-})
+    
+
+    
+    
+	var cg = "${bk_category}";
+// 	alert(cg);
+
+	if(cg == "저축"){  
+		  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/saving.png");
+	}else if(cg == "식비"){
+		  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/food.png");
+	}else if(cg == "교통비"){
+		  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/transfer.png");
+	}else if(cg == "편의점/마트"){
+		  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/market.png");
+	}else if(cg == "여가비"){
+		  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/travel.png");
+	}else if(cg == "뷰티/쇼핑"){
+		  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/shopping.png");
+	}else if(cg == "통신비"){
+		  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/phone.png");
+	}else{
+		  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/noexist.png");
+	}
+    
+    
+    
+});
 </script>
 
 
@@ -118,13 +129,14 @@ function uncomma(str){
 $(document).ready(function(){
 
 
-
 /* ----------------------	차트 시작 -------------------------------- */
 
 
 	var myChart;
 	var ctx = document.getElementById('myChart').getContext('2d'); 
+	
 	function showchart(data){
+		
 		
 		if(data == null){
 		 myChart = new Chart(ctx, { 
@@ -182,19 +194,19 @@ $(document).ready(function(){
 	};			
 				
 
-	tmpChart = showchart();
+	myChart = showchart();
 
 
 	
    $('#month').change(function(){
 	
+		
 	     if(myChart != null){   // 기존 차트가 존재할 때 그 차트 파기하고 새로 시작
 	    	 myChart.destroy();
 	     }
 	     
 
 	     <!---------------------- 차트 끝 ------------------------------>
-	     
 	     
 	     
 	     
@@ -212,10 +224,9 @@ $(document).ready(function(){
     	  data: {"month": month, "year":year, "loginID":loginID},
     	  success:function(data){
  
-    		  console.log(data);
+//     		  console.log(data);
     		  
     		  tmpChart = showchart(data);
-    		
     		  
     	  },
     	  error:function(data){
@@ -231,7 +242,8 @@ $(document).ready(function(){
          dataType: "JSON",
          type: "get",
          success: function(data){
-              $('#tbody').html("");
+        	 
+             $('#tbody').html("");
              $('#tbody').html(function(){
                 $.each(data, function(index, item){
                    var bk_memo = item.bk_memo;
@@ -278,7 +290,23 @@ $(document).ready(function(){
                  dataType: "JSON",
                  type: "get",
                  success: function(data){
-                      $('#tbody3').html("");
+                	
+                	//alert(data);
+                	console.log(data);
+                	
+                	 if(data.length == 0){
+                		 Swal.fire(
+             					'내역이 없습니다.'
+                      	   )
+      					$('#tbody3').html("");
+      					
+      					
+      				 }else{
+      				   
+      					
+      		         
+                	
+                     $('#tbody3').html("");
                      $('#tbody3').html(function(){
                         $.each(data, function(index, item){
                            var bk_category = item.bk_category;
@@ -288,14 +316,14 @@ $(document).ready(function(){
                            $('#tbody3').append(
                            '<tr>'
                              +'<td>'+bk_category+'</td>'
-                              +'<td>'+bk_sum+'</td>'
-                              +'<td>'+bk_minus+'</td>'
-                              +'<td>'+bk_compare+'%</td>'
+                              +'<td>'+comma(bk_sum)+'원</td>'
+                              +'<td>'+comma(bk_minus)+'원</td>'
+                              +'<td>'+bk_compare.toFixed(0)+'%</td>'
                            +'</tr>'   
                            ); // append
                         }); //each
                      }); // html 
-                     
+      				 }
                  }, //success
                  error: function(){
                     alert('실패');
@@ -320,6 +348,9 @@ $(document).ready(function(){
     		  console.log($(data).find("item").find("bk_category").text());
     		  var cg = $(data).find("item").find("bk_category").text();
     		  
+    		 
+  		  
+    		  
     		  if(cg == "저축"){  
     			  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/saving.png");
     		  }else if(cg == "식비"){
@@ -334,6 +365,8 @@ $(document).ready(function(){
     			  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/shopping.png");
     		  }else if(cg == "통신비"){
     			  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/phone.png");
+    		  }else if(cg == "기타"){
+    			  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/etc.png");
     		  }else{
     			  $("#pigImg").attr("src","${pageContext.request.contextPath}/resources/img/noexist.png");
     		  }
@@ -354,22 +387,7 @@ $(document).ready(function(){
 
 <!---------------------- 특정 연/월 선택 ------------------------------>
 
-<!-- sideBar -->
-<div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#">
-    <ion-icon name="home-outline" class="nav__icon" style="vertical-align: middle;"></ion-icon>
-    <span class="nav_name">소비리포트</span>
-  </a>
-  <a href="/book/list?year=${year}&month=${month}&day=${day}">
-    <ion-icon name="book-outline" class="nav__icon" style="vertical-align: middle;"></ion-icon>
-    <span class="nav_name">가계부</span>
-  </a>
-</div>
-<a href="javascript:void(0)" style="cursor: pointer; " onclick="openNav()">
-  <ion-icon name="grid-outline" style="margin: 12px; font-size: 30px; color: #5107B0;"></ion-icon>
-</a>
-<!-- End sideBar -->
+
 <!-- title -->
 <div class="section-title">
 	<c:set var="year" value="<%=year%>" />
@@ -449,7 +467,8 @@ $(document).ready(function(){
           <div class="card-body">
             <table class="table table-striped mb-0">
               <thead style="background-color: gray; text-align: center;">
-※ 저번달 혹은 이번달 내역이 없으면 0으로 표기 됩니다
+※ 전월 혹은 당월 내역이 없으면 0으로 표기 됩니다<br>
+※ 전월 합계 - 당월 합계 = 차액
             <tr>
               <th scope="col">카테고리</th>
              <th scope="col">총소비</th>
@@ -465,8 +484,8 @@ $(document).ready(function(){
                   <tr>
                    <td >${vo.bk_category}</td>
                      <td > <fmt:formatNumber value="${vo.bk_sum}" pattern="#,###" />원</td>
-                    <td >${vo.bk_minus }</td>
-                    <td >${vo.bk_compare}%</td>
+                    <td ><fmt:formatNumber value="${vo.bk_minus }" pattern="#,###" />원</td>
+                    <td ><fmt:formatNumber value="${vo.bk_compare}" maxFractionDigits="0" />%</td>
                      </tr>
                      
                </c:forEach>
@@ -495,7 +514,7 @@ $(document).ready(function(){
 	<div class="col-lg-44" align="center">
 
 		<img id="pigImg"
-			src="${pageContext.request.contextPath}/resources/img/travel.png"
+			src="${pageContext.request.contextPath}/resources/img/noexist.png"
 			style="width: 50%; min-width: 250px; margin-top: 30px;">
 	</div>
 </div>
