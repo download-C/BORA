@@ -1,0 +1,63 @@
+.checks {
+    position: relative;
+    height: 20px;
+    line-height: 20px;
+    text-align: center; 
+    margin-top:18px;
+}
+.checks label {
+    font-size: 16px;
+    color: #666;
+    margin-right: 0px;
+    vertical-align: middle;
+}
+            
+.checks input[type="radio"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+.checks input[type="radio"]+label {
+    display: inline-block;
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+            
+.checks input[type="radio"]+label:before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 0px;
+    width: 14px;
+    height: 14px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #cacece;
+    border-radius: 100%;
+    box-shadow: none;
+}
+.checks input[type="radio"]:checked+label:before {
+    background: #fff;
+    border-color: #5107b0;
+} 
+            
+.checks input[type="radio"]:checked+label:after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 5px;
+    width: 14px;
+    height: 14px;
+    background: #5107b0;
+    border-radius: 100%;
+    box-shadow: none;
+}

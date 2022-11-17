@@ -16,7 +16,7 @@
 
 
 <style type="text/css">
-   .container{
+   .box{
        width : 100%;
        height : 100%;
        margin : 0;
@@ -114,7 +114,7 @@
   </div>
   </div>
   </div>
-  
+ 
 			
 <br><br><br>			
 

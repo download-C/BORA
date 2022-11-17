@@ -63,7 +63,7 @@ th, td {
                   <input type="hidden" name="state" value="12345678123456781234567812345678">
                   <input type="hidden" name="auth_type" value="0">
                   <!-- <input type="hidden" value="register_info" value="C"> -->
-				 <button type="submit" class="tbtn">오픈뱅킹&nbsp;<b style="color:#e3cffc;">사용자 인증</b>&nbsp;선택</button>
+				 <button type="submit" class="tbtn ouathOK">오픈뱅킹&nbsp;<b style="color:#e3cffc;">사용자 인증</b>&nbsp;선택</button>
                 </form>
           		</div>
             </c:if>
@@ -79,7 +79,7 @@ th, td {
                 <form method="get" action="/openbank/userInfo" style="text-align: center;">
                   <input type="hidden" name="access_token" value="${sessionScope.token }">
                   <input type="hidden" name="user_seq_no" value="${responseToken.user_seq_no }">
-				 <button type="submit" class="tbtn">오픈뱅킹&nbsp;<b style="color:#e3cffc;">내 자산</b>&nbsp;조회</button>
+				 <button type="submit" class="tbtn acct_user">오픈뱅킹&nbsp;<b style="color:#e3cffc;">내 자산</b>&nbsp;조회</button>
                 </form>
             </div>
           </div>

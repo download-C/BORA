@@ -283,85 +283,37 @@
 
 <!-- /////// 잔액 불러오기 ajax ///////////// -->
 
-
-
-
-
-<script src="${pageContext.request.contextPath }/resources/js/jquery.serializeObject.js"></script>
-<script type="text/javascript">
-// $(document).ready(function(){
-// 	window.onload = function(){
-// 		alert('window onload 확인 1');
-	
-// 		let info1 = $('#fr1').serializeObject();
-// 		let info2 = $('#fr2').serializeObject();
-		
-// 		var result = confirm("잔액 조회?");
-// 		if(result){
-			
-// 		}
-		
-// 		$.ajax({
-// 			url 		: "/openbank/acc_balance",
-// 			type		: "GET",
-// 			async:		: true,
-// // 			data 		: formValues,
-// 			data		: JSON.stringify(info),
-// 			dataType	: 'json',
-// 			contentType : "application/json;charset=UTF-8",
-// 			success 	: function(data) {
-// 				if(data.rsp_code == "A0000" ){
-// 					alert('잔액조회성공')
-// 					$('#req_accountBalance.balance_amt').val(data.accountBalance.balance_amt );
-// 				}else {
-// 					alert('잔액조회실패');
-// 					location.href = "/";
-// 					return false;
-// 				}
-				
-// 			}
-// 		});
-		
-// 	}//window.onlaod
-	
-// });//jquery
-
-
-</script>
-
-
 <script type="text/javascript">
 	$(document).ready(function() {
-		// 	window.onload = function(){
-		alert('window onload 확인 1');
-		
-		$("#fr1btn").on('click', function() {
-			let info = $("#fr1").serialize();
-			
+		window.onload = function() {
+		alert('ajax 확인');
+
+		let info = $("#fr").serialize();
+
+		$("#fr").on('click', function() {
 			$.ajax({
-				url : "./openbank/acct_list",
-				type : "GET",
-				async: true,
+				url : "/openbank/accountList",
+				type : "POST",
+				// 					async : true,
 				data : JSON.stringify(info), // 전송 데이터
 				dataType : 'json', // 전송 데이터 형식
 				contentType : "application/json;charset=UTF-8",
 				success : function(data) { // 성공 시 실행
-					console(data);
-					alert("성공");
-// 					$("#result_ph_number").html(res.ph_number);
-// 					$('#req_accountBalance.balance_amt').val(data.accountBalance.balance_amt );
-// 					$('#result_balance_amt').html(res.balance_amt );
-
+					$('#result_balance_amt').html(res.balance_amt);
+					if (result) {
+						alert("완료");
+					} else {
+						alert("전송된 값 없음");
+					}
 				},
 				error : function(error) { //실패 시 실행
-					console(error);
-					alert("실패 원인 : " + error);
+					alert('실패 원인 : ' + error);
 				}
 
 			});//ajax
 
 		});//fr1btn
-		// 	}//window.onlaod
+				}//window.onlaod
 
 	});//jquery
 </script>
@@ -369,12 +321,10 @@
 <%
 	request.setCharacterEncoding("utf-8");
 
-	String balance_amt = request.getParameter("balance_amt");
+		String balance_amt = request.getParameter("balance_amt");
 %>
-{
-	"balance_amt" : "<%=balance_amt%>"
-}
+{ "balance_amt" : "<%=balance_amt%>" }
 
 
-	
+
 <%@ include file="../include/footer.jsp"%>
