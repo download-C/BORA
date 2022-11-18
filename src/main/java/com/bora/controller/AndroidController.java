@@ -1,5 +1,8 @@
 package com.bora.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.domain.SHA256;
 import com.bora.domain.member.MemberVO;
+import com.bora.domain.report.BookDetailVO;
 import com.bora.service.MainService;
 
 @RestController
@@ -26,6 +30,7 @@ public class AndroidController {
 	
 	@Inject
 	private MainService mainService;
+	
 		
 	// 멤버변수 끝 =======================================
 	
@@ -110,16 +115,46 @@ public class AndroidController {
 	
 	// select 
 	// 연, 월, 일,  
-	
+	@RequestMapping("/select")
+	public List<BookDetailVO> selectList() throws Exception {
+		log.info("（＾∀＾●）ﾉｼ selectList() 호출됨");
+		
+		// 연, 월, 일, id, 
+		
+		List<BookDetailVO> bookDetailList = new ArrayList<BookDetailVO>();
+		
+		
+		
+		
+//		for (int i = 0; i < 5; i++) {
+//			MemberVO vo = new MemberVO();
+//			vo.setId("admin"+i);
+//			vo.setPw("1234"+i);
+//			vo.setEmail("admin@n.com"+i);
+//			vo.setName("King Admin"+i);
+//			
+//			memberList.add(vo);
+//		}
+		
+//		log.info("（＾∀＾●）ﾉｼ Test2()  memberList.size(): " + memberList.size());
+		
+		return null;
+	}
 	
 	
 	
 	// insert
-	// id, 
+	@RequestMapping("/insert")
+	public List<BookDetailVO> insertList() throws Exception {
+		log.info("（＾∀＾●）ﾉｼ insertList() 호출됨");
+		
+		
+		
+		
+		return null;
+	}
 	
 	
-	
-//	where id=#{}
 	
 	
 	
