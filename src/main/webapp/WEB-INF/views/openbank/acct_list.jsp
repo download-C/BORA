@@ -59,7 +59,6 @@
       <div class="col-10" style="padding-right: 0;">
         <div class="table-responsive">
         
-        
           <table class="table table-hover" style="border-right: none; border-radius: 0; box-shadow: none;">
             <thead>
               <tr style="font-size: 18px; ">
@@ -101,9 +100,10 @@
               <td style="padding-bottom: 6px; padding-top: 6px; ">
                     	<div class="box" style="display: flex; justify-content: space-between-center; flex-flow: row nowrap;">
                     	
-                    <form method="get" action="/openbank/accountBalance" target="frm2" id="fr1">
+                    <form method="get" action="/openbank/accountBalance" target="modelfrm2" id="fr1">
 					<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 						<input type="hidden" name="access_token" value="${sessionScope.token }">
+<!-- 						<input type="hidden" name="access_token" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAxMDE0NzQyIiwic2NvcGUiOlsiY2FyZGluZm8iLCJmaW50ZWNoaW5mbyIsImlucXVpcnkiLCJsb2dpbiIsInRyYW5zZmVyIl0sImlzcyI6Imh0dHBzOi8vd3d3Lm9wZW5iYW5raW5nLm9yLmtyIiwiZXhwIjoxNjc2NTA5MTYwLCJqdGkiOiIwM2IyZDk0OS1iOTBlLTQ2MGEtOTRjMy1iYmZmMThiNjU4YzIifQ.ME9l_AeCxWzrG0afC1T9rsX92QOF8zXMwOm_rwzgGDo"> -->
 						<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
 						<input type="hidden" name="fintech_use_num" value="120220217888941294186856">
 						<input type="hidden" name="tran_dtime" value="20221104134521">
@@ -111,7 +111,7 @@
 					</form>   
 <!--                   <button class="tdbtn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button> -->
                 
-                	<form method="get" action="/openbank/accountTran" target="frm1">
+                	<form method="get" action="/openbank/accountTran" target="modelfrm1">
 						<input type="hidden" name="access_token" value="${sessionScope.token }">
 						<input type="hidden" name="bank_tran_id" value="${accountTran.bank_tran_id}">
 						<input type="hidden" name="fintech_use_num" value="120220217888941294186856">
@@ -132,7 +132,7 @@
               <tr>
                 <td style="padding-bottom: 6px; padding-top: 6px; ">
                 	<div class="box" style="display: flex; justify-content: space-between-center; flex-flow: row nowrap;">
-                   	<form method="get" action="/openbank/accountBalance" target="frm2" id="fr2">
+                   	<form method="get" action="/openbank/accountBalance" target="modelfrm2" id="fr2">
 						<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 						<input type="hidden" name="access_token" value="${sessionScope.token }">
 						<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
@@ -143,7 +143,7 @@
 <!--                   <button class="tdbtn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button> -->  
 
 
-                	<form method="get" action="/openbank/accountTran" target="frm1">
+                	<form method="get" action="/openbank/accountTran" target="modelfrm1">
 						<input type="hidden" name="access_token" value="${sessionScope.token }">
 						<input type="hidden" name="bank_tran_id" value="${accountTran.bank_tran_id}">
 						<input type="hidden" name="fintech_use_num" value="120220217888941294172171">
@@ -214,12 +214,16 @@
  
  </div>
  
+ <style>
+
+</style>
+ 
    <!-- 모달창 -->
    <!--   	거래내역조회 -->
   <!-- The Modal -->
   <div class="modal" id="myModal">
     <div class="modal-dialog modal-dialog-scrollable">
-      <div class="modal-content">
+      <div class="modal-content" style="height: 80%;">
 
         <!-- Modal Header -->
         <div class="modal-header">
@@ -231,7 +235,7 @@
         <div class="modal-body">
           <div class="container">
 <!--             <iframe src="modaltable.html" style="width: 100%;"></iframe> -->
-            <iframe src="./acct_tran.jsp" style="width: 100%;" name="frm1"></iframe>
+            <iframe src="./acct_tran.jsp" style="width: 100%;  name="modelfrm1"></iframe>
 
             <!-- End table -->
 
@@ -248,20 +252,21 @@
 <!--  BORA입출금 잔액조회 -->
     <!-- The Modal -->
     <div class="modal" id="myModal2">
-      <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
+<!--       <div class="modal-dialog modal-dialog-scrollable"> -->
+      <div class="modal-dialog">
+        <div class="modal-content" style="height: 30%;">
   
           <!-- Modal Header -->
           <div class="modal-header">
             <h4 class="modal-title">잔액조회</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
-  
+  	
           <!-- Modal body -->
           <div class="modal-body">
             <div class="container">
 <!--               <iframe src="modaltable.html" style="width: 100%;"></iframe> -->
-              <iframe src="./acct_balance.jsp" style="width: 100%;" name="frm2"></iframe>
+              <iframe src="./acct_balance.jsp" style="width: 100%;" name="modelfrm2"></iframe>
   
               <!-- End table -->
   
@@ -279,52 +284,75 @@
   <br>
 
 
-
-
-<!-- /////// 잔액 불러오기 ajax ///////////// -->
-
-<script type="text/javascript">
+<!-- 잔액값 불러오는 ajax -->
+	<script type="text/javascript">
 	$(document).ready(function() {
+		//페이지 시작 시 자동 실행 되도록 설정
 		window.onload = function() {
-		alert('ajax 확인');
+			// 		alert('ajax 확인');
 
-		let info = $("#fr").serialize();
-
-		$("#fr").on('click', function() {
-			$.ajax({
-				url : "/openbank/accountList",
-				type : "POST",
-				// 					async : true,
-				data : JSON.stringify(info), // 전송 데이터
-				dataType : 'json', // 전송 데이터 형식
-				contentType : "application/json;charset=UTF-8",
-				success : function(data) { // 성공 시 실행
-					$('#result_balance_amt').html(res.balance_amt);
-					if (result) {
-						alert("완료");
-					} else {
-						alert("전송된 값 없음");
+			let info1 = $("#fr1").serialize();
+			let info2 = $("#fr2").serialize();
+// 			console.log(info1 );
+// 			var result = confirm("잔액 조회");
+			
+				//ajax 자리
+				$.ajax({
+					url : "/ajax/accountBalanceAjax1",
+					type : "GET",
+					async : true,
+					data : info1, // 전송 데이터
+					dataType : "json", // 전송 데이터 형식
+					contentType : "application/json;charset=UTF-8",
+					success : function(data) { // 성공 시 실행
+						if(data.rsp_code == "A0000"){
+// 							$('#result_balance_amt').html(res.balance_amt);
+							$('#req1_balance_amt').val(data.balance_amt);
+							$('#req1_balance_amt').html(balance_amt);
+// 							alert("완료"+ data.balance_amt);
+						} else {
+							alert("전송된 값 없음");
+							return false;
+						}
+					},
+					error : function(error) { //실패 시 실행
+				    	console.log(error);
+						alert('실패 원인 : ' + error);
 					}
-				},
-				error : function(error) { //실패 시 실행
-					alert('실패 원인 : ' + error);
-				}
+				});//ajax
 
-			});//ajax
+				$.ajax({
+					url : "/ajax/accountBalanceAjax2",
+					type : "GET",
+					async : true,
+					data : info2, // 전송 데이터
+					dataType : "json", // 전송 데이터 형식
+					contentType : "application/json;charset=UTF-8",
+					success : function(data) { // 성공 시 실행
+// 						if (data != null) {
+						if(data.rsp_code == "A0000"){
+							$('#req2_balance_amt').val(data.balance_amt);
+// 							alert("완료"+ data.balance_amt);
+						} else {
+							alert("전송된 값 없음");
+							return false;
+						}
+					},
+					error : function(error) { //실패 시 실행
+				    	console.log(error);
+						alert('실패 원인 : ' + error);
+					}
+				});//ajax
 
-		});//fr1btn
-				}//window.onlaod
+		}//window.onlaod
 
 	});//jquery
 </script>
 
-<%
-	request.setCharacterEncoding("utf-8");
+<input type="text" id="req1_balance_amt" value="req1_balance_amt">
+<input type="text" id="req2_balance_amt" value="req2_balance_amt">
+<span id="balance_amt"></span>
+	
+	
 
-		String balance_amt = request.getParameter("balance_amt");
-%>
-{ "balance_amt" : "<%=balance_amt%>" }
-
-
-
-<%@ include file="../include/footer.jsp"%>
+	<%@ include file="../include/footer.jsp"%>

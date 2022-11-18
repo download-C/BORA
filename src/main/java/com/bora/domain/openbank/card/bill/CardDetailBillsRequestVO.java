@@ -18,10 +18,7 @@ public class CardDetailBillsRequestVO {
     public CardDetailBillsRequestVO() {}
     
     public String getBank_tran_id() {
-    	Random random = new Random();
-    	random.setSeed(System.currentTimeMillis());
-    	long val = random.nextInt(1000000000)+1;
-    	return "M202202178U"+String.valueOf(val);
+    	return "M202202178U"+ (int)((Math.random()+1)*100000000);
 	}
     
 	public CardDetailBillsRequestVO(String access_token, String bank_tran_id, String user_seq_no, String bank_code_std,

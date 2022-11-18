@@ -5,7 +5,6 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-
   <link href="${pageContext.request.contextPath}/resources/css/goal.css" rel="stylesheet">
   
 <style>
@@ -15,11 +14,24 @@
       }
     }
 </style>
+<style>
+#moa_btn{
+     background-color: #5107B0;
+/*       float: center; */
+/* 	  margin-left: 50px; */
+      padding: 10px 15px 10px 15px;
+      border: 1px solid #fff;
+      border-radius: 8px;
+      color: white; 
+      border-radius: 13px;
+      font-size: 20px;
+    }
+</style>
 
   <!-- title -->
   <div class="section-title">
-    <h2><b>목돈모으기</b></h2><br>
-    <h3>목돈을 모아보아요</h3>
+    <h2><b>목돈모으기</b></h2><br><br>
+    <h3>💜 BORA 오픈뱅킹으로 조회한 내 자산으로 목돈 만들기 도전하기 💜<h3>
   </div>
   <!-- End title -->
 
@@ -27,7 +39,6 @@
 <div class="container">
     <div class="container">
       <div class="row row-cols-md-4 g-4 justify-content-center">
-      
       
       	<!-- 목표 설정 구역 1 -->
 			<div class="col-md-6 col-12">
@@ -37,21 +48,20 @@
 							<h3>목표 금액 설정</h3>
 						</div>
 						<div class="checks" style="text-align: center; margin-top: 18px;">
-							<input id="ex_rd" name="bk_iow" type="radio" value="3000"
-								required="required" checked="checked" id="radio3"> <label
-								for="ex_rd">3,000만원</label> <input id="ex_rd2" name="bk_iow"
-								type="radio" value="5000" required="required" id="radio5">
-							<label for="ex_rd2">5,000만원</label> <input id="ex_rd3"
-								name="bk_iow" type="radio" required="required" id="radio7">
-							<label for="ex_rd3">7,000만원</label> <input id="ex_rd4"
-								name="bk_iow" type="radio" required="required" id="radio10">
-							<label for="ex_rd4">1억</label> <input id="ex_rd5" name="bk_iow"
-								type="radio" required="required" id="radio10"> <label
-								for="ex_rd5">3억</label> <input id="ex_rd5" name="bk_iow"
-								type="radio" required="required" id="radio10"> <label
-								for="ex_rd5">5억</label> <input id="ex_rd5" name="bk_iow"
-								type="radio" required="required" id="radio10"> <label
-								for="ex_rd5">10억</label>
+							<input id="ex_rd" name="bk_iow" type="radio" value="3000" required="required" checked="checked" id="radio3"> 
+							<label for="ex_rd">3천만원</label> 
+							<input id="ex_rd2" name="bk_iow" type="radio" value="5000" required="required" id="radio5">
+							<label for="ex_rd2">5천만원</label> 
+							<input id="ex_rd3" name="bk_iow" type="radio" value="7000" required="required" id="radio7">
+							<label for="ex_rd3">7천만원</label> 
+							<input id="ex_rd4" name="bk_iow" type="radio" value="10000" required="required" id="radio10">
+							<label for="ex_rd4">1억</label> 
+							<input id="ex_rd5" name="bk_iow" type="radio" value="30000" required="required" id="radio30"> 
+							<label for="ex_rd5">3억</label> 
+							<input id="ex_rd6" name="bk_iow" type="radio" value="50000" required="required" id="radio50"> 
+							<label for="ex_rd6">5억</label> 
+							<input id="ex_rd7" name="bk_iow" type="radio" value="100000" required="required" id="radio100"> 
+							<label for="ex_rd7">10억</label>
 							<div class="form-floating mb-3" style="text-align: center">
 							</div>
 						</div>
@@ -67,8 +77,6 @@
 		 -->
 
 
-
-
 				<!-- 		=============== 신 목표 기간 ==================== -->
 
 				<div class="col-md-6 col-12">
@@ -78,9 +86,8 @@
 								<h3>목표 기간 설정</h3>
 							</div>
 							<div class="input-group mb-3" id='datetimepicker1'>
-								<label class="input-group-text" for="inputGroupSelect01">기간
-									선택</label> <select class="form-select" id="inputGroupSelect01"
-									name="goal_year" id="goal_year" required>
+								<label class="input-group-text" for="inputGroupSelect01">기간 선택</label> 
+								<select class="form-select" id="inputGroupSelect01" name="goal_year" id="goal_year" required>
 									<option selected hidden>목표 기간을 설정해주세요.</option>
 									<option value="1">1년</option>
 									<option value="2">2년</option>
@@ -109,22 +116,26 @@
     <div class="container">
       <div class="row row-cols-md-4 g-4 justify-content-center">
         <!-- chart -->
-        <div class="col-md-6 col-12">
+        <div class="col-md-6 col-11">
           <div class="card border-left-info shadow h-100 py-2">
             <div class="card-body">
               <!-- title -->
               <div>
-                <h3>나의 <span style="background: linear-gradient(to top, #c8a7fa 50%, transparent 50%)";>BORA</span></h3>
-              </div>
+                <h3>나의 <span style="background: linear-gradient(to top, #c8a7fa 50%, transparent 50%)";>자산 보기</span></h3>
+              </div><br>
               <!-- title -->
-							<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-							<script src="${pageContext.request.contextPath}/resources/js/goalChart.js"></script>
-							<div>
-								<canvas id="myChart" width="500px" height="200px"></canvas>
-							</div>
               <div class="chart-pie pt-4 pb-2">
-                <canvas id="myPieChart"></canvas>
+				<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+				<script src="${pageContext.request.contextPath}/resources/js/goalChart.js"></script>
+				<div>
+<%-- 					<canvas id="myChart" width=200%" style="max-height: 300px; max-width: 200px; margin: auto;"></canvas> --%>
+					<canvas id="myChart" style="width=300px; height=300px; "></canvas>
               </div>
+				</div>
+				<div><br>
+				<h3>내 목표 값 : </h3>
+				<h3>현재 내 자산 : </h3>
+				</div>
               <!-- chart -->
             </div>
           </div>
@@ -133,29 +144,24 @@
 
 
 	<!-- 목표까지 안내 구역 3 -->
-        <div class="col-md-6 col-12">
+        <div class="col-md-6 col-11">
           <div class="card border-left-info shadow h-100 py-2">
             <div class="card-body">
-              <div style="text-align: right;">
-                <h5>목표 기간까지...
-                  <br><span id="gapMoneySpan">
-                  ____</span><b>만원</b>을 모아보아요.
-                </h5>
-                		<script src="${pageContext.request.contextPath}/resources/js/dDay.js"></script>
-		<div id="remain-time"></div>
-              </div>
-              <hr>
+              <div style="text-align: center;">
+                <h3>목표 기간까지&nbsp;<span id="gapMoneySpan">____</span><b>만원</b>을 모아보아요</h3>
+                	<script src="${pageContext.request.contextPath}/resources/js/dDay.js"></script>
+					<div id="remain-time" style="color: red;"></div>
+              </div><hr>
               <div class="container" >
-                <div style="width: 80%; margin: 0 auto;">
-                  <h4 style="text-align: center;">목표 금액을 달성하기 위해서는 ?</h4>
-                   <button type="button" id="moa_btn"> 🤔클릭 </button>
+                <div style="width: 100%; margin: 0 auto;">
+                  <h3 style="text-align: center;">목표 금액을 달성하기 위해서는 ?</h3>
+                   <button type="button" id="moa_btn">얼마나 더 모아야하는지 궁금하다면 클릭🤔 </button>
                 </div>
-
-                <div style="width: 70%; margin: 0 auto;">
-                  <h5>&nbsp;하루에 <b><span id="moa_1day">_____</span></b>을 모아야 해요.</h5>
-                  <h5>&nbsp;한 달에 <b><span id="moa_1month">_____</span></b>을 모아야 해요.</h5>
-                  <h5>&nbsp;1년에 <b><span id="moa_1year">_____</span></b>을 모아야 해요.</h5>
-                  <h5 style="text-align: center;">영차영차</h5>
+                <div style="text-align: center; padding: 10px; margin: 0 auto;">
+                  <h4>&nbsp;하루에 <b><span id="moa_1day">_____ </span></b>원을 모아야 해요.</h4>
+                  <h4>&nbsp;한 달에 <b><span id="moa_1month">_____ </span></b>원을 모아야 해요.</h4>
+                  <h4>&nbsp;1년에 <b><span id="moa_1year">_____ </span></b>원을 모아야 해요.</h4>
+                  <h4><b style="color:#5107B0;">BORA</b>와 함께 영차영차<h5>
                 </div>
 			</div>
 			</div>

@@ -18,10 +18,7 @@ public class CardBillsRequestVO {
     public CardBillsRequestVO() {}
     
     public String getBank_tran_id() {
-    	Random random = new Random();
-    	random.setSeed(System.currentTimeMillis());
-    	long val = random.nextInt(1000000000)+1;
-    	return "M202202178U"+String.valueOf(val);
+    	return "M202202178U"+ (int)((Math.random()+1)*100000000);
 	}
 
     
@@ -29,7 +26,6 @@ public class CardBillsRequestVO {
 			String member_bank_code, String from_month, String to_month, String befor_inquiry_trace_info) {
 		super();
 		this.access_token = access_token;
-		this.bank_tran_id = getBank_tran_id();
 		this.user_seq_no = user_seq_no;
 		this.bank_code_std = bank_code_std;
 		this.member_bank_code = member_bank_code;

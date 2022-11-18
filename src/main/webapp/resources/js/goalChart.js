@@ -60,13 +60,25 @@ function getMyChart(goal, curr) {
 	let myChart = new Chart(ctx, {
 		type : 'bar',
 		data : {
-			labels : [ '내 목표 값', '내 자산' ],
+			labels : [ '내 목표 값', '현재 내 자산' ],
 			datasets : [ {
-				label : '자산관리',
+				label : '단위(만원)',
 				data : [ goal, curr ],
-				backgroundColor : [ 'rgb(255, 99, 132)', 'rgb(54, 162, 235)' ]
-			} ]
+				backgroundColor : [ '#5107b0', '#e3cffc' ]
+			}, ]
 		},
+//		data : {
+//			labels: ['내 목표 값','현재 내 자산'],
+//			datasets: [{ 
+//		          label: '내 목표 값',
+//		           data: [goal],
+//		           backgroundColor: '#5107b0'
+//		       },{ 
+//		           label: '현재 내 자산',
+//		           data: [curr],
+//		           backgroundColor: '#e3cffc'
+//		    }]
+//		},
 		options : {
 			maintainAspectRatio : false,
 			responsive : false

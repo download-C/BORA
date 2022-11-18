@@ -3,7 +3,6 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-
 <style type="text/css">
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -126,7 +125,6 @@ only screen and (max-width: 760px),
   <table>
     <thead>
       <tr>
-<!--         <th style="text-align: center;">거래일시</th> -->
         <th style="text-align: center;">거래일자</th>
         <th style="text-align: center;">은행</th>
         <th style="text-align: center;">계좌잔액</th>
@@ -139,7 +137,6 @@ only screen and (max-width: 760px),
     </thead>
     <tbody>
       <tr>
-<%--         <td>${accountBalance.api_tran_dtm }</td> --%>
 		<td>${accountBalance.bank_tran_date }</td>
 		<td>${accountBalance.bank_name }</td>
 		<td>${accountBalance.balance_amt }</td>

@@ -96,15 +96,15 @@ var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
 var positions = [
     {
         //content: '<div>회원관리CDU</div>', 
-        content: '<div class ="label"><span class="left"></span><span class="center">회원관리CDU</span><span class="right"></span></div>',
+        content: '<div class ="label"><span class="left"></span><span class="center">가계부CDU</span><span class="right"></span></div>',
         latlng: new kakao.maps.LatLng(35.172516, 129.108446)
     },
     {
-        content: '<div class ="label"><span class="left"></span><span class="center">자산관리KHJ</span><span class="right"></span></div>',
+        content: '<div class ="label"><span class="left"></span><span class="center">오픈뱅킹KHJ</span><span class="right"></span></div>',
         latlng: new kakao.maps.LatLng(35.213763, 129.089177)
     },
     {
-        content: '<div class ="label"><span class="left"></span><span class="center">자산관리LEJ</span><span class="right"></span></div>',
+        content: '<div class ="label"><span class="left"></span><span class="center">오픈뱅킹LEJ</span><span class="right"></span></div>',
         latlng: new kakao.maps.LatLng(35.18980, 129.069979)
     },
     {
