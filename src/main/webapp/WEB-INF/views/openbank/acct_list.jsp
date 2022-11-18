@@ -181,7 +181,7 @@
           <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;">
             <tbody>
               <tr>
-                <th style="text-align: center;">00원</th>
+                <th style="text-align: center;"><span id=""></span></th>
               </tr>
             </tbody>
           </table>
@@ -349,10 +349,10 @@
 	});//jquery
 </script>
 
+
 <input type="text" id="req1_balance_amt" value="req1_balance_amt">
-<input type="text" id="req2_balance_amt" value="req2_balance_amt">
-<span id="balance_amt"></span>
-	
+<input type="hidden" id="req2_balance_amt" value="req2_balance_amt">
+<span id="req2_balance_amt"></span>
 	
 
 	<%@ include file="../include/footer.jsp"%>

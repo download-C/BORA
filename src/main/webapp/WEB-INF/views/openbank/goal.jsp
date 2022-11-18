@@ -19,6 +19,7 @@
      background-color: #5107B0;
 /*       float: center; */
 /* 	  margin-left: 50px; */
+	  margin: auto auto 0px 10px ;
       padding: 10px 15px 10px 15px;
       border: 1px solid #fff;
       border-radius: 8px;
@@ -30,8 +31,10 @@
 
   <!-- title -->
   <div class="section-title">
-    <h2><b>목돈모으기</b></h2><br><br>
-    <h3>💜 BORA 오픈뱅킹으로 조회한 내 자산으로 목돈 만들기 도전하기 💜<h3>
+    <h2><b>목돈모으기</b></h2>
+    <div style="padding-top: 35px;">
+    <h3>💜 BORA 오픈뱅킹으로 조회한 내 자산으로 목돈 모으기 도전 💜</h3>
+    </div>
   </div>
   <!-- End title -->
 
@@ -43,7 +46,7 @@
       	<!-- 목표 설정 구역 1 -->
 			<div class="col-md-6 col-12">
 				<div class="card border-left-info shadow h-100 py-2">
-					<div class="card-body">
+					<div class="card-body" style="padding: 0px 10px;">
 						<div>
 							<h3>목표 금액 설정</h3>
 						</div>
@@ -86,8 +89,8 @@
 								<h3>목표 기간 설정</h3>
 							</div>
 							<div class="input-group mb-3" id='datetimepicker1'>
-								<label class="input-group-text" for="inputGroupSelect01">기간 선택</label> 
-								<select class="form-select" id="inputGroupSelect01" name="goal_year" id="goal_year" required>
+								<label class="input-group-text" for="goal_year">기간 선택</label> 
+								<select class="form-select" name="goal_year" id="goal_year" required>
 									<option selected hidden>목표 기간을 설정해주세요.</option>
 									<option value="1">1년</option>
 									<option value="2">2년</option>
@@ -148,21 +151,22 @@
           <div class="card border-left-info shadow h-100 py-2">
             <div class="card-body">
               <div style="text-align: center;">
-                <h3>목표 기간까지&nbsp;<span id="gapMoneySpan">____</span><b>만원</b>을 모아보아요</h3>
+                <h4>목표 기간까지&nbsp;<span id="gapMoneySpan">____</span><b>만원</b> 모으기</h4>
                 	<script src="${pageContext.request.contextPath}/resources/js/dDay.js"></script>
-					<div id="remain-time" style="color: red;"></div>
+					<div id="remain-time" style="color: red; font-size: 120%;"></div>
               </div><hr>
               <div class="container" >
-                <div style="width: 100%; margin: 0 auto;">
-                  <h3 style="text-align: center;">목표 금액을 달성하기 위해서는 ?</h3>
-                   <button type="button" id="moa_btn">얼마나 더 모아야하는지 궁금하다면 클릭🤔 </button>
+                <div style="width: 100%; margin: 20px auto; text-align: center;">
+                  <h4 style="text-align: center;">목표 금액 달성을 위해</h4>
+                   <button type="button" id="moa_btn" style="display: inline-block;">얼마나 모아야 하지? 클릭🤔 </button>
                 </div>
                 <div style="text-align: center; padding: 10px; margin: 0 auto;">
-                  <h4>&nbsp;하루에 <b><span id="moa_1day">_____ </span></b>원을 모아야 해요.</h4>
-                  <h4>&nbsp;한 달에 <b><span id="moa_1month">_____ </span></b>원을 모아야 해요.</h4>
-                  <h4>&nbsp;1년에 <b><span id="moa_1year">_____ </span></b>원을 모아야 해요.</h4>
-                  <h4><b style="color:#5107B0;">BORA</b>와 함께 영차영차<h5>
-                </div>
+                  <h5>&nbsp;하루에 <b><span id="moa_1day">_____ </span></b>원을 모아야 해요.</h5>
+                  <h5>&nbsp;한 달에 <b><span id="moa_1month">_____ </span></b>원을 모아야 해요.</h5>
+                  <h5>&nbsp;1년에 <b><span id="moa_1year">_____ </span></b>원을 모아야 해요.</h5>
+                  <div style="margin: 20px;">
+                  <h6><b style="color:#5107B0;">BORA</b>와 함께 영차영차🏋️‍♂️</h6>
+                  </div>
 			</div>
 			</div>
 		</div>

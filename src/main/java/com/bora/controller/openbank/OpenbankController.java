@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.domain.openbank.RequestTokenVO;
 import com.bora.domain.openbank.ResponseTokenVO;
@@ -51,25 +53,49 @@ public class OpenbankController {
 
 	// http://localhost:8088/openbank/goal
 	@RequestMapping(value = "/goal", method = RequestMethod.GET)
-	public String goal() {
+	public String goal(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  오픈뱅킹 - 목돈 모으기");
 		log.info("/openbank/goal 로 이동");
+		
+		String loginID = (String)session.getAttribute("loginID");
+		
+		if(loginID == null) {
+			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			return "redirect:/main/login";
+		}
+		
 		return "/openbank/goal";
 	}
 
 	// http://localhost:8088/openbank/oauthOK
 	@RequestMapping(value = "/oauthOK", method = RequestMethod.GET)
-	public String openbank() {
+	public String openbank(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
+		
 		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  오픈뱅킹 - 계좌");
 		log.info("/openbank/oauthOK 로 이동");
+
+		String loginID = (String)session.getAttribute("loginID");
+		
+		if(loginID == null) {
+			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			return "redirect:/main/login";
+		}
+		
 		return "/openbank/oauthOK";
 	}
 
 	// http://localhost:8088/openbank/oauth
 	@RequestMapping(value = "/callback", method = RequestMethod.GET)
-	public String getToken(RequestTokenVO requestTokenVO, Model model, HttpSession session) throws Exception {
+	public String getToken(RequestTokenVO requestTokenVO, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
 		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  토큰발급 가기");
 		log.info("/openbank/oauthOK 로 이동");
+		
+		String loginID = (String)session.getAttribute("loginID");
+		
+		if(loginID == null) {
+			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			return "redirect:/main/login";
+		}
 
 		// 토큰발급
 		ResponseTokenVO responseToken = openBankingService.requestToken(requestTokenVO);
@@ -82,15 +108,23 @@ public class OpenbankController {
 		log.info("scope : " + requestTokenVO.getScope());
 		log.info("clinet_info : " + requestTokenVO.getClient_info());
 		log.info("state : " + requestTokenVO.getState());
+		
 
 		return "/openbank/oauthOK";
 	}
 
 	// 사용자 정보 조회
 	@RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-	public String getUserInfo(UserInfoRequestVO userInfoRequestVO, Model model) {
+	public String getUserInfo(UserInfoRequestVO userInfoRequestVO, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
 		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧   사용자정보 확인");
 		log.info("/openbank/acct_user_info 로 이동");
+		
+		String loginID = (String)session.getAttribute("loginID");
+		
+		if(loginID == null) {
+			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			return "redirect:/main/login";
+		}
 
 		// Service 객체의 findUser() 메서드를 호출하여 사용자 정보 조회
 		// => 파라미터 : UserInfoRequestVO, 리턴타입 UserInfoResponseVO
@@ -108,10 +142,17 @@ public class OpenbankController {
 
 	// 등록계좌 조회
 	@RequestMapping(value = "/accountList", method = RequestMethod.GET)
-	public String getAccountList(AccountSearchRequestVO accountSearchRequestVO, Model model) {
+	public String getAccountList(AccountSearchRequestVO accountSearchRequestVO, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
 		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  등록계좌 확인");
 		log.info("/openbank/acct_list 로 이동");
 
+		String loginID = (String)session.getAttribute("loginID");
+		
+		if(loginID == null) {
+			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			return "redirect:/main/login";
+		}
+		
 		AccountSearchResponseVO accountList = openBankingService.findAccount(accountSearchRequestVO);
 
 		model.addAttribute("accountList", accountList);
@@ -129,11 +170,18 @@ public class OpenbankController {
 
 	// 잔액조회
 	@RequestMapping(value = "/accountBalance", method = RequestMethod.GET)
-	public String getAccountBalance(AccountBalanceRequestVO accountBalanceRequestVO, Model model) {
+	public String getAccountBalance(AccountBalanceRequestVO accountBalanceRequestVO, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
 		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧   계좌 잔액 조회");
 		log.info("/openbank/acct_balance 로 이동");
 		log.info(accountBalanceRequestVO + "");
 
+		String loginID = (String)session.getAttribute("loginID");
+		
+		if(loginID == null) {
+			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			return "redirect:/main/login";
+		}
+		
 		AccountBalanceResponseVO accountBalance = openBankingService.findAccountBalance(accountBalanceRequestVO);
 
 		// Model 객체에 AccountcancelResponseVO 객체와 엑세스토큰 저장
@@ -151,10 +199,17 @@ public class OpenbankController {
 
 	// 거래내역조회
 	@RequestMapping(value = "/accountTran", method = RequestMethod.GET)
-	public String getAccountTran(AccountTranRequestVO accountTranRequestVO, Model model) {
+	public String getAccountTran(AccountTranRequestVO accountTranRequestVO, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
 		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧   계좌 거래 내역 조회");
 		log.info("/openbank/acct_tran 로 이동");
 
+		String loginID = (String)session.getAttribute("loginID");
+		
+		if(loginID == null) {
+			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			return "redirect:/main/login";
+		}
+		
 		log.info(accountTranRequestVO + "");
 //			accountTranRequestVO.setInquiry_type("A");
 //			accountTranRequestVO.setInquiry_base("D");
@@ -176,9 +231,16 @@ public class OpenbankController {
 
 	// 카드기본정보 조회
 	@RequestMapping(value = "/cardInfo", method = RequestMethod.POST)
-	public String getCardInfo(CardInfoRequestVO cardInfoRequestVO, Model model) throws Exception {
+	public String getCardInfo(CardInfoRequestVO cardInfoRequestVO, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
 
 		log.info("cardInfoPOST() 호출");
+		
+		String loginID = (String)session.getAttribute("loginID");
+		
+		if(loginID == null) {
+			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			return "redirect:/main/login";
+		}
 
 		CardInfoResponseVO cardInfo = openBankingService.infoCard(cardInfoRequestVO);
 
@@ -197,9 +259,16 @@ public class OpenbankController {
 
 	// 카드목록 조회
 	@RequestMapping(value = "/cardList", method = RequestMethod.GET)
-	public String getCardList(CardListRequestVO cardListRequestVO, Model model) throws Exception {
+	public String getCardList(CardListRequestVO cardListRequestVO, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
 
 		log.info("cardListGET() 호출");
+		
+		String loginID = (String)session.getAttribute("loginID");
+		
+		if(loginID == null) {
+			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			return "redirect:/main/login";
+		}
 
 		// Service 객체의 listCard() 메서드를 호출하여 사용자 정보 조회
 		// => 파라미터 : CardListRequestVO, 리턴타입 CardListResponseVO
@@ -222,9 +291,16 @@ public class OpenbankController {
 
 	// 카드청구기본정보 조회
 	@RequestMapping(value = "/cardBills", method = RequestMethod.GET)
-	public String getCardBills(CardBillsRequestVO cardBillsRequestVO, Model model) throws Exception {
+	public String getCardBills(CardBillsRequestVO cardBillsRequestVO, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
 
 		log.info("cardBillsGET() 호출");
+		
+		String loginID = (String)session.getAttribute("loginID");
+		
+		if(loginID == null) {
+			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			return "redirect:/main/login";
+		}
 
 		// Service 객체의 billsCard() 메서드를 호출하여 사용자 정보 조회
 		// => 파라미터 : CardBillsRequestVO, 리턴타입 CardBillsResponseVO
@@ -250,9 +326,16 @@ public class OpenbankController {
 
 	// 카드청구상세정보 조회
 	@RequestMapping(value = "/cardDetailBills", method = RequestMethod.GET)
-	public String getCardDetailBills(CardDetailBillsRequestVO cardDetailBillsRequestVO, Model model) throws Exception {
+	public String getCardDetailBills(CardDetailBillsRequestVO cardDetailBillsRequestVO, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
 
 		log.info("cardDetailBillsGET() 호출");
+		
+		String loginID = (String)session.getAttribute("loginID");
+		
+		if(loginID == null) {
+			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			return "redirect:/main/login";
+		}
 
 		// Service 객체의 detailBillsCard() 메서드를 호출하여 사용자 정보 조회
 		// => 파라미터 : CardDetailBillsRequestVO, 리턴타입 CardDetailBillsResponseVO
