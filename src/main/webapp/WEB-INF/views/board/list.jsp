@@ -86,17 +86,20 @@ a:hover {
 			
 			// 클릭된 카테고리만 배경색 다르게
 			if(ctgr=='골라줘BORA'){
-				$('#btn_pick').attr('style', 'background-color: #ffffff; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
-				$('#btn_tip').attr('style', 'background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
-				$('#btn_meet').attr('style', 'background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
-			} else if (ctgr=='알려줘BORA'){
+				$('#btn_all').attr('style', 'background-color: #ffffff; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
 				$('#btn_pick').attr('style', 'background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
 				$('#btn_tip').attr('style', 'background-color: #ffffff; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
-				$('#btn_meet').attr('style', 'background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
-			} else if (ctgr=='친해져BORA'){
-				$('#btn_pick').attr('style', 'background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
+				$('#btn_meet').attr('style', 'background-color: #ffffff; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
+			} else if (ctgr=='알려줘BORA'){
+				$('#btn_all').attr('style', 'background-color: #ffffff; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
+				$('#btn_pick').attr('style', 'background-color: #ffffff; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
 				$('#btn_tip').attr('style', 'background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
 				$('#btn_meet').attr('style', 'background-color: #ffffff; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
+			} else if (ctgr=='친해져BORA'){
+				$('#btn_all').attr('style', 'background-color: #ffffff; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
+				$('#btn_pick').attr('style', 'background-color: #ffffff; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
+				$('#btn_tip').attr('style', 'background-color: #ffffff; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
+				$('#btn_meet').attr('style', 'background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;');
 			}
 			
 			startNum = 0;
@@ -167,7 +170,7 @@ a:hover {
 				success: function(rData){
 					ctgrCount = rData;
 					// currNum 업뎃해주고
-					currNum = $("#listBody tr").length;
+					currNum = 5;
 					// alert('currNum: ' + currNum);
 					
 					$('#addBtn').text('더보기  ' + currNum + ' / ' + ctgrCount );
@@ -263,10 +266,10 @@ a:hover {
   <div class="col-12">
    <div class="d-sm-flex align-items-center mb-3">
 	<div class="container">
-		<button type="button" value="모두다BORA" class="btn" onclick="location.href='/board/list';" id="btn_all"  style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">모두다<b style="color:#5107B0;">BORA</b></span></button>
-		<button type="button" value="골라줘BORA" class="ctgr_btn btn" id="btn_pick" style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">골라줘<b style="color:#5107B0;">BORA</b></span></button>
-		<button type="button" value="알려줘BORA" class="ctgr_btn btn" id="btn_tip"  style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">알려줘<b style="color:#5107B0;">BORA</b></span></button>
-		<button type="button" value="친해져BORA" class="ctgr_btn btn" id="btn_meet" style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">친해져<b style="color:#5107B0;">BORA</b></span></button>
+		<button type="button" value="모두다BORA" class="btn" id="btn_all" onclick="location.href='/board/list';" id="btn_all"  style="background-color: #e3cffc; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">모두다<b style="color:#5107B0;">BORA</b></span></button>
+		<button type="button" value="골라줘BORA" class="ctgr_btn btn" id="btn_pick" style="background-color: #ffffff; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">골라줘<b style="color:#5107B0;">BORA</b></span></button>
+		<button type="button" value="알려줘BORA" class="ctgr_btn btn" id="btn_tip"  style="background-color: #ffffff; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">알려줘<b style="color:#5107B0;">BORA</b></span></button>
+		<button type="button" value="친해져BORA" class="ctgr_btn btn" id="btn_meet" style="background-color: #ffffff; float: left; width: 160px; margin: 0px 10px 10px 0px; border-radius: 25px;"><span class="btn-inner--text" style="color: black;">친해져<b style="color:#5107B0;">BORA</b></span></button>
 		<button type="button" value="글쓰기" onclick="location.href='/board/insert';" class="btn" id="" style="background-color: #5107B0; float: right; width: 120px; margin: 0px 10px 10px 0px;"><span class="btn-inner--text" style="color: white;">글쓰기</span></button>
 		<input type="hidden" id="page" value="${pm.vo.page }"> 
 <!-- 		<div class="radioCustom" style="display: flex; align-items: center; justify-content: center;"> -->
@@ -280,7 +283,7 @@ a:hover {
 	
 <div class="card-body px-0 py-0" >
     <div class="container">
-		<table  class="table table-hover" style="box-shadow: 7px 14px 90px 3px rgba(163, 174, 184, 0.7);">
+		<table  class="table table-hover" style="box-shadow: 7px 14px 90px 3px rgba(163, 174, 184, 0.7); margin-bottom: 1px;" >
 			<thead class="bg-gray-100">
 				<tr style="color:white; background-color: #5107B0; text-align: center;" >
 					<th class="text-xs font-weight-semibold opacity-7" style="width: 5%; ">번호</th>
@@ -319,7 +322,7 @@ a:hover {
 				</c:forEach>
 			</tbody>
 		</table>
-		<div> <button id="addBtn" onclick="moreList();">더보기 </button> </div>
+		<div> <button id="addBtn" onclick="moreList();" style="width: 100%; border:none;" >더보기 </button> </div>
 	</div> <!-- container -->
 	<br><br>
 	<!-- ===================== 페이징 처리 구간 ========================== -->

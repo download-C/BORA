@@ -8,25 +8,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 
-<%
-	if (loginID == null) {
-%>
-<script>
-	warning("로그인 후 <br> 이용 가능합니다.");
-	setTimeout(function(){ location.href="/main/login"; }, 1500);
-	
-	//warning 버튼
-	function warning(result) {
-	    Swal.fire(
-	        result,
-	        '',
-	        'warning' /*디자인 타입*/
-	    )
-	}//warning 버튼
-</script>
-<%
-	}
-%>
 
 
 <!-- ======== for 썸머노트 ============== -->

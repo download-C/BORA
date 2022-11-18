@@ -44,9 +44,19 @@ public class BoardController {
 	
 	// 1. 글쓰기 GET                       http://localhost:8088/board/insert
 	@RequestMapping (value = "/insert", method = RequestMethod.GET)
-	public void insertBoardGET() throws Exception {
+	public String insertBoardGET(RedirectAttributes rttr) throws Exception {
 		log.info("(♥♥♥♥♥ insertBoardGET) 호출됨");
 		log.info("(♥♥♥♥♥ insertBoardGET) 리턴타입 void라서 들어온 주소 /board/insert.jsp 로 이동할게요");
+
+		String loginID = (String)session.getAttribute("loginID");
+		
+		if(loginID == null) {
+			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			return "redirect:/main/login";
+		}
+		
+		return "/board/insert";
+		
 	}
 	// 1. 글쓰기 GET 끝
 	
@@ -162,11 +172,21 @@ public class BoardController {
 	
 	// 3. 글 본문 보기 GET                  http://localhost:8088/board/read
 	@RequestMapping (value = "/read", method = RequestMethod.GET)
-	public void readGET(HttpSession session, 
+	public String readGET(HttpSession session, 
 						@RequestParam("bno") int bno, 
 						@RequestParam("page") int page, 
-						Model model) throws Exception{ 
+						Model model,
+						RedirectAttributes rttr) throws Exception{ 
 		log.info("(♥♥♥♥♥ 3.readGET) 호출됨");
+		
+		// 로그인 안 한 놈 들어오면 제어
+		String loginID = (String)session.getAttribute("loginID");
+		
+		if(loginID == null) {
+			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			return "redirect:/main/login";
+		}
+		
 		
 		// 직전 페이지(list.jsp)에서 전달된 정보(bno) 저장
 		log.info("(♥♥♥♥♥ 3.readGET) 넘어온 bno: " + bno + " / page: " + page);
@@ -190,6 +210,7 @@ public class BoardController {
 		model.addAttribute("vo", service.getBoard(bno));
 		
 		log.info("(♥♥♥♥♥ 3.readGET) 리턴타입 void니까 들어온 주소  /board/read.jsp로 이동할 거");
+		return "/board/read";
 	}
 	// 3. 글 본문 보기 GET 끝
 	
