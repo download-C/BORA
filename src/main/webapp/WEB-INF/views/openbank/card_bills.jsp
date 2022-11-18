@@ -19,13 +19,33 @@
       --bs-modal-width: 1300px;
       --bs-modal-height: 850px;
     }
+     .tbtn {
+      background-color: #5107B0;
+      float: center;
+/*       width: 330px; */
+/*       height: 70px; */
+      margin :30px;  
+      padding: 5px 20px 5px 20px;
+      border: 1px solid #fff;
+      border-radius: 8px;
+      color: white; 
+/*       color: #e3cffc; */
+      border-radius: 13px;
+      font-size: 20px;
+      align-self: center;
+    }
+    
+    .floatingInput {
+    	color: red;
+    }
     
 </style>
 
-
-<h1>카드 기본 청구 내역</h1>
-
-<hr>
+<!-- title -->
+<div class="section-title">  
+  <h2>카드청구기본내역</h2>
+</div>
+<!-- End title -->
 
 <div class="row">
   <div class="col-12">
@@ -55,11 +75,9 @@
 				<td><span class="text-sm font-weight-normal">${cardBills.settlement_date }</span></td>
 				<td><span class="text-sm font-weight-normal">
 				<c:if test="${cardBills.credit_check_type =='01'}">
-				신용
-				</c:if>
+				신용</c:if>
 				<c:if test="${cardBills.credit_check_type =='02'}">
-				체크
-				</c:if>
+				체크</c:if>
 				</span></td>
 			</tr>
 	   </c:forEach>
@@ -71,23 +89,13 @@
 <%-- <a id="addBtn" href="/openbank/cardBills?end=${end+4 }">더보기</a> --%>
 	<br><br>
   </div>
-  <hr>
   </div>
 </div> <!-- col-12 -->
 </div> <!-- row -->
 
-     <div class="col-2" style="padding-left: 0;">
-        <div class="table-responsive">
-          <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;">
-            <thead>
-              <tr>
-                <th scope="col" style="color:black">업무</th>
-              </tr>
-            </thead>
-            <tbody >
-
-             <tr>
-              <td style="padding-bottom: 6px; padding-top: 6px;">
+    <div class="container">
+  	<div class="box" style="display: flex; justify-content: space-between; flex-flow: row nowrap;">
+          <div class="col-sm-19 col-md-17 col-lg-80 mx-auto" style="display: flex; justify-content: space-between;">
              <!-- 카드청구상세정보조회 -->
               <form method="get" action="/openbank/cardDetailBills">
               <%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
@@ -98,12 +106,9 @@
 		      <input type="hidden" name="member_bank_code" value="399">
 		      <input type="hidden" name="charge_month" value="202211">
 		      <input type="hidden" name="settlement_seq_no" value="0001">
-		      <input type="submit" value="카드상세청구조회" class="tdbtn">
+		      <button type="submit" class="tbtn"><b style="color:#e3cffc;">카드청구상세내역</b></button>
               </form>
-              </td>
-             </tr>
-            </tbody>
-          </table>
+          </div>
         </div>
       </div>
 	

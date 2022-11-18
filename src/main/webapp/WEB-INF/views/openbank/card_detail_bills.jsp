@@ -5,9 +5,12 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-<h1>카드 청구 상세 내역</h1>
+<!-- title -->
+<div class="section-title">  
+  <h2>카드청구상세내역</h2>
+</div>
+<!-- End title -->
 
-<hr>
 
 <div class="row">
   <div class="col-12">     
@@ -31,14 +34,20 @@
 				<td><span class="text-sm font-weight-normal">${cardDetailBills.paid_time }</span></td>
 				<td><span class="text-sm font-weight-normal">${cardDetailBills.paid_amt }</span></td>
 				<td><span class="text-sm font-weight-normal">${cardDetailBills.merchant_name_masked }</span></td>
-				<td><span class="text-sm font-weight-normal">${cardDetailBills.product_type }</span></td>
+				<td><span class="text-sm font-weight-normal">
+				<c:if test="${cardDetailBills.product_type == '01'}">
+				일시불</c:if>
+				<c:if test="${cardDetailBills.product_type == '02'}">
+				신용판매할부</c:if>
+				<c:if test="${cardDetailBills.product_type == '03'}">
+				현금서비스</c:if>
+				</span></td>
 			</tr>
 	   </c:forEach>
 	   </tbody>
 	 </table>
 	</div> <!-- container -->
 	<br><br>
-	<hr>
   </div>
   
 </div> <!-- col-12 -->
