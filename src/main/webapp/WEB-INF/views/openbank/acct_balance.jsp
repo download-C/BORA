@@ -149,15 +149,6 @@ only screen and (max-width: 760px),
     </tbody>
   </table>	
   
-  <%
-	request.setCharacterEncoding("utf-8");
-
-	String balance_amt = request.getParameter("balance_amt");
-%>
-{
-	"balance_amt" : "<%=balance_amt%>",
-}
-  
   
 <script>
 // localStorage에 저장해놨던 balArr 끄집어내서

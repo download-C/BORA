@@ -84,8 +84,9 @@ $(document).ready(function() {
 		  </figure>
 		  <section class="mb-5"><p class="fs-5 mb-4">${vo.n_content }</p></section>
 	  </article>
-	  <div style="text-align: center;">
+	  <div>
 			<button style="border: none;margin: 2px; background-color: #5107B0; color: white; border-radius: 5px;" class="btn_list">목록</button></div>
+	  <hr><br>
 	  </div>
   </div>
 </div>

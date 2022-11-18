@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bora.domain.openbank.RequestTokenVO;
 import com.bora.domain.openbank.ResponseTokenVO;
@@ -144,6 +146,8 @@ public class OpenbankController {
 
 		return "/openbank/acct_balance";
 	}
+	
+	
 
 	// 거래내역조회
 	@RequestMapping(value = "/accountTran", method = RequestMethod.GET)

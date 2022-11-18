@@ -92,8 +92,10 @@ function diffDay() {
 	// == 소수 부분 버리고 정수만 나타냄
 	
 	const diffYear = Math.floor(diffDate / 365);
+	console.log("diffYear", diffYear);
 
 	const diffDateShow = Math.floor(diff / (1000 * 60 * 60 * 24) % 365); // 화면에 보여줄 놈
+	console.log("diffDateShow", diffDateShow);
 	
 	diffDate = Math.floor(diff / (1000 * 60 * 60 * 24)); // 보낼 놈
 	//                                   1초 1분 1시간 1일
@@ -101,10 +103,12 @@ function diffDay() {
 	const diffHour = Math.floor((diff / (1000 * 60 * 60)) % 24);
 	// const diffHour = Math.floor( (diff / (1000 * 60 * 60)) % 24 ).padStart(2, "0");
 	//                                                    ㄴ 1시간
+	console.log("diffHour", diffHour);
 	
 	const diffMin = Math.floor((diff / (1000 * 60)) % 60);
 	// const diffMin = Math.floor( (diff / (1000 * 60)) % 60 ).padStart(2, "0");
 	//                                             ㄴ 1분
+	console.log("diffMin", diffMin);
 	
 	const diffSec = Math.floor(diff / 1000 % 60);
 	// const diffSec = Math.floor(diff / 1000 % 60 ).padStart(2, "0");
@@ -113,6 +117,7 @@ function diffDay() {
 	// ~~얘를 ㄴ두 자릿수로 만들건데,
 	// ㄴ두 자릿수가 아니라면 0으로 채운다~
 	// ex. 7시간 --> 07시간!!
+	console.log("diffSec", diffSec);
 
 	$('#remain-time').html(
 			diffYear + '년 ' + diffDateShow + '일 ' + diffHour + '시간 ' + diffMin + '분 ' + diffSec

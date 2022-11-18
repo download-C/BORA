@@ -103,6 +103,7 @@
                     <form method="get" action="/openbank/accountBalance" target="modelfrm2" id="fr1">
 					<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 						<input type="hidden" name="access_token" value="${sessionScope.token }">
+<!-- 						<input type="hidden" name="access_token" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAxMDE0NzQyIiwic2NvcGUiOlsiY2FyZGluZm8iLCJmaW50ZWNoaW5mbyIsImlucXVpcnkiLCJsb2dpbiIsInRyYW5zZmVyIl0sImlzcyI6Imh0dHBzOi8vd3d3Lm9wZW5iYW5raW5nLm9yLmtyIiwiZXhwIjoxNjc2NTA5MTYwLCJqdGkiOiIwM2IyZDk0OS1iOTBlLTQ2MGEtOTRjMy1iYmZmMThiNjU4YzIifQ.ME9l_AeCxWzrG0afC1T9rsX92QOF8zXMwOm_rwzgGDo"> -->
 						<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
 						<input type="hidden" name="fintech_use_num" value="120220217888941294186856">
 						<input type="hidden" name="tran_dtime" value="20221104134521">
@@ -234,7 +235,7 @@
         <div class="modal-body">
           <div class="container">
 <!--             <iframe src="modaltable.html" style="width: 100%;"></iframe> -->
-            <iframe src="./acct_tran.jsp" style="width: 100%;" name="modelfrm1"></iframe>
+            <iframe src="./acct_tran.jsp" style="width: 100%;  name="modelfrm1"></iframe>
 
             <!-- End table -->
 
@@ -260,7 +261,7 @@
             <h4 class="modal-title">잔액조회</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
-  
+  	
           <!-- Modal body -->
           <div class="modal-body">
             <div class="container">
@@ -283,38 +284,32 @@
   <br>
 
 
-<!-- responseText 가 문제!! -->
-	<!-- /////// 잔액 불러오기 ajax ///////////// -->
-	<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
-
+<!-- 잔액값 불러오는 ajax -->
 	<script type="text/javascript">
 	$(document).ready(function() {
+		//페이지 시작 시 자동 실행 되도록 설정
 		window.onload = function() {
 			// 		alert('ajax 확인');
 
 			let info1 = $("#fr1").serialize();
-// 			let info1 = $("#fr1").serializeObject();
-			// 		let info2 = $("#fr2").serializeObject();
-
-			var result = confirm("잔액 조회");
-// 			if (result) {
+			let info2 = $("#fr2").serialize();
+// 			console.log(info1 );
+// 			var result = confirm("잔액 조회");
+			
 				//ajax 자리
-
-				// 		$("#fr").on('click', function() {
 				$.ajax({
-					url : "/openbank/accountBalance",
+					url : "/ajax/accountBalanceAjax1",
 					type : "GET",
 					async : true,
-					data : JSON.stringify(info1), // 전송 데이터
+					data : info1, // 전송 데이터
 					dataType : "json", // 전송 데이터 형식
 					contentType : "application/json;charset=UTF-8",
 					success : function(data) { // 성공 시 실행
-// 					success : function(res) { // 성공 시 실행
-// 						if (data.rsp_code == "A0000") {
-						if (data != null) {
+						if(data.rsp_code == "A0000"){
 // 							$('#result_balance_amt').html(res.balance_amt);
-							$('#req_balance_amt').val(data.balance_amt);
-							alert("완료");
+							$('#req1_balance_amt').val(data.balance_amt);
+							$('#req1_balance_amt').html(balance_amt);
+// 							alert("완료"+ data.balance_amt);
 						} else {
 							alert("전송된 값 없음");
 							return false;
@@ -324,36 +319,40 @@
 				    	console.log(error);
 						alert('실패 원인 : ' + error);
 					}
-
 				});//ajax
 
-				// 		});//fr1btn
-
-// 			} else {
-// 				alert("잔액 조회 ㄴㄴ");
-// 				location.href = "/";
-
-// 			}//if
+				$.ajax({
+					url : "/ajax/accountBalanceAjax2",
+					type : "GET",
+					async : true,
+					data : info2, // 전송 데이터
+					dataType : "json", // 전송 데이터 형식
+					contentType : "application/json;charset=UTF-8",
+					success : function(data) { // 성공 시 실행
+// 						if (data != null) {
+						if(data.rsp_code == "A0000"){
+							$('#req2_balance_amt').val(data.balance_amt);
+// 							alert("완료"+ data.balance_amt);
+						} else {
+							alert("전송된 값 없음");
+							return false;
+						}
+					},
+					error : function(error) { //실패 시 실행
+				    	console.log(error);
+						alert('실패 원인 : ' + error);
+					}
+				});//ajax
 
 		}//window.onlaod
 
 	});//jquery
-
-
-
 </script>
 
-	<%
-	request.setCharacterEncoding("utf-8");
-
-		String balance_amt = request.getParameter("balance_amt");
-
-%>
-
-	<%-- { "accountBalance.balance_amt" : "<%=${accountBalance.balance_amt} %>" } --%>
-	{ "잔액 출력" :
-	<%= balance_amt %>
-	}
-	<span id="result_balance_amt"></span>
+<input type="text" id="req1_balance_amt" value="req1_balance_amt">
+<input type="text" id="req2_balance_amt" value="req2_balance_amt">
+<span id="balance_amt"></span>
+	
+	
 
 	<%@ include file="../include/footer.jsp"%>

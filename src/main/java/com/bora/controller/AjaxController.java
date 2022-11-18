@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -33,12 +34,15 @@ import com.bora.domain.board.BoardVO;
 import com.bora.domain.board.PageMakerVO;
 import com.bora.domain.board.PageVO;
 import com.bora.domain.member.MemberVO;
+import com.bora.domain.openbank.account.AccountBalanceRequestVO;
+import com.bora.domain.openbank.account.AccountBalanceResponseVO;
 import com.bora.domain.openbank.card.bill.CardBillsVO;
 import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookVO;
 import com.bora.service.CardPayService;
 import com.bora.service.MemberService;
 import com.bora.service.board.BoardService;
+import com.bora.service.openbank.OpenBankingService;
 import com.bora.service.report.BookDetailService;
 import com.bora.service.report.BookService;
 import com.bora.service.report.ConsumeAllListService;
@@ -74,6 +78,10 @@ public class AjaxController {
 
 	@Inject
 	ReportService rservice;
+	
+	@Autowired
+	private OpenBankingService openBankingService;
+	
 
 	@RequestMapping(value = "/idcheck", method = RequestMethod.GET)
 	public ResponseEntity<String> idcheck(HttpServletRequest request, RedirectAttributes rttr) throws Exception {
@@ -413,7 +421,6 @@ public class AjaxController {
 		
 		
 		
-		
 		log.info("바꾼 정보: " + consumeList);
 		ResponseEntity<List<BookDetailVO>> entity = new ResponseEntity<List<BookDetailVO>>(consumeList, HttpStatus.OK);
 
@@ -429,6 +436,48 @@ public class AjaxController {
 		return new ResponseEntity<List<BoardVO>>(boardService.getList5(), HttpStatus.OK);
 	}
 	
+	// 오픈뱅킹 잔액값1 불러오기
+		@RequestMapping(value = "/accountBalanceAjax1", method = RequestMethod.GET)
+		public @ResponseBody AccountBalanceResponseVO getAccountBalanceAjax1( AccountBalanceRequestVO accountBalanceRequestVO, Model model) {
+			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧   계좌 잔액 조회" + accountBalanceRequestVO);
+			log.info("/openbank/acct_balance 로 이동");
+			log.info(accountBalanceRequestVO + "");
 
+			AccountBalanceResponseVO accountBalance = openBankingService.findAccountBalance(accountBalanceRequestVO);
+
+			// Model 객체에 AccountcancelResponseVO 객체와 엑세스토큰 저장
+			model.addAttribute("accountBalance", accountBalance);
+//			session.setAttribute("bank_tran_id", accountBalanceRequestVO.getBank_tran_id());
+			session.setAttribute("fintech_use_num", accountBalanceRequestVO.getFintech_use_num());
+
+			log.info("fintech_use_num : " + accountBalanceRequestVO.getFintech_use_num());
+			log.info("tran_dtime : " + accountBalanceRequestVO.getTran_dtime());
+			log.info("accountBalance : " + accountBalance);
+
+			return accountBalance;
+		}
+
+		// 오픈뱅킹 잔액값2 불러오기
+		@RequestMapping(value = "/accountBalanceAjax2", method = RequestMethod.GET)
+		public @ResponseBody AccountBalanceResponseVO getAccountBalanceAjax2( AccountBalanceRequestVO accountBalanceRequestVO, Model model) {
+			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧   계좌 잔액 조회" + accountBalanceRequestVO);
+			log.info("/openbank/acct_balance 로 이동");
+			log.info(accountBalanceRequestVO + "");
+			
+			AccountBalanceResponseVO accountBalance = openBankingService.findAccountBalance(accountBalanceRequestVO);
+			
+			// Model 객체에 AccountcancelResponseVO 객체와 엑세스토큰 저장
+			model.addAttribute("accountBalance", accountBalance);
+//			session.setAttribute("bank_tran_id", accountBalanceRequestVO.getBank_tran_id());
+			session.setAttribute("fintech_use_num", accountBalanceRequestVO.getFintech_use_num());
+			
+			log.info("fintech_use_num : " + accountBalanceRequestVO.getFintech_use_num());
+			log.info("tran_dtime : " + accountBalanceRequestVO.getTran_dtime());
+			log.info("accountBalance : " + accountBalance);
+			
+			return accountBalance;
+		}
+	
+	
 
 }// class AjaxController
