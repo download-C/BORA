@@ -251,7 +251,7 @@ $(document).ready(function(){
                    $('#tbody').append(
                    '<tr>'
                      +'<td>'+bk_memo+'</td>'
-                     +'<td>'+bk_money+'원</td>'
+                     +'<td>'+comma(bk_money)+'원</td>'
                    +'</tr>'   
                    ); // append
                 }); //each
@@ -277,7 +277,7 @@ $(document).ready(function(){
                    $('#tbody2').append(
                    '<tr>'
                      +'<td>'+bk_day+'일</td>'
-                      +'<td>'+bk_sum+'원</td>'
+                      +'<td>'+comma(bk_sum)+'원</td>'
                    +'</tr>'   
                    ); // append
                 }); //each
