@@ -57,6 +57,7 @@ public class OpenbankController {
 		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  오픈뱅킹 - 목돈 모으기");
 		log.info("/openbank/goal 로 이동");
 		
+		
 		String loginID = (String)session.getAttribute("loginID");
 		
 		if(loginID == null) {

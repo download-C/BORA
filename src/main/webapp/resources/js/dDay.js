@@ -8,7 +8,6 @@ let diffDate = '';
 var gap = 0; // let하니까 안 되네.. let은 블럭 레벨 scope.. 라서,,,, 그 블럭 벗어나면 다시 이 0이 되네
 
 
-
 // 몇 년 뒤 클릭했는지 받아와서 그 값 디데이 구하는 데로 ,,
 $('#datetimepicker1').change(function() {
 	let n = parseInt($('#goal_year option:selected').val());

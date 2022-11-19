@@ -137,7 +137,7 @@ only screen and (max-width: 760px),
       <tr>
 		<td>${accountBalance.bank_tran_date }</td>
 		<td>${accountBalance.bank_name }</td>
-		<td>${accountBalance.balance_amt }</td>
+		<td id="req2_balance_amt">${accountBalance.balance_amt }</td>
 		<td>${accountBalance.available_amt }</td>
 		<td>${accountBalance.product_name }</td>
 		<td>${accountBalance.account_issue_date }</td>

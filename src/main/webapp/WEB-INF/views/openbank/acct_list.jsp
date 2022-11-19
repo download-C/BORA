@@ -55,7 +55,7 @@
     <h4 style="background: linear-gradient(to top, #c8a7fa 50%, transparent 50%); width: fit-content;">계좌</h4><br>
         <span><b>◼ BORA 오픈뱅킹에서는 금융결제원 테스트베드에 인증이 완료된 계좌에 한하여 아래의 정보를 제공합니다.</b></span><br><br><br>
     <div class="row justify-content-center">
-      <div class="col-10" style="padding-right: 0;">
+      <div class="col-9" style="padding-right: 0;">
         <div class="table-responsive">
           <table class="table table-hover" style="border-right: none; border-radius: 0; box-shadow: none;">
             <thead>
@@ -73,8 +73,8 @@
               <tr>
 				<td>${accountList.account_num_masked }</td>
 				<td>${accountList.bank_name }</td>
-				<td>${accountList.account_holder_type } (P:개인)</td>
-				<td>${accountList.account_type } (1:입출금)</td>
+				<td>${accountList.account_holder_type } (개인)</td>
+				<td>${accountList.account_type } (입출금)</td>
 				<td>${accountList.account_holder_name }</td>
 				<td>${accountList.account_alias }</td>
               </tr>
@@ -84,17 +84,19 @@
         </div>
       </div>
       
-      <div class="col-2" style="padding-left: 0;">
+      <div class="col-3" style="padding-left: 0;">
         <div class="table-responsive">
           <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;">
             <thead>
               <tr style="font-size: 18px; ">
+                <th scope="col" style="color:black">잔액</th>
                 <th scope="col" style="color:black">업무 조회</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-              <td style="padding-bottom: 6px; padding-top: 6px; ">
+              <td><span id="req1_balance_amt" value="req1_balance_amt"></span>원</td>
+              <td style="padding-bottom: 3px; padding-top: 2px; ">
                  <div class="box" style="display: flex; justify-content: space-between-center; flex-flow: row nowrap;">
                     <!-- BORA적금 계좌 - 잔액 출력 -->	
                     <form method="get" action="/openbank/accountBalance" target="modelfrm2" id="fr1">
@@ -104,7 +106,7 @@
 						<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
 						<input type="hidden" name="fintech_use_num" value="120220217888941294186856">
 						<input type="hidden" name="tran_dtime" value="20221104134521">
-						<button type="submit" id="fr1btn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액</button>
+						<button type="submit" id="fr1btn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">세부잔액</button>
 					</form>   
                     <!-- BORA적금 계좌 - 거래내역 출력 -->	                
                 	<form method="get" action="/openbank/accountTran" target="modelfrm1">
@@ -117,12 +119,13 @@
 						<input type="hidden" name="to_date" value="20221104">
 						<input type="hidden" name="sort_order" value="D">
 						<input type="hidden" name="tran_dtime" value="20221104134521">
-					<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역</button>
+					<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">거래내역</button>
 					</form>
 					</div>
                 </td>
               </tr>
               <tr>
+              <td><span id="req2_balance_amt" value="req1_balance_amt"></span>원</td>
                 <td style="padding-bottom: 6px; padding-top: 6px; ">
                 	<div class="box" style="display: flex; justify-content: space-between-center; flex-flow: row nowrap;">
                 	<!-- BORA입출금 계좌 - 잔액 출력 -->	
@@ -132,7 +135,7 @@
 						<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
 						<input type="hidden" name="fintech_use_num" value="120220217888941294172171">
 						<input type="hidden" name="tran_dtime" value="20221104134521">
-						<button type="submit"  id="fr2btn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액</button>
+						<button type="submit"  id="fr2btn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">세부잔액</button>
 					</form>   
                     <!-- BORA입출금 계좌 - 거래내역 출력 -->	    
                 	<form method="get" action="/openbank/accountTran" target="modelfrm1">
@@ -145,7 +148,7 @@
 						<input type="hidden" name="to_date" value="20221104">
 						<input type="hidden" name="sort_order" value="D">
 						<input type="hidden" name="tran_dtime" value="20221104134521">
-						<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역 </button>
+						<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">거래내역</button>
 					</form>
                   </div>
                 </td>
@@ -155,7 +158,7 @@
         </div>
       </div>
       <!-- 잔액 조회 버튼 -->
-      <div class="col-10" style="padding-left: 0;">
+      <div class="col-9" style="padding-left: 0;">
         <div class="table-responsive">
           <table class="table table-hover" style="border-right: none;   border-radius: 0; box-shadow: none;">
             <tbody>
@@ -166,12 +169,12 @@
           </table>
         </div>
       </div>
-      <div class="col-2" style="padding-left: 0;">
+      <div class="col-3" style="padding-left: 0;">
         <div class="table-responsive">
           <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;">
             <tbody>
               <tr>
-                <th style="text-align: center;"><span id=""></span></th>
+                <th style="text-align: center;"><span id="total121">총 잔액 들어갈 자리 원</span></th>
               </tr>
             </tbody>
           </table>
@@ -191,12 +194,18 @@
 			<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
 			<input type="hidden" name="fintech_use_num" value="120220217888941294172171"> 
 			<input type="hidden" name="tran_dtime" value="20221104134521"> 
+			<input type="hidden" id="hidden1" value="">
+			<input type="hidden" id="hidden2" value="">
 			<button type="submit" class="tbtn"><b style="color:#e3cffc;">목돈&nbsp;</b>모으기</button>
 		</form>
 	<!-- 목돈 모으기 -->
 
+			<input type="hidden" id="hidden3" value="">
+			<input type="hidden" id="hidden4" value="">
  
  </div>
+
+
 
 
 <!-- 🐧🐧🐧 잔액/거래내역 모달창 구역 시작 🐧🐧🐧 -->
@@ -272,10 +281,12 @@
 					contentType : "application/json;charset=UTF-8",
 					success : function(data) { // 성공 시 실행
 						if(data.rsp_code == "A0000"){
-// 							$('#result_balance_amt').html(res.balance_amt);
-							$('#req1_balance_amt').val(data.balance_amt);
-							$('#req1_balance_amt').html(balance_amt);
+// 							$('#req1_balance_amt').val(data.balance_amt);
+							$('#req1_balance_amt').html(data.balance_amt);
+							$('#hidden1').val(data.balance_amt);
+							$('#hidden3').val(data.balance_amt);
 // 							alert("완료"+ data.balance_amt);
+							
 						} else {
 							alert("전송된 값 없음");
 							return false;
@@ -295,10 +306,23 @@
 					dataType : "json", // 전송 데이터 형식
 					contentType : "application/json;charset=UTF-8",
 					success : function(data) { // 성공 시 실행
-// 						if (data != null) {
 						if(data.rsp_code == "A0000"){
-							$('#req2_balance_amt').val(data.balance_amt);
-// 							alert("완료"+ data.balance_amt);
+// 							$('#req2_balance_amt').val(data.balance_amt);
+							$('#req2_balance_amt').html(data.balance_amt);
+							
+							$('#hidden2').val(data.balance_amt);
+							$('#hidden4').val(data.balance_amt);
+							
+							var num1 = parseInt($('#hidden3').val());
+							var num2 = parseInt($('#hidden4').val());
+							
+							var result = num1+num2;
+							const cn1 = result.toString()
+							  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+							$('#total121').html(cn1);
+							
+							sessionStorage.setItem('total', result);
+
 						} else {
 							alert("전송된 값 없음");
 							return false;
@@ -309,15 +333,22 @@
 						alert('실패 원인 : ' + error);
 					}
 				});//ajax
-
+			
+			
+				
 		}//window.onlaod
+		
 
+		
 	});//jquery
+	
+	function getTotal(){
+		
+	}
+	
+	
 </script>
 
-<input type="text" id="req1_balance_amt" value="req1_balance_amt">
-<input type="hidden" id="req2_balance_amt" value="req2_balance_amt">
-<span id="req2_balance_amt"></span>
-	
+<span style="font-size: xx-large;" id="req2_balance_amt"></span>
 
 <%@ include file="../include/footer.jsp"%>

@@ -38,14 +38,14 @@
 <div class="container">
 	<h3>💜 BORA 오픈뱅킹으로 조회한 내 자산으로 목돈 모으기 도전 💜</h3>
 		<div class="container">
-      		<div class="row row-cols-md-4 g-4 justify-content-center">
+			<div class="row row-cols-md-14 g-4 justify-content-center">
       			<!-- 1번 목표 금액 설정  -->
 				<div class="col-md-6 col-12">
 					<div class="card border-left-info shadow h-100 py-2">
-						<div class="card-body" style="padding: 0px 10px;">
+						<div class="card-body">
 							<div>
 								<h3>목표 금액 설정</h3>
-							</div>
+							</div> 
 						<div class="checks" style="text-align: center; margin-top: 18px;">
 							<input id="ex_rd" name="bk_iow" type="radio" value="3000" required="required" checked="checked" id="radio3"> 
 							<label for="ex_rd">3천만원</label> 
@@ -61,8 +61,8 @@
 							<label for="ex_rd6">5억</label> 
 							<input id="ex_rd7" name="bk_iow" type="radio" value="100000" required="required" id="radio100"> 
 							<label for="ex_rd7">10억</label>
-							<div class="form-floating mb-3" style="text-align: center">
-							</div>
+<!-- 							<div class="form-floating mb-3" style="text-align: center"> -->
+<!-- 							</div> -->
 						</div>
 					</div>
 				</div>
@@ -77,7 +77,7 @@
 						<div class="input-group mb-3" id='datetimepicker1'>
 							<label class="input-group-text" for="goal_year">기간 선택</label> 
 							<select class="form-select" name="goal_year" id="goal_year" required>
-								<option selected hidden>목표 기간을 설정해주세요.</option>
+								<option selected hidden>목표 기간을 설정해주세요</option>
 								<option value="1">1년</option>
 								<option value="2">2년</option>
 								<option value="3">3년</option>
@@ -122,7 +122,12 @@
 				<div>
 				<br>
 					<h4>내 목표 값 : </h4>
-					<h4>현재 내 자산 : </h4>
+					<h4>현재 내 자산 : <span id="total222"></span></h4>
+						<script>
+						var total = sessionStorage.getItem("total");
+							alert(total);
+							$('#total222').html(total);
+						</script>
 				</div>
             </div>
           </div>
@@ -162,9 +167,9 @@
 
 <script>
 $('#moa_btn').click(function(){
-	alert('버턴 클릭됨');
- 	alert('gap: ' + gap);
-	alert('diffDate: ' + diffDate);
+// 	alert('버턴 클릭됨');
+//  	alert('gap: ' + gap);
+// 	alert('diffDate: ' + diffDate);
 	$.ajax({
 		url: '/ajax/moa',
 		data: {'gapMoney': gap, 'gapDate': diffDate},
