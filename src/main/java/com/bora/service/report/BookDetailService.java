@@ -28,6 +28,6 @@ public interface BookDetailService {
 
 	public List<BookDetailVO> getDashboardBookDetail(String loginID, int year, int month) throws Exception;
 
-		
+	public List<BookDetailVO> getAndroidBookDetailList(int year, int month, int day, String loginID) throws Exception;
 
 }

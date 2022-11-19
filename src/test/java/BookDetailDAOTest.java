@@ -73,11 +73,11 @@ public class BookDetailDAOTest {
 		log.info("♡♡♡♡♡♡♡♡♡♡ "+detailList);
 	}
 	
-	@Test 
+//	@Test 
 	// 아이디와 디테일번호로 디테일 정보 불러오기 완료
 	public void getBookDetailContent() throws Exception {
 		String loginID = "admin";
-		int bk_detail_num = 20;
+		int bk_detail_num = 125;
 		BookDetailVO vo = dao.getBookDetail(bk_detail_num, loginID);
 		log.info("♡♡♡♡♡♡♡♡♡♡ 불러온 정보: "+vo);
 		
@@ -127,6 +127,27 @@ public class BookDetailDAOTest {
 		
 //		int result = dao.deleteBookDetail(21);
 //		if(result==1) log.info("성공"); 
+	}
+	
+	
+	// 안드용 가계부 디테일 연, 월, 일 목록 불러오기
+	@Test
+	public void androidTest() throws Exception{
+		log.info("ヾ(⌐■_■)ノ♪ androidTest 호출됨");
+		
+		String loginID = "admin";
+		int year = 2022;
+		int month = 11;
+		int day = 17;
+		
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("loginID",loginID);
+//		map.put("year", year);
+//		map.put("month", month);
+//		map.put("day", day);
+//		
+		List<BookDetailVO> androidList = dao.getAndroidBookDetailList(year, month, day, loginID);
+		log.info("ヾ(⌐■_■)ノ♪ androidTest  받아온 androidList: " + androidList);
 	}
 	
 }

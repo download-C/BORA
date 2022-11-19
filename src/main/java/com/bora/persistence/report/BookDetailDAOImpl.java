@@ -108,5 +108,18 @@ public class BookDetailDAOImpl implements BookDetailDAO{
 		map.put("loginID", loginID);
 		return session.selectList(NAMESPACE+".getDashboardBookDetail", map);
 	}
+	
+	@Override
+	public List<BookDetailVO> getAndroidBookDetailList(int year, int month, int day, String loginID) throws Exception {
+		log.info("ヽ(✿ﾟ▽ﾟ)ノ getAndroidBookDetailList  호출됨   loginID: " + loginID);
+		Map<String, Object> map = new HashMap<String, Object>();
+		log.info("ヽ(✿ﾟ▽ﾟ)ノ getAndroidBookDetailList  year/month/day: " + year + "/" + month + "/" + day );
+		map.put("bk_year", year);
+		map.put("bk_month", month);
+		map.put("bk_day", day);
+		map.put("loginID", loginID);
+		return session.selectList(NAMESPACE+".getAndroidBookDetailList", map);
+	}
+	
 
 }
