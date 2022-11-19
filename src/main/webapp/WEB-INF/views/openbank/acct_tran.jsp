@@ -5,7 +5,6 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-
 <style type="text/css">
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -36,14 +35,11 @@ input::-webkit-inner-spin-button {
   <link href="${pageContext.request.contextPath}/resources/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
 <%--   <link href="${pageContext.request.contextPath}/resources/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> --%>
 
-
   <!-- Template Main CSS File -->
   <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/resources/css/moneyMN.css" rel="stylesheet">
 
-
- <style>
-  
+<style>
     /* 
 Generic Styling, for Desktops/Laptops 
 */
@@ -61,7 +57,6 @@ th {
   color: #fff; 
   font-weight: bold; 
   text-align: center;
-  
 }
 td, th { 
   padding: 6px; 
@@ -110,7 +105,6 @@ only screen and (max-width: 760px),
 		white-space: nowrap;
 		background: linear-gradient(to top, #ecdffd 70%, transparent 30%);
 		font-weight: bold; 
-
 	}
 	/*
 	Label the data
@@ -123,9 +117,9 @@ only screen and (max-width: 760px),
 	td:nth-of-type(6):before { content: "거래후잔액"; }
 	td:nth-of-type(7):before { content: "거래점명"; }
 }
-  </style>
+</style>
   
-				
+<!-- 거래내역 테이블 -->				
   <table>
     <thead>
       <tr>

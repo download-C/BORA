@@ -12,7 +12,7 @@
 </div>
 <!-- End title -->
 
-  <style>
+<style>
     .tdbtn {
       background-color: #5107B0;
       font-size: 7 px;
@@ -27,9 +27,9 @@
       --bs-modal-height: 850px;
     }
     
-  </style>
-  
-     <style>
+</style>
+
+<style>
     .tbtn {
       background-color: #5107B0;
       float: center;
@@ -48,17 +48,15 @@
     .floatingInput {
     	color: red;
     }
-    	
-  </style>
+</style>
 
-<!-- account -->
+<!-- 🐧🐧🐧 오픈뱅킹 계좌 리스트 출력 시작 🐧🐧🐧 -->
   <div class="container">
     <h4 style="background: linear-gradient(to top, #c8a7fa 50%, transparent 50%); width: fit-content;">계좌</h4><br>
         <span><b>◼ BORA 오픈뱅킹에서는 금융결제원 테스트베드에 인증이 완료된 계좌에 한하여 아래의 정보를 제공합니다.</b></span><br><br><br>
     <div class="row justify-content-center">
       <div class="col-10" style="padding-right: 0;">
         <div class="table-responsive">
-        
           <table class="table table-hover" style="border-right: none; border-radius: 0; box-shadow: none;">
             <thead>
               <tr style="font-size: 18px; ">
@@ -95,11 +93,10 @@
               </tr>
             </thead>
             <tbody>
-
               <tr>
               <td style="padding-bottom: 6px; padding-top: 6px; ">
-                    	<div class="box" style="display: flex; justify-content: space-between-center; flex-flow: row nowrap;">
-                    	
+                 <div class="box" style="display: flex; justify-content: space-between-center; flex-flow: row nowrap;">
+                    <!-- BORA적금 계좌 - 잔액 출력 -->	
                     <form method="get" action="/openbank/accountBalance" target="modelfrm2" id="fr1">
 					<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 						<input type="hidden" name="access_token" value="${sessionScope.token }">
@@ -109,8 +106,7 @@
 						<input type="hidden" name="tran_dtime" value="20221104134521">
 						<button type="submit" id="fr1btn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액</button>
 					</form>   
-<!--                   <button class="tdbtn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button> -->
-                
+                    <!-- BORA적금 계좌 - 거래내역 출력 -->	                
                 	<form method="get" action="/openbank/accountTran" target="modelfrm1">
 						<input type="hidden" name="access_token" value="${sessionScope.token }">
 						<input type="hidden" name="bank_tran_id" value="${accountTran.bank_tran_id}">
@@ -123,15 +119,13 @@
 						<input type="hidden" name="tran_dtime" value="20221104134521">
 					<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역</button>
 					</form>
-<!--                   <button type="button" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역조회</button> -->
-                	
 					</div>
-
                 </td>
               </tr>
               <tr>
                 <td style="padding-bottom: 6px; padding-top: 6px; ">
                 	<div class="box" style="display: flex; justify-content: space-between-center; flex-flow: row nowrap;">
+                	<!-- BORA입출금 계좌 - 잔액 출력 -->	
                    	<form method="get" action="/openbank/accountBalance" target="modelfrm2" id="fr2">
 						<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 						<input type="hidden" name="access_token" value="${sessionScope.token }">
@@ -140,9 +134,7 @@
 						<input type="hidden" name="tran_dtime" value="20221104134521">
 						<button type="submit"  id="fr2btn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액</button>
 					</form>   
-<!--                   <button class="tdbtn" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">잔액조회</button> -->  
-
-
+                    <!-- BORA입출금 계좌 - 거래내역 출력 -->	    
                 	<form method="get" action="/openbank/accountTran" target="modelfrm1">
 						<input type="hidden" name="access_token" value="${sessionScope.token }">
 						<input type="hidden" name="bank_tran_id" value="${accountTran.bank_tran_id}">
@@ -155,16 +147,14 @@
 						<input type="hidden" name="tran_dtime" value="20221104134521">
 						<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역 </button>
 					</form>
-<!--                   <button class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal">내역조회</button> -->
                   </div>
-                
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-      <!-- 잔액조회버튼 -->
+      <!-- 잔액 조회 버튼 -->
       <div class="col-10" style="padding-left: 0;">
         <div class="table-responsive">
           <table class="table table-hover" style="border-right: none;   border-radius: 0; box-shadow: none;">
@@ -188,19 +178,13 @@
         </div>
       </div>
       <!-- 잔액조회버튼 끝 -->
-      <!-- End account -->
+<!-- 🐧🐧🐧 오픈뱅킹 계좌 리스트 출력 끝 🐧🐧🐧 -->
     </div>
-
-
+    
 	<!-- 목돈 모으기 -->
-
 컨셉을 단순히 통장에 돈을 넣어 모으는 목든 모으기에서 적금을 통해 목돈 모으는 계산 시뮬레이션으로 변경
 => 모든 잔액을 불러서 내가 목표로 하는 금액에 달성해나가는 과정에서
 내가 목돈 1억을 모으려면 BORA적금에서 얼마가 모자라고 얼마 만큼의 기한 동안 얼마를 더 저금해야한다는 것으로 변경
-
-	
-	
-	
 		<form method="get" action="/openbank/goal">
 			<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 			<input type="hidden" name="access_token" value="${sessionScope.token }"> 
@@ -213,35 +197,25 @@
 
  
  </div>
- 
- <style>
 
-</style>
- 
-   <!-- 모달창 -->
-   <!--   	거래내역조회 -->
+
+<!-- 🐧🐧🐧 잔액/거래내역 모달창 구역 시작 🐧🐧🐧 -->
+  <!-- 거래내역조회 모달 -->
   <!-- The Modal -->
   <div class="modal" id="myModal">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content" style="height: 80%;">
-
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">거래내역조회</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-
         <!-- Modal body -->
         <div class="modal-body">
           <div class="container">
-<!--             <iframe src="modaltable.html" style="width: 100%;"></iframe> -->
             <iframe src="./acct_tran.jsp" style="width: 100%;  name="modelfrm1"></iframe>
-
-            <!-- End table -->
-
           </div>
         </div>
-
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
@@ -249,30 +223,22 @@
       </div>
     </div>
   </div>
-<!--  BORA입출금 잔액조회 -->
-    <!-- The Modal -->
+  <!-- 잔액조회 모달 -->
+  <!-- The Modal -->
     <div class="modal" id="myModal2">
-<!--       <div class="modal-dialog modal-dialog-scrollable"> -->
       <div class="modal-dialog">
         <div class="modal-content" style="height: 30%;">
-  
           <!-- Modal Header -->
           <div class="modal-header">
             <h4 class="modal-title">잔액조회</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
-  	
           <!-- Modal body -->
           <div class="modal-body">
             <div class="container">
-<!--               <iframe src="modaltable.html" style="width: 100%;"></iframe> -->
               <iframe src="./acct_balance.jsp" style="width: 100%;" name="modelfrm2"></iframe>
-  
-              <!-- End table -->
-  
             </div>
           </div>
-  
           <!-- Modal footer -->
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
@@ -280,7 +246,7 @@
         </div>
       </div>
     </div>
-  <!-- 모달창 끝 -->
+<!-- 🐧🐧🐧 잔액/거래내역 모달창 구역 끝 🐧🐧🐧 -->
   <br>
 
 
@@ -349,10 +315,9 @@
 	});//jquery
 </script>
 
-
 <input type="text" id="req1_balance_amt" value="req1_balance_amt">
 <input type="hidden" id="req2_balance_amt" value="req2_balance_amt">
 <span id="req2_balance_amt"></span>
 	
 
-	<%@ include file="../include/footer.jsp"%>
+<%@ include file="../include/footer.jsp"%>

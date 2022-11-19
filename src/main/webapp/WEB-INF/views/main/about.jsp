@@ -6,11 +6,11 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-
 <!-- alert 모달 필수  --> 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
-<!--  카카오지도 API   -->
+
+<!-- 🐧🐧🐧  카카오지도 API 시작 🐧🐧🐧 -->
 <style>
 .label {
 /* 이름표 위치 */
@@ -95,7 +95,6 @@ var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
 // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열 
 var positions = [
     {
-        //content: '<div>회원관리CDU</div>', 
         content: '<div class ="label"><span class="left"></span><span class="center">가계부CDU</span><span class="right"></span></div>',
         latlng: new kakao.maps.LatLng(35.172516, 129.108446)
     },
@@ -141,19 +140,21 @@ for (var i = 0; i < positions.length; i ++) {
         position: positions[i].latlng, // 마커의 위치
         content: positions[i].content // 인포윈도우에 표시할 내용
     });
-
 customOverlay.setMap(map, marker);
 }
 </script>
-
-<!-- 본문 작성하는 곳 -->
-
-
-
-
-
-
+<!-- 🐧🐧🐧  카카오지도 API 끝 🐧🐧🐧 -->
 
 
 <!-- 본문 작성하는 곳 -->
+
+
+
+
+
+
+
+
+<!-- 본문 작성하는 곳 -->
+
 <%@ include file="../include/footer.jsp"%>

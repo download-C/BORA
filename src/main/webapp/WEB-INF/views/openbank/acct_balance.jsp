@@ -39,8 +39,7 @@ input::-webkit-inner-spin-button {
   <link href="${pageContext.request.contextPath}/resources/css/moneyMN.css" rel="stylesheet">
 
 
- <style>
-  
+<style>
     /* 
 Generic Styling, for Desktops/Laptops 
 */
@@ -49,17 +48,19 @@ table {
   border-collapse: collapse; 
   border-radius: 12px; box-shadow: 7px 14px 90px 3px rgba(163, 174, 184, 0.7);
 }
+
 /* Zebra striping */
 tr:nth-of-type() { 
   background: #eee; 
 }
+
 th { 
   background: #7a1cf6; 
   color: #fff; 
   font-weight: bold; 
   text-align: center;
-  
 }
+
 td, th { 
   padding: 6px; 
   border-top: 1px solid #ddd; 
@@ -103,7 +104,6 @@ only screen and (max-width: 760px),
 		white-space: nowrap;
 		background: linear-gradient(to top, #ecdffd 70%, transparent 30%);
 		font-weight: bold; 
-
 	}
 	/*
 	Label the data
@@ -117,10 +117,8 @@ only screen and (max-width: 760px),
 	td:nth-of-type(7):before { content: "만기일"; }
 	td:nth-of-type(8):before { content: "최종거래일"; }
 }
-  </style>
+</style>
   
-  
-</head>
 <body>
   <table>
     <thead>
@@ -172,4 +170,3 @@ localStorage.setItem('balArr', JSON.stringify(balArr)); // 새 요소 추가했�
 
 console.log(balArr);
 </script>
-  
