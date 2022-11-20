@@ -61,7 +61,7 @@ public class OpenbankController {
 		String loginID = (String)session.getAttribute("loginID");
 		
 		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
 		}
 		
@@ -78,7 +78,7 @@ public class OpenbankController {
 		String loginID = (String)session.getAttribute("loginID");
 		
 		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
 		}
 		
@@ -94,7 +94,7 @@ public class OpenbankController {
 		String loginID = (String)session.getAttribute("loginID");
 		
 		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
 		}
 
@@ -123,7 +123,7 @@ public class OpenbankController {
 		String loginID = (String)session.getAttribute("loginID");
 		
 		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
 		}
 
@@ -150,7 +150,7 @@ public class OpenbankController {
 		String loginID = (String)session.getAttribute("loginID");
 		
 		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
 		}
 		
@@ -179,7 +179,7 @@ public class OpenbankController {
 		String loginID = (String)session.getAttribute("loginID");
 		
 		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
 		}
 		
@@ -207,7 +207,7 @@ public class OpenbankController {
 		String loginID = (String)session.getAttribute("loginID");
 		
 		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
 		}
 		
@@ -239,7 +239,7 @@ public class OpenbankController {
 		String loginID = (String)session.getAttribute("loginID");
 		
 		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
 		}
 
@@ -267,7 +267,7 @@ public class OpenbankController {
 		String loginID = (String)session.getAttribute("loginID");
 		
 		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
 		}
 
@@ -299,7 +299,7 @@ public class OpenbankController {
 		String loginID = (String)session.getAttribute("loginID");
 		
 		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
 		}
 
@@ -334,7 +334,7 @@ public class OpenbankController {
 		String loginID = (String)session.getAttribute("loginID");
 		
 		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 사용 가능한 페이지입니다.");
+			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
 		}
 

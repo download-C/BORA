@@ -133,7 +133,7 @@ only screen and (max-width: 760px),
       </tr>
     </thead>
     <tbody>
-    	<c:forEach var="accountTran" items="${accountTran.res_list }">
+    	<c:forEach var="accountTran" items="${accountTran.res_list }" end="11">
 		<tr>
 		<td>${accountTran.tran_date }</td>
 		<td>${accountTran.inout_type }</td>
@@ -146,3 +146,4 @@ only screen and (max-width: 760px),
 		</c:forEach>
     </tbody>
   </table>
+  

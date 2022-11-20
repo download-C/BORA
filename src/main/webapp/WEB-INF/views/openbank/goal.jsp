@@ -36,60 +36,56 @@
 <!-- End title -->
 
 <div class="container">
-	<h3>💜 BORA 오픈뱅킹으로 조회한 내 자산으로 목돈 모으기 도전 💜</h3>
-		<div class="container">
-			<div class="row row-cols-md-14 g-4 justify-content-center">
-      			<!-- 1번 목표 금액 설정  -->
-				<div class="col-md-6 col-12">
-					<div class="card border-left-info shadow h-100 py-2">
-						<div class="card-body">
-							<div>
-								<h3>목표 금액 설정</h3>
-							</div> 
-						<div class="checks" style="text-align: center; margin-top: 18px;">
-							<input id="ex_rd" name="bk_iow" type="radio" value="3000" required="required" checked="checked" id="radio3"> 
-							<label for="ex_rd">3천만원</label> 
-							<input id="ex_rd2" name="bk_iow" type="radio" value="5000" required="required" id="radio5">
-							<label for="ex_rd2">5천만원</label> 
-							<input id="ex_rd3" name="bk_iow" type="radio" value="7000" required="required" id="radio7">
-							<label for="ex_rd3">7천만원</label> 
-							<input id="ex_rd4" name="bk_iow" type="radio" value="10000" required="required" id="radio10">
-							<label for="ex_rd4">1억</label> 
-							<input id="ex_rd5" name="bk_iow" type="radio" value="30000" required="required" id="radio30"> 
-							<label for="ex_rd5">3억</label> 
-							<input id="ex_rd6" name="bk_iow" type="radio" value="50000" required="required" id="radio50"> 
-							<label for="ex_rd6">5억</label> 
-							<input id="ex_rd7" name="bk_iow" type="radio" value="100000" required="required" id="radio100"> 
-							<label for="ex_rd7">10억</label>
+	<div class="row row-cols-md-14 g-4 justify-content-center">
+		<!-- 1번 목표 금액 설정  -->
+		<div class="col-md-6 col-12">
+			<div class="card border-left-info shadow h-100 py-2">
+				<div class="card-body">
+					<div>
+						<h3>목표 금액 설정</h3>
+					</div> 
+				<div class="checks" style="text-align: center; margin-top: 18px;">
+					<input id="ex_rd" name="bk_iow" type="radio" value="3000" required="required" checked="checked" id="radio3"> 
+					<label for="ex_rd">3천만원</label> 
+					<input id="ex_rd2" name="bk_iow" type="radio" value="5000" required="required" id="radio5">
+					<label for="ex_rd2">5천만원</label> 
+					<input id="ex_rd3" name="bk_iow" type="radio" value="7000" required="required" id="radio7">
+					<label for="ex_rd3">7천만원</label> 
+					<input id="ex_rd4" name="bk_iow" type="radio" value="10000" required="required" id="radio10">
+					<label for="ex_rd4">1억</label> 
+					<input id="ex_rd5" name="bk_iow" type="radio" value="30000" required="required" id="radio30"> 
+					<label for="ex_rd5">3억</label> 
+					<input id="ex_rd6" name="bk_iow" type="radio" value="50000" required="required" id="radio50"> 
+					<label for="ex_rd6">5억</label> 
+					<input id="ex_rd7" name="bk_iow" type="radio" value="100000" required="required" id="radio100"> 
+					<label for="ex_rd7">10억</label>
 <!-- 							<div class="form-floating mb-3" style="text-align: center"> -->
-<!-- 							</div> -->
-						</div>
-					</div>
+				</div>
 				</div>
 			</div>
-      		<!-- 2번 목표 기간 설정 -->
-			<div class="col-md-6 col-12">
-				<div class="card border-left-info shadow h-100 py-2">
-					<div class="card-body">
-						<div>
-							<h3>목표 기간 설정</h3>
-						</div>
-						<div class="input-group mb-3" id='datetimepicker1'>
-							<label class="input-group-text" for="goal_year">기간 선택</label> 
-							<select class="form-select" name="goal_year" id="goal_year" required>
-								<option selected hidden>목표 기간을 설정해주세요</option>
-								<option value="1">1년</option>
-								<option value="2">2년</option>
-								<option value="3">3년</option>
-								<option value="4">4년</option>
-								<option value="5">5년</option>
-								<option value="6">6년</option>
-								<option value="7">7년</option>
-								<option value="8">8년</option>
-								<option value="9">9년</option>
-								<option value="10">10년</option>
-							</select>
-						</div>
+		</div>
+   		<!-- 2번 목표 기간 설정 -->
+		<div class="col-md-6 col-12">
+			<div class="card border-left-info shadow h-100 py-2">
+				<div class="card-body">
+					<div>
+						<h3>목표 기간 설정</h3>
+					</div>
+					<div class="input-group mb-3" id='datetimepicker1'>
+						<label class="input-group-text" for="goal_year">기간 선택</label> 
+						<select class="form-select" name="goal_year" id="goal_year" required>
+							<option selected hidden>목표 기간을 설정해주세요</option>
+							<option value="1">1년</option>
+							<option value="2">2년</option>
+							<option value="3">3년</option>
+							<option value="4">4년</option>
+							<option value="5">5년</option>
+							<option value="6">6년</option>
+							<option value="7">7년</option>
+							<option value="8">8년</option>
+							<option value="9">9년</option>
+							<option value="10">10년</option>
+						</select>
 					</div>
 				</div>
 			</div>
@@ -100,37 +96,34 @@
 
 <div class="container">
 	<div class="row row-cols-md-4 g-4 justify-content-center">
-        <div class="col-md-6 col-11">
-        	<!-- 3번 차트 그래프 -->
+		<div class="col-md-6 col-11">
+			<!-- 3번 차트 그래프 -->
           	<div class="card border-left-info shadow h-100 py-2">
-           	 <div class="card-body">
-              <!-- title -->
-              <div>
-                <h3>나의 <span style="background: linear-gradient(to top, #c8a7fa 50%, transparent 50%);">자산 보기</span></h3>
-              </div>
-              <br>
-              <!-- End title -->
-              <div class="chart-pie pt-4 pb-2">
-				<!-- 차트 생성 -->
-				<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-				<script src="${pageContext.request.contextPath}/resources/js/goalChart.js"></script>
-				<div>
-<%-- 					<canvas id="myChart" width=200%" style="max-height: 300px; max-width: 200px; margin: auto;"></canvas> --%>
-					<canvas id="myChart" style="width=300px; height=300px; "></canvas>
-             	</div>
-			 </div>
-				<div>
-				<br>
-					<h4>내 목표 값 : </h4>
-					<h4>현재 내 자산 : <span id="total222"></span></h4>
+           		 <div class="card-body">
+            	 <!-- title -->
+              	 <div>
+                	<h3>나의 <span style="background: linear-gradient(to top, #c8a7fa 50%, transparent 50%);">자산 보기</span></h3>
+              	 </div>
+              	 <!-- End title -->
+              	 <div class="chart-pie pt-4 pb-2">
+				 	<!-- 차트 생성 -->
+					<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+					<script src="${pageContext.request.contextPath}/resources/js/goalChart.js"></script>
+					<div class="container" style="margin-left: 10px;">
+						<canvas id="myChart" style="width: 340px; height: 200px; max-width: 400px; margin: auto;"></canvas>
+             		</div>
+			 	</div>
+				<div style="margin-top: 10px;">
+					<h5>내 목표 : 원</h5>
+					<h5>내 자산 : <span id="total2"></span>원</h5>
 						<script>
 						var total = sessionStorage.getItem("total");
-							alert(total);
-							$('#total222').html(total);
+// 							alert(total);
+							$('#total2').html(total);
 						</script>
 				</div>
-            </div>
-          </div>
+            	</div>
+          	</div>
         </div>
 
 		<!-- 4번 목돈 모으기 안내 -->
