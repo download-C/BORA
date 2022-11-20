@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../include/header.jsp"%>
-<!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <!-- title -->
@@ -27,9 +26,6 @@
       --bs-modal-height: 850px;
     }
     
-</style>
-
-<style>
     .tbtn {
       background-color: #5107B0;
       float: center;

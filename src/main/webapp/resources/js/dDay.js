@@ -91,5 +91,3 @@ function diffDay() {
 function reloadDivArea() {
 	$('#remain-time').load(location.href + ' #remain-time');
 }
-
-

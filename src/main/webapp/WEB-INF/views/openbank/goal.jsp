@@ -28,9 +28,7 @@
 
 <!-- title -->
 <div class="section-title">
-	<h2>
-		<b>목돈모으기</b>
-	</h2>
+	<h2><b>목돈모으기</b></h2>
 	<div style="padding-top: 35px;"></div>
 </div>
 <!-- End title -->
@@ -156,7 +154,6 @@
 	</div>
 </div>
 <br><br>
-
 
 <script>
 $('#moa_btn').click(function(){

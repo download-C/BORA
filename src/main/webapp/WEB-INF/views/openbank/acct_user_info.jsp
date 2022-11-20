@@ -39,7 +39,6 @@
    .floatingInput {
     	color: red;
     }
-    	
 </style>
 
 <!-- 사용자 인증 정보 조회 -->
@@ -92,15 +91,6 @@
 					<b style="color: #e3cffc;">내 보유 카드&nbsp;</b>보러 가기
 					</button>
 				</form>
-
-			<!-- 목돈 모으기  -->
-			<!-- 		<form method="get" action="/openbank/goal"> -->
-			<%-- 			<input type="hidden" name="access_token" value="${sessionScope.token }">  --%>
-			<%-- 			<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }"> --%>
-			<!-- 			<input type="hidden" name="fintech_use_num" value="120220217888941294172171">  -->
-			<!-- 			<input type="hidden" name="tran_dtime" value="20221104134521">  -->
-			<!-- 			<button type="submit" class="tbtn"><b style="color:#e3cffc;">목돈&nbsp;</b>모으기</button> -->
-			<!-- 		</form> -->
 			</div>
 		</div>
 	</div>

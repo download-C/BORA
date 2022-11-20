@@ -50,13 +50,13 @@ public class OpenbankController {
 	HttpSession session;
 
 	private static final Logger log = LoggerFactory.getLogger(OpenbankController.class);
-
+	
+	//오픈뱅킹 - 목돈 모으기
 	// http://localhost:8088/openbank/goal
 	@RequestMapping(value = "/goal", method = RequestMethod.GET)
 	public String goal(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  오픈뱅킹 - 목돈 모으기");
 		log.info("/openbank/goal 로 이동");
-		
 		
 		String loginID = (String)session.getAttribute("loginID");
 		
@@ -68,6 +68,7 @@ public class OpenbankController {
 		return "/openbank/goal";
 	}
 
+	//오픈뱅킹 - 오픈뱅킹 메인 이동
 	// http://localhost:8088/openbank/oauthOK
 	@RequestMapping(value = "/oauthOK", method = RequestMethod.GET)
 	public String openbank(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
@@ -85,6 +86,7 @@ public class OpenbankController {
 		return "/openbank/oauthOK";
 	}
 
+	//오픈뱅킹 - 사용자 인증(토큰 발급)
 	// http://localhost:8088/openbank/oauth
 	@RequestMapping(value = "/callback", method = RequestMethod.GET)
 	public String getToken(RequestTokenVO requestTokenVO, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
