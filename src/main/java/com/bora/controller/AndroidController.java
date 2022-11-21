@@ -141,14 +141,35 @@ public class AndroidController {
 	
 	// insert
 	@PostMapping(value="/write", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public List<BookDetailVO> insertList(@RequestBody BookDetailVO vo) throws Exception {
+	public ResponseEntity<String> insertList(@RequestBody BookDetailVO vo) throws Exception {
 		log.info("（＾∀＾●）ﾉｼ insertList() 호출됨");
 		
+		int insertCount = bookDetailService.writeBookDetail(vo);
 		
+		log.info("（＾∀＾●）ﾉｼ insertList()  전달받은 vo: " + vo);
+		log.info("（＾∀＾●）ﾉｼ insertList()  insertCount: " + insertCount);
 		
-		
-		return null;
+		return insertCount == 1 ? 
+				new ResponseEntity<>("success", HttpStatus.OK) : 
+				new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+	
+	// insert
+	@PostMapping(value="/write", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> insertList2(@RequestBody BookDetailVO vo) throws Exception {
+		log.info("（＾∀＾●）ﾉｼ insertList() 호출됨");
+		
+		int insertCount = bookDetailService.writeBookDetail(vo);
+		
+		log.info("（＾∀＾●）ﾉｼ insertList()  전달받은 vo: " + vo);
+		log.info("（＾∀＾●）ﾉｼ insertList()  insertCount: " + insertCount);
+		
+		return insertCount == 1 ? 
+				new ResponseEntity<>("success", HttpStatus.OK) : 
+					new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
 	
 	
 	// 1. 댓글 쓰기
