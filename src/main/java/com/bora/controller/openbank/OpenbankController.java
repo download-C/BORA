@@ -50,24 +50,9 @@ public class OpenbankController {
 	HttpSession session;
 
 	private static final Logger log = LoggerFactory.getLogger(OpenbankController.class);
-	
-	//오픈뱅킹 - 목돈 모으기
-	// http://localhost:8088/openbank/goal
-	@RequestMapping(value = "/goal", method = RequestMethod.GET)
-	public String goal(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
-		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  오픈뱅킹 - 목돈 모으기");
-		log.info("/openbank/goal 로 이동");
-		
-		String loginID = (String)session.getAttribute("loginID");
-		
-		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
-			return "redirect:/main/login";
-		}
-		
-		return "/openbank/goal";
-	}
 
+	
+// 오픈뱅킹 - 계좌
 	//오픈뱅킹 - 오픈뱅킹 메인 이동
 	// http://localhost:8088/openbank/oauthOK
 	@RequestMapping(value = "/oauthOK", method = RequestMethod.GET)
@@ -77,7 +62,6 @@ public class OpenbankController {
 		log.info("/openbank/oauthOK 로 이동");
 
 		String loginID = (String)session.getAttribute("loginID");
-		
 		if(loginID == null) {
 			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
@@ -94,7 +78,6 @@ public class OpenbankController {
 		log.info("/openbank/oauthOK 로 이동");
 		
 		String loginID = (String)session.getAttribute("loginID");
-		
 		if(loginID == null) {
 			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
@@ -102,7 +85,7 @@ public class OpenbankController {
 
 		// 토큰발급
 		ResponseTokenVO responseToken = openBankingService.requestToken(requestTokenVO);
-
+		
 		// 정보들고 토큰발급으로 이동
 		model.addAttribute("responseToken", responseToken);
 		session.setAttribute("token", responseToken.getAccess_token());
@@ -123,12 +106,12 @@ public class OpenbankController {
 		log.info("/openbank/acct_user_info 로 이동");
 		
 		String loginID = (String)session.getAttribute("loginID");
-		
 		if(loginID == null) {
 			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
 		}
-
+		
+		
 		// Service 객체의 findUser() 메서드를 호출하여 사용자 정보 조회
 		// => 파라미터 : UserInfoRequestVO, 리턴타입 UserInfoResponseVO
 		UserInfoResponseVO userInfo = openBankingService.findUser(userInfoRequestVO);
@@ -150,7 +133,6 @@ public class OpenbankController {
 		log.info("/openbank/acct_list 로 이동");
 
 		String loginID = (String)session.getAttribute("loginID");
-		
 		if(loginID == null) {
 			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
@@ -179,7 +161,6 @@ public class OpenbankController {
 		log.info(accountBalanceRequestVO + "");
 
 		String loginID = (String)session.getAttribute("loginID");
-		
 		if(loginID == null) {
 			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
@@ -207,7 +188,6 @@ public class OpenbankController {
 		log.info("/openbank/acct_tran 로 이동");
 
 		String loginID = (String)session.getAttribute("loginID");
-		
 		if(loginID == null) {
 			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
@@ -232,6 +212,24 @@ public class OpenbankController {
 		return "/openbank/acct_tran";
 	}
 
+	//오픈뱅킹 - 목돈 모으기
+	// http://localhost:8088/openbank/goal
+	@RequestMapping(value = "/goal", method = RequestMethod.GET)
+	public String goal(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
+		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  오픈뱅킹 - 목돈 모으기");
+		log.info("/openbank/goal 로 이동");
+		
+		String loginID = (String)session.getAttribute("loginID");
+		if(loginID == null) {
+			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
+			return "redirect:/main/login";
+		}
+		
+		return "/openbank/goal";
+	}
+
+	
+// 오픈뱅킹 - 카드
 	// 카드기본정보 조회
 	@RequestMapping(value = "/cardInfo", method = RequestMethod.POST)
 	public String getCardInfo(CardInfoRequestVO cardInfoRequestVO, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
@@ -239,7 +237,6 @@ public class OpenbankController {
 		log.info("cardInfoPOST() 호출");
 		
 		String loginID = (String)session.getAttribute("loginID");
-		
 		if(loginID == null) {
 			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
@@ -267,7 +264,6 @@ public class OpenbankController {
 		log.info("cardListGET() 호출");
 		
 		String loginID = (String)session.getAttribute("loginID");
-		
 		if(loginID == null) {
 			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
@@ -299,7 +295,6 @@ public class OpenbankController {
 		log.info("cardBillsGET() 호출");
 		
 		String loginID = (String)session.getAttribute("loginID");
-		
 		if(loginID == null) {
 			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";
@@ -334,7 +329,6 @@ public class OpenbankController {
 		log.info("cardDetailBillsGET() 호출");
 		
 		String loginID = (String)session.getAttribute("loginID");
-		
 		if(loginID == null) {
 			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
 			return "redirect:/main/login";

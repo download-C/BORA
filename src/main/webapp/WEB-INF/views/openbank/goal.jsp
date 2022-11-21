@@ -13,7 +13,7 @@
         max-width: 1200px;
       }
     }
-    
+
 	#moa_btn {
 		background-color: #5107B0;
 		margin: auto auto 0px 10px ;
@@ -23,6 +23,15 @@
    	    color: white; 
    	    border-radius: 13px;
    	    font-size: 20px;
+    }
+    
+    .backbtn {
+      background-color: #5107B0;
+      font-size: 17px;
+      color: #fff;
+      padding: 8px 15px 8px 15px;
+      border: 1px solid #fff;
+      border-radius: 8px;
     }
 </style>
 
@@ -43,21 +52,20 @@
 						<h3>목표 금액 설정</h3>
 					</div> 
 				<div class="checks" style="text-align: center; margin-top: 18px;">
-					<input id="ex_rd" name="bk_iow" type="radio" value="3000" required="required" checked="checked" id="radio3"> 
+					<input id="ex_rd" name="bk_iow" type="radio" value="3000" required="required" checked="checked" onclick='getRadio(event)'>
 					<label for="ex_rd">3천만원</label> 
-					<input id="ex_rd2" name="bk_iow" type="radio" value="5000" required="required" id="radio5">
+					<input id="ex_rd2" name="bk_iow" type="radio" value="5000" required="required" onclick='getRadio(event)'>
 					<label for="ex_rd2">5천만원</label> 
-					<input id="ex_rd3" name="bk_iow" type="radio" value="7000" required="required" id="radio7">
+					<input id="ex_rd3" name="bk_iow" type="radio" value="7000" required="required" onclick='getRadio(event)'>
 					<label for="ex_rd3">7천만원</label> 
-					<input id="ex_rd4" name="bk_iow" type="radio" value="10000" required="required" id="radio10">
+					<input id="ex_rd4" name="bk_iow" type="radio" value="10000" required="required" onclick='getRadio(event)'>
 					<label for="ex_rd4">1억</label> 
-					<input id="ex_rd5" name="bk_iow" type="radio" value="30000" required="required" id="radio30"> 
+					<input id="ex_rd5" name="bk_iow" type="radio" value="30000" required="required" onclick='getRadio(event)'>
 					<label for="ex_rd5">3억</label> 
-					<input id="ex_rd6" name="bk_iow" type="radio" value="50000" required="required" id="radio50"> 
+					<input id="ex_rd6" name="bk_iow" type="radio" value="50000" required="required" onclick='getRadio(event)'>
 					<label for="ex_rd6">5억</label> 
-					<input id="ex_rd7" name="bk_iow" type="radio" value="100000" required="required" id="radio100"> 
+					<input id="ex_rd7" name="bk_iow" type="radio" value="100000" required="required" onclick='getRadio(event)'>
 					<label for="ex_rd7">10억</label>
-<!-- 							<div class="form-floating mb-3" style="text-align: center"> -->
 				</div>
 				</div>
 			</div>
@@ -112,12 +120,22 @@
              		</div>
 			 	</div>
 				<div style="margin-top: 10px;">
-					<h5>내 목표 : 원</h5>
+					<h5>내 목표 : <span id="resultRadio"></span>만원</h5>
+						<script>
+// 						var resultR = $('input[name=bk_iow]:checked').val();
+// 						var resultR = $('input:[name=bk_iow]').val();
+// 						var resultR = $('input:radio[name=bk_iow]').val();
+						var resultR = $('input:radio[name=bk_iow]:checked').val();
+							const CresultRadio = resultR.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+							$('#resultRadio').html(CresultRadio);
+						</script>
 					<h5>내 자산 : <span id="total2"></span>원</h5>
+					
+						<!-- 내 자산 금액에 콤마 -->
 						<script>
 						var total = sessionStorage.getItem("total");
-// 							alert(total);
-							$('#total2').html(total);
+							const total22 = total.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+							$('#total2').html(total22);
 						</script>
 				</div>
             	</div>
@@ -141,9 +159,9 @@
  	        	            <button type="button" id="moa_btn" style="display: inline-block;">얼마나 모아야 하지? 클릭🤔 </button>
          		    	    </div>
            		   	 <div style="text-align: center; padding: 10px; margin: 0 auto;">
-      	  	        	  <h5>&nbsp;하루에 <b><span id="moa_1day">_____ </span></b>원을 모아야 해요.</h5>
- 	 	      	          <h5>&nbsp;한 달에 <b><span id="moa_1month">_____ </span></b>원을 모아야 해요.</h5>
- 		      	          <h5>&nbsp;1년에 <b><span id="moa_1year">_____ </span></b>원을 모아야 해요.</h5>
+      	  	        	  <h5>&nbsp;하루에 <b><span id="moa_1day">_____ </span></b>만원을 모아야 해요.</h5>
+ 	 	      	          <h5>&nbsp;한 달에 <b><span id="moa_1month">_____ </span></b>만원을 모아야 해요.</h5>
+ 		      	          <h5>&nbsp;1년에 <b><span id="moa_1year">_____ </span></b>만원을 모아야 해요.</h5>
  	                    <div style="margin: 20px;">
       		     	       <h6><b style="color:#5107B0;">BORA</b>와 함께 영차영차🏋️‍♂️</h6>
         		        </div>
@@ -153,7 +171,7 @@
 		</div>
 	</div>
 </div>
-<br><br>
+<br>
 
 <script>
 $('#moa_btn').click(function(){
@@ -188,5 +206,27 @@ $('#moa_btn').click(function(){
 	});// ajax
 });// click
 </script>
+
+<!-- 내 목표 radio 값 출력 -->
+<script type="text/javascript">
+function getRadio(event) {
+  document.getElementById('resultRadio').innerText = 
+    event.target.value;
+}
+
+</script>
+
+<!-- 내 자산으로 돌아가기  --> 
+<div class="container">
+   	<div class="col-md-16 col-16">
+	        <!-- 자산 조회를 위한 인증 요청 작업 수행 -->
+ 	        <form method="get" action="/openbank/userInfo">
+               <input type="hidden" name="access_token" value="${sessionScope.token }">
+               <input type="hidden" name="user_seq_no" value="1101014742">
+			   <button type="submit" class="backbtn acct_user">내 자산 조회로 돌아가기</button>
+            </form>
+    </div>
+</div> 
+<br>
 
 <%@ include file="../include/footer.jsp"%>

@@ -135,7 +135,7 @@ public class OpenBankingApiClient {
 		
 		// 2.2.1 사용자정보조회 API URL 주소 생성
 		String url = baseUrl + "/account/list";
-			httpHeaders.add("Authorization", "Bearer " + accountSearchRequestVO.getAccess_token());
+		httpHeaders.add("Authorization", "Bearer " + accountSearchRequestVO.getAccess_token());
 		
 		HttpEntity<String> openBankingAccountListRequest = new HttpEntity<String>(httpHeaders);
 		
