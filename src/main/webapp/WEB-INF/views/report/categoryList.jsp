@@ -411,7 +411,7 @@ $(document).ready(function(){
 			</form>
 			년 &nbsp;
 			<form id="form2" method="get" action=""
-				style="display: inline-block; width: 6%">
+				style="display: inline-block;">
 				<select name="month" id="month">
 					<option value="1" <c:if test="${month eq '1'}">selected</c:if>>1</option>
 					<option value="2" <c:if test="${month eq '2'}">selected</c:if>>2</option>
@@ -526,50 +526,49 @@ $(document).ready(function(){
 
 
 <!---------------------- 내역/날짜 TOP3 ------------------------------>
-<div class="row row-cols-md-3 g-3 justify-content-center">
+<div class="container">
+   <div class="row row-cols-md-4 g-4 justify-content-center">
       <!-- 카테고리별 -->
-      <div class="container"
-        style=" background-color: white; padding: 20px; margin:15px; border-radius: 15px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
-		<h4 style="text-align: center;">${nick}님의 <%=month %>월 소비내역 TOP3
-		<i class="fa-solid fa-ranking-star"></i></h4>
-		<div class="table-responsive">
-			<table class="table">
-				<tbody style="text-align: center;" id="tbody">
-
-					<c:forEach var="vo" items="${top3}">
-						<tr>
-							<td>${vo.bk_memo}</td>
-							<td> <fmt:formatNumber value="${vo.bk_money}" pattern="#,###"/>원</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-
-			</table>
-		</div>
-	</div>
-<div class="container"
-	style=" background-color: white; padding: 20px; margin:15px; border-radius: 15px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
-		<h4 style="text-align: center;">${nick }님의 <%=month %>월 소비날짜 TOP3
-		<i class="fa-solid fa-ranking-star"></i></h4>
-		<div class="table-responsive">
-			<table class="table">
-				<tbody style="text-align: center;" id="tbody2">
-
-					<c:forEach var="vo" items="${top3date}">
-						<tr>
-							<td>${vo.bk_day}일</td>
-							<td> <fmt:formatNumber value="${vo.bk_sum}" pattern="#,###"/>원</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-
-			</table>
-		</div>
-
+      <div class="col-md-6 col-12">
+         <div class="container"
+        style=" background-color: white; padding:20px; border-radius: 15px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
+      <h4 style="text-align: center;">${nick}님의 <%=month %>월 소비내역 TOP3
+      <i class="fa-solid fa-ranking-star"></i></h4>
+         <div class="table-responsive">
+            <table class="table">
+               <tbody style="text-align: center;" id="tbody">
+                  <c:forEach var="vo" items="${top3}">
+                     <tr>
+                        <td>${vo.bk_memo}</td>
+                        <td> <fmt:formatNumber value="${vo.bk_money}" pattern="#,###"/>원</td>
+                     </tr>
+                  </c:forEach>
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+      <div class="col-md-6 col-12">
+         <div class="container"
+         style=" background-color: white; padding:20px; border-radius: 15px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
+            <h4 style="text-align: center;">${nick }님의 <%=month %>월 소비날짜 TOP3
+            <i class="fa-solid fa-ranking-star"></i></h4>
+            <div class="table-responsive">
+               <table class="table">
+                  <tbody style="text-align: center;" id="tbody2">
+                     <c:forEach var="vo" items="${top3date}">
+                        <tr>
+                           <td>${vo.bk_day}일</td>
+                           <td> <fmt:formatNumber value="${vo.bk_sum}" pattern="#,###"/>원</td>
+                        </tr>
+                     </c:forEach>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
 </div>
-</div>
-</div>
-
 <br><br>
 <!---------------------- 내역/날짜 TOP3 끝 ------------------------------>
 

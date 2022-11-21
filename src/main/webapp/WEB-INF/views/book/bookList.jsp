@@ -494,6 +494,7 @@ function uncomma(str) {
 			</ul>
 		</div>
  </div>
+ <br><br>
 <!-- 태그 적는 곳 -->
 <!-- Jquery CDN 로드 : 항상 최신 버전 사용 -->    
 
