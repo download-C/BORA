@@ -468,7 +468,7 @@ $(document).ready(function(){
             <table class="table table-striped mb-0">
               <thead style="background-color: gray; text-align: center;">
 ※ 전월 혹은 당월 내역이 없으면 0으로 표기 됩니다<br>
-※ 전월 합계 - 당월 합계 = 차액
+※ 전월 합계 - 당월 합계 = 차액 
             <tr>
               <th scope="col">카테고리</th>
              <th scope="col">총소비</th>

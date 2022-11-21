@@ -107,7 +107,7 @@ $(document).ready(function() {
 //info 버튼
 function info(msg1, msg2) {
     Swal.fire(
-     msg1,
+     msg1, 
      msg2,
      'info' /*디자인 타입*/
     )
