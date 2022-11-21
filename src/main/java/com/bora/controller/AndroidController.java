@@ -1,12 +1,15 @@
 package com.bora.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -24,12 +27,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bora.domain.SHA256;
-import com.bora.domain.board.CommentVO;
 import com.bora.domain.member.MemberVO;
 import com.bora.domain.report.BookDetailVO;
 import com.bora.domain.report.BookVO;
 import com.bora.service.MainService;
 import com.bora.service.report.BookDetailService;
+import com.bora.service.report.BookService;
+
 
 @RestController
 @RequestMapping("/android/*")
@@ -43,6 +47,8 @@ public class AndroidController {
 	@Inject
 	private BookDetailService bookDetailService;
 		
+	@Inject
+	private BookService bookService;
 	// 멤버변수 끝 =======================================
 	
 	
@@ -66,7 +72,9 @@ public class AndroidController {
 //			rttr.addFlashAttribute("msg", "'"+vo2.getNick() + "'님, 환영합니다♡");
 //			return "redirect:/android/loginTest"; // 할 필요 X
 			
-			obj.put("name", vo2.getName());
+//			obj.put("name", vo2.getName());
+			obj.put("nick", vo2.getNick());
+//			obj.put("name", vo2.getName());
 			
 			log.info("(✿◡‿◡) androidLoginTestPOST  put한 obj: " + obj);
 			
@@ -125,7 +133,7 @@ public class AndroidController {
 	
 	
 	// select 
-	@GetMapping(value="/get/{loginID}/{year}/{month}/{day}",
+	@PostMapping(value="/get/{loginID}/{year}/{month}/{day}",
 				produces= {MediaType.APPLICATION_JSON_UTF8_VALUE}) // 반환 타입은 json
 	public ResponseEntity<List<BookDetailVO>> getList(@PathVariable("year") int year, 
 												@PathVariable("month") int month, 
@@ -140,44 +148,106 @@ public class AndroidController {
 	
 	
 	// insert
-	@PostMapping(value="/write", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> insertList(@RequestBody BookDetailVO vo) throws Exception {
+//	@PostMapping(value="/write", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
+//	public ResponseEntity<String> insertList(@RequestBody BookDetailVO vo) throws Exception {
+	@PostMapping(value="/write", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public void insertList(@RequestBody String voString) throws Exception {
 		log.info("（＾∀＾●）ﾉｼ insertList() 호출됨");
+		log.info("（＾∀＾●）ﾉｼ insertList()  전달받은 voString: " + voString);
 		
-		int insertCount = bookDetailService.writeBookDetail(vo);
+		// 원본 DetailDTO{book:BookDTO{bk_num:0, bk_year:2022, bk_month:11, bk_budget:0}, bk_day:21, bk_iow:'지출', bk_group:'신용카드', bk_category:'편의점/마트', bk_money:8888, bk_memo:'ㅕㅕ'}
 		
-		log.info("（＾∀＾●）ﾉｼ insertList()  전달받은 vo: " + vo);
-		log.info("（＾∀＾●）ﾉｼ insertList()  insertCount: " + insertCount);
+		// DetailDTO{"book":BookDTO{"bk_num":0, "bk_year":2022, "bk_month":11, "bk_budget":0}, "bk_day":21, "bk_iow":"지출", "bk_group":"신용카드", "bk_category":"편의점/마트", "bk_money":8888, "bk_memo":"닭강정"}
+		// "{\"book\":{\"bk_num\":0, \"bk_year\":2022, \"bk_month\":11, \"bk_budget\":0}, \"bk_day\":21, \"bk_iow\":\"지출\", \"bk_group\":\"신용카드\", \"bk_category\":\"편의점/마트\", \"bk_money\":8888, \"bk_memo\":\"닭강정\"}
 		
-		return insertCount == 1 ? 
-				new ResponseEntity<>("success", HttpStatus.OK) : 
-				new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//		voString = "{\"book\":{\"bk_num\":0, \"bk_year\":2022, \"bk_month\":11, \"bk_budget\":0}, \"bk_day\":21, \"bk_iow\":\"지출\", \"bk_group\":\"신용카드\", \"bk_category\":\"편의점/마트\", \"bk_money\":8888, \"bk_memo\":\"닭강정\"}";
+		
+		// JSONParser 생성
+		JSONParser jsonParser = new JSONParser();
+		
+		// String 짤라가지고 Object로
+		Object obj = jsonParser.parse(voString);
+		
+		// Object --> JsonObject로 완성!!
+		JSONObject jsonObj = (JSONObject) obj;
+		// bookDTO 안에 애들 보기 위해 한번 더 해체 작업
+		JSONObject jsonObjBook = (JSONObject) jsonObj.get("book");
+		
+		// BookVO, BookDetailVO 생성, json에서 키값으로 빼내서 해당 변수에 채우기
+		BookDetailVO bookDetailVO = new BookDetailVO();
+		
+		int bk_num = 0;
+		int bk_budget = Long.valueOf(jsonObjBook.get("bk_budget").toString()).intValue();
+		int bk_month = Long.valueOf(jsonObjBook.get("bk_month").toString()).intValue();
+		int bk_year = Long.valueOf(jsonObjBook.get("bk_year").toString()).intValue();
+		String loginID = (String) jsonObjBook.get("id");
+		
+		int bk_day = Long.valueOf(jsonObj.get("bk_day").toString()).intValue();
+		String bk_iow = (String) jsonObj.get("bk_iow");
+		String bk_category = (String) jsonObj.get("bk_category");
+		String bk_group = (String) jsonObj.get("bk_group");
+		int bk_money = Long.valueOf(jsonObj.get("bk_money").toString()).intValue();
+		String bk_memo = (String) jsonObj.get("bk_memo");
+		
+		// 이 회원의 기존 bookVO 있나? 서비스에서 호출
+		BookVO bookVO = bookService.getMonthBook(bk_year, bk_month, loginID);
+		log.info("（＾∀＾●）ﾉｼ insertList()  가져온 bookVO: " + bookVO);
+		
+		// bookVO 채우고 -> detailVO에 setBook까지
+		if (bookVO != null) {
+			// 이미 만들어진 bookVO 있을 때
+			
+			// 이미 작성된 연월이므로 기존의 bk_num을 get으로 가져와서 그대로 작성
+			bk_num = bookVO.getBk_num();
+			log.info("（＾∀＾●）ﾉｼ insertList()  기존 bk_num: " + bk_num);
+			
+			//  가져온 bookVO 그대로 set하기
+			bookDetailVO.setBook(bookVO);
+			
+		} else if (bookVO == null) {
+			// 작성된 bookVO 없다면,, 
+			//  getBookMaxNum 불러와서 bk_num 채우기
+			bk_num = bookService.getBookMaxNum();
+			log.info("（＾∀＾●）ﾉｼ insertList()  새로 채운 bk_num: " + bk_num);
+			
+			bookVO.setBk_num(bk_num);
+			bookVO.setBk_budget(bk_budget);
+			bookVO.setBk_month(bk_month);
+			bookVO.setBk_year(bk_year);
+			bookVO.setId(loginID);
+			
+			// bookVO 다 채웠으니 detailVO에 set하기
+			bookDetailVO.setBook(bookVO);
+		}
+
+		// 위에서 가계부 번호(bk_num) 가져왔을 경우, BookDetailVO에 다 set한 후, 서비스 호출해서 DB 저장
+		if (bk_num != 0) {
+			bookDetailVO.setBk_num(bk_num);
+			
+			// bk_num에 상관 없이 이거는 공통으로 들어갈 new 정보
+			bookDetailVO.setId(loginID);
+			bookDetailVO.setBk_day(bk_day);
+			bookDetailVO.setBk_iow(bk_iow);
+			bookDetailVO.setBk_category(bk_category);
+			bookDetailVO.setBk_group(bk_group);
+			bookDetailVO.setBk_money(bk_money);
+			bookDetailVO.setBk_memo(bk_memo);
+			log.info("（＾∀＾●）ﾉｼ insertList()  set 다 한 bookDetailVO: " + bookDetailVO);
+			
+			int result = bookDetailService.writeBookDetail(bookDetailVO);
+			
+			// 이거 삼항연산자 왜 안 됨? ㄱ-
+			if (result == 1) { 
+				log.info("（＾∀＾●）ﾉｼ insertList()  가계부 작성 성공 result: " + result);
+			} else {
+				log.info("（＾∀＾●）ﾉｼ insertList()  가계부 작성 실패 result: " + result);
+			}
+			
+		} else {
+			log.info("（＾∀＾●）ﾉｼ insertList()  bk_num 없음,,,,? ");
+		}
+		
 	}
-	
-	
-	
-	// 1. 댓글 쓰기
-		//  http://localhost:8088/comments/new
-//		@PostMapping(value = "/new", consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
-//		//   post 방식으로만 동작하도록    ㄴjson 방식의 데이터만 처리하도록        ㄴ문자열 반환하도록
-//		//       produces??  Ajax의 success: function(result..) << 이 result로 전달할 데이터 타입!!!이 뭐냐~ 문자열이다~
-//		public ResponseEntity<String> insertCmt(@RequestBody CommentVO vo) throws Exception {
-//									// @RequestBody:  json 데이터를 --> CommentVO타입으로 변환하도록 지정
-//			log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧1.insertCmt(vo)  호출됨");
-//			log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧1.insertCmt(vo)  서비스 호출할게요");
-//			int inCount = service.insertCmt(vo);
-//			
-//			log.info("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧1.insertCmt(vo)  리턴받은 결과 "
-//					+ "insertCount: " + inCount + " / CommentVO: " + vo);
-//			
-//			// 삼항 연산자 처리
-//			//   insertCount가 1이면~ OK (댓글쓰기 성공) / 아니면~ 에러 (댓글쓰기 실패)
-//			return inCount == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : 
-//								 new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-		// 1. 댓글 쓰기 끝
-	
-	
 	
 	
 	

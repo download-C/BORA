@@ -10,7 +10,23 @@
 
 <!-- chart.js 라이브러리 CDN 로드 -->    
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"></script> -->
+<style>
+a {
+  color: black;
+  text-decoration: none;
+}
 
+a:hover {
+  color: #5107B0;
+  text-decoration: none;
+}
+
+.pagination {
+    --bs-pagination-active-bg: #e3cffc  !important; 
+    --bs-pagination-active-border-color: #e3cffc  !important;
+}
+
+</style>
 
 <style type="text/css">
    html, body{
@@ -477,22 +493,29 @@ function uncomma(str) {
 				
 			</tbody>
 			</table>
-		</div>
-		<div style="margin: auto; text-align: center;">
-			<ul type="none" id="pageUl">
-				<c:if test="${pm.prev }"> 
-					<li><a href="/book/list?page=${pm.pageStart}&year=${year}&month=${month}">&laquo;</a></li>
-				</c:if>
-				<c:forEach var="index" begin="${pm.pageStart+1 }" end="${pm.endPage }"> 
-					<li ${pm.vo.page == index? 'class=active' : '' }  style="float: left;">
-						<a href="/book/list?page=${index+1 }&year=${year}&month=${month}"> &nbsp;&nbsp; ${index} &nbsp;&nbsp; </a>
-					</li>
-				</c:forEach>
-				<c:if test="${pm.next }">
-					<li><a href="/book/list?page=${pm.endPage + 1 }&year=${year}&month=${month}">&raquo;</a></li>
-				</c:if>
-			</ul>
-		</div>
+		</div><br>
+	<!-- ===================== 페이징 처리 구간 ========================== -->
+<div id="pagingDiv">
+		<nav aria-label="Page navigation example">
+		<ul type="none" id="pageUl"  class="pagination justify-content-center">
+			<c:if test="${pm.prev }"> 
+				<li><a href="/book/list?page=${pm.pageStart - 1 }&year=${year}&month=${month}&day=${day}" class="page-item" aria-label="Previous" style="color:#621fb7;">
+						<span aria-hidden="true">&laquo;</span></a>
+				</li>
+			</c:if>
+			<c:forEach var="index" begin="${pm.pageStart }" end="${pm.endPage }"> 
+				<li ${pm.vo.page == index? 'class=active' : '' }  style="float: left;"  class="page-item">
+					<a href="/book/list?page=${index }&year=${year}&month=${month}&day=${day}" style="color:#621fb7;"  class="page-link" > ${index} </a>
+				</li>
+			</c:forEach>
+			<c:if test="${pm.next }">
+				<li class="page-item"><a href="book/list?page=${pm.endPage + 1 }&year=${year}&month=${month}&day=${day}" class="page-link"  aria-label="Next" style="color:#621fb7;">
+					<span aria-hidden="true">&raquo;</span></a></li>
+			</c:if>
+		</ul>
+		</nav>
+	</div>
+	<!-- ===================== 페이징 처리 구간 끝 ========================== -->
  </div>
 <!-- 태그 적는 곳 -->
 <!-- Jquery CDN 로드 : 항상 최신 버전 사용 -->    
