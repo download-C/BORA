@@ -2,27 +2,6 @@
  * goal.jsp 페이지에서 차트 부분만 쏙
  */
 
-// localStorage에 저장되어 있는 계좌잔액 배열 balArr 끄집어내서 
-// --> 중복 키,값들 걸러내고 --> for문 돌려서 계좌 잔액 총계 구하기
-// 선언 안해줘도 쌉가능하네,,
-//balArr = JSON.parse(localStorage.getItem('balArr') || '[]'); // [] 이건 왜 하는거? ㄱ- 
-//console.log(balArr);
-
-// 중복 제거 작업 위해,, 
-// 맵 생성해서 중복값들 빼고 balArrUnique 에 담기 
-//let balMap = new Map();
-//for(let name of balArr){
-//	balMap.set(JSON.stringify(name), name); // name, bal이 모두 같은 객체 요소를 제외한 맵 생성
-//}
-//let balArrUnique = [...balMap.values()];
-//console.log(balArrUnique);
-//
-//let balSum = 0;
-//for (let i = 0; i < balArrUnique.length; i++){
-//	balSum += balArrUnique[i].bal / 10000;
-//}
-
-//console.log('(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ balSum: ' + balSum);
 
 // jquery 시작
 $(document).ready(function() {
@@ -71,27 +50,31 @@ function getMyChart(goal, curr) {
 		data : {
 			labels : [ '내 목표', '내 자산' ],
 			datasets : [ {
-				label : '단위(만원)',
 				data : [ goal, curr ],
 				backgroundColor : [ '#5107b0', '#e3cffc' ]
 			}, ]
 		},
-//		data : {
-//			labels: ['내 목표 값','현재 내 자산'],
-//			datasets: [{ 
-//		          label: '내 목표 값',
-//		           data: [goal],
-//		           backgroundColor: '#5107b0'
-//		       },{ 
-//		           label: '현재 내 자산',
-//		           data: [curr],
-//		           backgroundColor: '#e3cffc'
-//		    }]
-//		},
 		options : {
+			plugins:{
+                legend: {
+                    display: false
+                },
+            },
 			maintainAspectRatio : false,
-			responsive : false
-		}
+			responsive : false,
+			scales: {
+				yAxes: [{
+	                display: true,
+	                ticks: {
+	                	min: 0, // 최소값 0
+	                },
+	                scaleLabel: {
+	                	display: true,
+	                	labelString: '만원'
+	                }
+	            }]
+			}, // scales
+		}// options
 	}); // new Chart
 } // getMyChart()
 // 특정 구간만 새로고침 함수

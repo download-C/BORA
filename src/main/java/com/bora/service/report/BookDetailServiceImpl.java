@@ -85,5 +85,13 @@ public class BookDetailServiceImpl implements BookDetailService{
 		log.info("ヽ(✿ﾟ▽ﾟ)ノ getAndroidBookDetailList  호출됨");
 		return dao.getAndroidBookDetailList(year, month, day, loginID);
 	}
+	
+	@Override
+	public List<BookDetailVO> getMonthBookDetailListCtgr
+						(int year, int month, String loginID, PageMakerVO pm, String ctgr) throws Exception {
+		log.info("getMonthBookDetailListCtgr 호출");
+		return dao.getMonthBookDetailListCtgr(year, month, loginID, pm, ctgr);
+	}
+	
 
 }
