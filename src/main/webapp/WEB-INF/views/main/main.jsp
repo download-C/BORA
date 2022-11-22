@@ -153,6 +153,11 @@ $(document).ready(function(){
   </section>
   <!-- End mainslide -->
 
+  <!-- 카카오 지도 -->
+    <div class="container">
+  <%@ include file="map.jsp"%>
+</div>
+
   <!-- 뉴스 공간 =============================================== -->
   <section id="cardnews" class="mt-5">
     <div class="container">
