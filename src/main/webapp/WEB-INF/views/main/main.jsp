@@ -11,6 +11,52 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
 
+<style>
+/* @media(min-width: 768px;) {
+	.card-col{
+		min-height: 500px; 
+	}
+	.title-content{
+	min-height: 450px;
+	}
+}
+ */
+
+@media (max-width: 768px) {
+	.main-table {
+		width: 95%;
+	}
+	.card-col{
+		min-height:280px; 
+	}
+	.title-content{
+	 min-height: 260px;
+	}
+	
+}
+@media (min-width: 992px ) {
+	.main-table {
+		width: 45%;
+	}
+		.card-col{
+		min-height: 320px; 
+	}
+	.title-content{
+	min-height: 230px;
+	}
+}
+
+
+@media (min-width: 1400px) {
+	.title-content{
+		height: 200px;
+	}
+	.card-col {
+		height: 280px;
+	}
+}
+</style>
+
 <!-- login 성공 메세지 불러오기 -->
 <script>
 $(document).ready(function(){	
@@ -122,22 +168,26 @@ $(document).ready(function(){
       <div class="row row-cols-1 row-cols-md-3 g-3 me-5 ms-5">
         
         <!-- 뉴스 1 =========================== -->
-        <div class="col">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title" id="newsTitle1"></h5>
-              <p class="card-text" id="newsDesc1"></p>
+        <div class="col ">
+          <div class="card text-center card-col">
+            <div class="card-body">	
+            	<div class="title-content">
+	              <h5 class="card-title" id="newsTitle1"></h5>
+	              <p class="card-text" id="newsDesc1"></p>
+            	</div>
               <a id="newsLink1" href="#" class="btn btn-primary" style="border: none; background: #5107B0;">자세히보기</a>
             </div>
           </div>
         </div>
         
         <!-- 뉴스 2 =========================== -->
-        <div class="col">
-          <div class="card text-center">
+        <div class="col ">
+          <div class="card text-center card-col">
             <div class="card-body">
+            <div class="title-content">
               <h5 class="card-title" id="newsTitle2"></h5>
               <p class="card-text" id="newsDesc2"></p>
+             </div>
               <a id="newsLink2" href="#" class="btn btn-primary" style="border: none; background: #5107B0;">자세히보기</a>
             </div>
           </div>
@@ -145,10 +195,12 @@ $(document).ready(function(){
         
         <!-- 뉴스 3 =========================== -->
         <div class="col">
-          <div class="card text-center">
+          <div class="card text-center card-col">
             <div class="card-body">
+            <div class="title-content">
               <h5 class="card-title" id="newsTitle3"></h5>
               <p class="card-text" id="newsDesc3"></p>
+              </div>
               <a id="newsLink3" href="#" class="btn btn-primary" style="border: none; background: #5107B0;">자세히보기</a>
             </div>
           </div>
@@ -163,9 +215,10 @@ $(document).ready(function(){
   <hr><br><br>
   <div class="m-4">
     <div class="container">
-      <div class="row row-cols-md-3 g-3" style="display: flex; justify-content: space-between; flex-flow: row nowrap; margin-bottom: 10px;">
+      <!-- <div class="row row-cols-md-3 g-3" style="display: flex; justify-content: space-between; flex-flow: row nowrap; margin-bottom: 10px;"> -->
+      <div class="row row-cols-md-3 g-3" >
         <!-- News! -->
-        <div class="container" style="margin: 0px 20px; width: 45%;">
+        <div class="container main-table" style="margin: 0px 20px; ">
           <h2><b>공지사항</b></h2>
           <p align="right"><b><a href="/main/noticeList?page=1" style="color: #444444;">더보기 ></a></b></p>
           <div class="table-responsive">
@@ -192,7 +245,7 @@ $(document).ready(function(){
         <!-- End News! -->
 
         <!-- community -->
-        <div class="container" style="margin: 0px 20px; width: 45%;">
+        <div class="container main-table" style="margin: 0px 20px;">
           <h2><b>커뮤니티</b></h2>
           <p align="right"><b><a href="/board/list" style="color: #444444;">더보기 ></a></b></p>
           <div class="table-responsive">

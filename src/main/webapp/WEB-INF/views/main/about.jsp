@@ -71,7 +71,7 @@
             <br>
               교류할 수 있도록 <b>커뮤니티를 조성</b>하는 업무를 합니다.
               <br>
-              [ ], [ ] 주제로 소통하며 본인의 소비 생활을 점검하고
+              금융과 관련된 다양한 주제로 소통하며 본인의 소비 생활을 점검하고
               <br>
               정보도 활발히 교환할 수 있습니다.
           </p>
@@ -90,10 +90,10 @@
           </p>
           <canvas class="image-blend-canvas" width="270" height="55"></canvas>
           <p class="mid-message" style="text-align: center;"> 
-            <h1><strong>지금 시작하세요.</strong></h1>
+            <h1><strong>지금 시작하세요</strong></h1>
          </p>
          <br><br>
-          <a href="/main/main" style="z-index: 1000; color: #5107b0; font-size: large;">홈페이지로 이동</a>
+         <button onclick="location.href='/main/main';" style="z-index: 1000; color: #5107b0; font-size: x-large;">홈페이지로 이동</button>
         </section>
       </div>
     
