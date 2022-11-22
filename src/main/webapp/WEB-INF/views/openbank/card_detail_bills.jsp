@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -30,9 +31,16 @@
 		<%-- cardDetailBills 객체에 저장되어 있는 카드 목록(bill_detail_list) 가져와서 반복하여 복수개 계좌 접근 --%>
 		<c:forEach var="cardDetailBills" items="${cardDetailBills.bill_detail_list }" end="6">
 			<tr>
-				<td><span class="text-sm font-weight-normal">${cardDetailBills.paid_date }</span></td>
-				<td><span class="text-sm font-weight-normal">${cardDetailBills.paid_time }</span></td>
-				<td><span class="text-sm font-weight-normal">${cardDetailBills.paid_amt }</span></td>
+				<td><span class="text-sm font-weight-normal">
+						<fmt:parseDate value="${cardDetailBills.paid_date }"  var="date2" pattern="yyyyMMdd"/>
+					  <fmt:formatDate value="${date2 }" pattern="yyyy.MM.dd	"/>
+				</span></td>
+				<td><span class="text-sm font-weight-normal">
+						<fmt:parseDate value="${cardDetailBills.paid_time }" var="time" pattern="HHmmss"/>
+						<fmt:formatDate value="${time }" pattern="HH:mm:ss"/>
+				</span></td>
+				<td><span class="text-sm font-weight-normal">
+						<fmt:formatNumber value="${cardDetailBills.paid_amt }" pattern="#,###" /></span></td>
 				<td><span class="text-sm font-weight-normal">${cardDetailBills.merchant_name_masked }</span></td>
 				<td><span class="text-sm font-weight-normal">
 				<c:if test="${cardDetailBills.product_type == '01'}">

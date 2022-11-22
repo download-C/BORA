@@ -142,7 +142,10 @@ only screen and (max-width: 760px),
 				체크</c:if></td>
 				<td>${cardInfo.settlement_bank_code }</td>
 				<td>${cardInfo.settlement_account_num_masked }</td>
-				<td>${cardInfo.issue_date }</td>
+				<td>
+						<fmt:parseDate value="${cardInfo.issue_date }"  var="date1" pattern="yyyyMMdd"/>
+						<fmt:formatDate value="${date1 }" pattern="yyyy.MM.dd	"/>
+				</td>
 			</tr>	
 		</tbody>
 	</table>

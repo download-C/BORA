@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -58,7 +59,7 @@
 			<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">결제순번</th>
 			<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">카드식별자</th>
 			<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">청구금액</th>
-			<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">결제일</th>
+			<!-- <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">결제일</th> -->
 			<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">결제년월일</th>
 			<th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">신용체크구분</th>
 		</tr>
@@ -67,12 +68,20 @@
 		<%-- cardBills 객체에 저장되어 있는 카드 목록(bill_list) 가져와서 반복하여 복수개 계좌 접근 --%>
 		<c:forEach var="cardBills" items="${cardBills.bill_list }" varStatus="status" end="6">
 			<tr>
-				<td><span class="text-sm font-weight-normal">${cardBills.charge_month }</span></td>
+				<td><span class="text-sm font-weight-normal">
+						<fmt:parseDate value="${cardBills.charge_month }"  var="date2" pattern="yyyyMM"/>
+					  <fmt:formatDate value="${date2 }" pattern="yyyy.MM	"/>
+				</span></td>
 				<td><span class="text-sm font-weight-normal">${cardBills.settlement_seq_no }</span></td>
 				<td><span class="text-sm font-weight-normal">${cardBills.card_id }</span></td>
-				<td><span class="text-sm font-weight-normal">${cardBills.charge_amt }</span></td>
-				<td><span class="text-sm font-weight-normal">${cardBills.settlement_day }</span></td>
-				<td><span class="text-sm font-weight-normal">${cardBills.settlement_date }</span></td>
+				<td><span class="text-sm font-weight-normal">
+						<fmt:formatNumber value="${cardBills.charge_amt }" pattern="#,###" />
+				</span></td>
+				<%-- <td><span class="text-sm font-weight-normal">${cardBills.settlement_day }</span></td> --%>
+				<td><span class="text-sm font-weight-normal">
+					<fmt:parseDate value="${cardBills.settlement_date }"  var="date1" pattern="yyyyMMdd"/>
+					<fmt:formatDate value="${date1 }" pattern="yyyy.MM.dd	"/>
+				</span></td>
 				<td><span class="text-sm font-weight-normal">
 				<c:if test="${cardBills.credit_check_type =='01'}">
 				신용</c:if>
