@@ -61,11 +61,11 @@ public class OpenbankController {
 		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  오픈뱅킹 - 계좌");
 		log.info("/openbank/oauthOK 로 이동");
 
-		String loginID = (String)session.getAttribute("loginID");
-		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
-			return "redirect:/main/login";
-		}
+		/*
+		 * String loginID = (String)session.getAttribute("loginID"); if(loginID == null)
+		 * { rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다"); return
+		 * "redirect:/main/login"; }
+		 */
 		
 		return "/openbank/oauthOK";
 	}
@@ -77,11 +77,6 @@ public class OpenbankController {
 		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  토큰발급 가기");
 		log.info("/openbank/oauthOK 로 이동");
 		
-		String loginID = (String)session.getAttribute("loginID");
-		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
-			return "redirect:/main/login";
-		}
 
 		// 토큰발급
 		ResponseTokenVO responseToken = openBankingService.requestToken(requestTokenVO);
@@ -106,10 +101,7 @@ public class OpenbankController {
 		log.info("/openbank/acct_user_info 로 이동");
 		
 		String loginID = (String)session.getAttribute("loginID");
-		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
-			return "redirect:/main/login";
-		}
+
 		
 		
 		// Service 객체의 findUser() 메서드를 호출하여 사용자 정보 조회
@@ -133,10 +125,7 @@ public class OpenbankController {
 		log.info("/openbank/acct_list 로 이동");
 
 		String loginID = (String)session.getAttribute("loginID");
-		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
-			return "redirect:/main/login";
-		}
+
 		
 		AccountSearchResponseVO accountList = openBankingService.findAccount(accountSearchRequestVO);
 
@@ -159,12 +148,6 @@ public class OpenbankController {
 		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧   계좌 잔액 조회");
 		log.info("/openbank/acct_balance 로 이동");
 		log.info(accountBalanceRequestVO + "");
-
-		String loginID = (String)session.getAttribute("loginID");
-		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
-			return "redirect:/main/login";
-		}
 		
 		AccountBalanceResponseVO accountBalance = openBankingService.findAccountBalance(accountBalanceRequestVO);
 
@@ -188,10 +171,6 @@ public class OpenbankController {
 		log.info("/openbank/acct_tran 로 이동");
 
 		String loginID = (String)session.getAttribute("loginID");
-		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
-			return "redirect:/main/login";
-		}
 		
 		log.info(accountTranRequestVO + "");
 //			accountTranRequestVO.setInquiry_type("A");
@@ -219,12 +198,6 @@ public class OpenbankController {
 		log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧  오픈뱅킹 - 목돈 모으기");
 		log.info("/openbank/goal 로 이동");
 		
-		String loginID = (String)session.getAttribute("loginID");
-		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
-			return "redirect:/main/login";
-		}
-		
 		return "/openbank/goal";
 	}
 
@@ -235,12 +208,7 @@ public class OpenbankController {
 	public String getCardInfo(CardInfoRequestVO cardInfoRequestVO, Model model, HttpSession session, RedirectAttributes rttr) throws Exception {
 
 		log.info("cardInfoPOST() 호출");
-		
-		String loginID = (String)session.getAttribute("loginID");
-		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
-			return "redirect:/main/login";
-		}
+	
 
 		CardInfoResponseVO cardInfo = openBankingService.infoCard(cardInfoRequestVO);
 
@@ -263,11 +231,6 @@ public class OpenbankController {
 
 		log.info("cardListGET() 호출");
 		
-		String loginID = (String)session.getAttribute("loginID");
-		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
-			return "redirect:/main/login";
-		}
 
 		// Service 객체의 listCard() 메서드를 호출하여 사용자 정보 조회
 		// => 파라미터 : CardListRequestVO, 리턴타입 CardListResponseVO
@@ -294,11 +257,6 @@ public class OpenbankController {
 
 		log.info("cardBillsGET() 호출");
 		
-		String loginID = (String)session.getAttribute("loginID");
-		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
-			return "redirect:/main/login";
-		}
 
 		// Service 객체의 billsCard() 메서드를 호출하여 사용자 정보 조회
 		// => 파라미터 : CardBillsRequestVO, 리턴타입 CardBillsResponseVO
@@ -328,11 +286,6 @@ public class OpenbankController {
 
 		log.info("cardDetailBillsGET() 호출");
 		
-		String loginID = (String)session.getAttribute("loginID");
-		if(loginID == null) {
-			rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
-			return "redirect:/main/login";
-		}
 
 		// Service 객체의 detailBillsCard() 메서드를 호출하여 사용자 정보 조회
 		// => 파라미터 : CardDetailBillsRequestVO, 리턴타입 CardDetailBillsResponseVO

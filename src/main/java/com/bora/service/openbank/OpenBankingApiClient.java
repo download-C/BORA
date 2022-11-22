@@ -41,7 +41,7 @@ public class OpenBankingApiClient {
 	// 변수 정의 
 	private String client_id="2ce89526-eccf-45b0-a59f-1ca10bc64b30";
 	private String client_secret="d4f6ae0c-2f45-497a-8833-bc4058ada4d1";
-	private String redirect_uri="http://localhost:8088/openbank/callback";
+	private String redirect_uri="http://itwillbs8.cafe24.com/openbank/callback";
 	private String grant_type="authorization_code";
 	
 	// 기본 주소

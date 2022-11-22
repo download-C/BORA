@@ -58,7 +58,7 @@ th, td {
                 <form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get" style="text-align: center;">
          	       <input type="hidden" name="response_type" value="code">
             	    <input type="hidden" name="client_id" value="2ce89526-eccf-45b0-a59f-1ca10bc64b30">
-    	            <input type="hidden" name="redirect_uri" value="http://localhost:8088/openbank/callback">
+    	            <input type="hidden" name="redirect_uri" value="http://itwillbs8.cafe24.com/openbank/callback">
         	        <input type="hidden" name="scope" value="login inquiry transfer cardinfo fintechinfo">
             	    <!-- <input type="hidden" name="scope" value="cardinfo"> -->
                 	<input type="hidden" name="state" value="12345678123456781234567812345678">

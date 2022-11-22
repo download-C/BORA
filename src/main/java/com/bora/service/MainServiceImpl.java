@@ -134,7 +134,7 @@ public class MainServiceImpl implements MainService {
 			sb.append("grant_type=authorization_code");
 
 			sb.append("&client_id=78fc0bf059ea5f8b8a3d25e1e57195e4"); // 본인이 발급받은 key
-			sb.append("&redirect_uri=http://localhost:8088/main/kakaoCallback"); // 본인이 설정한 주소
+			sb.append("&redirect_uri=http://itwillbs8.cafe24.com/main/kakaoCallback"); // 본인이 설정한 주소
 
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
