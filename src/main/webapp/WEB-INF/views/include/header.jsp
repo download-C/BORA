@@ -94,10 +94,10 @@ if(session!=null) {
 	    "pluginKey": "036d1555-e40f-407f-aa20-80436bd75264", //please fill with your plugin key
 	    "memberId": "4717f1cc2d57b03f0b5a93e42ba4d43e", //fill with user id
 	    "profile": {
-	      "name": "", //fill with user name
-	      "mobileNumber": "", //fill with user phone number
-	      "email": "", //any other custom meta data
-	      "CUSTOM_VALUE_2": "VALUE_2"
+	      "name": "회원1", //fill with user name
+	      "mobileNumber": "010-1234-5678", //fill with user phone number
+	      "email": "member1@bora.com", //any other custom meta data
+
 	    }
 	  });
 	</script>
