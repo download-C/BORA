@@ -16,6 +16,7 @@ $(document).ready(function() {
 });
 </script>
 
+
 <script type="text/javascript">
 // jQuery 구간 시작~ =================================================
   $(document).ready(function(){
@@ -36,7 +37,6 @@ $(document).ready(function() {
 	  
 	  $(".btn_delete").click(function(){
 		  // 삭제 버턴 클릭했을 때~~
-		  alert(${vo.nno}+'번 공지사항이 삭제되었습니다.');
 		  fr.attr("action", "/notice/delete");
 		  fr.submit(); // 클릭하면? 속성 바꾸고 -> submit 되게~~
 	  });// 삭제 버튼 click
@@ -47,7 +47,7 @@ $(document).ready(function() {
 	  });// 목록 버턴 click
 	  
   });// jQuery ready
-
+		
 </script>
 
 <!-- 태그 적는 곳 -->

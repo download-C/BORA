@@ -5,6 +5,13 @@
 <%@ include file="../include/header.jsp"%>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+<!-- title -->
+<div class="section-title">
+  <h2><b>공지사항</b></h2>
+</div>
+<!-- End title -->
+
 <style>
 a {
   color: black;
@@ -22,11 +29,29 @@ a:hover {
 }
 
 </style>
-<div class="section-title">
-  <h2><b>공지사항</b></h2>
-  
-</div>
-<!-- End title -->
+
+
+<!-- login 성공 alert 모달 -->
+<script>
+function success(message) {
+  	Swal.fire({
+	  title: message,
+	  text: '',
+	  padding: '3em',
+	  confirmButtonColor: '#7A1CF6'
+   	})
+}
+</script>
+
+<script>
+$(document).ready(function(){
+		let msg = "${msg}";
+		if(msg!="") {
+			success(msg);
+		}
+});
+</script>
+
   
 <!-- table -->
 <div class="row">
@@ -42,11 +67,11 @@ a:hover {
 			</div>
 				 <div class="px-0 py-0" >
            <div class="container">
-         	   <table class="table table-hover" style="box-shadow: 7px 14px 90px 3px rgba(163, 174, 184, 0.7); width: 80%; margin:auto;">
+         	   <table class="table table-hover" style="box-shadow: 7px 14px 90px 3px rgba(163, 174, 184, 0.7);">
 	             <thead>
 	               <tr style="text-align: center; color:white; background-color: #5107B0;" >
 									 <th class="text-xs font-weight-semibold opacity-7" style="font-weight: normal;">번호</th>
-									 <th class="text-xs font-weight-semibold opacity-7" style="width: 40%; font-weight: normal;">제목</th>
+									 <th class="text-xs font-weight-semibold opacity-7" style="width: 50%; font-weight: normal;">제목</th>
 									 <th class="text-xs font-weight-semibold opacity-7" style="font-weight: normal;">닉네임</th>
 									 <th class="text-xs font-weight-semibold opacity-7" style="font-weight: normal;">작성일</th>
 									 <th class="text-xs font-weight-semibold opacity-7" style="font-weight: normal;">조회수</th>
@@ -56,7 +81,7 @@ a:hover {
 								 <c:forEach var="list" items="${noticeList }">
 								 <tr style="text-align: center;">
 									 <td><span class="text-sm font-weight-normal">${list.nno}</span></td>
-									 <td> <p class="text-sm font-weight-normal mb-0" style="text-align: left;"><a href="/main/noticeRead?nno=${list.nno }&page=1" style="color: black;	">
+									 <td> <p class="text-sm font-weight-normal mb-0"><a href="/main/noticeRead?nno=${list.nno }&page=1" style="color: black;	">
 									 					${list.n_title }</a></p> </td>
 									 <td><b>관리자</b></td>
 									 <td> <span  class="text-sm font-weight-normal"></span><fmt:formatDate value="${list.n_regdate }" pattern="YYYY.MM.dd. HH:mm" /> </td>
@@ -72,29 +97,29 @@ a:hover {
 </div>
 <br>
 <!-- End table -->
-	<!-- ===================== 페이징 처리 구간 ========================== -->
-<div id="pagingDiv">
+<!-- ===================== 페이징 처리 구간 ========================== -->
+	<div id="pagingDiv">
 		<nav aria-label="Page navigation example">
 		<ul type="none" id="pageUl"  class="pagination justify-content-center">
 			<c:if test="${pm.prev }"> 
-				<li><a href="/main/noticeList?page=${pm.pageStart - 1 }" class="page-item" aria-label="Previous" style="color:#621fb7;">
+				<li><a href="noticeList?page=${pm.pageStart - 1 }" class="page-item" aria-label="Previous" style="color:#621fb7;">
 						<span aria-hidden="true">&laquo;</span></a>
 				</li>
 			</c:if>
 			<c:forEach var="index" begin="${pm.pageStart }" end="${pm.endPage }"> 
 				<li ${pm.vo.page == index? 'class=active' : '' }  style="float: left;"  class="page-item">
-					<a href="/main/noticeList?page=${index }" style="color:#621fb7;"  class="page-link" > ${index} </a>
+					<a href="noticeList?page=${index }" style="color:#621fb7;"  class="page-link" > ${index} </a>
 				</li>
 			</c:forEach>
 			<c:if test="${pm.next }">
-				<li class="page-item"><a href="main/noticeList?page=${pm.endPage + 1 }" class="page-link"  aria-label="Next" style="color:#621fb7;">
+				<li class="page-item"><a href="noticeList?page=${pm.endPage + 1 }" class="page-link"  aria-label="Next" style="color:#621fb7;">
 					<span aria-hidden="true">&raquo;</span></a></li>
 			</c:if>
 		</ul>
 		</nav>
 	</div>
-	<!-- ===================== 페이징 처리 구간 끝 ========================== -->
-
+<!-- ===================== 페이징 처리 구간 끝 ========================== -->
+	
 <script type="text/javascript">
 	// alert(${msg});
 	var result = "${msg}";

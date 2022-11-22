@@ -80,7 +80,7 @@ public class MemberController {
 	   // 로그인한 회원의 기존 정보 불러오기
 	   MemberVO vo = service.getMember(id);
 	   
-	   vo.setPw(pw);
+	   vo.setPw(SHA256.encrypt(pw));
 	   vo.setNick(nick);
 	   vo.setPhone(phone);
 	   vo.setEmail(email);
