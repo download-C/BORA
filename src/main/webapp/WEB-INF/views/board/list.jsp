@@ -61,7 +61,7 @@ a:hover {
 	function warning(result) {
 		Swal.fire({
 		     title: result, 
-		     text: ''',
+		     text: ' ',
 		     confirmButtonColor: '#7A1CF6',
 		     icon: 'warning' /*디자인 타입*/
 		    }) 

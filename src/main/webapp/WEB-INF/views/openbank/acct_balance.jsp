@@ -103,7 +103,7 @@ only screen and (max-width: 760px),
 	/*
 	Label the data
 	*/
-	td:nth-of-type(1):before { content: "거래일자"; }
+	td:nth-of-type(1):before { content: "표준코드"; }
 	td:nth-of-type(2):before { content: "은행"; }
 	td:nth-of-type(3):before { content: "계좌잔액"; }
 	td:nth-of-type(4):before { content: "출금가능금액"; }
@@ -118,7 +118,7 @@ only screen and (max-width: 760px),
   <table>
     <thead>
       <tr>
-        <th style="text-align: center;">거래일자</th>
+        <th style="text-align: center;">표준코드</th>
         <th style="text-align: center;">은행</th>
         <th style="text-align: center;">계좌잔액</th>
         <th style="text-align: center;">출금가능금액</th>
@@ -131,8 +131,7 @@ only screen and (max-width: 760px),
     <tbody>
       <tr>
 		<td>
-			<fmt:parseDate value="${accountBalance.bank_tran_date }"  var="date1" pattern="yyyyMMdd"/>
-			<fmt:formatDate value="${date1 }" pattern="yyyy.MM.dd	"/>
+			${accountBalance.bank_code_tran }
 		</td>
 		<td>${accountBalance.bank_name }</td>
 		<td id="req2_balance_amt"> <fmt:formatNumber value="${accountBalance.balance_amt }" pattern="#,###"  /> </td>
