@@ -371,7 +371,7 @@ public class AjaxController {
 //	@ResponseBody 
 	@RequestMapping(value = "/moa", method = RequestMethod.GET)
 	public Map<String, Object> moaCalc(@RequestParam("gapMoney") Double gapMoney,
-			@RequestParam("gapDate") Double gapDate) throws Exception {
+										@RequestParam("gapDate") Double gapDate) throws Exception {
 		log.info("(●'◡'●) moaCalc 호출됨");
 		log.info("(●'◡'●) moaCalc  gapMoney: " + gapMoney + " / gapDate: " + gapDate);
 

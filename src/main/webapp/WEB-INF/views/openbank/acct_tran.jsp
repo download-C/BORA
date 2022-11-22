@@ -58,7 +58,7 @@ td, th {
   padding: 6px; 
   border-top: 1px solid #ddd; 
   border-left: 1px solid #ddd; 
-  text-align: left; 
+  text-align: center; 
 }
 /* 
 Max width before this PARTICULAR table gets nasty
@@ -135,8 +135,8 @@ only screen and (max-width: 760px),
 		<td>${accountTran.inout_type }</td>
 		<td>${accountTran.tran_type }</td>
 		<td>${accountTran.print_content }</td>
-		<td>${accountTran.tran_amt }</td>
-		<td>${accountTran.after_balance_amt}</td>
+		<td><fmt:formatNumber value="${accountTran.tran_amt }" pattern="#,###"  /></td>
+		<td><fmt:formatNumber value="${accountTran.after_balance_amt}" pattern="#,###"  /></td>
 		<td>${accountTran.branch_name }</td>
 		</tr>
 		</c:forEach>

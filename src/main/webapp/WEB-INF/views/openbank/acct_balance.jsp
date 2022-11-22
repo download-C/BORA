@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
@@ -59,7 +60,7 @@ td, th {
   padding: 6px; 
   border-top: 1px solid #ddd; 
   border-left: 1px solid #ddd; 
-  text-align: left; 
+  text-align: center; 
 }
 
 @media 
@@ -131,8 +132,8 @@ only screen and (max-width: 760px),
       <tr>
 		<td>${accountBalance.bank_tran_date }</td>
 		<td>${accountBalance.bank_name }</td>
-		<td id="req2_balance_amt">${accountBalance.balance_amt }</td>
-		<td>${accountBalance.available_amt }</td>
+		<td id="req2_balance_amt"> <fmt:formatNumber value="${accountBalance.balance_amt }" pattern="#,###"  /> </td>
+		<td><fmt:formatNumber value="${accountBalance.available_amt }" pattern="#,###"  /></td>
 		<td>${accountBalance.product_name }</td>
 		<td>${accountBalance.account_issue_date }</td>
 		<td>${accountBalance.maturity_date }</td>
@@ -140,29 +141,3 @@ only screen and (max-width: 760px),
       </tr>
     </tbody>
   </table>	
-  
-  
-<script>
-// localStorage에 저장해놨던 balArr 끄집어내서
-//  --> 은행 별로 name, bal로 balArr 배열에 저장
-// let bal = "<c:out value='${accountBalance.balance_amt }' />"; // 왜 얘는 c out  안 해도 그냥 뜨지??
-// let name = "<c:out value='${accountBalance.product_name }' />";
-// let bal = parseInt('${accountBalance.balance_amt }');
-// let name = '${accountBalance.product_name }';
-
-// balArr = JSON.parse(localStorage.getItem('balArr') || '[]'); // [] 이건 왜 하는거? ㄱ- 
-// console.log(balArr);
-
-//임의로 값 넣어서 테스트 완,, 
-// name에는 상품명, bal에는 t계좌잔액 EL 표현식 저거 넣기
-// balArr.push({name: name, bal: bal });        
-// localStorage.setItem('balArr', JSON.stringify(balArr)); // 새 요소 추가했으니,, balArr 업뎃시키기 
-
-// balArr.push({name:'${accountBalance.product_name }', bal:'${accountBalance.balance_amt }''});
-// console.log('123통장 --> 2000 넣었음');
-// localStorage.setItem('balArr', JSON.stringify(balArr)); 
-
-// console.log(balArr);
-</script>
-  
-
