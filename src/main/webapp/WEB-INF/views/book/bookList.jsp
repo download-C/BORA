@@ -123,7 +123,7 @@ $(document).ready(function() {
 //info 버튼
 function info(msg1, msg2) {
     Swal.fire(
-     msg1,
+     msg1, 
      msg2,
      'info' /*디자인 타입*/
     )
@@ -517,6 +517,7 @@ function uncomma(str) {
 	</div>
 	<!-- ===================== 페이징 처리 구간 끝 ========================== -->
  </div>
+ <br><br>
 <!-- 태그 적는 곳 -->
 <!-- Jquery CDN 로드 : 항상 최신 버전 사용 -->    
 
