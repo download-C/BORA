@@ -65,10 +65,20 @@ public class ReportController {
 	// 1-1. 해당 연월의 가계부가 있을 때
 	   //카테고리 별 합계
 	   @RequestMapping(value="/categoryList", method = RequestMethod.GET)
-	   public void categorylist(@RequestParam("year") int year,@RequestParam("month") int month, Model model, RedirectAttributes rttr) throws Exception{
+	   public String categorylist(@RequestParam("year") int year,@RequestParam("month") int month, Model model, RedirectAttributes rttr) throws Exception{
 		   log.info(" φ(._.) categorylist() 호출 ");
 		   
 		   loginID=(String)session.getAttribute("loginID");
+		   
+		   
+			// 0. 로그인 여부 확인
+			if (loginID == null) {
+				rttr.addFlashAttribute("msg", "로그인 후 이용 가능합니다");
+				return "redirect:/main/login";
+			}
+
+		   
+		   
 		   List<Integer> sumArr = new ArrayList<>();
 		   List<String> caArr = new ArrayList<String>();
 		   
@@ -143,8 +153,8 @@ public class ReportController {
 					model.addAttribute("caArr", caArr); 
 					
 				}
-			
-			
+
+			return "/report/categoryList";
 			
 			
 			

@@ -42,6 +42,10 @@ text-align: center
 %>
 
 
+
+
+
+
 <script>
 function info(msg1, msg2) {
     Swal.fire(
@@ -51,6 +55,24 @@ function info(msg1, msg2) {
     )
 }//info 버튼
 
+//버튼 배경색 입히는 버튼
+function bora() {
+	Swal.fire({
+		  title: '로그인 후 이용 가능합니다.',
+    	  width: 600,
+    	  padding: '3em',
+		  background: '#fff',
+		  backdrop: '#fff' //#7A1CF6에 투명도
+	 });
+}//버튼 배경색 입히는 버튼	
+
+function success(msg3, msg4) {
+    Swal.fire(
+        msg3,
+        msg4,
+        'success' /*디자인 타입*/
+    )
+}//success 버튼
 
 $(document).ready(function() {
     let msg = "${msg}";
@@ -569,6 +591,8 @@ $(document).ready(function(){
       </div>
    </div>
 </div>
+</div>
+
 <br><br>
 <!---------------------- 내역/날짜 TOP3 끝 ------------------------------>
 
