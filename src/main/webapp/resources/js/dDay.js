@@ -8,37 +8,6 @@ let diffDate = '';
 var gap = 0; // let하니까 안 되네.. let은 블럭 레벨 scope.. 라서,,,, 그 블럭 벗어나면 다시 이 0이 되네
 
 
-// 연도 + 월 + 일 선택 다 하고 - 로 이어주기
-//$('#datetimepicker1').change(function() {
-//	let goal_year = $('#goal_year option:selected').val();
-//	let goal_month = $('#goal_month option:selected').val();
-//	let goal_day = $('#goal_day option:selected').val();
-//
-//	if (goal_year == '') {
-//		console.log('연 없음')
-//		return false;
-//	} else if (goal_month == '') {
-//		console.log('월 없음')
-//		return false;
-//	} else if (goal_day == '') {
-//		console.log('일 없음')
-//		return false;
-//	}
-//
-//	// 연, 월, 일 다 채워야 여까지 내려와서 goal_date 변수 완성
-//	goal_date = goal_year + '-' + goal_month + '-' + goal_day;
-//	console.log(goal_date);
-//
-//	// 위에 만든 diffDay() 호출,,
-//	// 왜 하나? 브라우저가 js 파일 호출했을 때, setInterval 실행 전의 딜레이 없애기 위해
-//	diffDay();
-//	// setInterval()을 사용해서 1초 간격으로 지속적으로 함수 호출하기
-//	setInterval(diffDay, 1000);
-//
-//});// change
-
-
-
 // 몇 년 뒤 클릭했는지 받아와서 그 값 디데이 구하는 데로 ,,
 $('#datetimepicker1').change(function() {
 	let n = parseInt($('#goal_year option:selected').val());
@@ -48,15 +17,10 @@ $('#datetimepicker1').change(function() {
 	let year = today.getFullYear(); // 연도
 	let month = today.getMonth() + 1;  // 월
 	let date = today.getDate() -1;  // 날짜 -1
-	
-//	if (n == '') {
-//		console.log('연 없음');
-//		return false;
-//	}
 
 	// goal_date 변수 완성
 	goal_date = (year + n) + '-' + month + '-' + date;
-	console.log(goal_date);
+	console.log("goal_date", goal_date);
 
 	// 위에 만든 diffDay() 호출,,
 	// 왜 하나? 브라우저가 js 파일 호출했을 때, setInterval 실행 전의 딜레이 없애기 위해
@@ -70,10 +34,11 @@ $('#datetimepicker1').change(function() {
 
 function diffDay() {
 	// alert('돌아갑니다잉');
-	// const goalTime = new Date("2022-11-23");
 	const goalTime = new Date(goal_date);
 	const todayTime = new Date();
 	const diff = goalTime - todayTime;
+	
+	console.log("goalTime: " + goalTime + " / todayTime: " + todayTime + " / goal_date: " + goal_date );
 	
 	// 목표 기간 - 오늘이 0보다 작다? 이전 날짜 선택한거다~~
 //	if (diff < 0) {
@@ -90,12 +55,9 @@ function diffDay() {
 	// 밀리 세컨드 단위,, 1초 = 1*1000
 	// math.floor()는 주어진 수의 같거나 작은 정수 중 큰 수를 반환
 	// == 소수 부분 버리고 정수만 나타냄
-	
 	const diffYear = Math.floor(diffDate / 365);
-	console.log("diffYear", diffYear);
 
 	const diffDateShow = Math.floor(diff / (1000 * 60 * 60 * 24) % 365); // 화면에 보여줄 놈
-	console.log("diffDateShow", diffDateShow);
 	
 	diffDate = Math.floor(diff / (1000 * 60 * 60 * 24)); // 보낼 놈
 	//                                   1초 1분 1시간 1일
@@ -117,7 +79,7 @@ function diffDay() {
 	// ~~얘를 ㄴ두 자릿수로 만들건데,
 	// ㄴ두 자릿수가 아니라면 0으로 채운다~
 	// ex. 7시간 --> 07시간!!
-	console.log("diffSec", diffSec);
+//	console.log("diffSec", diffSec);
 
 	$('#remain-time').html(
 			diffYear + '년 ' + diffDateShow + '일 ' + diffHour + '시간 ' + diffMin + '분 ' + diffSec
@@ -129,5 +91,3 @@ function diffDay() {
 function reloadDivArea() {
 	$('#remain-time').load(location.href + ' #remain-time');
 }
-
-

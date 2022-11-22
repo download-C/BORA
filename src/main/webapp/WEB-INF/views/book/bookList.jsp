@@ -27,6 +27,11 @@ a:hover {
 }
 
 </style>
+<!-- title -->
+<div class="section-title">
+  <h2><b>가계부</b></h2>
+</div>
+<!-- End title -->
 
 <style type="text/css">
    html, body{
@@ -287,9 +292,8 @@ function uncomma(str) {
 </script>
 
 <div class="container" >
-
 <div class="form-floating" style="">
-		<div style="margin: 50px 0px; text-align:center; ">
+		<div style="margin: 15px 0px; text-align:center; ">
 			<h3><select name="year" id="year" onchange="changeSelect()">
 				<option value="2020">2020</option>
 				<option value="2021">2021</option>

@@ -19,11 +19,19 @@
 //warning 버튼
 function warning(message) {
 
-    Swal.fire(
-        '경고',
-        message,
-        'warning' /*디자인 타입*/
-    )
+//     Swal.fire(
+//         '경고',
+//         message,
+//         'warning' /*디자인 타입*/
+//     )
+
+  	Swal.fire({
+	  title: message,
+	  text: '',
+	  padding: '3em',
+	  confirmButtonColor: '#7A1CF6'
+   	})
+
 
 }//warning 버튼
 

@@ -419,8 +419,6 @@ public class AjaxController {
 			} else continue;
 		}
 		
-		
-		
 		log.info("바꾼 정보: " + consumeList);
 		ResponseEntity<List<BookDetailVO>> entity = new ResponseEntity<List<BookDetailVO>>(consumeList, HttpStatus.OK);
 
@@ -436,7 +434,7 @@ public class AjaxController {
 		return new ResponseEntity<List<BoardVO>>(boardService.getList5(), HttpStatus.OK);
 	}
 	
-	// 오픈뱅킹 잔액값1 불러오기
+		//오픈뱅킹 잔액값1 불러오기
 		@RequestMapping(value = "/accountBalanceAjax1", method = RequestMethod.GET)
 		public @ResponseBody AccountBalanceResponseVO getAccountBalanceAjax1( AccountBalanceRequestVO accountBalanceRequestVO, Model model) {
 			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧   계좌 잔액 조회" + accountBalanceRequestVO);
@@ -457,7 +455,7 @@ public class AjaxController {
 			return accountBalance;
 		}
 
-		// 오픈뱅킹 잔액값2 불러오기
+		//오픈뱅킹 잔액값2 불러오기
 		@RequestMapping(value = "/accountBalanceAjax2", method = RequestMethod.GET)
 		public @ResponseBody AccountBalanceResponseVO getAccountBalanceAjax2( AccountBalanceRequestVO accountBalanceRequestVO, Model model) {
 			log.info("🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧   계좌 잔액 조회" + accountBalanceRequestVO);

@@ -27,13 +27,15 @@ $(document).ready(function() {
     }
 })
 
+
 function success(msg) {
-   Swal.fire(
-       "수정 성공!",
-       msg,
-       'success' /*디자인 타입*/
-   )
-}//success 버튼
+    Swal.fire({
+        title: '수정 성공!', /*상단 타이틀*/
+        text: '', /*내용*/
+        icon: 'success', /*아이콘 타입*/
+  	  confirmButtonColor: '#7A1CF6'
+    });
+}//error 버튼
 </script>
 
 

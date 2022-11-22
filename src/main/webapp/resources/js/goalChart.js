@@ -60,7 +60,7 @@ function getMyChart(goal, curr) {
 	let myChart = new Chart(ctx, {
 		type : 'bar',
 		data : {
-			labels : [ '내 목표 값', '현재 내 자산' ],
+			labels : [ '내 목표', '내 자산' ],
 			datasets : [ {
 				label : '단위(만원)',
 				data : [ goal, curr ],

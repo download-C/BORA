@@ -18,10 +18,6 @@ input::-webkit-inner-spin-button {
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="${pageContext.request.contextPath}/resources/img/favicon.png" rel="icon">
-  <link href="${pageContext.request.contextPath}/resources/img/apple-touch-icon.png" rel="apple-touch-icon">
-
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -31,16 +27,13 @@ input::-webkit-inner-spin-button {
   <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/resources/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/resources/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-<%--   <link href="${pageContext.request.contextPath}/resources/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> --%>
-
 
   <!-- Template Main CSS File -->
   <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/resources/css/moneyMN.css" rel="stylesheet">
 
 
- <style>
-  
+<style>
     /* 
 Generic Styling, for Desktops/Laptops 
 */
@@ -49,17 +42,19 @@ table {
   border-collapse: collapse; 
   border-radius: 12px; box-shadow: 7px 14px 90px 3px rgba(163, 174, 184, 0.7);
 }
+
 /* Zebra striping */
 tr:nth-of-type() { 
   background: #eee; 
 }
+
 th { 
   background: #7a1cf6; 
   color: #fff; 
   font-weight: bold; 
   text-align: center;
-  
 }
+
 td, th { 
   padding: 6px; 
   border-top: 1px solid #ddd; 
@@ -103,7 +98,6 @@ only screen and (max-width: 760px),
 		white-space: nowrap;
 		background: linear-gradient(to top, #ecdffd 70%, transparent 30%);
 		font-weight: bold; 
-
 	}
 	/*
 	Label the data
@@ -117,10 +111,8 @@ only screen and (max-width: 760px),
 	td:nth-of-type(7):before { content: "만기일"; }
 	td:nth-of-type(8):before { content: "최종거래일"; }
 }
-  </style>
+</style>
   
-  
-</head>
 <body>
   <table>
     <thead>
@@ -139,7 +131,7 @@ only screen and (max-width: 760px),
       <tr>
 		<td>${accountBalance.bank_tran_date }</td>
 		<td>${accountBalance.bank_name }</td>
-		<td>${accountBalance.balance_amt }</td>
+		<td id="req2_balance_amt">${accountBalance.balance_amt }</td>
 		<td>${accountBalance.available_amt }</td>
 		<td>${accountBalance.product_name }</td>
 		<td>${accountBalance.account_issue_date }</td>
@@ -173,3 +165,4 @@ only screen and (max-width: 760px),
 // console.log(balArr);
 </script>
   
+

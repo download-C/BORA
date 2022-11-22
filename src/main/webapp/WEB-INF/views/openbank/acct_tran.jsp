@@ -5,7 +5,6 @@
 <!-- ${pageContext.request.contextPath} -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-
 <style type="text/css">
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -21,10 +20,6 @@ input::-webkit-inner-spin-button {
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="${pageContext.request.contextPath}/resources/img/favicon.png" rel="icon">
-  <link href="${pageContext.request.contextPath}/resources/img/apple-touch-icon.png" rel="apple-touch-icon">
-
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -36,14 +31,11 @@ input::-webkit-inner-spin-button {
   <link href="${pageContext.request.contextPath}/resources/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
 <%--   <link href="${pageContext.request.contextPath}/resources/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> --%>
 
-
   <!-- Template Main CSS File -->
   <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/resources/css/moneyMN.css" rel="stylesheet">
 
-
- <style>
-  
+<style>
     /* 
 Generic Styling, for Desktops/Laptops 
 */
@@ -61,7 +53,6 @@ th {
   color: #fff; 
   font-weight: bold; 
   text-align: center;
-  
 }
 td, th { 
   padding: 6px; 
@@ -110,7 +101,6 @@ only screen and (max-width: 760px),
 		white-space: nowrap;
 		background: linear-gradient(to top, #ecdffd 70%, transparent 30%);
 		font-weight: bold; 
-
 	}
 	/*
 	Label the data
@@ -123,9 +113,9 @@ only screen and (max-width: 760px),
 	td:nth-of-type(6):before { content: "거래후잔액"; }
 	td:nth-of-type(7):before { content: "거래점명"; }
 }
-  </style>
+</style>
   
-				
+<!-- 거래내역 테이블 -->				
   <table>
     <thead>
       <tr>
@@ -139,7 +129,7 @@ only screen and (max-width: 760px),
       </tr>
     </thead>
     <tbody>
-    	<c:forEach var="accountTran" items="${accountTran.res_list }">
+    	<c:forEach var="accountTran" items="${accountTran.res_list }" end="11">
 		<tr>
 		<td>${accountTran.tran_date }</td>
 		<td>${accountTran.inout_type }</td>
@@ -152,3 +142,4 @@ only screen and (max-width: 760px),
 		</c:forEach>
     </tbody>
   </table>
+  
