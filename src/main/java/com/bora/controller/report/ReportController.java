@@ -152,7 +152,7 @@ public class ReportController {
 					model.addAttribute("caArr", caArr); 
 					
 				}
-
+ 
 			return "/report/categoryList";
 			
 			

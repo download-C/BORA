@@ -14,26 +14,53 @@
     <div class="footer-top">
       <div class="container">
         <div class="row">
-
-          <div class="col-lg-3 col-md-6 footer-contact">
+​
+          <div class="col-lg-2 col-md-6 footer-contact">
             <h3>BORA<span>.</span></h3>
             <p>
-              개인정보처리방침 <br>
-              영업점 안내<br>
-               <br><br>
-              <strong>고객센터 번호:</strong> 051-803-0909<br>
-              <strong>영업시간:</strong> 09:00 ~ 18:00<br>
+              부산광역시 부산진구 동천로 109 삼한골든게이트 7층<br>
             </p>
           </div>
+​
+         <div class="col-lg-2 col-md-2 footer-links" >
+            <i class="bx bx-chevron-right"></i> 개인정보처리방침 
+​
+          </div>
+          
+          
+            <div class="col-lg-2 col-md-2 footer-links">
+           <i class="bx bx-chevron-right"></i> 신용정보활용체제 
+​
+          </div>
+          
+            <div class="col-lg-2 col-md-2 footer-links">
+           <i class="bx bx-chevron-right"></i> 전자민원 
+​
+          </div>
+          
+            <div class="col-lg-2 col-md-2 footer-links">
+            <i class="bx bx-chevron-right"></i> 위치기반서비스약관 
+​
+          </div>
+          
+       
+​
 
+
+          
+            <div style="color: black;"><strong>고객센터 번호</strong> <br>051-803-0909<br></div>
+            <div style="color: black;"><strong>영업시간</strong><br> 09:00 ~ 18:00<br></div>
+            <br>
+           
+          </div>
         </div>
       </div>
-    </div>
+    
   </footer><!-- End Footer -->
-
+​
   <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
     <!-- Vendor JS Files -->
     <script src="${pageContext.request.contextPath}/resources/vendor/purecounter/purecounter_vanilla.js"></script>
     <script src="${pageContext.request.contextPath}/resources/vendor/aos/aos.js"></script>
