@@ -43,7 +43,7 @@ $(document).ready(function() {
 	  
 	  $(".btn_list").click(function(){
 		 // 목록 버턴 클릭했을 때
-		 history.back();
+		 location.href='/main/noticeList?page=1';
 	  });// 목록 버턴 click
 	  
   });// jQuery ready

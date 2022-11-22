@@ -128,7 +128,7 @@ if(session!=null) {
   <!-- ======= Header ======= -->
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
-      <h1 class="logo"><a href="/main/main">BORA<span></span></a></h1>
+      <h1 class="logo"><a href="/main/main"><img src="${pageContext.request.contextPath}/resources/img/logo.png"><span></span></a></h1>
       <!-- <a href="index.html" class="logo"><img src="${pageContext.request.contextPath}/resources/img/logo.png" alt=""></a>-->
 			<%	
 			  Calendar cal = Calendar.getInstance();
