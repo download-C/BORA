@@ -130,6 +130,7 @@ function info(msg1, msg2) {
     Swal.fire(
      msg1, 
      msg2,
+     confirmButtonColor: '#7A1CF6',
      'info' /*디자인 타입*/
     )
 }//info 버튼
@@ -149,6 +150,7 @@ function success(msg3, msg4) {
     Swal.fire(
         msg3,
         msg4,
+        confirmButtonColor: '#7A1CF6',
         'success' /*디자인 타입*/
     )
 }//success 버튼

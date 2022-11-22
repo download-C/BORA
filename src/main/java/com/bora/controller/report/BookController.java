@@ -260,6 +260,8 @@ public class BookController {
 				BookVO book = service.getMonthBook(year, month-i, loginID);
 				log.info(i+" 전 달의 정보: "+book);
 				// 가계부 불러오려 했는데 없으면 예산 0으로 새로 생성!
+				int bfbudget=0;
+				int bfsum=0;
 				if(book==null) {
 					book = new BookVO();
 					book.setBk_year(year);
@@ -271,11 +273,12 @@ public class BookController {
 				}
 				model.addAttribute("bfyear"+i, year);
 				model.addAttribute("bfmonth"+i, month-i);
-				int bfbudget = service.getMonthBudget(loginID, year, month-i);
+				bfbudget = service.getMonthBudget(loginID, year, month-i);
 				model.addAttribute("bfbudget"+i, bfbudget);
-				int bfsum = service.getMonthBookMoney(loginID, year, month-i);
+				bfsum = service.getMonthBookMoney(loginID, year, month-i);
 				log.info("year: "+year+", month:"+(month-i));
 				log.info(i+"전 달 예산 및 지출: "+bfbudget+", "+bfsum);
+				
 				// i전 달의 예산이 있을 때
 				if(bfbudget!=0) {
 					// i전 달의 예산, 지출 모두 있을 때 
@@ -292,6 +295,16 @@ public class BookController {
 				}
 			// 가계부에서 불러오려는 연 월이 지난 해일 경우!
 			} else {
+				BookVO book = service.getMonthBook(year-1,13-i, loginID);
+				if(book==null) {
+					book = new BookVO();
+					book.setBk_year(year-1);
+					book.setBk_month(13-i);
+					book.setBk_budget(0);
+					book.setId(loginID);
+					service.writeBook(book);
+					log.info("CCCCCCCCCCC "+year+"년 "+(month-i)+"월 가계부 생성");
+				}
 				model.addAttribute("bfyear"+i, year-1);
 				model.addAttribute("bfmonth"+i, 13-i);
 				int bfbudget = service.getMonthBudget(loginID, year-1, 13-i);
