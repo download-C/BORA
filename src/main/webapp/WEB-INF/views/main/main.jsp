@@ -155,7 +155,7 @@ $(document).ready(function(){
 
   <!-- 카카오 지도 -->
     <div class="container">
-  <%@ include file="map.jsp"%>
+  <%@ include file="./map.jsp"%>
 </div>
 
   <!-- 뉴스 공간 =============================================== -->

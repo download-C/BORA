@@ -127,6 +127,8 @@
 		      <input type="submit" class="tbtn" value="카드상세청구내역">
               </form>
           </div>
-</div>    
+</div>
+
+<br>    
 	
 <%@ include file="../include/footer.jsp"%>

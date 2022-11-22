@@ -227,7 +227,7 @@
   
   <div class="container">
                 <!-- 카드청구기본정보조회 -->
-	            <form method="get" action="/finctech/card/cardBills">
+	            <form method="get" action="/openbank/cardBills">
                 <%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 		        <input type="hidden" name="access_token" value="${sessionScope.token }">
 		        <input type="hidden" name="bank_tran_id" value="${sessionScope.bank_tran_id }">
@@ -244,7 +244,7 @@
 <div class="container">
           <div class="col-sm-19 col-md-17 col-lg-80 mx-auto" style="display: flex; justify-content: space-between;">
              <!-- 카드청구상세정보조회 -->
-              <form method="get" action="/finctech/card/cardDetailBills">
+              <form method="get" action="/openbank/cardDetailBills">
               <%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 		      <input type="hidden" name="access_token" value="${sessionScope.token }">
 		      <input type="hidden" name="bank_tran_id" value="${sessionScope.bank_tran_id }">
@@ -257,6 +257,8 @@
               </form>
           </div>
 </div>
+
+<br>
   
 	  
 <%@ include file="../include/footer.jsp"%>
