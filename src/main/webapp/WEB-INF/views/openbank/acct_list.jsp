@@ -258,8 +258,9 @@
   <!-- 거래내역조회 모달 -->
   <!-- The Modal -->
   <div class="modal" id="myModal">
-    <div class="modal-dialog modal-dialog-scrollable">
-      <div class="modal-content" style="height: 60%;">
+<!--     <div class="modal-dialog modal-dialog-scrollable"> -->
+    <div class="modal-dialog">
+      <div class="modal-content" style="height: 90%;">
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">거래내역조회</h4>
@@ -268,7 +269,7 @@
         <!-- Modal body -->
         <div class="modal-body">
           <div class="container">
-            <iframe src="./acct_tran.jsp" style="width: 100%;" name="modelfrm1"></iframe>
+            <iframe src="./acct_tran.jsp" style="width: 100%; height: 300px;" name="modelfrm1"></iframe>
           </div>
         </div>
         <!-- Modal footer -->
