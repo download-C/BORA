@@ -23,11 +23,12 @@ if(loginID==null) {%>
 
 //info 버튼
 function info(msg1, msg2) {
-    Swal.fire(
-     msg1,
-     msg2,
-     'info' /*디자인 타입*/
-    )
+		Swal.fire({
+		     title: msg1, 
+		     text: msg2,
+		     confirmButtonColor: '#7A1CF6',
+		     icon: 'info' /*디자인 타입*/
+		    }) 
     setTimeout('location.href="/main/login";', 1500);
 }//info 버튼
 </script>

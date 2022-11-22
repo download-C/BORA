@@ -22,22 +22,16 @@ $(document).ready(function(){
 $(document).ready(function() {
     let message = "${msg}";
     if (message != "") {
-        alert(message);
-// 		mupdate(message);
+    	Swal.fire({
+    	     title:message, 
+    	     text: '',
+    	     confirmButtonColor: '#7A1CF6',
+    	     icon: 'info' /*디자인 타입*/
+    	    }) 
     }
 });
 </script>
 
-<script>
-// function mupdate(message) {
-//   	Swal.fire({
-// 	  title: message,
-// 	  text: '',
-// 	  padding: '3em',
-// 	  confirmButtonColor: '#7A1CF6'
-//    	})
-// }
-</script>
 
 
 <!-- 태그 적는 곳 -->

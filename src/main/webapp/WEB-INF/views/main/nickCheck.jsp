@@ -25,11 +25,12 @@ $(document).ready(function(){
 <!-- login 성공 alert 모달 -->
 <script>
 function warning(message, message2) {
-   Swal.fire(
-       message,
-       message2,
-       'warning' /*디자인 타입*/
-   )
+	Swal.fire({
+	     title: message, 
+	     text: message2,
+	     confirmButtonColor: '#7A1CF6',
+	     icon: 'warning' /*디자인 타입*/
+	    }) 
 }
 </script>
 
@@ -49,20 +50,22 @@ $(document).ready(function(){
             	if(result == "no"){
 //             		alert("no");
 		            //닉네임이 존재할 경우 빨강으로 , 아니면 파랑으로 처리하는 디자인
-		            Swal.fire (
-			        '이미 존재하는 닉네임입니다.',
-			        '다른 닉네임을 입력해주세요.',
-			        'warning' /*디자인 타입*/)
+		            Swal.fire ({	            
+			        title:'이미 존재하는 닉네임입니다.',
+			        text: '다른 닉네임을 입력해주세요.',
+			        confirmButtonColor: '#7A1CF6',
+			        icon: 'warning' /*디자인 타입*/
+			        })
 
 		            document.getElementById("nick").value=="";
 		            $("#nick").focus();
            		} else if(result == "ok"){
-           		 Swal.fire (
-   			        '축하합니다!',
-   			        '사용 가능한 닉네임입니다.',
-   			        'basic' /*디자인 타입*/)
+           		 Swal.fire ({
+   			        title: '축하합니다!',
+   			        text: '사용 가능한 닉네임입니다.',
+   			     		confirmButtonColor: '#7A1CF6',
+   			        icon: 'basic' /*디자인 타입*/)
    			        nickflag="true";
-       			 	alert(nickflag.value);
            		} else {
            			$(".nickdiv").html("");
            		}

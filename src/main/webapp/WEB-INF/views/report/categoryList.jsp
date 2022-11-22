@@ -48,11 +48,12 @@ text-align: center
 
 <script>
 function info(msg1, msg2) {
-    Swal.fire(
-     msg1,
-     msg2,
-     'info' /*디자인 타입*/
-    )
+	Swal.fire({
+	     title: msg1, 
+	     text: msg2,
+	     confirmButtonColor: '#7A1CF6',
+	     icon: 'info' /*디자인 타입*/
+	    }) 
 }//info 버튼
 
 //버튼 배경색 입히는 버튼
@@ -67,11 +68,12 @@ function bora() {
 }//버튼 배경색 입히는 버튼	
 
 function success(msg3, msg4) {
-    Swal.fire(
-        msg3,
-        msg4,
-        'success' /*디자인 타입*/
-    )
+	Swal.fire({
+	     title: msg3, 
+	     text: msg4,
+	     confirmButtonColor: '#7A1CF6',
+	     icon: 'success' /*디자인 타입*/
+	    }) 
 }//success 버튼
 
 $(document).ready(function() {
@@ -314,9 +316,12 @@ $(document).ready(function(){
                 	console.log(data);
                 	
                 	 if(data.length == 0){
-                		 Swal.fire(
-             					'내역이 없습니다.'
-                      	   )
+                		 Swal.fire({
+                		     title: '내역이 없습니다.', 
+                		     text: '',
+                		     confirmButtonColor: '#7A1CF6',
+                		     icon: 'info' /*디자인 타입*/
+                		    }) 
       					$('#tbody3').html("");
       					
       					

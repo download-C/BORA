@@ -127,32 +127,32 @@ $(document).ready(function() {
 
 //info 버튼
 function info(msg1, msg2) {
-    Swal.fire(
-     msg1, 
-     msg2,
+    Swal.fire({
+     title: msg1, 
+     text: msg2,
      confirmButtonColor: '#7A1CF6',
-     'info' /*디자인 타입*/
-    )
+     icon: 'info' /*디자인 타입*/
+    }) 
 }//info 버튼
 
 //버튼 배경색 입히는 버튼
 function bora() {
 	Swal.fire({
 		  title: '로그인 후 이용 가능합니다.',
-    	  width: 600,
-    	  padding: '3em',
+    	width: 600,
+    	padding: '3em',
 		  background: '#fff',
 		  backdrop: '#fff' //#7A1CF6에 투명도
 	 });
 }//버튼 배경색 입히는 버튼	
 
 function success(msg3, msg4) {
-    Swal.fire(
-        msg3,
-        msg4,
-        confirmButtonColor: '#7A1CF6',
-        'success' /*디자인 타입*/
-    )
+	Swal.fire({
+	     title: msg1, 
+	     text: msg2,
+	     confirmButtonColor: '#7A1CF6',
+	     icon: 'success' /*디자인 타입*/
+	    }) 
 }//success 버튼
 	
 $(document).ready(function() {
@@ -279,11 +279,12 @@ $(document).ready(function() {
 	   		success: function(data){
 // 	   			alert("성공");
 				budget = data;
-				Swal.fire(
-					'예산 설정 완료!',
-                year+'년 '+month+'월 예산이 '+data+'만원으로 설정되었습니다.',
-                'success' /*디자인 타입*/
-         	   ).then(function(){
+				Swal.fire({
+					title:'예산 설정 완료!',
+          text: year+'년 '+month+'월 예산이 '+data+'만원으로 설정되었습니다.',
+          confirmButtonColor: '#7A1CF6',
+               icon: 'success' /*디자인 타입*/
+         	   }).then(function(){
 					   		setTimeout(location.reload(), 10);
          	   })
 	   		},

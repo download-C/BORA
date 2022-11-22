@@ -42,11 +42,12 @@ $(document).ready(function(){
 <!-- login 성공 alert 모달 -->
 <script>
 function warning(message, message2) {
-   Swal.fire(
-       message,
-       message2,
-       'warning' /*디자인 타입*/
-   )
+	Swal.fire({
+       title: message,
+       text: message2,
+     	 confirmButtonColor: '#7A1CF6',
+     	 icon: 'warning'
+      })
 }
 </script>
 

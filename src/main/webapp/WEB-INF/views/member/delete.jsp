@@ -10,18 +10,14 @@ if(loginID==null) {%>
 <%} %>
 <!-- 작업 처리 후 돌아왔을 때 띄울 알림창 -->
 <script>
-$(document).ready(function() {
-    let message = "${msg}";
-    if (message != "") {
-    }
-})
 
 function warning(msg1, msg2) {
-   Swal.fire(
-    msg1,
-    msg2,
-    'warning' /*디자인 타입*/
-	)
+	Swal.fire({
+	     title: msg1, 
+	     text: msg2,
+	     confirmButtonColor: '#7A1CF6',
+	     icon: 'warning' /*디자인 타입*/
+	    }) 
 }
 
 </script>
@@ -57,11 +53,12 @@ $(document).ready(function(){
                    $("#form").attr("action","/member/delete");
 		               setTimeout($("#form").submit(), 4000);
                } else if (result.isDismissed) {
-                   Swal.fire(
-                       '회원 탈퇴 취소',
-                       '회원 탈퇴가 취소되었습니다.',
-                       'info'
-                   )
+                   Swal.fire({
+                     title:  '회원 탈퇴 취소',
+                     text: '회원 탈퇴가 취소되었습니다.',
+                  	 confirmButtonColor: '#7A1CF6',
+                  	 icon: 'info'
+                   })
                }
            })
 				}else {

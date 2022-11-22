@@ -18,11 +18,12 @@
 <script>
 //warning 버튼
 function warning() {
-    Swal.fire(
-        '세션값이 만료되었습니다.',
-        '로그인 페이지로 이동합니다.',
-        'warning' /*디자인 타입*/
-    )
+    Swal.fire({
+     title:   '세션값이 만료되었습니다.',
+     text: '로그인 페이지로 이동합니다.',
+     confirmButtonColor: '#7A1CF6',
+ 		 icon:'warning' /*디자인 타입*/
+    })
 }//warning 버튼
 	location.href = "/main/login";
 </script>

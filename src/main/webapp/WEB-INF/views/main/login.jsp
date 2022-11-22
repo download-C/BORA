@@ -36,11 +36,12 @@ function warning(message) {
 }//warning 버튼
 
 function success(msg1, msg2) {
-    Swal.fire(
-        msg1,
-        msg2,
-        'success' /*디자인 타입*/
-    )
+	Swal.fire({
+	     title: msg1, 
+	     text: msg2,
+	     confirmButtonColor: '#7A1CF6',
+	     icon: 'success' /*디자인 타입*/
+	    }) 
 }//success 버튼
 
 

@@ -15,11 +15,12 @@
 	
     //warning 버튼
 	function warning(result) {
-        Swal.fire(
-            result,
-            '',
-            'warning' /*디자인 타입*/
-        )
+		Swal.fire({
+		     title: result, 
+		     text: '',
+		     confirmButtonColor: '#7A1CF6',
+		     icon: 'warning' /*디자인 타입*/
+		    }) 
     }//warning 버튼
 </script>
 <%
