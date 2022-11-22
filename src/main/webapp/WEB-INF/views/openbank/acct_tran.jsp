@@ -131,7 +131,11 @@ only screen and (max-width: 760px),
     <tbody>
     	<c:forEach var="accountTran" items="${accountTran.res_list }" end="11">
 		<tr>
-		<td>${accountTran.tran_date }</td>
+		<td>
+			<fmt:parseDate value="${accountTran.tran_date }"  var="date1" pattern="yyyyMMdd"/>
+			<fmt:formatDate value="${date1 }" pattern="yyyy.MM.dd	"/>
+		
+		</td>
 		<td>${accountTran.inout_type }</td>
 		<td>${accountTran.tran_type }</td>
 		<td>${accountTran.print_content }</td>

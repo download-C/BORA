@@ -130,14 +130,28 @@ only screen and (max-width: 760px),
     </thead>
     <tbody>
       <tr>
-		<td>${accountBalance.bank_tran_date }</td>
+		<td>
+			<fmt:parseDate value="${accountBalance.bank_tran_date }"  var="date1" pattern="yyyyMMdd"/>
+			<fmt:formatDate value="${date1 }" pattern="yyyy.MM.dd	"/>
+		</td>
 		<td>${accountBalance.bank_name }</td>
 		<td id="req2_balance_amt"> <fmt:formatNumber value="${accountBalance.balance_amt }" pattern="#,###"  /> </td>
 		<td><fmt:formatNumber value="${accountBalance.available_amt }" pattern="#,###"  /></td>
 		<td>${accountBalance.product_name }</td>
-		<td>${accountBalance.account_issue_date }</td>
-		<td>${accountBalance.maturity_date }</td>
-		<td>${accountBalance.last_tran_date }</td>
+		<td>
+			<fmt:parseDate value="${accountBalance.account_issue_date }"  var="date2" pattern="yyyyMMdd"/>
+			<fmt:formatDate value="${date2 }" pattern="yyyy.MM.dd	"/>
+		</td>
+		<td>
+			<fmt:parseDate value="${accountBalance.maturity_date }"  var="date3" pattern="yyyyMMdd"/>
+			<fmt:formatDate value="${date3 }" pattern="yyyy.MM.dd	"/>
+			
+		</td>
+		<td>
+		<fmt:parseDate value="${accountBalance.last_tran_date }"  var="date4" pattern="yyyyMMdd"/>
+			<fmt:formatDate value="${date4 }" pattern="yyyy.MM.dd	"/>
+			
+		</td>
       </tr>
     </tbody>
   </table>	

@@ -381,16 +381,19 @@ public class BookController {
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String bookDeleteGET(Integer bk_num, Integer bk_detail_num, RedirectAttributes rttr) throws Exception {
 		log.info("bookDeleteGET() 호출");
-		Calendar cal = Calendar.getInstance();
-		int year = cal.get(Calendar.YEAR);
-		int month = cal.get(Calendar.MONTH) + 1;
-		int day = cal.get(Calendar.DATE);
+
 	
 		String loginID = (String) session.getAttribute("loginID");
 		int result = dService.deleteBookDetail(bk_detail_num, loginID);
 		if (result == 1) {
 			log.info("가계부 삭제 성공");
 			rttr.addFlashAttribute("msg", "가계부 삭제를 완료했습니다.");
+			
+			Calendar cal = Calendar.getInstance();
+			int year = cal.get(Calendar.YEAR);
+			int month = cal.get(Calendar.MONTH) + 1;
+			int day = cal.get(Calendar.DATE);
+			
 			return "redirect:/book/list?page=1&year="+year+"&month="+month+"&day="+day;
 
 		} else {
