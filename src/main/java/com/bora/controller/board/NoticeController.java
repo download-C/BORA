@@ -68,7 +68,7 @@ public class NoticeController {
 			
 			String fileExtension = ofileName.substring(ofileName.lastIndexOf("."),ofileName.length());
 			// 저장 위치
-			String uploadFolder = "../tomcat/bin/upload";
+			String uploadFolder = "../webapps/ROOT/resources/upload";
 			
 			log.info("원래 파일명: "+ofileName);
 			// 업로드될 파일 이름들 저장
@@ -89,7 +89,7 @@ public class NoticeController {
 			//			File file = new File("저장경로"+"\\"+"원래파일명");	
 			// 지정된 위치에 파일 저장(위치\\바뀐이름.확장자)
 			
-			File file = new File(uploadFolder+"\\"+uploadedFileName);
+			File file = new File(uploadFolder+"/"+uploadedFileName);
 			
 			// 멀티파트로 가져온 파일의 사이즈가 0이 아닐 때 == 파일이 있을 때
 			if(mfile.getSize() != 0) {

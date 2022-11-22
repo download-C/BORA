@@ -173,7 +173,7 @@ $(document).ready(function(){
                 <span>&nbsp;</span>
               </div>
               <div class="form-floating mb-3">
-                <input type="email" name="eamil" class="form-control" id="eamil" placeholder="전화번호" required>
+                <input type="email" name="email" class="form-control" id="eamil" placeholder="전화번호" required>
                 <label for="floatingInput">이메일</label>
                 <span>&nbsp;</span>
               </div>
