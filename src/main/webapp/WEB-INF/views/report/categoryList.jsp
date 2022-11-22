@@ -83,9 +83,6 @@ $(document).ready(function() {
 
 
 
-
-
-	
 $(document).ready(function() {
      
     let msg1 = "${msg1}";

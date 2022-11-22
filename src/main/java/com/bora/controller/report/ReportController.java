@@ -35,8 +35,7 @@ public class ReportController {
 	   @Inject
 	   HttpSession session;
 	   
-	   @Inject
-	   private BookService bservice;
+
 	  
 	
 	   String loginID;
