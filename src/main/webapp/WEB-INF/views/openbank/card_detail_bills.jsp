@@ -11,7 +11,22 @@
   <h2>카드청구상세내역</h2>
 </div>
 <!-- End title -->
-
+<style>
+    .tbtn {
+      background-color: #5107B0;
+      float: left;
+/*       width: 330px; */
+/*       height: 70px; */  
+      padding: 8px 15px 8px 15px;
+      border: 1px solid #fff;
+      border-radius: 8px;
+      color: white; 
+/*       color: #e3cffc; */
+      border-radius: 13px;
+      font-size: 17px;
+      text-align: center;
+    }
+</style>
 
 <div class="row">
   <div class="col-12">     
@@ -60,5 +75,33 @@
   
 </div> <!-- col-12 -->
 </div> <!-- row -->
+<div class="container">
+               <form method="get" action="/openbank/cardList">
+					<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+					<input type="hidden" name="access_token" value="${sessionScope.token }"> 
+					<input type="hidden" name="bank_tran_id" value="${cardList.bank_tran_id }"> 
+					<input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }">
+					<input type="hidden" name="bank_code_std" value="399"> 
+					<input type="hidden" name="member_bank_code" value="399">
+					<!-- <input type="hidden" name="befor_inquiry_trace_info" value="V"> -->
+					<input type="submit" class="tbtn" value="카드목록보기">
+				</form>
+</div>
+ <div class="container">
+       <div class="col-sm-19 col-md-17 col-lg-80 mx-auto" style="display: flex; justify-content: space-between;">
+                <!-- 카드청구기본정보조회 -->
+	            <form method="get" action="/openbank/cardBills">
+                <%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
+		        <input type="hidden" name="access_token" value="${sessionScope.token }">
+		        <input type="hidden" name="bank_tran_id" value="${sessionScope.bank_tran_id }">
+			    <input type="hidden" name="user_seq_no" value="${sessionScope.user_seq_no }">
+		        <input type="hidden" name="bank_code_std" value="399">
+		        <input type="hidden" name="member_bank_code" value="399">
+		        <input type="hidden" name="from_month" value="202210">
+		        <input type="hidden" name="to_month" value="202211">
+		        <input type="submit" class="tbtn" value="카드기본청구내역">
+                </form>   
+        </div>         
+</div>
 
 <%@ include file="../include/footer.jsp"%>
