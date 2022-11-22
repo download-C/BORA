@@ -189,33 +189,37 @@ public class NoticeController {
 			// 가져온 파라미터의 이름과 값 넣기
 			map.put(name, value);
 		}
+		
+		NoticeVO vo2 = service.getNotice(vo.getNno());
 		log.info("들어온 파라미터: "+map);
 		// 들어온 값 중 파일은 파일 프로세스로 처리하기
+	
 		String uploadedFileName = fileProcess(multi);
-		log.info("fileName: "+uploadedFileName);
+		log.info("새로운 파일: "+uploadedFileName);
+		// 첨부한 파일과 DB에 있는 파일명이 같은지 확인
+		log.info("새로 들어온 첨부파일이 없으므로 있는 그대로의 파일명 가져가기");
+		vo.setN_file(uploadedFileName);
+		log.info("fileName: "+uploadedFileName);	
+
 		vo.setN_title(map.get("n_title"));
 		vo.setN_content(map.get("n_content"));
-		if(vo.getN_file()!=null) {
-			log.info("새로 들어온 첨부파일이 없으므로 있는 그대로의 파일명 가져가기");
-			vo.setN_file(uploadedFileName);
-		}
 		log.info("vo: "+vo);
 		
-		service.writeNotice(vo);
+		service.updateNotice(vo);
 		
 		// service_글 수정 메서드 호출
 		int cnt = service.updateNotice(vo);
 			
 		if(cnt == 1) {
-			rttr.addFlashAttribute("msg", "UPDATE_OK");
+			rttr.addFlashAttribute("msg", vo.getNno()+"번 공지사항 수정 성공");
 			
 			// 수정 성공 시 --> NoticeListAll 페이지로 이동
 			log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정 성공^^ ㅊㅋㅊㅋ");
 			log.info("(♥♥♥♥♥ 4-1.updatePOST) redirect:/main/NoticeListPage.jsp로 이동");
-			return "redirect:/main/NoticeListPage"; // 주소줄 변화 O + 페이지 이동 O니까 redirect
+			return "redirect:/main/noticeList"; // 주소줄 변화 O + 페이지 이동 O니까 redirect
 		} else {
 			log.info("(♥♥♥♥♥ 4-1.updatePOST) 수정 실패;;  /update?nno=" + vo.getNno()+ ".jsp로 이동");
-			return "/admin/noticeUpdate?nno="+vo.getNno();
+			return "redirect:/notice/update?nno="+vo.getNno();
 		}
 		
 	}
@@ -232,10 +236,10 @@ public class NoticeController {
 		int result = service.deleteNotice(nno);
 		
 		if(result == 1) {
-			rttr.addAttribute("msg", "DEL_OK");
+			rttr.addFlashAttribute("msg",nno+ "번 공지사항 삭제 성공");
 			log.info("(♥♥♥♥♥ 5.deletePOST) 삭제 성공");
 			log.info("(♥♥♥♥♥ 5.deletePOST) redirect:/main/NoticeListPage.jsp로 이동");
-			return "redirect:/main/NoticeListPage";
+			return "redirect:/main/noticeList";
 		} else {
 			log.info("(♥♥♥♥♥ 5.deletePOST) 삭제 실패;;");
 			return "redirect:/notice/delete";

@@ -38,6 +38,7 @@
 /*       color: #e3cffc; */
       border-radius: 13px;
       font-size: 20px;
+      text-align: center;
     }
     
     .floatingInput {
@@ -57,6 +58,9 @@
       border-radius: 8px;
     }
     
+     tr { 
+     	text-align: center;
+     }
 </style>
 
 <!-- 🐧🐧🐧 오픈뱅킹 계좌 리스트 출력 시작 🐧🐧🐧 -->
@@ -92,7 +96,6 @@
           </table>
         </div>
       </div>
-      
       <div class="col-4" style="padding-left: 0;">
         <div class="table-responsive">
           <table class="table table-hover" style="border-right: none;  border-radius: 0; box-shadow: none;">
@@ -104,10 +107,10 @@
             </thead>
             <tbody>
               <tr>
-              <!-- 잔액1 -->
+              <!-- 잔액1 -->     
               <td><span id="req1_balance_amt" value="req1_balance_amt"></span>원</td>
-              <td style="padding-bottom: 2px; padding-top: 2px; ">
-                 <div class="box" style="display: flex; justify-content: space-between-center; flex-flow: row nowrap;">
+              <td style="padding-bottom: 2px; padding-top: 2px; text-align: center; ">
+                 <div class="box justify-content-center" style="display: flex; justify-content: space-between-center; flex-flow: row nowrap;">
                     <!-- BORA적금 계좌 - 잔액 출력 -->	
                     <form method="get" action="/openbank/accountBalance" target="modelfrm2" id="fr1">
 					<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
@@ -137,8 +140,8 @@
               <tr>
               <!-- 잔액2 -->
               <td><span id="req2_balance_amt" value="req2_balance_amt"></span>원</td>
-                <td style="padding-bottom: 6px; padding-top: 6px; ">
-                	<div class="box" style="display: flex; justify-content: space-between-center; flex-flow: row nowrap;">
+                <td style="padding-bottom: 6px; padding-top: 6px; text-align: center; ">
+                	<div class="box justify-content-center" style="display: flex; justify-content: space-between-center; flex-flow: row nowrap;">
                 	<!-- BORA입출금 계좌 - 잔액 출력 -->	
                    	<form method="get" action="/openbank/accountBalance" target="modelfrm2" id="fr2">
 						<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
@@ -194,7 +197,8 @@
       <!-- 잔액조회버튼 끝 -->
 <!-- 🐧🐧🐧 오픈뱅킹 계좌 리스트 출력 끝 🐧🐧🐧 -->
 	</div>
-</div>
+  </div>
+
 
 <!-- 내 자산으로 돌아가기  --> 
 <div class="container">
@@ -333,6 +337,57 @@
 							$('#hidden3').val(data.balance_amt);
 // 							alert("완료"+ data.balance_amt);
 							
+							
+							$.ajax({
+								url : "/ajax/accountBalanceAjax2",
+								type : "GET",
+								async : true,
+								data : info2, // 전송 데이터
+								dataType : "json", // 전송 데이터 형식
+								contentType : "application/json;charset=UTF-8",
+								success : function(data) { // 성공 시 실행
+									if(data.rsp_code == "A0000"){
+			 							// $('#req2_balance_amt').val(data.balance_amt);
+										$('#req2_balance_amt').html(data.balance_amt);
+										
+										$('#hidden2').val(data.balance_amt);
+										$('#hidden4').val(data.balance_amt);
+										
+									//잔액 합치기 - 총 잔액
+										//String 잔액값을 integer 타입으로 변환
+										var num1 = parseInt($('#hidden3').val());
+										var num2 = parseInt($('#hidden4').val());
+										var result = num1+num2;
+										
+										//총 잔액에 콤마 넣기 
+										const cn1 = result.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+										$('#total1').html(cn1);
+										
+										sessionStorage.setItem('total', result);
+										
+										//잔액1에 콤마 넣기 
+										const cn3 = num1.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+										$('#req1_balance_amt').html(cn3);							
+										
+										//잔액2에 콤마 넣기 
+										const cn4 = num2.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+										$('#req2_balance_amt').html(cn4);							
+			
+										
+									} else {
+										alert("전송된 값 없음");
+										return false;
+									}
+								},
+								error : function(error) { //실패 시 실행
+							    	console.log(error);
+									alert('실패 원인 : ' + error);
+								}
+								
+							});//ajax2
+							
+							
+							
 						} else {
 							alert("전송된 값 없음");
 							return false;
@@ -343,53 +398,7 @@
 						alert('실패 원인 : ' + error);
 					}
 				});//ajax
-				$.ajax({
-					url : "/ajax/accountBalanceAjax2",
-					type : "GET",
-					async : true,
-					data : info2, // 전송 데이터
-					dataType : "json", // 전송 데이터 형식
-					contentType : "application/json;charset=UTF-8",
-					success : function(data) { // 성공 시 실행
-						if(data.rsp_code == "A0000"){
-// 							$('#req2_balance_amt').val(data.balance_amt);
-							$('#req2_balance_amt').html(data.balance_amt);
-							
-							$('#hidden2').val(data.balance_amt);
-							$('#hidden4').val(data.balance_amt);
-							
-						//잔액 합치기 - 총 잔액
-							//String 잔액값을 integer 타입으로 변환
-							var num1 = parseInt($('#hidden3').val());
-							var num2 = parseInt($('#hidden4').val());
-							var result = num1+num2;
-							
-							//총 잔액에 콤마 넣기 
-							const cn1 = result.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-							$('#total1').html(cn1);
-							
-							sessionStorage.setItem('total', result);
-							
-							//잔액1에 콤마 넣기 
-							const cn3 = num1.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-							$('#req1_balance_amt').html(cn3);							
-							
-							//잔액2에 콤마 넣기 
-							const cn4 = num2.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-							$('#req2_balance_amt').html(cn4);							
-
-							
-						} else {
-							alert("전송된 값 없음");
-							return false;
-						}
-					},
-					error : function(error) { //실패 시 실행
-				    	console.log(error);
-						alert('실패 원인 : ' + error);
-					}
-					
-				});//ajax
+				
 				
 		}//window.onlaod
 		

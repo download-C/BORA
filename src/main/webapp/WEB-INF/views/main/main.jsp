@@ -12,15 +12,6 @@
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
 
 <style>
-/* @media(min-width: 768px;) {
-	.card-col{
-		min-height: 500px; 
-	}
-	.title-content{
-	min-height: 450px;
-	}
-}
- */
 
 @media (max-width: 768px) {
 	.main-table {
@@ -34,6 +25,8 @@
 	}
 	
 }
+
+
 @media (min-width: 992px ) {
 	.main-table {
 		width: 45%;
@@ -48,6 +41,9 @@
 
 
 @media (min-width: 1400px) {
+	.main-table {
+		width: 45%;
+	}
 	.title-content{
 		height: 200px;
 	}
@@ -156,6 +152,11 @@ $(document).ready(function(){
     </div>
   </section>
   <!-- End mainslide -->
+
+  <!-- 카카오 지도 -->
+    <div class="container">
+  <%@ include file="map.jsp"%>
+</div>
 
   <!-- 뉴스 공간 =============================================== -->
   <section id="cardnews" class="mt-5">

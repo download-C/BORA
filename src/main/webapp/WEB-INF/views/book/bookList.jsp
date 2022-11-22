@@ -154,7 +154,7 @@ function success(msg3, msg4) {
 }//success 버튼
 	
 $(document).ready(function() {
-	alert
+// 	alert
     
     let msg1 = "${msg1}";
     let msg2 = "${msg2}";
@@ -227,6 +227,32 @@ function changeSelect(){
 	}
 }
 
+
+
+function changeSelectCtgr(ctgr){
+    var yearSelect = document.getElementById("year");
+    var monthSelect = document.getElementById("month");
+    var day = "<c:out value='${day}' />";
+    
+//     alert('function에 ctgr: ' + ctgr);
+     
+    // select element에서 선택된 option의 value가 저장된다.
+    var yearValue = yearSelect.options[year.selectedIndex].value;
+    var monthValue = monthSelect.options[month.selectedIndex].value;
+//     var ctgrValue = ctgrSelect.options[ctgr.selectedIndex].value;
+//     alert("ctgrValue: " + ctgrValue);
+ 
+    // select element에서 선택된 option의 text가 저장된다.
+    var yearText = yearSelect.options[yearSelect.selectedIndex].text;
+    var monthText = monthSelect.options[monthSelect.selectedIndex].text;
+    
+//     alert(yearValue+'년 '+monthValue+'월 선택');
+	if(yearValue!="" && monthValue!=""){
+    	location.href='/book/list/ctgr?year='+yearValue+'&month='+monthValue+'&day='+day+'&ctgr='+ctgr;
+	}
+}
+
+
 </script>
 
 <!-- 예산 바꾸기 -->
@@ -260,7 +286,7 @@ $(document).ready(function() {
          	   })
 	   		},
 	   		error: function(){
-	   			alert("실패");
+	   			console.log("실패");
 	   		}
 		}); //ajax
 	});//budgetBtn click
@@ -389,17 +415,17 @@ function uncomma(str) {
 									  }, // data
 									  options: {
 										  scales: {
-						            yAxes: [{
-					                display: true,
-					                ticks: {
-				                    min: 0, // 최소값 0
-				                    stepSize: 20
-					                },
-					                scaleLabel: {
-				                    display: true,
-				                    labelString: '만원'
-					                }
-						            }]
+								            yAxes: [{
+							                display: true,
+							                ticks: {
+						                    min: 0, // 최소값 0
+						                    stepSize: 20
+							                },
+							                scaleLabel: {
+						                    display: true,
+						                    labelString: '만원'
+							                }
+								            }]
 										  },
 // 										  maintainAspectRatio: false
 										} // options
@@ -461,7 +487,25 @@ function uncomma(str) {
 		<!-- 가계부 목록 -->
 		<div class="listTable" style="width: 100%; text-align: center; background-color: white; padding: 10px; border-radius: 15px;
         			 box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);" >
-			<table border="1" style="width: 100%; margin: auto;">
+        	<!-- 카테고리 -->
+			
+			<select name="ctgr" id="ctgr" class="selectcategory" 
+					style="margin-left: 10px; border-style: none; font-size: 20px; padding-bottom: 10px; height: 62px; display: block; color: gray; border-radius: 23px;">
+				<option value="" disabled selected style="color: black; text-align: center;">항목을 선택해주세요</option>
+				<option value="수입" style="color: black; text-align: center;">수입</option>
+				<option value="지출" style="color: black; text-align: center;">지출</option>
+				<option value="이체" style="color: black; text-align: center;">이체</option>
+			</select>
+			
+			<script>
+				$('select[name="ctgr"]').change(function(){
+					var ctgr = $('select[name="ctgr"] option:selected').val();
+					changeSelectCtgr(ctgr);
+				}); // change
+			</script>
+        			 
+        			 
+			<table style="width: 100%; margin: auto;">
 			<thead style="background-color: #5107B0; color: white; ">
 				<tr style="height: 40px;">
 					<td width="10%">일</td>

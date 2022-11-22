@@ -119,5 +119,18 @@
 		where b.id=#{loginID} and b.bk_year=#{bk_year} and b.bk_month=#{bk_month} and d.bk_day=#{bk_day}
 	</select>
 	
+	
+	<!-- 회원의 특정 연월 가계부 목록 불러오기 + 카테고리!! -->
+	<select id="getMonthBookDetailListCtgr" resultMap="detail">
+		select b.bk_num, b.bk_year, b.bk_month, b.bk_budget, 
+			   d.bk_detail_num, b.id, d.bk_day, d.bk_iow, d.bk_group, 
+			   d.bk_category, d.bk_money, d.bk_memo
+		from bora_book_detail d join bora_book b
+		on b.bk_num = d.bk_num
+		where b.id=#{loginID} and b.bk_year=#{bk_year} and b.bk_month=#{bk_month} and d.bk_iow=#{bk_iow} 
+		order by d.bk_day desc
+		limit #{pm.startRow}, #{pm.vo.perPageNum}
+	</select>
+	
 
 </mapper>

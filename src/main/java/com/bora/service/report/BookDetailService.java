@@ -30,4 +30,6 @@ public interface BookDetailService {
 
 	public List<BookDetailVO> getAndroidBookDetailList(int year, int month, int day, String loginID) throws Exception;
 
+	public List<BookDetailVO> getMonthBookDetailListCtgr(int year, int month, String loginID, PageMakerVO pm, String ctgr) throws Exception;
+	
 }

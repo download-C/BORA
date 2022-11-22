@@ -121,5 +121,17 @@ public class BookDetailDAOImpl implements BookDetailDAO{
 		return session.selectList(NAMESPACE+".getAndroidBookDetailList", map);
 	}
 	
+	@Override
+	public List<BookDetailVO> getMonthBookDetailListCtgr
+		(int year, int month, String loginID, PageMakerVO pm, String ctgr) throws Exception {
+		log.info("getMonthBookDetailListCtgr 호출");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bk_year", year);
+		map.put("bk_month", month);
+		map.put("loginID", loginID);
+		map.put("pm", pm);
+		map.put("bk_iow", ctgr);
+		return session.selectList(NAMESPACE+".getMonthBookDetailListCtgr", map);
+	}
 
 }

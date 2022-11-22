@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<footer id="footer">
-
+<!-- ======= Footer ======= -->
+  <footer id="footer">
+​
     <div class="footer-newsletter">
       <div class="container">
         <div class="row justify-content-center">
-
         </div>
       </div>
     </div>
-
+​
     <div class="footer-top">
       <div class="container">
         <div class="row">
@@ -46,12 +46,10 @@
        
 ​
 
-
-          
             <div style="color: black;"><strong>고객센터 번호</strong> <br>051-803-0909<br></div>
             <div style="color: black;"><strong>영업시간</strong><br> 09:00 ~ 18:00<br></div>
             <br>
-           
+
           </div>
         </div>
       </div>
@@ -90,9 +88,7 @@
 
   <!-- Template Main JS File -->
   <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-
-<%} //헤더에 있는 세션값 존재 여부 확인하는 코드 닫는 괄호
-	//절대 삭제XXXX%>
-
+    <%} //헤더에 있는 세션값 존재 여부 확인하는 코드 닫는 괄호
+	//절대 삭제XXXX%>	
 </body>
 </html>
