@@ -32,14 +32,9 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) throws Exception{
-		log.info("Welcome home! The client locale is {}.", locale);
 		
-		List<NoticeVO> noticeList = noticeService.getNoticeListMain();
-		log.info("공지사항 글 개수: "+noticeList.size());
-		if(noticeList.size()>0) 
-			model.addAttribute("noticeList", noticeList);
 		
-		return "/main/main";
+		return "/main/about";
 	}
 	
 }

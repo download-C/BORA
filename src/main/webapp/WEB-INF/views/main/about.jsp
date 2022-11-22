@@ -1,159 +1,119 @@
-<%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ include file="../include/header.jsp"%>
-<!-- ${pageContext.request.contextPath} -->
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-
-
-<!-- alert 모달 필수  --> 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
-<!--  카카오지도 API   -->
-<style>
-.label {
-/* 이름표 위치 */
-	margin-bottom: 120px;
-	margin-right: 20px;
-	font-weight: bold;
-	color: white;
-}
-
-.label * {
-	display: inline-block;
-	vertical-align: top;
-}
-
-.label .left {
-	background: #5f07b0;
-		url("https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_l.png")
-		no-repeat;
-	display: inline-block;
-	height: 24px;
-	overflow: hidden;
-	vertical-align: top;
-	width: 7px;
-	border-bottom-left-radius: 20px;
-	border-top-left-radius: 20px;
-}
-
-.label .center {
-	background: #5f07b0;
-		url(https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_bg.png)
-		repeat-x;
-	display: inline-block;
-	height: 24px;
-	font-size: 12px;
-	line-height: 24px;
-}
-
-.label .right {
-	background: #5f07b0;
-		url("https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_r.png")
-		-1px 0 no-repeat;
-	display: inline-block;
-	height: 24px;
-	overflow: hidden;
-	width: 6px;
-	border-bottom-right-radius: 20px;
-	border-top-right-radius: 20px;
-}
-</style>
-<div class="container">
-
-<!-- 지도 크기 조절 -->
-<div id="map" style="width:500px;height:450px;"></div>
-
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35509f6b1a38859c7c7486bf14f0ae5c"></script>
-<p id="result"></p>
-
-</div>
-<script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
-    mapOption = { 
-    center: new kakao.maps.LatLng(35.214902, 129.094643), // 지도의 중심좌표
-    level: 8 // 지도의 확대 레벨
-};
-
-var imageSrc = "${pageContext.request.contextPath}/resources/img/marker.png",   
-imageSize = new kakao.maps.Size(40, 40), // 마커이미지의 크기
-imageOption = {offset: new kakao.maps.Point(30, 55)}; // 마커이미지의 옵션, 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정
-var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
-
-//지도타입 컨트롤러 생성 및 추가
-var mapTypeControl = new kakao.maps.MapTypeControl();
-map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-
-//줌 컨트롤러 생성 및 추가
-var zoomControl = new kakao.maps.ZoomControl();
-map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
-//마커의 이미지정보를 가지고 있는 마커이미지를 생성
-var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
-
-// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열 
-var positions = [
-    {
-        //content: '<div>회원관리CDU</div>', 
-        content: '<div class ="label"><span class="left"></span><span class="center">가계부CDU</span><span class="right"></span></div>',
-        latlng: new kakao.maps.LatLng(35.172516, 129.108446)
-    },
-    {
-        content: '<div class ="label"><span class="left"></span><span class="center">오픈뱅킹KHJ</span><span class="right"></span></div>',
-        latlng: new kakao.maps.LatLng(35.213763, 129.089177)
-    },
-    {
-        content: '<div class ="label"><span class="left"></span><span class="center">오픈뱅킹LEJ</span><span class="right"></span></div>',
-        latlng: new kakao.maps.LatLng(35.18980, 129.069979)
-    },
-    {
-        content: '<div class ="label"><span class="left"></span><span class="center">리포트LDS</span><span class="right"></span></div>',
-        latlng: new kakao.maps.LatLng(35.157195, 129.087740)
-    },
-    {
-        content: '<div class ="label"><span class="left"></span><span class="center">리포트JHW</span><span class="right"></span></div>',
-        latlng: new kakao.maps.LatLng(35.202118, 129.121884)
-    },
-    {
-        content: '<div class ="label"><span class="left"></span><span class="center">고객센터UGH</span><span class="right"></span></div>',
-        latlng: new kakao.maps.LatLng(35.250167, 129.085196)
-    },
-    {
-        content: '<div class ="label"><span class="left"></span><span class="center">UI&UX_KNE</span><span class="right"></span></div>',
-        latlng: new kakao.maps.LatLng(35.220219, 129.112771)
-    }
-];
-
-//마커 생성
-for (var i = 0; i < positions.length; i ++) {
-    var marker = new kakao.maps.Marker({
-        map: map, // 마커를 표시할 지도
-        position: positions[i].latlng, // 마커의 위치
-        content: positions[i].content,
-        image: markerImage
-    });
-
-    marker.setMap(map);
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+    <title>BORA</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    // 마커에 표시할 커스텀 인포윈도우를 생성 
-    var customOverlay = new kakao.maps.CustomOverlay({
-        position: positions[i].latlng, // 마커의 위치
-        content: positions[i].content // 인포윈도우에 표시할 내용
-    });
+      
+      <meta content="" name="description">
+      <meta content="" name="keywords">
+    
+     <!-- Favicons -->
+  <link href="${pageContext.request.contextPath}/resources/img/favicon.png" rel="icon">
+  <link href="${pageContext.request.contextPath}/resources/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-customOverlay.setMap(map, marker);
-}
-</script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-<!-- 본문 작성하는 곳 -->
-
-
-
-
-
-
-
-
-<!-- 본문 작성하는 곳 -->
-<%@ include file="../include/footer.jsp"%>
+  <!-- Vendor CSS Files -->
+  <link href="${pageContext.request.contextPath}/resources/vendor/aos/aos.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/resources/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/resources/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    
+    
+      <!-- Template Main CSS File -->
+      <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+      <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css" />
+      <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
+    
+    </head>
+    
+    <body class="before-load">
+      <div class="container">
+        <section class="scroll-section" id="scroll-section-0">
+          <h1><strong style="color: #5107b0;">BORA</strong></h1>
+          <div class="sticky-elem sticky-elem-canvas">
+            <canvas id="video-canvas-0" width="1257" height="1080"></canvas>
+          </div>
+          <div class="sticky-elem main-message a">
+            <p>
+              <strong style="color: #5107b0;">B</strong>ank <strong style="color: #5107b0;">O</strong>f <strong
+                style="color: #5107b0;">R</strong>ich <strong style="color: #5107b0;">A</strong>ssets <br>management<br>
+            </p>
+          </div>
+          <div class="sticky-elem main-message b">
+            <p><b style="color: #5107b0;">좀 더 직관적으로</b><br>전문가가 아니더라도 <br>단번에 이해 되는<br> 직관적인 화면을<br> 보여드리겠습니다</p>
+          </div>
+          <div class="sticky-elem main-message c">
+            <p><b style="color: #5107b0;">좀 더 편리하게</b><br>금융을 더 쉽고 편리하게<br> 이용할 수 있도록 <br>당신의 일상과 비즈니스에<br> 더 가깝게 연결하겠습니다.
+            </p>
+          </div>
+          <div class="sticky-elem main-message d">
+            <p><b style="color: #5107b0;">좀 더 고객의 이익을 최우선으로</b><br>당신의 꿈을 실현 할 수 있도록<br>안전하고 신뢰할 수 있는<br> 올바른 금융을 제공하겠습니다</p>
+          </div>
+        </section>  
+        <section class="scroll-section" id="scroll-section-1">
+          <p class="description" style="text-align: center;">
+            <br>
+            <b>BORA 리포트팀</b>은 데이터를 분석, 가공, 시각화하여<br> <b>월간 소비 리포트</b>를 제공하는 일을 합니다. 
+            <br>
+            이 리포트를 통해 BORA 회원들은<br> 본인의 금융 습관이나 소비 패턴을 쉽고 빠르게 파악할 수
+            있습니다. 
+            <br>
+            금융 데이터 결과를 직관적으로 확인하고, <br>자산관리에 유의미하게 활용할 수 있도록 항상 노력을 다하겠습니다.
+            <br><br>
+            <b>BORA 커뮤니티팀</b>은 BORA 이용자들이 서로의 금융 일상을 공유하고,
+            <br>
+              교류할 수 있도록 <b>커뮤니티를 조성</b>하는 업무를 합니다.
+              <br>
+              [ ], [ ] 주제로 소통하며 본인의 소비 생활을 점검하고
+              <br>
+              정보도 활발히 교환할 수 있습니다.
+          </p>
+    
+        </section>
+        <section class="scroll-section" id="scroll-section-2">
+          <div class="sticky-elem sticky-elem-canvas">
+            <canvas id="video-canvas-1" width="0" height="0"></canvas>
+          </div>
+          
+        </section>
+        <section class="scroll-section" id="scroll-section-3">
+          <p class="canvas-caption">
+            수많은 금융 정보 중에서 당신에게 필요한 정보만을 엄선하여 BORA 만의 새로운 가치를 제공하겠습니다.<br>
+            차별화된 서비스 차별화된 금융
+          </p>
+          <canvas class="image-blend-canvas" width="270" height="55"></canvas>
+          <p class="mid-message" style="text-align: center;"> 
+            <h1><strong>지금 시작하세요.</strong></h1>
+         </p>
+         <br><br>
+          <a href="/main/main" style="z-index: 1000; color: #5107b0; font-size: large;">홈페이지로 이동</a>
+        </section>
+      </div>
+    
+    
+      </main><!-- End #main -->
+    
+    
+      <!-- Vendor JS Files -->
+      <script src="${pageContext.request.contextPath}/resources/vendor/purecounter/purecounter_vanilla.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/vendor/aos/aos.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/vendor/glightbox/js/glightbox.min.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/vendor/swiper/swiper-bundle.min.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/vendor/waypoints/noframework.waypoints.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/vendor/php-email-form/validate.js"></script>
+    
+      <!-- Template Main JS File -->
+      <script src="${pageContext.request.contextPath}/resources/js/about.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+    </body>
+    
+    </html>

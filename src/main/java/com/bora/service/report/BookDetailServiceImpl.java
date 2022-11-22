@@ -79,5 +79,11 @@ public class BookDetailServiceImpl implements BookDetailService{
 		log.info("getDashboardBookDetail(loginID, year, month) 호출");
 		return dao.getDashboardBookDetail(loginID, year, month);
 	}
+	
+	@Override
+	public List<BookDetailVO> getAndroidBookDetailList(int year, int month, int day, String loginID) throws Exception {
+		log.info("ヽ(✿ﾟ▽ﾟ)ノ getAndroidBookDetailList  호출됨");
+		return dao.getAndroidBookDetailList(year, month, day, loginID);
+	}
 
 }

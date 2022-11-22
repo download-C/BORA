@@ -7,6 +7,9 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -73,11 +76,11 @@ public class BookDetailDAOTest {
 		log.info("♡♡♡♡♡♡♡♡♡♡ "+detailList);
 	}
 	
-	@Test 
+//	@Test 
 	// 아이디와 디테일번호로 디테일 정보 불러오기 완료
 	public void getBookDetailContent() throws Exception {
 		String loginID = "admin";
-		int bk_detail_num = 20;
+		int bk_detail_num = 125;
 		BookDetailVO vo = dao.getBookDetail(bk_detail_num, loginID);
 		log.info("♡♡♡♡♡♡♡♡♡♡ 불러온 정보: "+vo);
 		
@@ -128,5 +131,64 @@ public class BookDetailDAOTest {
 //		int result = dao.deleteBookDetail(21);
 //		if(result==1) log.info("성공"); 
 	}
+	
+	
+	// 안드용 가계부 디테일 연, 월, 일 목록 불러오기
+//	@Test
+	public void androidTest() throws Exception{
+		log.info("ヾ(⌐■_■)ノ♪ androidTest 호출됨");
+		
+		String loginID = "admin";
+		int year = 2022;
+		int month = 11;
+		int day = 17;
+		
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("loginID",loginID);
+//		map.put("year", year);
+//		map.put("month", month);
+//		map.put("day", day);
+//		
+		List<BookDetailVO> androidList = dao.getAndroidBookDetailList(year, month, day, loginID);
+		log.info("ヾ(⌐■_■)ノ♪ androidTest  받아온 androidList: " + androidList);
+	}
+	
+	
+	// 안드용 ㅎ string format 테스트 중
+	@Test
+	public void 스트링포맷테스트() {
+		log.info("ヾ(⌐■_■)ノ♪ 스트링포맷테스트 호출됨");
+		
+		System.out.println(String.format("%-5s%-12s%-10s%-15s%-20s", "수입", "월급", "기타", "3500000", "10월 월급"));
+		System.out.println(String.format("%-5s%-10s%-10s%-15s%-20s", "지출", "체크카드", "식비", "15000", "치킨"));
+		System.out.println(String.format("%-5s%-10s%-10s%-15s%-20s", "지출", "체크카드", "식비", "15000", "치킨"));
+		
+		String voString = "{\"book\":{\"bk_num\":0, \"bk_year\":2022, \"bk_month\":11, \"bk_budget\":0}, \"bk_day\":21, \"bk_iow\":\"지출\", \"bk_group\":\"신용카드\", \"bk_category\":\"편의점/마트\", \"bk_money\":8888, \"bk_memo\":\"닭강정\"}";
+        JSONParser jsonParser = new JSONParser();
+        Object obj;
+        
+		try {
+			obj = jsonParser.parse(voString);
+			
+			//4. To JsonObject
+			JSONObject jsonObj = (JSONObject) obj;
+			
+			//print
+			System.out.println("ヾ(⌐■_■)ノ♪ book :" + jsonObj.get("book"));
+			System.out.println("ヾ(⌐■_■)ノ♪ bk_category :" + jsonObj.get("bk_category"));
+			System.out.println("ヾ(⌐■_■)ノ♪ bk_memo :" + jsonObj.get("bk_memo"));
+			System.out.println("ヾ(⌐■_■)ノ♪ bk_money :" + jsonObj.get("bk_money"));
+			
+			// bookDTO 안에 애들 보려면 다시 json에 담아서 빼내기
+			JSONObject jsonObjBook = (JSONObject) jsonObj.get("book");
+			System.out.println("ヾ(⌐■_■)ノ♪ book -> bk_year:" + jsonObjBook.get("bk_year"));
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+        
+		
+	} // 안드테스트()
+	
 	
 }

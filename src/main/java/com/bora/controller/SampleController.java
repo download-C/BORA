@@ -19,4 +19,5 @@ public class SampleController {
 		return "/alert/alert";
 	}
 
+	
 } // class SampleController
