@@ -51,15 +51,8 @@ $(document).ready(function(){
                if (result.isConfirmed) {
                    $("#form").attr("method","post");
                    $("#form").attr("action","/member/delete");
-		               setTimeout($("#form").submit(), 4000);
-		               Swal.fire({
-		                     title:  '회원 탈퇴 성공',
-		                     text: '다음에 꼭 다시 만나요!',
-		                  	 confirmButtonColor: '#7A1CF6',
-		                  	 icon: 'info'
-		                   }).then(function(){
-		                	   location.href='/main/main';
-		                   })
+                   $("#form").attr("onsubmit","return true");
+									 $("#form").submit();	                 
                } else if (result.isDismissed) {
                    Swal.fire({
                      title:  '회원 탈퇴 취소',
@@ -84,7 +77,7 @@ $(document).ready(function(){
       <div class="card border-0 shadow rounded-3 my-5">
         <div class="card-body p-4 p-sm-5" style="background-color:#F5EFFE; border-color: #F5EFFE;">
           <h3 class="card-title text-center mb-5 fw-light fs-5"><b>탈퇴하기</b></h3>
-				 <form id="form" action="get" onsubmit="return false">
+				 <form id="form" method="post" onsubmit="return false">
 				   <div class="form-floating mb-3">
 				   	 <input type="password" class="form-control" placeholder="비밀번호를 입력하세요" name="pw" id="pw">
 					   <label for="floatingInput">비밀번호 입력</label>
