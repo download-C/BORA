@@ -104,8 +104,8 @@
                <form method="get" action="/openbank/cardList">
 					<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 					<input type="hidden" name="access_token" value="${sessionScope.token }"> 
-					<input type="hidden" name="bank_tran_id" value="${cardList.bank_tran_id }"> 
-					<input type="hidden" name="user_seq_no" value="${userInfo.user_seq_no }">
+					<input type="hidden" name="bank_tran_id" value="${sessionScope.bank_tran_id }"> 
+					<input type="hidden" name="user_seq_no" value="${sessionScope.user_seq_no }">
 					<input type="hidden" name="bank_code_std" value="399"> 
 					<input type="hidden" name="member_bank_code" value="399">
 					<!-- <input type="hidden" name="befor_inquiry_trace_info" value="V"> -->

@@ -52,6 +52,14 @@ $(document).ready(function(){
                    $("#form").attr("method","post");
                    $("#form").attr("action","/member/delete");
 		               setTimeout($("#form").submit(), 4000);
+		               Swal.fire({
+		                     title:  '회원 탈퇴 성공',
+		                     text: '다음에 꼭 다시 만나요!',
+		                  	 confirmButtonColor: '#7A1CF6',
+		                  	 icon: 'info'
+		                   }).then(function(){
+		                	   location.href='/main/main';
+		                   })
                } else if (result.isDismissed) {
                    Swal.fire({
                      title:  '회원 탈퇴 취소',

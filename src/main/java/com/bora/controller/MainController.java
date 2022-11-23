@@ -342,7 +342,7 @@ public class MainController {
 			rttr.addFlashAttribute("msg2", "현재 임시 비밀번호 상태이니 마이페이지에서 	반드시 비밀번호를 변경해주세요.");
 			
 			log.info("어트리뷰트 생성 완료");
-			return "/member/update";
+			return "redirect:/member/update";
 		}
 		
 	}
