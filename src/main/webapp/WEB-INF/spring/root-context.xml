@@ -15,7 +15,7 @@
 <!-- 디비연결객체 dataSource -->
 	
 	<!-- 호스팅해서 돌릴 때 -->
-<!--   	<bean id="dataSource"
+<!--  	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
 			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
@@ -28,7 +28,7 @@
 	</bean>   -->
 	
 	<!-- 로컬에서 돌릴 때 -->
- <bean id="dataSource"
+  <bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
 			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />

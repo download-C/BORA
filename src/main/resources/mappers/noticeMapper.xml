@@ -17,12 +17,12 @@
 	
 	<select id="getNoticeList" resultType="NoticeVO">
 		select * from bora_notice
-		order by n_regdate desc;
+		order by nno desc
 	</select>
 	
 	<select id="getNoticeListPage" resultType="NoticeVO">
 		select * from bora_notice
-		order by n_regdate desc
+		order by nno desc
 		limit #{startRow}, #{vo.perPageNum}
 	</select>
 	
@@ -49,6 +49,6 @@
 	<select id="getNoticeListMain" resultType="NoticeVO">
 		select * from bora_notice
 		order by nno desc
-		limit 0, 5;
+		limit 0, 5
 	</select>
 </mapper>
