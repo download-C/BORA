@@ -117,7 +117,7 @@
 						<input type="hidden" name="access_token" value="${sessionScope.token }">
 <!-- 						<input type="hidden" name="access_token" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAxMDE0NzQyIiwic2NvcGUiOlsiY2FyZGluZm8iLCJmaW50ZWNoaW5mbyIsImlucXVpcnkiLCJsb2dpbiIsInRyYW5zZmVyIl0sImlzcyI6Imh0dHBzOi8vd3d3Lm9wZW5iYW5raW5nLm9yLmtyIiwiZXhwIjoxNjc2NTA5MTYwLCJqdGkiOiIwM2IyZDk0OS1iOTBlLTQ2MGEtOTRjMy1iYmZmMThiNjU4YzIifQ.ME9l_AeCxWzrG0afC1T9rsX92QOF8zXMwOm_rwzgGDo"> -->
 						<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
-						<input type="hidden" name="fintech_use_num" value="120220217888941294186856">
+						<input type="hidden" name="fintech_use_num" value="120220231688941219476440">
 						<input type="hidden" name="tran_dtime" value="20221104134521">
 						<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">세부잔액</button>
 					</form>   
@@ -125,7 +125,7 @@
                 	<form method="get" action="/openbank/accountTran" target="modelfrm1">
 						<input type="hidden" name="access_token" value="${sessionScope.token }">
 						<input type="hidden" name="bank_tran_id" value="${accountTran.bank_tran_id}">
-						<input type="hidden" name="fintech_use_num" value="120220217888941294186856">
+						<input type="hidden" name="fintech_use_num" value="120220231688941219476440">
 						<input type="hidden" name="inquiry_type" value='A'>
 						<input type="hidden" name="inquiry_base" value='D'>
 						<input type="hidden" name="from_date" value="20100101">
@@ -147,7 +147,7 @@
 						<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 						<input type="hidden" name="access_token" value="${sessionScope.token }">
 						<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
-						<input type="hidden" name="fintech_use_num" value="120220217888941294172171">
+						<input type="hidden" name="fintech_use_num" value="120220231688941219476440">
 						<input type="hidden" name="tran_dtime" value="20221104134521">
 						<button type="submit" class="tdbtn" data-bs-toggle="modal" data-bs-target="#myModal2">세부잔액</button>
 					</form>   
@@ -155,7 +155,7 @@
                 	<form method="get" action="/openbank/accountTran" target="modelfrm1">
 						<input type="hidden" name="access_token" value="${sessionScope.token }">
 						<input type="hidden" name="bank_tran_id" value="${accountTran.bank_tran_id}">
-						<input type="hidden" name="fintech_use_num" value="120220217888941294172171">
+						<input type="hidden" name="fintech_use_num" value="120220231688941219476440">
 						<input type="hidden" name="inquiry_type" value='A'>
 						<input type="hidden" name="inquiry_base" value='D'>
 						<input type="hidden" name="from_date" value="20100101">
@@ -206,7 +206,7 @@
 	        <!-- 자산 조회를 위한 인증 요청 작업 수행 -->
  	        <form method="get" action="/openbank/userInfo">
                <input type="hidden" name="access_token" value="${sessionScope.token }">
-               <input type="hidden" name="user_seq_no" value="1101014742">
+               <input type="hidden" name="user_seq_no" value="1101014738">
 			   <button type="submit" class="backbtn acct_user">내 자산 조회로 돌아가기</button>
             </form>
     </div>
@@ -242,7 +242,7 @@
 				<%-- 필요 파라미터는 입력데이터 없이 hidden 속성으로 전달 --%>
 				<input type="hidden" name="access_token" value="${sessionScope.token }"> 
 				<input type="hidden" name="bank_tran_id" value="${accountBalance.bank_tran_id }">
-				<input type="hidden" name="fintech_use_num" value="120220217888941294172171"> 
+				<input type="hidden" name="fintech_use_num" value="120220231688941219476440"> 
 				<input type="hidden" name="tran_dtime" value="20221104134521"> 
 				<!-- 목돈 모으기에 보낼 잔액값 - 히든12 -->
 				<input type="hidden" id="hidden1" value="">

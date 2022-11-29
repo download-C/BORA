@@ -19,7 +19,7 @@ public class CardInfoRequestVO {
     	Random random = new Random();
     	random.setSeed(System.currentTimeMillis());
     	long val = random.nextInt(1000000000)+1;
-    	return "M202202178U"+String.valueOf(val);
+    	return "M202202316U"+String.valueOf(val);
 	}
     
 	public CardInfoRequestVO(String access_token, String bank_tran_id, String bank_code_std, String member_bank_code,

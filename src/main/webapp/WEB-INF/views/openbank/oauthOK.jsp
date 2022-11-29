@@ -57,8 +57,8 @@ th, td {
                 <!-- 사용자 인증 요청 작업 수행(토큰 발급) -->
                 <form action="https://testapi.openbanking.or.kr/oauth/2.0/authorize" method="get" style="text-align: center;">
          	       <input type="hidden" name="response_type" value="code">
-            	    <input type="hidden" name="client_id" value="2ce89526-eccf-45b0-a59f-1ca10bc64b30">
-    	            <input type="hidden" name="redirect_uri" value="http://itwillbs8.cafe24.com/openbank/callback">
+            	    <input type="hidden" name="client_id" value="a12b085e-ffe6-4860-96f5-9a5a5b2f78b2">
+    	            <input type="hidden" name="redirect_uri" value="http://localhost:8088/openbank/callback">
         	        <input type="hidden" name="scope" value="login inquiry transfer cardinfo fintechinfo">
             	    <!-- <input type="hidden" name="scope" value="cardinfo"> -->
                 	<input type="hidden" name="state" value="12345678123456781234567812345678">
@@ -78,7 +78,7 @@ th, td {
                 <!-- 자산 조회를 위한 인증 요청 작업 수행 -->
                 <form method="get" action="/openbank/userInfo" style="text-align: center;">
                   <input type="hidden" name="access_token" value="${sessionScope.token }">
-                  <input type="hidden" name="user_seq_no" value="1101014742">
+                  <input type="hidden" name="user_seq_no" value="1101014738">
 				  <button type="submit" class="tbtn acct_user">오픈뱅킹&nbsp;<b style="color:#e3cffc;">내 자산</b>&nbsp;조회</button>
                 </form>
               </div>

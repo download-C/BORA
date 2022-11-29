@@ -209,7 +209,7 @@ $('#total2').html(total2);
 	        <!-- 자산 조회를 위한 인증 요청 작업 수행 -->
  	        <form method="get" action="/openbank/userInfo">
                <input type="hidden" name="access_token" value="${sessionScope.token }">
-               <input type="hidden" name="user_seq_no" value="1101014742">
+               <input type="hidden" name="user_seq_no" value="1101014738">
 			   <button type="submit" class="backbtn acct_user">내 자산 조회로 돌아가기</button>
             </form>
     </div>

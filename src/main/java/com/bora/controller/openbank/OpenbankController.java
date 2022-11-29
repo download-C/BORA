@@ -235,12 +235,13 @@ public class OpenbankController {
 		// Service 객체의 listCard() 메서드를 호출하여 사용자 정보 조회
 		// => 파라미터 : CardListRequestVO, 리턴타입 CardListResponseVO
 		CardListResponseVO cardList = openBankingService.listCard(cardListRequestVO);
+		log.info("카드 목록: "+cardList);
 
-		log.info("cardListRequestVO : " + cardListRequestVO.getAccess_token());
-		log.info("cardListRequestVO : " + cardListRequestVO.getBank_tran_id());
-		log.info("cardListRequestVO : " + cardListRequestVO.getUser_seq_no());
-		log.info("cardListRequestVO : " + cardListRequestVO.getBank_code_std());
-		log.info("cardListRequestVO : " + cardListRequestVO.getMember_bank_code());
+		log.info("access_token : " + cardListRequestVO.getAccess_token());
+		log.info("bank_tran_id : " + cardListRequestVO.getBank_tran_id());
+		log.info("user_seq_no : " + cardListRequestVO.getUser_seq_no());
+		log.info("bank_code_std : " + cardListRequestVO.getBank_code_std());
+		log.info("member_bank_code : " + cardListRequestVO.getMember_bank_code());
 
 		// Model 객체에 CardListResponseVO 객체와 엑세스토큰 저장
 		model.addAttribute("cardList", cardList);

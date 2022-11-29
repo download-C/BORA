@@ -18,7 +18,7 @@ public class CardBillsRequestVO {
     public CardBillsRequestVO() {}
     
     public String getBank_tran_id() {
-    	return "M202202178U"+ (int)((Math.random()+1)*100000000);
+    	return "M202202316U"+ (int)((Math.random()+1)*100000000);
 	}
 
     

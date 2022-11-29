@@ -38,6 +38,14 @@
     .floatingInput {
     	color: red;
     }
+    .backbtn {
+      background-color: #5107B0;
+      font-size: 17px;
+      color: #fff;
+      padding: 8px 15px 8px 15px;
+      border: 1px solid #fff;
+      border-radius: 8px;
+    }
     
 </style>
 
@@ -130,5 +138,16 @@
 </div>
 
 <br>    
-	
+<!-- 내 자산으로 돌아가기  --> 
+<div class="container">
+   	<div class="col-md-16 col-16">
+	        <!-- 자산 조회를 위한 인증 요청 작업 수행 -->
+ 	        <form method="get" action="/openbank/userInfo">
+               <input type="hidden" name="access_token" value="${sessionScope.token }">
+               <input type="hidden" name="user_seq_no" value="1101014738">
+			   <button type="submit" class="backbtn acct_user">내 자산 조회로 돌아가기</button>
+            </form>
+    </div>
+</div>  
+<br>
 <%@ include file="../include/footer.jsp"%>

@@ -34,7 +34,7 @@ public class HomeController {
 	public String home(Locale locale, Model model) throws Exception{
 		
 		
-		return "/main/about";
+		return "/main/main";
 	}
 	
 }

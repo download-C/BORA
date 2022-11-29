@@ -139,7 +139,7 @@ only screen and (max-width: 760px),
 		<td>${accountBalance.product_name }</td>
 		<td>
 			<fmt:parseDate value="${accountBalance.account_issue_date }"  var="date2" pattern="yyyyMMdd"/>
-			<fmt:formatDate value="${date2 }" pattern="yyyy.MM.dd	"/>
+			<fmt:formatDate value="${date2 }" pattern="yyyy.MM.dd"/>
 		</td>
 		<td>
 			<fmt:parseDate value="${accountBalance.maturity_date }"  var="date3" pattern="yyyyMMdd"/>

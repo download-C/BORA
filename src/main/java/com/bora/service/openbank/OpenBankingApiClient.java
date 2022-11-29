@@ -39,9 +39,9 @@ import com.bora.domain.openbank.card.bill.CardDetailBillsResponseVO;
 @Service
 public class OpenBankingApiClient {
 	// 변수 정의 
-	private String client_id="2ce89526-eccf-45b0-a59f-1ca10bc64b30";
-	private String client_secret="d4f6ae0c-2f45-497a-8833-bc4058ada4d1";
-	private String redirect_uri="http://itwillbs8.cafe24.com/openbank/callback";
+	private String client_id="a12b085e-ffe6-4860-96f5-9a5a5b2f78b2";
+	private String client_secret="b452ea68-e336-4501-8f1e-98fccd157929";
+	private String redirect_uri="http://localhost:8088/openbank/callback";
 	private String grant_type="authorization_code";
 	
 	// 기본 주소
@@ -210,7 +210,7 @@ public class OpenBankingApiClient {
 		// 2.2.1 사용자정보조회 API URL 주소 생성
 		String url = baseUrl + "/cards/issue_info";
 		
-		System.out.println(cardInfoRequestVO.getAccess_token());
+		System.out.println("토큰: "+cardInfoRequestVO.getAccess_token());
 		
         httpHeaders.add("Authorization", "Bearer"+cardInfoRequestVO.getAccess_token());
 		
@@ -236,7 +236,7 @@ public class OpenBankingApiClient {
 		// 2.2.1 사용자정보조회 API URL 주소 생성
 		String url = baseUrl + "/cards";
 		
-		System.out.println(cardListRequestVO.getAccess_token());
+		System.out.println("토큰: "+cardListRequestVO.getAccess_token());
 		
 		httpHeaders.add("Authorization", "Bearer"+cardListRequestVO.getAccess_token());
 		

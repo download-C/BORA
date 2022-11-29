@@ -76,7 +76,7 @@ public class NoticeController {
 			
 			// 파일명이 중복되는 것을 방지하기 위해 바꿔주기
 			UUID uuid = UUID.randomUUID();
-			System.out.println(uuid.toString());
+			System.out.println(uuid.toString()); // 
 			String[] uuids = uuid.toString().split("-");
 			String uniqueName = uuids[0];
 			System.out.println("생성된 고유문자열" + uniqueName);
